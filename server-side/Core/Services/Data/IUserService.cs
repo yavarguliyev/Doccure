@@ -15,9 +15,9 @@ namespace Core.Services.Data
         Task<User> GetByEmailAsync(string email);
         Task<bool> CheckEmailAsync(string email);
 
-        Task<User> UpdateAsync(int id, string token);
         Task<User> LoginAsync(string email, string password);
         Task<User> CreateAsync(User newUser, UserRole role);
+        Task<User> UpdateAsync(int id, string token);
         Task<User> UpdateAsync(User userToBeUpdated, User user);
     }
 }

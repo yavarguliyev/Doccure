@@ -15,19 +15,18 @@ namespace Services.Data
             _unitOfWork = unitOfWork;
         }
 
+        #region get doctor
         public async Task<Admin> GetAsync(int id)
         {
             return await _unitOfWork.Admin.Get(id);
         }
+        #endregion
 
-        public Task UpdateAsync(int id, string token)
-        {
-            throw new NotImplementedException();
-        }
-
+        #region create and update
         public Task UpdateAsync(Admin adminToBeUpdated, Admin admin)
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

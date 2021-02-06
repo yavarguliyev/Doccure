@@ -10,7 +10,12 @@ namespace Core.DTOs.Auth
         public string Slug { get; set; }
         public string Email { get; set; }
         public string Birth { get; set; }
+
         public string Token { get; set; }
+        public string InviteToken { get; set; }
+        public string ConfirmToken { get; set; }
+        public string ConnectionId { get; set; }
+
         public UserRole Role { get; set; }
 
         public int? AdminId { get; set; }

@@ -1,7 +1,9 @@
 ﻿using Api.Libs;
 using AutoMapper;
 using Core;
+using Core.Services.Common;
 using Core.Services.Data;
+using Core.Services.Rest;
 using Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Services.Common;
 using Services.Data;
+using Services.Rest;
 using System;
 using System.Text.Json.Serialization;
 
@@ -96,6 +100,12 @@ namespace Api.Extensions
             services.AddTransient<IDoctorService, DoctorService>();
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
+
+            // activity services
+            services.AddTransient<IActivityService, ActivityService>();
+
+            // send email
+            services.AddTransient<IEmailService, EmailService>();
 
             // http Accessor
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

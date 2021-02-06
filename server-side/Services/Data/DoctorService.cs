@@ -15,11 +15,14 @@ namespace Services.Data
             _unitOfWork = unitOfWork;
         }
 
+        #region get doctor
         public Task<Doctor> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
+        #endregion
 
+        #region create and update
         public async Task<Doctor> CreateAsync(Doctor newDoctor)
         {
             newDoctor.Status = true;
@@ -34,14 +37,10 @@ namespace Services.Data
             return newDoctor;
         }
 
-        public Task UpdateAsync(int id, string token)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task UpdateAsync(Doctor doctorToBeUpdated, Doctor doctor)
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

@@ -16,7 +16,9 @@ namespace Services.Data
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
 
-        public UserService(IUnitOfWork unitOfWork, IDoctorService doctorService, IPatientService patientService)
+        public UserService(IUnitOfWork unitOfWork, 
+                           IDoctorService doctorService, 
+                           IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
             _doctorService = doctorService;
@@ -66,16 +68,6 @@ namespace Services.Data
         #endregion
 
         #region create and update
-        public async Task<User> UpdateAsync(int id, string token)
-        {
-            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Id == id);
-            user.Token = Guid.NewGuid().ToString();
-
-            await _unitOfWork.CommitAsync();
-
-            return user;
-        }
-
         public async Task<User> LoginAsync(string email, string password)
         {
             var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Email == email);
@@ -140,6 +132,16 @@ namespace Services.Data
             return newUser;
         }
 
+        public async Task<User> UpdateAsync(int id, string token)
+        {
+            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Id == id);
+            user.Token = Guid.NewGuid().ToString();
+
+            await _unitOfWork.CommitAsync();
+
+            return user;
+        }
+
         public async Task<User> UpdateAsync(User userToBeUpdated, User user)
         {
             userToBeUpdated.Id = userToBeUpdated.Id;
@@ -183,9 +185,9 @@ namespace Services.Data
 
             userToBeUpdated.Password = user.Password != null ? Crypto.HashPassword(user.Password) : userToBeUpdated.Password;
 
-            userToBeUpdated.Token = user.Token != null ? user.Token : userToBeUpdated.Token;
-            userToBeUpdated.InviteToken = user.InviteToken != null ? user.InviteToken : userToBeUpdated.InviteToken;
-            userToBeUpdated.ConfirmToken = user.ConfirmToken != null ? user.ConfirmToken : userToBeUpdated.ConfirmToken;
+            userToBeUpdated.Token = user.Token != null ? user.Token : Guid.NewGuid().ToString();
+            userToBeUpdated.InviteToken = user.InviteToken != null ? user.InviteToken : null;
+            userToBeUpdated.ConfirmToken = user.ConfirmToken != null ? user.ConfirmToken : null;
             userToBeUpdated.ConnectionId = user.ConnectionId != null ? user.ConnectionId : null;
 
             userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
