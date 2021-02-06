@@ -1,7 +1,6 @@
 ﻿using Core.Enum;
-using System;
 
-namespace Api.DTOs.Auth
+namespace Core.DTOs.Auth
 {
     public class UserDTO
     {
@@ -14,8 +13,8 @@ namespace Api.DTOs.Auth
         public string Token { get; set; }
         public UserRole Role { get; set; }
 
-        public Nullable<int> AdminId { get; set; }
-        public Nullable<int> DoctorId { get; set; }
-        public Nullable<int> PatientId { get; set; }
+        public int? AdminId { get; set; }
+        public int? DoctorId { get; set; }
+        public int? PatientId { get; set; }
     }
 }

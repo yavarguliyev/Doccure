@@ -1,4 +1,4 @@
-﻿using Api.DTOs.Auth;
+﻿using Core.DTOs.Auth;
 using AutoMapper;
 using Core.Models;
 using System;
@@ -16,6 +16,7 @@ namespace Api.Mappings
                 .ForMember(x => x.Birth, opt => opt.MapFrom(src => ((DateTime)src.Birth).ToString("MMM dd, yyyy")));
 
             CreateMap<RegisterDTO, User>();
+            CreateMap<LoginDTO, User>();
         }
     }
 }

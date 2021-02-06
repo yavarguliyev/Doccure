@@ -1,5 +1,6 @@
 ﻿using Core.Enum;
 using Core.Models;
+using CryptoHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,11 +94,11 @@ namespace Data.Data_Seed
                         Fullname = "Admin Admin",
                         Slug = "admin-admin",
                         Email = "admin@admin.com",
-                        Password = "AQAAAAEAACcQAAAAELB7TBk46Z3TyT+O+sVA9CCYGk98WMFtfACeDo3crYvfVnDiqKIz2way+ZvJ5f0ewg==",
+                        Password = Crypto.HashPassword("yavar10Yr"),
                         Role = UserRole.Admin,
                         Gender = Gender.Male,
                         Birth = new DateTime(1990, 06, 29),
-                        Token = null,
+                        Token = Guid.NewGuid().ToString(),
                         InviteToken = null,
                         ConfirmToken = null,
                         ConnectionId = null,
@@ -118,11 +119,11 @@ namespace Data.Data_Seed
                         Fullname = "Yavar Guliyev",
                         Slug = "yavar-guliyev",
                         Email = "guliyev.yavar@gmail.com",
-                        Password = "AQAAAAEAACcQAAAAELB7TBk46Z3TyT+O+sVA9CCYGk98WMFtfACeDo3crYvfVnDiqKIz2way+ZvJ5f0ewg==",
+                        Password = Crypto.HashPassword("yavar10Yr"),
                         Role = UserRole.Doctor,
                         Gender = Gender.Male,
                         Birth = new DateTime(1990, 06, 29),
-                        Token = null,
+                        Token = Guid.NewGuid().ToString(),
                         InviteToken = null,
                         ConfirmToken = null,
                         ConnectionId = null,
@@ -143,11 +144,11 @@ namespace Data.Data_Seed
                         Fullname = "Huseyn Asadov",
                         Slug = "huseyn-asadov",
                         Email = "asadov.huseyn@gmail.com",
-                        Password = "AQAAAAEAACcQAAAAELB7TBk46Z3TyT+O+sVA9CCYGk98WMFtfACeDo3crYvfVnDiqKIz2way+ZvJ5f0ewg==",
+                        Password = Crypto.HashPassword("yavar10Yr"),
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         Birth = new DateTime(1990, 06, 29),
-                        Token = null,
+                        Token = Guid.NewGuid().ToString(),
                         InviteToken = null,
                         ConfirmToken = null,
                         ConnectionId = null,

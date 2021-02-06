@@ -1,6 +1,6 @@
-﻿namespace Api.Resources.Auth
+﻿namespace Core.DTOs.Auth
 {
-    public class LoginResource
+    public class LoginDTO
     {
         public string Email { get; set; }
         public string Password { get; set; }

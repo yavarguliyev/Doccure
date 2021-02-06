@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Api.Libs;
+using AutoMapper;
 using Core;
 using Core.Services.Data;
 using Data;
@@ -98,6 +99,9 @@ namespace Api.Extensions
 
             // http Accessor
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            // api auth
+            services.AddTransient<IAuth, Auth>();
 
             return services;
         }
