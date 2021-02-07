@@ -28,16 +28,22 @@ namespace Api.Libs
         {
             get
             {
-                bool hasHeader = this._accessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues token);
+                bool hasHeader = _accessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues header);
                 if (!hasHeader)
                 {
                     return null;
                 }
 
-                User admin = _userService.GetByTokenAsync(token).Result;
-                if (admin != null && admin.Role == UserRole.Admin)
+                string encoded = header;
+                if (encoded != null && encoded.StartsWith("Bearer "))
                 {
-                    return admin;
+                    string token = encoded.Substring("Bearer ".Length).Trim();
+
+                    User admin = _userService.GetByTokenAsync(token.ToString()).Result;
+                    if (admin != null && admin.Role == UserRole.Admin)
+                    {
+                        return admin;
+                    }
                 }
 
                 return null;
@@ -48,16 +54,22 @@ namespace Api.Libs
         {
             get
             {
-                bool hasHeader = this._accessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues token);
+                bool hasHeader = _accessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues header);
                 if (!hasHeader)
                 {
                     return null;
                 }
 
-                User doctor = _userService.GetByTokenAsync(token).Result;
-                if (doctor != null && doctor.Role == UserRole.Doctor)
+                string encoded = header;
+                if (encoded != null && encoded.StartsWith("Bearer "))
                 {
-                    return doctor;
+                    string token = encoded.Substring("Bearer ".Length).Trim();
+
+                    User doctor = _userService.GetByTokenAsync(token.ToString()).Result;
+                    if (doctor != null && doctor.Role == UserRole.Doctor)
+                    {
+                        return doctor;
+                    }
                 }
 
                 return null;
@@ -68,16 +80,22 @@ namespace Api.Libs
         {
             get
             {
-                bool hasHeader = this._accessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues token);
+                bool hasHeader = _accessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues header);
                 if (!hasHeader)
                 {
                     return null;
                 }
 
-                User patient = _userService.GetByTokenAsync(token).Result;
-                if (patient != null && patient.Role == UserRole.Patient)
+                string encoded = header;
+                if (encoded != null && encoded.StartsWith("Bearer "))
                 {
-                    return patient;
+                    string token = encoded.Substring("Bearer ".Length).Trim();
+
+                    User patient = _userService.GetByTokenAsync(token.ToString()).Result;
+                    if (patient != null && patient.Role == UserRole.Patient)
+                    {
+                        return patient;
+                    }
                 }
 
                 return null;
