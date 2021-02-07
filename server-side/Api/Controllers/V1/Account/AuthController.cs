@@ -82,7 +82,7 @@ namespace Api.Controllers.V1.Account
         }
 
         [HttpPost("forget-password")]
-        public async Task<IActionResult> ForgetPassword(ForgetPasswordDTO model)
+        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO model)
         {
             var userToBeUpdated = await _userService.GetByEmailAsync(model.Email);
             var user = new User();
