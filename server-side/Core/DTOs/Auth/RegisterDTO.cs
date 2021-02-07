@@ -1,4 +1,6 @@
 ﻿using Core.Enum;
+using Core.Validators;
+using FluentValidation;
 using System;
 
 namespace Core.DTOs.Auth
@@ -11,5 +13,18 @@ namespace Core.DTOs.Auth
         public Gender Gender { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+    }
+
+    public class RegisterValidator : AbstractValidator<RegisterDTO>
+    {
+        public RegisterValidator()
+        {
+            RuleFor(x => x.Fullname).Fullname();
+            RuleFor(x => x.Email).Email();
+            RuleFor(x => x.Birth).BirthDate();
+            RuleFor(x => x.Gender).Gender();
+            RuleFor(x => x.Password).Password();
+            RuleFor(x => x.ConfirmPassword).Password();
+        }
     }
 }

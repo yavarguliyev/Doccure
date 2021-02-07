@@ -1,11 +1,13 @@
 ﻿using Core.Enum;
 using Core.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Core.Services.Data
 {
     public interface IUserService
     {
+        Task<IEnumerable<User>> GetAsync(UserRole role);
         Task<User> GetAsync(int id);
         Task<User> GetByTokenAsync(string token);
         Task<User> GetByInviteTokenAsync(string token);

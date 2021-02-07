@@ -1,14 +1,19 @@
 ﻿using Api.Libs;
+using AutoMapper;
+using Core.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.V1.Doctor
 {
     public class DoctorsController : BaseApiController
     {
+        private readonly IMapper _mapper;
         private readonly IAuth _auth;
 
-        public DoctorsController(IAuth auth)
+        public DoctorsController(IMapper mapper, 
+                                 IAuth auth)
         {
+            _mapper = mapper;
             _auth = auth;
         }
 
@@ -17,7 +22,7 @@ namespace Api.Controllers.V1.Doctor
         {
             if (_auth.Doctor == null) return Unauthorized();
 
-            return Ok(_auth.Doctor.Fullname);
+            return Ok(_mapper.Map<UserDTO>(_auth.Doctor));
         }
     }
 }

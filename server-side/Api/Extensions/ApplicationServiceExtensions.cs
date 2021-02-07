@@ -1,10 +1,11 @@
 ﻿using Api.Libs;
-using AutoMapper;
 using Core;
+using Core.DTOs.Auth;
 using Core.Services.Common;
 using Core.Services.Data;
 using Core.Services.Rest;
 using Data;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,10 +26,17 @@ namespace Api.Extensions
         {
             // controllers without view
             services.AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+            .AddFluentValidation(options => 
+            {
+                options.RegisterValidatorsFromAssemblyContaining<LoginDTO>();
+                options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
+                options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
+                options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             // Api versioning
             services.AddApiVersioning(v =>

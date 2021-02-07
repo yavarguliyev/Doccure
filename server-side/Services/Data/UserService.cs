@@ -5,6 +5,7 @@ using Core.Services.Data;
 using CryptoHelper;
 using Data.Errors;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -26,6 +27,11 @@ namespace Services.Data
         }
 
         #region get user
+        public async Task<IEnumerable<User>> GetAsync(UserRole role)
+        {
+            return await _unitOfWork.User.Get(role);
+        }
+
         public async Task<User> GetAsync(int id)
         {
             return await _unitOfWork.User.Get(id);

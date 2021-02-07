@@ -1,7 +1,10 @@
-﻿using Core.Models;
+﻿using Core.Enum;
+using Core.Models;
 using Core.Repositories;
 using Data.Errors;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -12,6 +15,16 @@ namespace Data.Repositories
         public UserRepository(DataContext context) : base(context) { }
 
         private DataContext context { get { return _context as DataContext; } }
+
+        public async Task<IEnumerable<User>> Get(UserRole role)
+        {
+            return await _context.Users
+                                 .Where(x => x.Status && x.Role == role)
+                                 .Include(x => x.Admin)
+                                 .Include(x => x.Doctor)
+                                 .Include(x => x.Patient)
+                                 .ToListAsync();
+        }
 
         public async Task<User> Get(int id)
         {

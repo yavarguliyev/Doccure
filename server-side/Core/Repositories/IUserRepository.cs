@@ -1,10 +1,13 @@
-﻿using Core.Models;
+﻿using Core.Enum;
+using Core.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
+        Task<IEnumerable<User>> Get(UserRole role);
         Task<User> Get(int id);
         Task<User> GetByToken(string token);
         Task<User> GetByInviteToken(string token);
