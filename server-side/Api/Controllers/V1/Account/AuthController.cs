@@ -10,7 +10,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Api.Controllers.V1.Account
+namespace Api.Controllers.v1.Account
 {
     public class AuthController : BaseApiController
     {

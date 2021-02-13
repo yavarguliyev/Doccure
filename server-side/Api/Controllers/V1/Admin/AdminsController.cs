@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Api.Controllers.V1.Admin
+namespace Api.Controllers.v1.Admin
 {
     public class AdminsController : BaseApiController
     {

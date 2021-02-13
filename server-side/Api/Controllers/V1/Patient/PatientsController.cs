@@ -3,7 +3,7 @@ using AutoMapper;
 using Core.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.V1.Patient
+namespace Api.Controllers.v1.Patient
 {
     public class PatientsController : BaseApiController
     {

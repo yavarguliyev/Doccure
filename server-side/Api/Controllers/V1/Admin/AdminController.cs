@@ -13,11 +13,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Api.Controllers.V1.Admin
+namespace Api.Controllers.v1.Admin
 {
-    [Route("api/v1/admin/doctors")]
-    [ApiController]
-    public class Admin_DoctorsController : BaseApiController
+    public class AdminController : BaseApiController
     {
         #region admin_doctor crud
         private readonly IMapper _mapper;
@@ -25,7 +23,7 @@ namespace Api.Controllers.V1.Admin
         private readonly IUserService _userService;
         private readonly IActivityService _activityService;
 
-        public Admin_DoctorsController(IMapper mapper,
+        public AdminController(IMapper mapper,
                                 IAuth auth,
                                 IUserService userService,
                                 IActivityService activityService)
@@ -36,7 +34,7 @@ namespace Api.Controllers.V1.Admin
             _activityService = activityService;
         }
 
-        [HttpGet]
+        [HttpGet("doctors")]
         public async Task<IActionResult> Get()
         {
             if (_auth.Admin == null) return Unauthorized();
@@ -44,7 +42,7 @@ namespace Api.Controllers.V1.Admin
             return Ok(_mapper.Map<IEnumerable<UserDTO>>(await _userService.GetAsync(UserRole.Doctor)));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("doctors/{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
@@ -52,7 +50,7 @@ namespace Api.Controllers.V1.Admin
             return Ok(_mapper.Map<UserDTO>(await _userService.GetAsync(id)));
         }
 
-        [HttpPost]
+        [HttpPost("doctors")]
         public async Task<IActionResult> Create([FromBody] AdminCreateDoctorDTO model)
         {
             if (_auth.Admin == null) return Unauthorized();
@@ -84,7 +82,7 @@ namespace Api.Controllers.V1.Admin
             return Ok("Check your email to complete register process");
         }
 
-        [HttpPut("status")]
+        [HttpPut("doctors/status")]
         public async Task<IActionResult> Status([FromQuery] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
@@ -97,7 +95,7 @@ namespace Api.Controllers.V1.Admin
             });
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("doctors/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
