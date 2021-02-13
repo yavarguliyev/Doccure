@@ -13,11 +13,11 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    AddedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
@@ -30,11 +30,11 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    AddedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
@@ -47,11 +47,11 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    AddedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
@@ -64,7 +64,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     Code = table.Column<string>(type: "text", nullable: true),
                     Photo = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     Fullname = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
@@ -73,7 +73,7 @@ namespace Data.Migrations
                     Password = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false),
                     Gender = table.Column<int>(type: "integer", nullable: false),
-                    Birth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Birth = table.Column<DateTime>(type: "date", nullable: false),
                     Token = table.Column<string>(type: "text", nullable: true),
                     InviteToken = table.Column<string>(type: "text", nullable: true),
                     ConfirmToken = table.Column<string>(type: "text", nullable: true),
@@ -83,8 +83,8 @@ namespace Data.Migrations
                     PatientId = table.Column<int>(type: "integer", nullable: true),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    AddedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
                 },
                 constraints: table =>

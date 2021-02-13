@@ -18,7 +18,6 @@ namespace Data.Data_Seed
                 {
                     new Admin
                     {
-                        Id = 1,
                         Status = true,
                         AddedBy = "System",
                         ModifiedBy = "System",
@@ -40,7 +39,6 @@ namespace Data.Data_Seed
                 {
                     new Doctor
                     {
-                        Id = 1,
                         Status = true,
                         AddedBy = "System",
                         ModifiedBy = "System",
@@ -62,7 +60,6 @@ namespace Data.Data_Seed
                 {
                     new Patient
                     {
-                        Id = 1,
                         Status = true,
                         AddedBy = "System",
                         ModifiedBy = "System",
@@ -84,12 +81,12 @@ namespace Data.Data_Seed
                 {
                     new User
                     {
-                        Id = 1,
                         Status = true,
                         AddedBy = "System",
                         ModifiedBy = "System",
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
                         Photo = null,
                         Fullname = "Admin Admin",
                         Slug = "admin-admin",
@@ -109,12 +106,12 @@ namespace Data.Data_Seed
 
                     new User
                     {
-                        Id = 2,
                         Status = true,
                         AddedBy = "System",
                         ModifiedBy = "System",
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
                         Photo = null,
                         Fullname = "Yavar Guliyev",
                         Slug = "yavar-guliyev",
@@ -134,12 +131,12 @@ namespace Data.Data_Seed
 
                     new User
                     {
-                        Id = 3,
                         Status = true,
                         AddedBy = "System",
                         ModifiedBy = "System",
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
                         Photo = null,
                         Fullname = "Huseyn Asadov",
                         Slug = "huseyn-asadov",

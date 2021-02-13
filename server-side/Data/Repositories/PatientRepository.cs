@@ -9,7 +9,7 @@ namespace Data.Repositories
     {
         public PatientRepository(DataContext context) : base(context) { }
 
-        private DataContext context { get { return _context as DataContext; } }
+        private DataContext context { get { return Context as DataContext; } }
 
         public async Task<Patient> Get(int id)
         {

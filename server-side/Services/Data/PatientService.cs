@@ -32,9 +32,11 @@ namespace Services.Data
             newPatient.ModifiedBy = "System";
 
             await _unitOfWork.Patient.AddAsync(newPatient);
-            await _unitOfWork.CommitAsync();
 
-            return newPatient;
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return newPatient;
+
+            throw new Exception("Problem saving changes");
         }
 
         public Task UpdateAsync(Patient patientToBeUpdated, Patient patient)

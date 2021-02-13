@@ -12,46 +12,46 @@ namespace Data.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         #region
-        protected readonly DataContext _context;
+        protected readonly DataContext Context;
 
         public Repository(DataContext context)
         {
-            _context = context;
+            this.Context = context;
         }
 
         public async Task AddAsync(TEntity entity)
         {
-            await _context.Set<TEntity>().AddAsync(entity);
+            await Context.Set<TEntity>().AddAsync(entity);
         }
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
-            await _context.Set<TEntity>().AddRangeAsync(entities);
+            await Context.Set<TEntity>().AddRangeAsync(entities);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().Where(predicate);
+            return Context.Set<TEntity>().Where(predicate);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().ToListAsync();
+            return await Context.Set<TEntity>().ToListAsync();
         }
 
         public ValueTask<TEntity> GetByIdAsync(long id)
         {
-            return _context.Set<TEntity>().FindAsync(id);
+            return Context.Set<TEntity>().FindAsync(id);
         }
 
         public void Remove(TEntity entity)
         {
-            _context.Set<TEntity>().Remove(entity);
+            Context.Set<TEntity>().Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            _context.Set<TEntity>().RemoveRange(entities);
+            Context.Set<TEntity>().RemoveRange(entities);
         }
 
         public async Task SoftDelete(TEntity entity)
@@ -60,22 +60,22 @@ namespace Data.Repositories
             DateTime? deleteDate = DateTime.Now;
             propertyInfo.SetValue(entity, deleteDate, null);
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
         public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().SingleOrDefaultAsync(predicate);
+            return Context.Set<TEntity>().SingleOrDefaultAsync(predicate);
         }
 
         public async Task Toogle(long id, bool status)
         {
-            TEntity entity = await _context.Set<TEntity>().FindAsync(id);
+            TEntity entity = await Context.Set<TEntity>().FindAsync(id);
 
             PropertyInfo propertyInfo = entity.GetType().GetProperty("Status");
             propertyInfo.SetValue(entity, Convert.ChangeType(status, propertyInfo.PropertyType), null);
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
 #pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type

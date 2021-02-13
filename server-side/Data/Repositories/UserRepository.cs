@@ -14,11 +14,11 @@ namespace Data.Repositories
     {
         public UserRepository(DataContext context) : base(context) { }
 
-        private DataContext context { get { return _context as DataContext; } }
+        private DataContext context { get { return Context as DataContext; } }
 
         public async Task<IEnumerable<User>> Get(UserRole role)
         {
-            return await _context.Users
+            return await context.Users
                                  .Where(x => x.Status && x.Role == role)
                                  .Include(x => x.Admin)
                                  .Include(x => x.Doctor)
@@ -153,9 +153,9 @@ namespace Data.Repositories
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
                                     .FirstOrDefaultAsync(x => x.Email == email) != null ? true : false;
-            if (!check) return check;
+            if (check) throw new RestException(HttpStatusCode.BadRequest, new { user = "This email is already exist" });
 
-            throw new RestException(HttpStatusCode.NotFound, new { user = "This email is already exist" });
+            return true;
         }
     }
 }

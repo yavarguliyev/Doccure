@@ -13,7 +13,8 @@ namespace Data.Configurations
 
             builder
                .Property(x => x.Id)
-               .ValueGeneratedOnAdd();
+               .ValueGeneratedOnAdd()
+               .UseIdentityAlwaysColumn();
 
             builder
                .Property(x => x.Status)
@@ -27,6 +28,29 @@ namespace Data.Configurations
             builder
                .Property(x => x.AddedBy)
                .HasMaxLength(100);
+
+            builder
+              .Property(x => x.AddedDate)
+              .HasColumnType("timestamp");
+
+            builder
+              .Property(x => x.ModifiedDate)
+              .HasColumnType("timestamp");
+
+            builder
+               .HasOne(x => x.Admin)
+               .WithMany(x => x.Users)
+               .HasForeignKey(x => x.AdminId);
+
+            builder
+               .HasOne(x => x.Doctor)
+               .WithMany(x => x.Users)
+               .HasForeignKey(x => x.DoctorId);
+
+            builder
+               .HasOne(x => x.Patient)
+               .WithMany(x => x.Users)
+               .HasForeignKey(x => x.PatientId);
 
             builder
                .Property(x => x.Photo)
@@ -50,6 +74,13 @@ namespace Data.Configurations
             builder
               .Property(x => x.Password)
               .HasMaxLength(100);
+
+            builder
+              .Property(x => x.Birth)
+              .HasColumnType("date");
+
+            builder
+               .ToTable("Users");
         }
     }
 }

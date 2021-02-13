@@ -9,7 +9,7 @@ namespace Data.Repositories
     {
         public AdminRepository(DataContext context) : base(context) { }
 
-        private DataContext context { get { return _context as DataContext; } }
+        private DataContext context { get { return Context as DataContext; } }
 
         public async Task<Admin> Get(int id)
         {

@@ -14,6 +14,7 @@ namespace Api.Controllers.V1.Account
 {
     public class AuthController : BaseApiController
     {
+        #region auth
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IActivityService _activityService;
@@ -41,23 +42,23 @@ namespace Api.Controllers.V1.Account
         {
             var user = _mapper.Map<User>(model);
             var mapped = _mapper.Map<UserDTO>(await _userService.CreateAsync(user, UserRole.Patient));
-            var updatedUser = await _userService.GetByConfirmTokenAsync(mapped.ConfirmToken);
+            var createdUser = await _userService.GetByConfirmTokenAsync(mapped.ConfirmToken);
 
             var url = string.Empty;
 
-            switch (updatedUser.Role)
+            switch (createdUser.Role)
             {
                 case UserRole.Doctor:
-                    url = $"/doctors/auth/confirm-email/{updatedUser.ConfirmToken}";
+                    url = $"/doctors/auth/confirm-email/{createdUser.ConfirmToken}";
                     break;
                 case UserRole.Patient:
-                    url = $"/patients/auth/confirm-email/{updatedUser.ConfirmToken}";
+                    url = $"/patients/auth/confirm-email/{createdUser.ConfirmToken}";
                     break;
                 default:
                     throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
             }
 
-            await _activityService.SendEmail(updatedUser, "Complete register process", updatedUser.Fullname + "'s register account", "To complete register process click to the button!", true, "Complete register process", url);
+            await _activityService.SendEmail(createdUser, "Complete register process", createdUser.Fullname + "'s register account", "To complete register process click to the button!", true, "Complete register process", url);
 
             return Ok(new
             {
@@ -122,5 +123,6 @@ namespace Api.Controllers.V1.Account
 
             return Ok(mapped);
         }
+        #endregion
     }
 }

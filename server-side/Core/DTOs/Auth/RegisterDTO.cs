@@ -2,6 +2,7 @@
 using Core.Validators;
 using FluentValidation;
 using System;
+using System.Text.Json.Serialization;
 
 namespace Core.DTOs.Auth
 {
@@ -12,6 +13,8 @@ namespace Core.DTOs.Auth
         public DateTime Birth { get; set; }
         public Gender Gender { get; set; }
         public string Password { get; set; }
+
+        [JsonPropertyName("confirmPassword")]
         public string ConfirmPassword { get; set; }
     }
 

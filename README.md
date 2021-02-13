@@ -1,6 +1,6 @@
 # Doccure
 
-### Doccure is the web application for making an online appoinment to take meet with the doctor.
+### Doccure is the web application for making an online appoinment with the doctor.
 
 #
 

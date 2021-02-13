@@ -13,7 +13,8 @@ namespace Data.Configurations
 
             builder
                .Property(x => x.Id)
-               .ValueGeneratedOnAdd();
+               .ValueGeneratedOnAdd()
+               .UseIdentityAlwaysColumn();
 
             builder
                .Property(x => x.Status)
@@ -27,6 +28,17 @@ namespace Data.Configurations
             builder
                .Property(x => x.AddedBy)
                .HasMaxLength(100);
+
+            builder
+              .Property(x => x.AddedDate)
+              .HasColumnType("timestamp");
+
+            builder
+              .Property(x => x.ModifiedDate)
+              .HasColumnType("timestamp");
+
+            builder
+               .ToTable("Admins");
         }
     }
 }

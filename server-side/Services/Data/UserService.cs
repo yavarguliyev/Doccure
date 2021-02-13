@@ -17,8 +17,8 @@ namespace Services.Data
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
 
-        public UserService(IUnitOfWork unitOfWork, 
-                           IDoctorService doctorService, 
+        public UserService(IUnitOfWork unitOfWork,
+                           IDoctorService doctorService,
                            IPatientService patientService)
         {
             _unitOfWork = unitOfWork;
@@ -94,6 +94,22 @@ namespace Services.Data
         {
             await this.CheckEmailAsync(newUser.Email);
 
+            switch (role)
+            {
+                case UserRole.Doctor:
+                    var newDoctor = new Doctor();
+                    var doctor = await _doctorService.CreateAsync(newDoctor);
+                    newUser.DoctorId = doctor.Id;
+                    break;
+                case UserRole.Patient:
+                    var newPatient = new Patient();
+                    var patient = await _patientService.CreateAsync(newPatient);
+                    newUser.PatientId = patient.Id;
+                    break;
+                default:
+                    break;
+            }
+
             var random = new Random();
             var code = random.Next(100000, 999999).ToString();
             while (await this.GetByCodeAsync(code) != null)
@@ -116,26 +132,12 @@ namespace Services.Data
             newUser.AdminId = null;
             newUser.Role = role;
 
-            switch (role)
-            {
-                case UserRole.Doctor:
-                    var newDoctor = new Doctor();
-                    var doctor = await _doctorService.CreateAsync(newDoctor);
-                    newUser.DoctorId = doctor.Id;
-                    break;
-                case UserRole.Patient:
-                    var newPatient = new Patient();
-                    var patient = await _patientService.CreateAsync(newPatient);
-                    newUser.PatientId = patient.Id;
-                    break;
-                default:
-                    break;
-            }
-
             await _unitOfWork.User.AddAsync(newUser);
-            await _unitOfWork.CommitAsync();
 
-            return newUser;
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return newUser;
+
+            throw new Exception("Problem saving changes");
         }
 
         public async Task<User> UpdateAsync(int id, string token)
@@ -197,7 +199,7 @@ namespace Services.Data
             userToBeUpdated.ConnectionId = user.ConnectionId != null ? user.ConnectionId : null;
 
             userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
-            userToBeUpdated.Slug = user.Slug != null ? user.Slug : userToBeUpdated.Slug;
+            userToBeUpdated.Slug = user.Slug != null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
             userToBeUpdated.Email = user.Email != null ? user.Email : userToBeUpdated.Email;
             userToBeUpdated.AdminId = user.AdminId != 0 ? user.AdminId : userToBeUpdated.AdminId;
             userToBeUpdated.DoctorId = user.DoctorId != 0 ? user.DoctorId : userToBeUpdated.DoctorId;
