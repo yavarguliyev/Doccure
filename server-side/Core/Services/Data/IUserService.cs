@@ -21,5 +21,7 @@ namespace Core.Services.Data
         Task<User> CreateAsync(User newUser, UserRole role);
         Task<User> UpdateAsync(int id, string token);
         Task<User> UpdateAsync(User userToBeUpdated, User user);
+        Task StatusAsync(int id);
+        Task DeleteAsync(User user);
     }
 }

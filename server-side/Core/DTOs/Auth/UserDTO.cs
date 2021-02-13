@@ -21,5 +21,7 @@ namespace Core.DTOs.Auth
         public int? AdminId { get; set; }
         public int? DoctorId { get; set; }
         public int? PatientId { get; set; }
+
+        public bool Status { get; set; }
     }
 }

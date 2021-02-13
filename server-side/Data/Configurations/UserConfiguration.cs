@@ -58,17 +58,14 @@ namespace Data.Configurations
 
             builder
                .Property(x => x.Fullname)
-               .IsRequired()
                .HasMaxLength(50);
 
             builder
                .Property(x => x.Slug)
-               .IsRequired()
                .HasMaxLength(50);
 
             builder
                .Property(x => x.Email)
-               .IsRequired()
                .HasMaxLength(50);
 
             builder

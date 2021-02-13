@@ -16,13 +16,13 @@ namespace Services.Data
         }
 
         #region get doctor
-        public Task<Doctor> GetAsync(int id)
+        public async Task<Doctor> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Doctor.Get(id);
         }
         #endregion
 
-        #region create and update
+        #region create, update and delete
         public async Task<Doctor> CreateAsync(Doctor newDoctor)
         {
             newDoctor.Status = true;
@@ -32,14 +32,22 @@ namespace Services.Data
             newDoctor.ModifiedBy = "System";
 
             await _unitOfWork.Doctor.AddAsync(newDoctor);
-            await _unitOfWork.CommitAsync();
 
-            return newDoctor;
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return newDoctor;
+
+            throw new Exception("Problem saving changes");
         }
 
         public Task UpdateAsync(Doctor doctorToBeUpdated, Doctor doctor)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(Doctor doctor)
+        {
+            _unitOfWork.Doctor.Remove(doctor);
+            await _unitOfWork.CommitAsync();
         }
         #endregion
     }

@@ -16,13 +16,13 @@ namespace Services.Data
         }
 
         #region get patient
-        public Task<Patient> GetAsync(int id)
+        public async Task<Patient> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Patient.Get(id);
         }
         #endregion
 
-        #region create and update
+        #region create, update and delete
         public async Task<Patient> CreateAsync(Patient newPatient)
         {
             newPatient.Status = true;
@@ -42,6 +42,12 @@ namespace Services.Data
         public Task UpdateAsync(Patient patientToBeUpdated, Patient patient)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task DeleteAsync(Patient patient)
+        {
+            _unitOfWork.Patient.Remove(patient);
+            await _unitOfWork.CommitAsync();
         }
         #endregion
     }

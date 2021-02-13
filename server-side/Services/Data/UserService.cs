@@ -124,11 +124,13 @@ namespace Services.Data
             newUser.ModifiedBy = "System";
             newUser.Code = code;
             newUser.Photo = null;
-            newUser.Slug = newUser.Fullname.Replace(" ", "-").ToLower();
-            newUser.Password = Crypto.HashPassword(newUser.Password);
-            newUser.Token = null;
-            newUser.InviteToken = null;
-            newUser.ConfirmToken = Guid.NewGuid().ToString();
+            newUser.Birth = newUser.Birth.Year != 1970 ? newUser.Birth : DateTime.Now;
+            newUser.Fullname = newUser.Fullname != null ? newUser.Fullname : null;
+            newUser.Slug = newUser.Fullname != null ? newUser.Fullname.Replace(" ", "-").ToLower() : null;
+            newUser.Password = newUser.Password != null ? Crypto.HashPassword(newUser.Password) : null;
+            newUser.Token = newUser.Token != null ? newUser.Token : null;
+            newUser.InviteToken = newUser.InviteToken != null ? newUser.InviteToken : null;
+            newUser.ConfirmToken = newUser.ConfirmToken != null ? newUser.ConfirmToken : null;
             newUser.AdminId = null;
             newUser.Role = role;
 
@@ -201,13 +203,45 @@ namespace Services.Data
             userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
             userToBeUpdated.Slug = user.Slug != null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
             userToBeUpdated.Email = user.Email != null ? user.Email : userToBeUpdated.Email;
-            userToBeUpdated.AdminId = user.AdminId != 0 ? user.AdminId : userToBeUpdated.AdminId;
-            userToBeUpdated.DoctorId = user.DoctorId != 0 ? user.DoctorId : userToBeUpdated.DoctorId;
-            userToBeUpdated.PatientId = user.PatientId != 0 ? user.PatientId : userToBeUpdated.PatientId;
+            userToBeUpdated.Birth = user.Birth.Year != 1970 ? user.Birth : userToBeUpdated.Birth;
+            userToBeUpdated.AdminId = userToBeUpdated.AdminId;
+            userToBeUpdated.DoctorId = userToBeUpdated.DoctorId;
+            userToBeUpdated.PatientId = userToBeUpdated.PatientId;
 
             await _unitOfWork.CommitAsync();
 
             return userToBeUpdated;
+        }
+
+        public async Task StatusAsync(int id)
+        {
+            var user = await this.GetAsync(id);
+            user.Status = !user.Status;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            switch (user.Role)
+            {
+                case UserRole.Doctor:
+                    var docotId = user.DoctorId ?? default(int);
+                    var doctor = await _doctorService.GetAsync(docotId);
+                    _unitOfWork.User.Remove(user);
+                    await _doctorService.DeleteAsync(doctor);
+                    break;
+                case UserRole.Patient:
+                    var patientId = user.PatientId ?? default(int);
+                    var patient = await _patientService.GetAsync(patientId);
+                    _unitOfWork.User.Remove(user);
+                    await _patientService.DeleteAsync(patient);
+                    break;
+                default:
+                    break;
+            }
+
+            await _unitOfWork.CommitAsync();
         }
         #endregion
     }

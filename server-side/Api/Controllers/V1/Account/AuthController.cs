@@ -41,6 +41,7 @@ namespace Api.Controllers.V1.Account
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
             var user = _mapper.Map<User>(model);
+            user.ConfirmToken = Guid.NewGuid().ToString();
             var mapped = _mapper.Map<UserDTO>(await _userService.CreateAsync(user, UserRole.Patient));
             var createdUser = await _userService.GetByConfirmTokenAsync(mapped.ConfirmToken);
 
@@ -58,7 +59,13 @@ namespace Api.Controllers.V1.Account
                     throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
             }
 
-            await _activityService.SendEmail(createdUser, "Complete register process", createdUser.Fullname + "'s register account", "To complete register process click to the button!", true, "Complete register process", url);
+            await _activityService.SendEmail(createdUser, 
+                "Complete register process", 
+                createdUser.Fullname + "'s register account", 
+                "To complete register process click to the button!", 
+                true, 
+                "Complete register process", 
+                url);
 
             return Ok(new
             {
