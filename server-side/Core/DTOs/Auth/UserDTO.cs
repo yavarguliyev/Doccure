@@ -17,6 +17,7 @@ namespace Core.DTOs.Auth
         public string ConnectionId { get; set; }
 
         public UserRole Role { get; set; }
+        public Gender Gender { get; set; }
 
         public int? AdminId { get; set; }
         public int? DoctorId { get; set; }

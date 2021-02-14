@@ -1,112 +1,65 @@
 ﻿using Api.Libs;
 using AutoMapper;
-using Core.DTOs.Admin.Admin_Doctor;
+using Core.DTOs.Admin.Admin_Profile;
 using Core.DTOs.Auth;
-using Core.Enum;
 using Core.Models;
-using Core.Services.Common;
 using Core.Services.Data;
-using Data.Errors;
+using CryptoHelper;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.v1.Admin
 {
     public class AdminController : BaseApiController
     {
-        #region admin_doctor crud
+        #region admin profile functionality
         private readonly IMapper _mapper;
         private readonly IAuth _auth;
         private readonly IUserService _userService;
-        private readonly IActivityService _activityService;
 
-        public AdminController(IMapper mapper,
-                                IAuth auth,
-                                IUserService userService,
-                                IActivityService activityService)
+        public AdminController(IMapper mapper, 
+                                IAuth auth, 
+                                IUserService userService)
         {
             _mapper = mapper;
             _auth = auth;
             _userService = userService;
-            _activityService = activityService;
         }
 
-        [HttpGet("doctors")]
-        public async Task<IActionResult> Get()
+        [HttpGet]
+        public IActionResult Get()
         {
             if (_auth.Admin == null) return Unauthorized();
 
-            return Ok(_mapper.Map<IEnumerable<UserDTO>>(await _userService.GetAsync(UserRole.Doctor)));
+            return Ok(_mapper.Map<UserDTO>(_auth.Admin));
         }
 
-        [HttpGet("doctors/{id}")]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] AdminProfileUpdateDTO model)
         {
             if (_auth.Admin == null) return Unauthorized();
 
-            return Ok(_mapper.Map<UserDTO>(await _userService.GetAsync(id)));
-        }
-
-        [HttpPost("doctors")]
-        public async Task<IActionResult> Create([FromBody] AdminCreateDoctorDTO model)
-        {
-            if (_auth.Admin == null) return Unauthorized();
-
+            var userToBeUpdated = await _userService.GetAsync(_auth.Admin.Id);
             var user = _mapper.Map<User>(model);
-            user.InviteToken = Guid.NewGuid().ToString();
-            var mapped = _mapper.Map<UserDTO>(await _userService.CreateAsync(user, UserRole.Doctor));
-            var createdUser = await _userService.GetByInviteTokenAsync(mapped.InviteToken);
 
-            var url = string.Empty;
-
-            switch (createdUser.Role)
+            if (model.Password != null || model.ConfirmPassword != null)
             {
-                case UserRole.Doctor:
-                    url = $"/doctors/register/{createdUser.InviteToken}";
-                    break;
-                default:
-                    throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for creating your profile." });
+                if (Crypto.VerifyHashedPassword(userToBeUpdated.Password, model.Password))
+                {
+                    ModelState.AddModelError("Password", "Current password cannot match old password");
+                    return BadRequest(ModelState);
+                }
+                else if (model.ConfirmPassword != model.Password)
+                {
+                    ModelState.AddModelError("Confirm Password", "Confirm Password should match current password");
+                    return BadRequest(ModelState);
+                }
             }
 
-            await _activityService.SendEmail(createdUser,
-                "Complete register process",
-                "Register account",
-                "To complete register process please fill out all the neessary inputs!",
-                true,
-                "Complete register process",
-                url);
-
-            return Ok("Check your email to complete register process");
-        }
-
-        [HttpPut("doctors/status")]
-        public async Task<IActionResult> Status([FromQuery] int id)
-        {
-            if (_auth.Admin == null) return Unauthorized();
-
-            await _userService.StatusAsync(id);
-
-            return Ok(new 
+            return Ok(new
             {
-                message = "Status modified"
-            });
-        }
-
-        [HttpDelete("doctors/{id}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
-        {
-            if (_auth.Admin == null) return Unauthorized();
-
-            var user = await _userService.GetAsync(id);
-
-            await _userService.DeleteAsync(user);
-
-            return Ok(new 
-            {
-                message = "Selected doctor removed from database"
+                message = "Profile successfully updated",
+                user = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user))
             });
         }
         #endregion

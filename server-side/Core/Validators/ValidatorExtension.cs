@@ -29,7 +29,7 @@ namespace Core.Validators
 
         public static IRuleBuilder<T, DateTime> BirthDate<T>(this IRuleBuilder<T, DateTime> ruleBuilder)
         {
-            var options = ruleBuilder.NotEmpty().WithMessage("Birth must not be empty");
+            var options = ruleBuilder.Must(x => !(x == DateTime.MinValue)).WithMessage("Birth must not be empty");
 
             return options;
         }
@@ -44,11 +44,23 @@ namespace Core.Validators
         public static IRuleBuilder<T, string> Password<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             var options = ruleBuilder
-                            .NotEmpty()
+                            .NotEmpty().WithMessage("Password must not be empty")
                             .MinimumLength(6).WithMessage("Password must contain at least 6 characters")
                             .Matches("[a-z]").WithMessage("Password must contain 1 lowercase")
                             .Matches("[A-Z]").WithMessage("Password must contain 1 uppercase")
                             .Matches("[0-9]").WithMessage("Password must contain 1 number");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> CondfirmPassword<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Condfirm Password must not be empty")
+                            .MinimumLength(6).WithMessage("Condfirm Password must contain at least 6 characters")
+                            .Matches("[a-z]").WithMessage("Condfirm Password must contain 1 lowercase")
+                            .Matches("[A-Z]").WithMessage("Condfirm Password must contain 1 uppercase")
+                            .Matches("[0-9]").WithMessage("Condfirm Password must contain 1 number");
 
             return options;
         }

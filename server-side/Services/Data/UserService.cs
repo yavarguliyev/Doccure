@@ -124,7 +124,7 @@ namespace Services.Data
             newUser.ModifiedBy = "System";
             newUser.Code = code;
             newUser.Photo = null;
-            newUser.Birth = newUser.Birth.Year != 1970 ? newUser.Birth : DateTime.Now;
+            newUser.Birth = newUser.Birth.Year != 0001 ? newUser.Birth : DateTime.Now;
             newUser.Fullname = newUser.Fullname != null ? newUser.Fullname : null;
             newUser.Slug = newUser.Fullname != null ? newUser.Fullname.Replace(" ", "-").ToLower() : null;
             newUser.Password = newUser.Password != null ? Crypto.HashPassword(newUser.Password) : null;
@@ -203,7 +203,7 @@ namespace Services.Data
             userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
             userToBeUpdated.Slug = user.Slug != null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
             userToBeUpdated.Email = user.Email != null ? user.Email : userToBeUpdated.Email;
-            userToBeUpdated.Birth = user.Birth.Year != 1970 ? user.Birth : userToBeUpdated.Birth;
+            userToBeUpdated.Birth = user.Birth.Year != 0001 ? user.Birth : userToBeUpdated.Birth;
             userToBeUpdated.AdminId = userToBeUpdated.AdminId;
             userToBeUpdated.DoctorId = userToBeUpdated.DoctorId;
             userToBeUpdated.PatientId = userToBeUpdated.PatientId;

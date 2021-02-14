@@ -14,7 +14,7 @@ namespace Core.DTOs.Auth
         public ResetValidator()
         {
             RuleFor(x => x.Password).Password();
-            RuleFor(x => x.ConfirmPassword).Password();
+            RuleFor(x => x.ConfirmPassword).CondfirmPassword();
         }
     }
 }
