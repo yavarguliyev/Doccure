@@ -109,6 +109,9 @@ namespace Api.Extensions
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
 
+            // file upload
+            services.AddSingleton<IFileManager, FileManager>();
+
             // activity services
             services.AddTransient<IActivityService, ActivityService>();
 

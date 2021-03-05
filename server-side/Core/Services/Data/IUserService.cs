@@ -26,7 +26,5 @@ namespace Core.Services.Data
         Task DeleteAsync(User user);
 
         Task<User> PhotoUpload(int id, IFormFile file);
-        string UploadPhoto(IFormFile file, string savePath = "uploads", string newName = null);
-        void DeletePhoto(string fileName, string deletePath = "uploads");
     }
 }

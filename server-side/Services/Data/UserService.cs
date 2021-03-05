@@ -8,7 +8,6 @@ using Data.Errors;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -20,16 +19,19 @@ namespace Services.Data
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
         private readonly IActivityService _activityService;
+        private readonly IFileManager _fileManager;
 
         public UserService(IUnitOfWork unitOfWork,
                            IDoctorService doctorService,
                            IPatientService patientService,
-                           IActivityService activityService)
+                           IActivityService activityService,
+                           IFileManager fileManager)
         {
             _unitOfWork = unitOfWork;
             _doctorService = doctorService;
             _patientService = patientService;
             _activityService = activityService;
+            _fileManager = fileManager;
         }
 
         #region get user
@@ -325,51 +327,17 @@ namespace Services.Data
             var user = await this.GetAsync(id);
             if (user.Photo == null)
             {
-                user.Photo = this.UploadPhoto(file);
+                user.Photo = _fileManager.UploadPhoto(file);
             }
             else
             {
-                this.DeletePhoto(user.Photo);
-                user.Photo = this.UploadPhoto(file);
+                _fileManager.DeletePhoto(user.Photo);
+                user.Photo = _fileManager.UploadPhoto(file);
             }
 
             var success = await _unitOfWork.CommitAsync() > 0;
             if (success) return user;
             throw new Exception("Problem saving changes");
-        }
-
-        public string UploadPhoto(IFormFile file, string savePath = "uploads", string newName = null)
-        {
-            var list = file.FileName.Split('.');
-
-            string filename;
-
-            if (newName == null)
-                filename = Guid.NewGuid() + "." + list[^1];
-            else
-                filename = newName + "." + list[^1];
-
-            var writePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", savePath);
-            if (!Directory.Exists(writePath))
-                Directory.CreateDirectory(writePath);
-
-            var path = Path.Combine(writePath, filename);
-
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return filename;
-        }
-
-        public void DeletePhoto(string fileName, string deletePath = "uploads")
-        {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", deletePath, fileName);
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
         }
         #endregion
     }
