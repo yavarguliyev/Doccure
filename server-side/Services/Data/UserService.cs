@@ -3,6 +3,7 @@ using Core.Enum;
 using Core.Models;
 using Core.Services.Common;
 using Core.Services.Data;
+using Core.Services.Rest;
 using CryptoHelper;
 using Data.Errors;
 using Microsoft.AspNetCore.Http;
