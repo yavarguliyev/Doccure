@@ -4,13 +4,10 @@ using Core.DTOs.Admin.Admin_Doctor;
 using Core.DTOs.Auth;
 using Core.Enum;
 using Core.Models;
-using Core.Services.Common;
 using Core.Services.Data;
-using Data.Errors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.v1.Admin
@@ -21,17 +18,14 @@ namespace Api.Controllers.v1.Admin
         private readonly IMapper _mapper;
         private readonly IAuth _auth;
         private readonly IUserService _userService;
-        private readonly IActivityService _activityService;
 
         public Admin_DoctorsController(IMapper mapper,
-                                IAuth auth,
-                                IUserService userService,
-                                IActivityService activityService)
+                                       IAuth auth,
+                                       IUserService userService)
         {
             _mapper = mapper;
             _auth = auth;
             _userService = userService;
-            _activityService = activityService;
         }
 
         [HttpGet]
@@ -56,30 +50,10 @@ namespace Api.Controllers.v1.Admin
             if (_auth.Admin == null) return Unauthorized();
 
             var user = _mapper.Map<User>(model);
-            user.InviteToken = Guid.NewGuid().ToString();
-            var mapped = _mapper.Map<UserDTO>(await _userService.CreateAsync(user, UserRole.Doctor));
-            var createdUser = await _userService.GetByInviteTokenAsync(mapped.InviteToken);
+            user.ConfirmToken = Guid.NewGuid().ToString();
+            await _userService.CreateAsync(user, UserRole.Doctor);
 
-            var url = string.Empty;
-
-            switch (createdUser.Role)
-            {
-                case UserRole.Doctor:
-                    url = $"/doctors/register/{createdUser.InviteToken}";
-                    break;
-                default:
-                    throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for creating your profile." });
-            }
-
-            await _activityService.SendEmail(createdUser,
-                "Complete register process",
-                "Register account",
-                "To complete register process please fill out all the neessary inputs!",
-                true,
-                "Complete register process",
-                url);
-
-            return Ok("Check your email to complete register process");
+            return Ok(new { message = "Check your email to complete register process" });
         }
 
         [HttpPut("status")]
@@ -89,10 +63,7 @@ namespace Api.Controllers.v1.Admin
 
             await _userService.StatusAsync(id);
 
-            return Ok(new 
-            {
-                message = "Status modified"
-            });
+            return Ok(new { message = "Status modified" });
         }
 
         [HttpDelete("{id}")]
@@ -101,13 +72,9 @@ namespace Api.Controllers.v1.Admin
             if (_auth.Admin == null) return Unauthorized();
 
             var user = await _userService.GetAsync(id);
-
             await _userService.DeleteAsync(user);
 
-            return Ok(new 
-            {
-                message = "Selected doctor removed from database"
-            });
+            return Ok(new { message = "Selected doctor removed from database" });
         }
         #endregion
     }

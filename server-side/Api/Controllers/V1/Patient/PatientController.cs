@@ -2,7 +2,9 @@
 using AutoMapper;
 using Core.DTOs.Auth;
 using Core.Services.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Api.Controllers.v1.Patient
 {
@@ -28,6 +30,18 @@ namespace Api.Controllers.v1.Patient
             if (_auth.Patient == null) return Unauthorized();
 
             return Ok(_mapper.Map<UserDTO>(_auth.Patient));
+        }
+
+        [HttpPut("upload-photo")]
+        public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file)
+        {
+            if (_auth.Patient == null) return Unauthorized();
+
+            return Ok(new 
+            {
+                message = "Photo uploaded!",
+                response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Patient.Id, file))
+            });
         }
         #endregion
     }

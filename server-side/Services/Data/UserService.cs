@@ -1,11 +1,14 @@
 ﻿using Core;
 using Core.Enum;
 using Core.Models;
+using Core.Services.Common;
 using Core.Services.Data;
 using CryptoHelper;
 using Data.Errors;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -16,14 +19,17 @@ namespace Services.Data
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
+        private readonly IActivityService _activityService;
 
         public UserService(IUnitOfWork unitOfWork,
                            IDoctorService doctorService,
-                           IPatientService patientService)
+                           IPatientService patientService,
+                           IActivityService activityService)
         {
             _unitOfWork = unitOfWork;
             _doctorService = doctorService;
             _patientService = patientService;
+            _activityService = activityService;
         }
 
         #region get user
@@ -137,9 +143,35 @@ namespace Services.Data
             await _unitOfWork.User.AddAsync(newUser);
 
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return newUser;
+            if (success)
+            {
+                var url = string.Empty;
 
-            throw new Exception("Problem saving changes");
+                if (newUser.ConfirmToken != null)
+                {
+                    switch (newUser.Role)
+                    {
+                        case UserRole.Doctor:
+                            url = $"/doctors/auth/confirm-email?token={newUser.ConfirmToken}";
+                            break;
+                        case UserRole.Patient:
+                            url = $"/patients/auth/confirm-email?token={newUser.ConfirmToken}";
+                            break;
+                        default:
+                            throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
+                    }
+
+                    await _activityService.SendEmail(newUser, "Complete register process", "Register account",
+                          "To complete register process please fill out all the neessary inputs!", true,
+                          "Complete register process", url);
+                }
+
+                return newUser;
+            }
+            else
+            {
+                throw new Exception("Problem saving changes");
+            }
         }
 
         public async Task<User> UpdateAsync(int id, string token)
@@ -193,7 +225,21 @@ namespace Services.Data
                     break;
             }
 
-            userToBeUpdated.Password = user.Password != null ? Crypto.HashPassword(user.Password) : userToBeUpdated.Password;
+            if (user.Password != null && userToBeUpdated.InviteToken == null)
+            {
+                if (Crypto.VerifyHashedPassword(userToBeUpdated.Password, user.Password))
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, "Current password cannot match old password");
+                }
+                else
+                {
+                    userToBeUpdated.Password = Crypto.HashPassword(user.Password);
+                }
+            }
+            else
+            {
+                userToBeUpdated.Password = user.Password != null ? Crypto.HashPassword(user.Password) : userToBeUpdated.Password;
+            }
 
             userToBeUpdated.Token = user.Token != null ? user.Token : Guid.NewGuid().ToString();
             userToBeUpdated.InviteToken = user.InviteToken != null ? user.InviteToken : null;
@@ -208,9 +254,37 @@ namespace Services.Data
             userToBeUpdated.DoctorId = userToBeUpdated.DoctorId;
             userToBeUpdated.PatientId = userToBeUpdated.PatientId;
 
-            await _unitOfWork.CommitAsync();
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success)
+            {
+                if (userToBeUpdated.InviteToken != null)
+                {
+                    var url = string.Empty;
 
-            return userToBeUpdated;
+                    switch (userToBeUpdated.Role)
+                    {
+                        case UserRole.Doctor:
+                            url = $"/doctors/auth/reset-password?token={userToBeUpdated.InviteToken}";
+                            break;
+                        case UserRole.Patient:
+                            url = $"/patients/auth/reset-password?token={userToBeUpdated.InviteToken}";
+                            break;
+                        default:
+                            throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
+                    }
+
+                    await _activityService.SendEmail(userToBeUpdated, "Complete reset process", 
+                          userToBeUpdated.Fullname + "'s password reset",
+                          "To complete reset process click to the button!", true, 
+                          "Complete reset process", url);
+                }
+
+                return userToBeUpdated;
+            }
+            else
+            {
+                throw new Exception("Problem saving changes");
+            }
         }
 
         public async Task StatusAsync(int id)
@@ -242,6 +316,60 @@ namespace Services.Data
             }
 
             await _unitOfWork.CommitAsync();
+        }
+        #endregion
+
+        #region photo upload
+        public async Task<User> PhotoUpload(int id, IFormFile file)
+        {
+            var user = await this.GetAsync(id);
+            if (user.Photo == null)
+            {
+                user.Photo = this.UploadPhoto(file);
+            }
+            else
+            {
+                this.DeletePhoto(user.Photo);
+                user.Photo = this.UploadPhoto(file);
+            }
+
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return user;
+            throw new Exception("Problem saving changes");
+        }
+
+        public string UploadPhoto(IFormFile file, string savePath = "uploads", string newName = null)
+        {
+            var list = file.FileName.Split('.');
+
+            string filename;
+
+            if (newName == null)
+                filename = Guid.NewGuid() + "." + list[^1];
+            else
+                filename = newName + "." + list[^1];
+
+            var writePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", savePath);
+            if (!Directory.Exists(writePath))
+                Directory.CreateDirectory(writePath);
+
+            var path = Path.Combine(writePath, filename);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return filename;
+        }
+
+        public void DeletePhoto(string fileName, string deletePath = "uploads")
+        {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", deletePath, fileName);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
         #endregion
     }

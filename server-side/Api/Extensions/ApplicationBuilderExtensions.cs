@@ -28,6 +28,10 @@ namespace Api.Extensions
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseCors(x => x
                             .AllowAnyHeader()
                             .AllowAnyMethod()

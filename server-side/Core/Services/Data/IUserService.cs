@@ -1,5 +1,6 @@
 ﻿using Core.Enum;
 using Core.Models;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,5 +24,9 @@ namespace Core.Services.Data
         Task<User> UpdateAsync(User userToBeUpdated, User user);
         Task StatusAsync(int id);
         Task DeleteAsync(User user);
+
+        Task<User> PhotoUpload(int id, IFormFile file);
+        string UploadPhoto(IFormFile file, string savePath = "uploads", string newName = null);
+        void DeletePhoto(string fileName, string deletePath = "uploads");
     }
 }
