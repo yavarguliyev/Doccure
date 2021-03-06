@@ -32,16 +32,18 @@ namespace Api.Controllers.v1.Admin
         public async Task<IActionResult> Get()
         {
             if (_auth.Admin == null) return Unauthorized();
+            var response = _mapper.Map<IEnumerable<UserDTO>>(await _userService.GetAsync(UserRole.Doctor));
 
-            return Ok(_mapper.Map<IEnumerable<UserDTO>>(await _userService.GetAsync(UserRole.Doctor)));
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
+            var response = _mapper.Map<UserDTO>(await _userService.GetAsync(id));
 
-            return Ok(_mapper.Map<UserDTO>(await _userService.GetAsync(id)));
+            return Ok(response);
         }
 
         [HttpPost]
@@ -53,28 +55,35 @@ namespace Api.Controllers.v1.Admin
             user.ConfirmToken = Guid.NewGuid().ToString();
             await _userService.CreateAsync(user, UserRole.Doctor);
 
-            return Ok(new { message = "Check your email to complete register process" });
+            return Ok(new
+            {
+                message = "New doctor registered!"
+            });
         }
 
         [HttpPut("status")]
         public async Task<IActionResult> Status([FromQuery] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
-
             await _userService.StatusAsync(id);
 
-            return Ok(new { message = "Status modified" });
+            return Ok(new
+            {
+                message = "Status modified"
+            });
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
-
             var user = await _userService.GetAsync(id);
             await _userService.DeleteAsync(user);
 
-            return Ok(new { message = "Selected doctor removed from database" });
+            return Ok(new
+            {
+                message = "Selected doctor removed from database"
+            });
         }
         #endregion
     }

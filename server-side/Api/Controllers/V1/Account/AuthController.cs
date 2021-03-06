@@ -11,7 +11,7 @@ namespace Api.Controllers.v1.Account
 {
     public class AuthController : BaseApiController
     {
-        #region auth
+        #region auth functionalities
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
@@ -25,9 +25,10 @@ namespace Api.Controllers.v1.Account
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO model)
         {
-            var loggedIn = await _userService.LoginAsync(model.Email, model.Password);
+            var user = await _userService.LoginAsync(model.Email, model.Password);
+            var response = _mapper.Map<UserDTO>(await _userService.GetAsync(user.Id));
 
-            return Ok(_mapper.Map<UserDTO>(await _userService.GetAsync(loggedIn.Id)));
+            return Ok(response);
         }
 
         [HttpPost("register")]
@@ -37,7 +38,10 @@ namespace Api.Controllers.v1.Account
             user.ConfirmToken = Guid.NewGuid().ToString();
             await _userService.CreateAsync(user, UserRole.Patient);
 
-            return Ok(new { message = "Confirm your email please." });
+            return Ok(new
+            {
+                message = "Confirm your email please!"
+            });
         }
 
         [HttpGet("confirm-email")]
@@ -46,12 +50,13 @@ namespace Api.Controllers.v1.Account
             var userToBeUpdated = await _userService.GetByConfirmTokenAsync(token);
             var user = new User();
             user.ConfirmToken = null;
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
 
             return Ok(new
             {
-                message = "Email confirmed.",
-                response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user))
-            }); ;
+                message = "User confirmed!",
+                response = response
+            });
         }
 
         [HttpPost("forget-password")]
@@ -62,17 +67,23 @@ namespace Api.Controllers.v1.Account
             user.InviteToken = Guid.NewGuid().ToString();
             await _userService.UpdateAsync(userToBeUpdated, user);
 
-            return Ok(new { message = "Email sent." });
+            return Ok(new
+            {
+                message = "Email sent!"
+            });
         }
 
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO model, [FromQuery] string token)
         {
-            var user = new User();
-            user.Password = model.Password;
-            user.InviteToken = null;
+            var user = await _userService.GetByInviteTokenAsync(token);
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(user.Id, model.Password, model.ConfirmPassword, null));
 
-            return Ok(_mapper.Map<UserDTO>(await _userService.UpdateAsync(await _userService.GetByInviteTokenAsync(token), user)));
+            return Ok(new
+            {
+                message = "Password reseted!",
+                response = response
+            });
         }
         #endregion
     }

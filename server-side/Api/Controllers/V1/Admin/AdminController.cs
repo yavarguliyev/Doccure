@@ -12,7 +12,7 @@ namespace Api.Controllers.v1.Admin
 {
     public class AdminController : BaseApiController
     {
-        #region admin profile functionality
+        #region admin profile functionalities
         private readonly IMapper _mapper;
         private readonly IAuth _auth;
         private readonly IUserService _userService;
@@ -30,8 +30,9 @@ namespace Api.Controllers.v1.Admin
         public IActionResult Get()
         {
             if (_auth.Admin == null) return Unauthorized();
+            var response = _mapper.Map<UserDTO>(_auth.Admin);
 
-            return Ok(_mapper.Map<UserDTO>(_auth.Admin));
+            return Ok(response);
         }
 
         [HttpPut]
@@ -39,17 +40,28 @@ namespace Api.Controllers.v1.Admin
         {
             if (_auth.Admin == null) return Unauthorized();
 
-            if (model.ConfirmPassword != model.Password)
-            {
-                ModelState.AddModelError("Confirm Password", "Confirm Password should match current password");
-                return BadRequest(ModelState);
-            }
+            var userToBeUpdated = await _userService.GetAsync(_auth.Admin.Id);
+            var user = _mapper.Map<User>(model);
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
 
             return Ok(new
             {
-                message = "Profile successfully updated",
-                user = _mapper.Map<UserDTO>(await _userService
-                       .UpdateAsync(await _userService.GetAsync(_auth.Admin.Id), _mapper.Map<User>(model)))
+                message = "Profile successfully updated!",
+                response = response
+            });
+        }
+
+        [HttpPut("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] AuthPasswordUpdateDTO model)
+        {
+            if (_auth.Admin == null) return Unauthorized();
+            var user = await _userService.UpdateAsync(_auth.Admin.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
+            var response = _mapper.Map<UserDTO>(user);
+
+            return Ok(new
+            {
+                message = "Password successfully updated!",
+                response = response
             });
         }
 
@@ -57,11 +69,12 @@ namespace Api.Controllers.v1.Admin
         public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file)
         {
             if (_auth.Admin == null) return Unauthorized();
+            var response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Admin.Id, file));
 
             return Ok(new
             {
                 message = "Photo uploaded!",
-                response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Admin.Id, file))
+                response = response
             });
         }
         #endregion

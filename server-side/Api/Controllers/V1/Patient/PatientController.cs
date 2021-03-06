@@ -10,7 +10,7 @@ namespace Api.Controllers.v1.Patient
 {
     public class PatientController : BaseApiController
     {
-        #region patient functionality
+        #region patient functionalities
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IAuth _auth;
@@ -28,19 +28,35 @@ namespace Api.Controllers.v1.Patient
         public IActionResult Get()
         {
             if (_auth.Patient == null) return Unauthorized();
+            var response = _mapper.Map<UserDTO>(_auth.Patient);
 
-            return Ok(_mapper.Map<UserDTO>(_auth.Patient));
+            return Ok(response);
+        }
+
+        [HttpPut("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] AuthPasswordUpdateDTO model)
+        {
+            if (_auth.Patient == null) return Unauthorized();
+            var user = await _userService.UpdateAsync(_auth.Patient.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
+            var response = _mapper.Map<UserDTO>(user);
+
+            return Ok(new
+            {
+                message = "Password successfully updated!",
+                response = response
+            });
         }
 
         [HttpPut("upload-photo")]
         public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file)
         {
             if (_auth.Patient == null) return Unauthorized();
+            var response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Patient.Id, file));
 
             return Ok(new 
             {
                 message = "Photo uploaded!",
-                response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Patient.Id, file))
+                response = response
             });
         }
         #endregion

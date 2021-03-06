@@ -53,7 +53,19 @@ namespace Core.Validators
             return options;
         }
 
-        public static IRuleBuilder<T, string> CondfirmPassword<T>(this IRuleBuilder<T, string> ruleBuilder)
+        public static IRuleBuilder<T, string> CurrentPassword<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Current Password must not be empty")
+                            .MinimumLength(6).WithMessage("Current Password must contain at least 6 characters")
+                            .Matches("[a-z]").WithMessage("Current Password must contain 1 lowercase")
+                            .Matches("[A-Z]").WithMessage("Current Password must contain 1 uppercase")
+                            .Matches("[0-9]").WithMessage("Current Password must contain 1 number");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> ConfirmPassword<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             var options = ruleBuilder
                             .NotEmpty().WithMessage("Condfirm Password must not be empty")

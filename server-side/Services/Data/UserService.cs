@@ -228,21 +228,7 @@ namespace Services.Data
                     break;
             }
 
-            if (user.Password != null && userToBeUpdated.InviteToken == null)
-            {
-                if (Crypto.VerifyHashedPassword(userToBeUpdated.Password, user.Password))
-                {
-                    throw new RestException(HttpStatusCode.BadRequest, "Current password cannot match old password");
-                }
-                else
-                {
-                    userToBeUpdated.Password = Crypto.HashPassword(user.Password);
-                }
-            }
-            else
-            {
-                userToBeUpdated.Password = user.Password != null ? Crypto.HashPassword(user.Password) : userToBeUpdated.Password;
-            }
+            userToBeUpdated.Password = userToBeUpdated.Password;
 
             userToBeUpdated.Token = user.Token != null ? user.Token : Guid.NewGuid().ToString();
             userToBeUpdated.InviteToken = user.InviteToken != null ? user.InviteToken : null;
@@ -276,9 +262,9 @@ namespace Services.Data
                             throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
                     }
 
-                    await _activityService.SendEmail(userToBeUpdated, "Complete reset process", 
+                    await _activityService.SendEmail(userToBeUpdated, "Complete reset process",
                           userToBeUpdated.Fullname + "'s password reset",
-                          "To complete reset process click to the button!", true, 
+                          "To complete reset process click to the button!", true,
                           "Complete reset process", url);
                 }
 
@@ -288,6 +274,32 @@ namespace Services.Data
             {
                 throw new Exception("Problem saving changes");
             }
+        }
+
+        public async Task<User> UpdateAsync(int id, string newPassword, string confirmPassword, string currentPassword)
+        {
+            var user = await this.GetAsync(id);
+
+            if (!string.IsNullOrWhiteSpace(currentPassword))
+            {
+                if (!Crypto.VerifyHashedPassword(user.Password, currentPassword))
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, "Current password is not matching");
+                }
+                else if(currentPassword == newPassword)
+                {
+                    throw new RestException(HttpStatusCode.BadRequest, "New password cannot match current password!");
+                }
+            }
+
+            if (newPassword != confirmPassword) throw new RestException(HttpStatusCode.BadRequest, "Confirm Password should match the new password!");
+            user.Password = Crypto.HashPassword(newPassword);
+            user.InviteToken = null;
+
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return user;
+
+            throw new Exception("Problem saving changes");
         }
 
         public async Task StatusAsync(int id)

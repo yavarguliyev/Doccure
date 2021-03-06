@@ -12,7 +12,7 @@ namespace Api.Controllers.v1.Doctor
 {
     public class DoctorController : BaseApiController
     {
-        #region doctor functionality
+        #region doctor functionalities
         private readonly IMapper _mapper;
         private readonly IAuth _auth;
         private readonly IUserService _userService;
@@ -30,11 +30,9 @@ namespace Api.Controllers.v1.Doctor
         public IActionResult Get()
         {
             if (_auth.Doctor == null) return Unauthorized();
+            var response =_mapper.Map<UserDTO>(_auth.Doctor);
 
-            return Ok(new 
-            {
-                doctor = _mapper.Map<UserDTO>(_auth.Doctor)
-            });
+            return Ok(response);
         }
 
         [HttpPost]
@@ -43,11 +41,26 @@ namespace Api.Controllers.v1.Doctor
             var userToBeUpdated = await _userService.GetByConfirmTokenAsync(token);
             var user = _mapper.Map<User>(model);
             user.ConfirmToken = null;
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
 
             return Ok(new
             {
-                message = "You successfully completed the registration",
-                user = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user))
+                message = "You successfully completed the registration!",
+                response = response
+            });
+        }
+
+        [HttpPut("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] AuthPasswordUpdateDTO model)
+        {
+            if (_auth.Doctor == null) return Unauthorized();
+            var user = await _userService.UpdateAsync(_auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
+            var response = _mapper.Map<UserDTO>(user);
+
+            return Ok(new
+            {
+                message = "Password successfully updated!",
+                response = response
             });
         }
 
@@ -55,11 +68,12 @@ namespace Api.Controllers.v1.Doctor
         public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file)
         {
             if (_auth.Doctor == null) return Unauthorized();
+            var response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Doctor.Id, file));
 
             return Ok(new
             {
                 message = "Photo uploaded!",
-                response = _mapper.Map<UserDTO>(await _userService.PhotoUpload(_auth.Doctor.Id, file))
+                response = response
             });
         }
         #endregion
