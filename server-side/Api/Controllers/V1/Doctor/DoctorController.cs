@@ -56,7 +56,6 @@ namespace Api.Controllers.v1.Doctor
         public async Task<IActionResult> Update([FromBody] UserProfileUpdateDTO model)
         {
             if (_auth.Doctor == null) return Unauthorized();
-
             var userToBeUpdated = await _userService.GetAsync(_auth.Doctor.Id);
             var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, _mapper.Map<User>(model)));
 

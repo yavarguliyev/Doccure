@@ -44,8 +44,7 @@ namespace Api.Controllers.v1.Admin
             if (_auth.Admin == null) return Unauthorized();
 
             var userToBeUpdated = await _userService.GetAsync(_auth.Admin.Id);
-            var user = _mapper.Map<User>(model);
-            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, _mapper.Map<User>(model)));
 
             return Ok(new
             {

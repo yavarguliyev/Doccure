@@ -57,7 +57,6 @@ namespace Api.Controllers.v1.Admin
         public async Task<IActionResult> Create([FromBody] AdminCreateDoctorDTO model)
         {
             if (_auth.Admin == null) return Unauthorized();
-
             await _userService.CreateAsync(_mapper.Map<User>(model), UserRole.Doctor);
 
             return Ok(new
@@ -82,8 +81,7 @@ namespace Api.Controllers.v1.Admin
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (_auth.Admin == null) return Unauthorized();
-            var user = await _userService.GetAsync(id);
-            await _userService.DeleteAsync(user);
+            await _userService.DeleteAsync(await _userService.GetAsync(id));
 
             return Ok(new
             {
