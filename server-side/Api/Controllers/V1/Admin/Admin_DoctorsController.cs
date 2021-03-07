@@ -6,7 +6,6 @@ using Core.Enum;
 using Core.Models;
 using Core.Services.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -34,7 +33,11 @@ namespace Api.Controllers.v1.Admin
             if (_auth.Admin == null) return Unauthorized();
             var response = _mapper.Map<IEnumerable<UserDTO>>(await _userService.GetAsync(UserRole.Doctor));
 
-            return Ok(response);
+            return Ok(new
+            {
+                message = "",
+                response = response
+            });
         }
 
         [HttpGet("{id}")]
@@ -43,7 +46,11 @@ namespace Api.Controllers.v1.Admin
             if (_auth.Admin == null) return Unauthorized();
             var response = _mapper.Map<UserDTO>(await _userService.GetAsync(id));
 
-            return Ok(response);
+            return Ok(new
+            {
+                message = "",
+                response = response
+            });
         }
 
         [HttpPost]
@@ -51,9 +58,7 @@ namespace Api.Controllers.v1.Admin
         {
             if (_auth.Admin == null) return Unauthorized();
 
-            var user = _mapper.Map<User>(model);
-            user.ConfirmToken = Guid.NewGuid().ToString();
-            await _userService.CreateAsync(user, UserRole.Doctor);
+            await _userService.CreateAsync(_mapper.Map<User>(model), UserRole.Doctor);
 
             return Ok(new
             {

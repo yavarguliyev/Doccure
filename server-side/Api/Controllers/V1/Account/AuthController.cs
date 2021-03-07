@@ -4,7 +4,6 @@ using Core.Enum;
 using Core.Models;
 using Core.Services.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.v1.Account
@@ -28,15 +27,17 @@ namespace Api.Controllers.v1.Account
             var user = await _userService.LoginAsync(model.Email, model.Password);
             var response = _mapper.Map<UserDTO>(await _userService.GetAsync(user.Id));
 
-            return Ok(response);
+            return Ok(new
+            {
+                message = "Success!",
+                response = response
+            });
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO model)
         {
-            var user = _mapper.Map<User>(model);
-            user.ConfirmToken = Guid.NewGuid().ToString();
-            await _userService.CreateAsync(user, UserRole.Patient);
+            await _userService.CreateAsync(_mapper.Map<User>(model), UserRole.Patient);
 
             return Ok(new
             {
@@ -47,10 +48,7 @@ namespace Api.Controllers.v1.Account
         [HttpGet("confirm-email")]
         public async Task<IActionResult> ConfirmEmail([FromQuery] string token)
         {
-            var userToBeUpdated = await _userService.GetByConfirmTokenAsync(token);
-            var user = new User();
-            user.ConfirmToken = null;
-            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+            var response = _mapper.Map<UserDTO>(await _userService.ConfirmTokenAsync(token));
 
             return Ok(new
             {
@@ -62,10 +60,8 @@ namespace Api.Controllers.v1.Account
         [HttpPost("forget-password")]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordDTO model)
         {
-            var userToBeUpdated = await _userService.GetByEmailAsync(model.Email);
-            var user = new User();
-            user.InviteToken = Guid.NewGuid().ToString();
-            await _userService.UpdateAsync(userToBeUpdated, user);
+            var user = await _userService.GetByEmailAsync(model.Email);
+            await _userService.InviteTokenAsync(user.InviteToken);
 
             return Ok(new
             {

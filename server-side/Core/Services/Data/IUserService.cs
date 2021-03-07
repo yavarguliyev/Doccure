@@ -20,11 +20,14 @@ namespace Core.Services.Data
 
         Task<User> LoginAsync(string email, string password);
         Task<User> CreateAsync(User newUser, UserRole role);
-        Task<User> UpdateAsync(int id, string token);
         Task<User> UpdateAsync(User userToBeUpdated, User user);
         Task<User> UpdateAsync(int id, string newPassword, string confirmPassword, string currentPassword);
         Task StatusAsync(int id);
         Task DeleteAsync(User user);
+
+        Task<User> TokenAsync(int id, string token);
+        Task<User> InviteTokenAsync(string token);
+        Task<User> ConfirmTokenAsync(string token);
 
         Task<User> PhotoUpload(int id, IFormFile file);
     }

@@ -32,16 +32,18 @@ namespace Api.Controllers.v1.Doctor
             if (_auth.Doctor == null) return Unauthorized();
             var response =_mapper.Map<UserDTO>(_auth.Doctor);
 
-            return Ok(response);
+            return Ok(new
+            {
+                message = "You successfully completed the registration!",
+                response = response
+            });
         }
 
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] NewDoctorModifyDTO model, [FromQuery] string token)
         {
             var userToBeUpdated = await _userService.GetByConfirmTokenAsync(token);
-            var user = _mapper.Map<User>(model);
-            user.ConfirmToken = null;
-            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, _mapper.Map<User>(model)));
 
             return Ok(new
             {
@@ -50,18 +52,17 @@ namespace Api.Controllers.v1.Doctor
             });
         }
 
-        [HttpPut]
+        [HttpPut("update-profile")]
         public async Task<IActionResult> Update([FromBody] UserProfileUpdateDTO model)
         {
             if (_auth.Doctor == null) return Unauthorized();
 
             var userToBeUpdated = await _userService.GetAsync(_auth.Doctor.Id);
-            var user = _mapper.Map<User>(model);
-            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, _mapper.Map<User>(model)));
 
             return Ok(new
             {
-                message = "Profile successfully updated!",
+                message = "You successfully completed the registration!",
                 response = response
             });
         }
@@ -70,8 +71,7 @@ namespace Api.Controllers.v1.Doctor
         public async Task<IActionResult> UpdatePassword([FromBody] AuthPasswordUpdateDTO model)
         {
             if (_auth.Doctor == null) return Unauthorized();
-            var user = await _userService.UpdateAsync(_auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
-            var response = _mapper.Map<UserDTO>(user);
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(_auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword));
 
             return Ok(new
             {

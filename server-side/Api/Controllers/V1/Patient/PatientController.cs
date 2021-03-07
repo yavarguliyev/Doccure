@@ -31,7 +31,11 @@ namespace Api.Controllers.v1.Patient
             if (_auth.Patient == null) return Unauthorized();
             var response = _mapper.Map<UserDTO>(_auth.Patient);
 
-            return Ok(response);
+            return Ok(new
+            {
+                message = "Profile successfully updated!",
+                response = response
+            });
         }
 
         [HttpPut]
@@ -40,8 +44,7 @@ namespace Api.Controllers.v1.Patient
             if (_auth.Patient == null) return Unauthorized();
 
             var userToBeUpdated = await _userService.GetAsync(_auth.Patient.Id);
-            var user = _mapper.Map<User>(model);
-            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, _mapper.Map<User>(model)));
 
             return Ok(new
             {
@@ -54,8 +57,7 @@ namespace Api.Controllers.v1.Patient
         public async Task<IActionResult> UpdatePassword([FromBody] AuthPasswordUpdateDTO model)
         {
             if (_auth.Patient == null) return Unauthorized();
-            var user = await _userService.UpdateAsync(_auth.Patient.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
-            var response = _mapper.Map<UserDTO>(user);
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(_auth.Patient.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword));
 
             return Ok(new
             {

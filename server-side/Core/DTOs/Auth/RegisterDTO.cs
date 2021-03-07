@@ -10,12 +10,14 @@ namespace Core.DTOs.Auth
     {
         public string Fullname { get; set; }
         public string Email { get; set; }
-        public DateTime Birth { get; set; }
-        public Gender Gender { get; set; }
+        public string Phone { get; set; }
         public string Password { get; set; }
-
+        
         [JsonPropertyName("confirmPassword")]
         public string ConfirmPassword { get; set; }
+
+        public DateTime Birth { get; set; }
+        public Gender Gender { get; set; }
     }
 
     public class RegisterValidator : AbstractValidator<RegisterDTO>
@@ -24,6 +26,7 @@ namespace Core.DTOs.Auth
         {
             RuleFor(x => x.Fullname).Fullname();
             RuleFor(x => x.Email).Email();
+            RuleFor(x => x.Phone).Phone();
             RuleFor(x => x.Birth).BirthDate();
             RuleFor(x => x.Gender).IsInEnum();
             RuleFor(x => x.Password).Password();

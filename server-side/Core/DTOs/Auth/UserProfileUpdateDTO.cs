@@ -8,8 +8,8 @@ namespace Core.DTOs.Auth
     public class UserProfileUpdateDTO
     {
         public string Fullname { get; set; }
-        public DateTime Birth { get; set; }
         public string Phone { get; set; }
+        public DateTime Birth { get; set; }
 
         public string Biography { get; set; }
         public string PostalCode { get; set; }

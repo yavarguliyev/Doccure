@@ -31,7 +31,11 @@ namespace Api.Controllers.v1.Admin
             if (_auth.Admin == null) return Unauthorized();
             var response = _mapper.Map<UserDTO>(_auth.Admin);
 
-            return Ok(response);
+            return Ok(new
+            {
+                message = "",
+                response = response
+            });
         }
 
         [HttpPut]

@@ -90,7 +90,7 @@ namespace Services.Data
             {
                 if (user != null && user.Token != null)
                 {
-                    var loggedInUser = await this.UpdateAsync(user.Id, Guid.NewGuid().ToString());
+                    var loggedInUser = await this.TokenAsync(user.Id, Guid.NewGuid().ToString());
 
                     return loggedInUser;
                 }
@@ -102,6 +102,38 @@ namespace Services.Data
         public async Task<User> CreateAsync(User newUser, UserRole role)
         {
             await this.CheckEmailAsync(newUser.Email);
+
+            newUser.Status = true;
+            newUser.AddedDate = DateTime.Now;
+            newUser.ModifiedDate = DateTime.Now;
+            newUser.AddedBy = "System";
+            newUser.ModifiedBy = "System";
+
+            var random = new Random();
+            var code = random.Next(100000, 999999).ToString();
+            while (await this.GetByCodeAsync(code) != null)
+            {
+                code = random.Next(100000, 999999).ToString();
+            }
+
+            newUser.Code = code;
+            newUser.Photo = null;
+            newUser.Fullname = newUser.Fullname != null ? newUser.Fullname : null;
+            newUser.Slug = newUser.Fullname != null ? newUser.Fullname.Replace(" ", "-").ToLower() : null;
+            newUser.Email = newUser.Email != null ? newUser.Email : null;
+            newUser.Birth = newUser.Birth.Year != 0001 ? newUser.Birth : DateTime.Now;
+            newUser.Phone = newUser.Phone != null ? newUser.Phone : null;
+            newUser.Password = newUser.Password != null ? Crypto.HashPassword(newUser.Password) : null;
+
+            newUser.Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                                "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                                "labore et dolore magna aliqua.</div>";
+            newUser.PostalCode = "22434";
+            newUser.Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>" +
+                               "Miami,<br>Florida-33165,<br>United States.</p>";
+            newUser.City = "Miami";
+            newUser.State = "Florida";
+            newUser.Country = "United States";
 
             switch (role)
             {
@@ -119,29 +151,15 @@ namespace Services.Data
                     break;
             }
 
-            var random = new Random();
-            var code = random.Next(100000, 999999).ToString();
-            while (await this.GetByCodeAsync(code) != null)
-            {
-                code = random.Next(100000, 999999).ToString();
-            }
+            newUser.Role = role;
 
-            newUser.Status = true;
-            newUser.AddedDate = DateTime.Now;
-            newUser.ModifiedDate = DateTime.Now;
-            newUser.AddedBy = "System";
-            newUser.ModifiedBy = "System";
-            newUser.Code = code;
-            newUser.Photo = null;
-            newUser.Birth = newUser.Birth.Year != 0001 ? newUser.Birth : DateTime.Now;
-            newUser.Fullname = newUser.Fullname != null ? newUser.Fullname : null;
-            newUser.Slug = newUser.Fullname != null ? newUser.Fullname.Replace(" ", "-").ToLower() : null;
-            newUser.Password = newUser.Password != null ? Crypto.HashPassword(newUser.Password) : null;
             newUser.Token = newUser.Token != null ? newUser.Token : null;
             newUser.InviteToken = newUser.InviteToken != null ? newUser.InviteToken : null;
-            newUser.ConfirmToken = newUser.ConfirmToken != null ? newUser.ConfirmToken : null;
+            newUser.ConfirmToken = Guid.NewGuid().ToString();
+
+            newUser.ConnectionId = newUser.ConnectionId != null ? newUser.ConnectionId : null;
+
             newUser.AdminId = null;
-            newUser.Role = role;
 
             await _unitOfWork.User.AddAsync(newUser);
 
@@ -175,16 +193,6 @@ namespace Services.Data
             {
                 throw new Exception("Problem saving changes");
             }
-        }
-
-        public async Task<User> UpdateAsync(int id, string token)
-        {
-            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Id == id);
-            user.Token = Guid.NewGuid().ToString();
-
-            await _unitOfWork.CommitAsync();
-
-            return user;
         }
 
         public async Task<User> UpdateAsync(User userToBeUpdated, User user)
@@ -243,11 +251,11 @@ namespace Services.Data
             }
 
             userToBeUpdated.Token = Guid.NewGuid().ToString();
-            userToBeUpdated.InviteToken = user.InviteToken != null ? user.InviteToken : null;
-            userToBeUpdated.ConfirmToken = user.ConfirmToken != null ? user.ConfirmToken : null;
+            userToBeUpdated.InviteToken = userToBeUpdated.InviteToken;
+            userToBeUpdated.ConfirmToken = userToBeUpdated.ConfirmToken;
 
             userToBeUpdated.ConnectionId = user.ConnectionId != null ? user.ConnectionId : null;
-            
+
             userToBeUpdated.AdminId = userToBeUpdated.AdminId;
             userToBeUpdated.DoctorId = userToBeUpdated.DoctorId;
             userToBeUpdated.PatientId = userToBeUpdated.PatientId;
@@ -295,7 +303,7 @@ namespace Services.Data
                 {
                     throw new RestException(HttpStatusCode.BadRequest, "Current password is not matching");
                 }
-                else if(currentPassword == newPassword)
+                else if (currentPassword == newPassword)
                 {
                     throw new RestException(HttpStatusCode.BadRequest, "New password cannot match current password!");
                 }
@@ -341,6 +349,38 @@ namespace Services.Data
             }
 
             await _unitOfWork.CommitAsync();
+        }
+        #endregion
+
+        #region update token
+        public async Task<User> TokenAsync(int id, string token)
+        {
+            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Id == id);
+            user.Token = Guid.NewGuid().ToString();
+
+            await _unitOfWork.CommitAsync();
+
+            return user;
+        }
+
+        public async Task<User> InviteTokenAsync(string token)
+        {
+            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.InviteToken == token);
+            user.InviteToken = user.InviteToken == null ? Guid.NewGuid().ToString() : null; ;
+
+            await _unitOfWork.CommitAsync();
+
+            return user;
+        }
+
+        public async Task<User> ConfirmTokenAsync(string token)
+        {
+            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.ConfirmToken == token);
+            user.ConfirmToken = user.ConfirmToken == null ? Guid.NewGuid().ToString() : null;
+
+            await _unitOfWork.CommitAsync();
+
+            return user;
         }
         #endregion
 
