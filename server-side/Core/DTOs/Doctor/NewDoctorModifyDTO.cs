@@ -3,9 +3,9 @@ using Core.Validators;
 using FluentValidation;
 using System;
 
-namespace Core.DTOs.Admin.Admin_Doctor
+namespace Core.DTOs.Doctor
 {
-    public class AdminNewDoctorModifyDTO
+    public class NewDoctorModifyDTO
     {
         public string Fullname { get; set; }
         public DateTime Birth { get; set; }
@@ -14,13 +14,13 @@ namespace Core.DTOs.Admin.Admin_Doctor
         public string ConfirmPassword { get; set; }
     }
 
-    public class AdminNewDoctorModifyValidator : AbstractValidator<AdminNewDoctorModifyDTO>
+    public class AdminNewDoctorModifyValidator : AbstractValidator<NewDoctorModifyDTO>
     {
         public AdminNewDoctorModifyValidator()
         {
             RuleFor(x => x.Fullname).Fullname();
             RuleFor(x => x.Birth).BirthDate();
-            RuleFor(x => x.Gender).Gender();
+            RuleFor(x => x.Gender).IsInEnum();
             RuleFor(x => x.Password).Password();
             RuleFor(x => x.ConfirmPassword).Password();
         }

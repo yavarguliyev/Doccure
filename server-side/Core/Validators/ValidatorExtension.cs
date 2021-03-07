@@ -1,5 +1,4 @@
-﻿using Core.Enum;
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 
 namespace Core.Validators
@@ -34,9 +33,66 @@ namespace Core.Validators
             return options;
         }
 
-        public static IRuleBuilder<T, Gender> Gender<T>(this IRuleBuilder<T, Gender> ruleBuilder)
+        public static IRuleBuilder<T, string> Phone<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
-            var options = ruleBuilder.IsInEnum();
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Phone must not be empty")
+                            .MinimumLength(11).WithMessage("Phone can contain min 11 characters")
+                            .MaximumLength(21).WithMessage("Phone can contain max 21 characters");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> Biography<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Biography must not be empty")
+                            .MaximumLength(3000).WithMessage("Biography can contain max 3000 characters");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> PostalCode<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Postal code must not be empty")
+                            .MaximumLength(8).WithMessage("Postal code can contain max 8 characters");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> Address<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Address must not be empty")
+                            .MaximumLength(1000).WithMessage("Address can contain max 1000 characters");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> City<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("City must not be empty")
+                            .MaximumLength(50).WithMessage("City can contain max 50 characters");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> State<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("State must not be empty")
+                            .MaximumLength(50).WithMessage("State can contain max 50 characters");
+
+            return options;
+        }
+
+        public static IRuleBuilder<T, string> Country<T>(this IRuleBuilder<T, string> ruleBuilder)
+        {
+            var options = ruleBuilder
+                            .NotEmpty().WithMessage("Country must not be empty")
+                            .MaximumLength(50).WithMessage("Country can contain max 50 characters");
 
             return options;
         }

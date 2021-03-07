@@ -1,6 +1,5 @@
 ﻿using Api.Libs;
 using AutoMapper;
-using Core.DTOs.Admin.Admin_Profile;
 using Core.DTOs.Auth;
 using Core.Models;
 using Core.Services.Data;
@@ -36,7 +35,7 @@ namespace Api.Controllers.v1.Admin
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] AdminProfileUpdateDTO model)
+        public async Task<IActionResult> Update([FromBody] UserProfileUpdateDTO model)
         {
             if (_auth.Admin == null) return Unauthorized();
 

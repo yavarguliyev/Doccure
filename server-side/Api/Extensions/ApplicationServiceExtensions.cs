@@ -1,8 +1,8 @@
 ﻿using Api.Libs;
 using Core;
 using Core.DTOs.Admin.Admin_Doctor;
-using Core.DTOs.Admin.Admin_Profile;
 using Core.DTOs.Auth;
+using Core.DTOs.Doctor;
 using Core.Services.Common;
 using Core.Services.Data;
 using Core.Services.Rest;
@@ -34,10 +34,10 @@ namespace Api.Extensions
                 options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
                 options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
                 options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<AdminNewDoctorModifyDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<AdminProfileUpdateDTO>();
                 options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO>();
+                options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
+                options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
+                options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
             })
             .AddJsonOptions(options =>
             {

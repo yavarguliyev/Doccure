@@ -23,9 +23,18 @@ namespace Services.Data
         #endregion
 
         #region create and update
-        public Task UpdateAsync(Admin adminToBeUpdated, Admin admin)
+        public async Task<Admin> UpdateAsync(Admin adminToBeUpdated, Admin admin)
         {
-            throw new NotImplementedException();
+            adminToBeUpdated.Id = adminToBeUpdated.Id;
+            adminToBeUpdated.Status = true;
+            adminToBeUpdated.AddedDate = adminToBeUpdated.AddedDate;
+            adminToBeUpdated.ModifiedDate = DateTime.Now;
+            adminToBeUpdated.AddedBy = adminToBeUpdated.AddedBy;
+            adminToBeUpdated.ModifiedBy = adminToBeUpdated.ModifiedBy;
+
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return adminToBeUpdated;
+            throw new Exception("Problem saving changes");
         }
         #endregion
     }

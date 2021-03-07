@@ -31,6 +31,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    Position = table.Column<int>(type: "integer", nullable: false),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
@@ -48,6 +50,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    Type = table.Column<int>(type: "integer", nullable: false),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
@@ -70,10 +73,17 @@ namespace Data.Migrations
                     Fullname = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     Slug = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Birth = table.Column<DateTime>(type: "date", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: true),
                     Password = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Biography = table.Column<string>(type: "text", nullable: true),
+                    PostalCode = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    State = table.Column<string>(type: "text", nullable: true),
+                    Country = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false),
                     Gender = table.Column<int>(type: "integer", nullable: false),
-                    Birth = table.Column<DateTime>(type: "date", nullable: false),
                     Token = table.Column<string>(type: "text", nullable: true),
                     InviteToken = table.Column<string>(type: "text", nullable: true),
                     ConfirmToken = table.Column<string>(type: "text", nullable: true),

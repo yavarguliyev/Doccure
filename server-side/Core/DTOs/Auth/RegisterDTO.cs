@@ -25,7 +25,7 @@ namespace Core.DTOs.Auth
             RuleFor(x => x.Fullname).Fullname();
             RuleFor(x => x.Email).Email();
             RuleFor(x => x.Birth).BirthDate();
-            RuleFor(x => x.Gender).Gender();
+            RuleFor(x => x.Gender).IsInEnum();
             RuleFor(x => x.Password).Password();
             RuleFor(x => x.ConfirmPassword).ConfirmPassword();
         }

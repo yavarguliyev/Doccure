@@ -197,7 +197,21 @@ namespace Services.Data
             userToBeUpdated.ModifiedBy = userToBeUpdated.ModifiedBy;
 
             userToBeUpdated.Code = userToBeUpdated.Code;
-            userToBeUpdated.Photo = user.Photo != null ? user.Photo : userToBeUpdated.Photo;
+            userToBeUpdated.Photo = userToBeUpdated.Photo;
+
+            userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
+            userToBeUpdated.Slug = user.Slug != null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
+            userToBeUpdated.Email = user.Email != null ? user.Email : userToBeUpdated.Email;
+            userToBeUpdated.Birth = user.Birth.Year != 0001 ? user.Birth : userToBeUpdated.Birth;
+            userToBeUpdated.Phone = user.Phone != null ? user.Phone : userToBeUpdated.Phone;
+            userToBeUpdated.Password = userToBeUpdated.Password;
+
+            userToBeUpdated.Biography = user.Biography != null ? user.Biography : userToBeUpdated.Biography;
+            userToBeUpdated.PostalCode = user.PostalCode != null ? user.PostalCode : userToBeUpdated.PostalCode;
+            userToBeUpdated.Address = user.Address != null ? user.Address : userToBeUpdated.Address;
+            userToBeUpdated.City = user.City != null ? user.City : userToBeUpdated.City;
+            userToBeUpdated.State = user.State != null ? user.State : userToBeUpdated.State;
+            userToBeUpdated.Country = user.Country != null ? user.Country : userToBeUpdated.Country;
 
             switch (user.Gender)
             {
@@ -228,17 +242,12 @@ namespace Services.Data
                     break;
             }
 
-            userToBeUpdated.Password = userToBeUpdated.Password;
-
-            userToBeUpdated.Token = user.Token != null ? user.Token : Guid.NewGuid().ToString();
+            userToBeUpdated.Token = Guid.NewGuid().ToString();
             userToBeUpdated.InviteToken = user.InviteToken != null ? user.InviteToken : null;
             userToBeUpdated.ConfirmToken = user.ConfirmToken != null ? user.ConfirmToken : null;
-            userToBeUpdated.ConnectionId = user.ConnectionId != null ? user.ConnectionId : null;
 
-            userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
-            userToBeUpdated.Slug = user.Slug != null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
-            userToBeUpdated.Email = user.Email != null ? user.Email : userToBeUpdated.Email;
-            userToBeUpdated.Birth = user.Birth.Year != 0001 ? user.Birth : userToBeUpdated.Birth;
+            userToBeUpdated.ConnectionId = user.ConnectionId != null ? user.ConnectionId : null;
+            
             userToBeUpdated.AdminId = userToBeUpdated.AdminId;
             userToBeUpdated.DoctorId = userToBeUpdated.DoctorId;
             userToBeUpdated.PatientId = userToBeUpdated.PatientId;
@@ -294,6 +303,7 @@ namespace Services.Data
 
             if (newPassword != confirmPassword) throw new RestException(HttpStatusCode.BadRequest, "Confirm Password should match the new password!");
             user.Password = Crypto.HashPassword(newPassword);
+            user.Token = Guid.NewGuid().ToString();
             user.InviteToken = null;
 
             var success = await _unitOfWork.CommitAsync() > 0;
@@ -347,6 +357,8 @@ namespace Services.Data
                 _fileManager.DeletePhoto(user.Photo);
                 user.Photo = _fileManager.UploadPhoto(file);
             }
+
+            user.Token = Guid.NewGuid().ToString();
 
             var success = await _unitOfWork.CommitAsync() > 0;
             if (success) return user;

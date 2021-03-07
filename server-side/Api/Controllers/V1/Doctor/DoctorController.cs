@@ -1,7 +1,7 @@
 ﻿using Api.Libs;
 using AutoMapper;
-using Core.DTOs.Admin.Admin_Doctor;
 using Core.DTOs.Auth;
+using Core.DTOs.Doctor;
 using Core.Models;
 using Core.Services.Data;
 using Microsoft.AspNetCore.Http;
@@ -36,7 +36,7 @@ namespace Api.Controllers.v1.Doctor
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] AdminNewDoctorModifyDTO model, [FromQuery] string token)
+        public async Task<IActionResult> Register([FromBody] NewDoctorModifyDTO model, [FromQuery] string token)
         {
             var userToBeUpdated = await _userService.GetByConfirmTokenAsync(token);
             var user = _mapper.Map<User>(model);
@@ -46,6 +46,22 @@ namespace Api.Controllers.v1.Doctor
             return Ok(new
             {
                 message = "You successfully completed the registration!",
+                response = response
+            });
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UserProfileUpdateDTO model)
+        {
+            if (_auth.Doctor == null) return Unauthorized();
+
+            var userToBeUpdated = await _userService.GetAsync(_auth.Doctor.Id);
+            var user = _mapper.Map<User>(model);
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+
+            return Ok(new
+            {
+                message = "Profile successfully updated!",
                 response = response
             });
         }

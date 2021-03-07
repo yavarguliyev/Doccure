@@ -39,9 +39,20 @@ namespace Services.Data
             throw new Exception("Problem saving changes");
         }
 
-        public Task UpdateAsync(Patient patientToBeUpdated, Patient patient)
+        public async Task<Patient> UpdateAsync(Patient patientToBeUpdated, Patient patient)
         {
-            throw new NotImplementedException();
+            patientToBeUpdated.Id = patientToBeUpdated.Id;
+            patientToBeUpdated.Status = true;
+            patientToBeUpdated.AddedDate = patientToBeUpdated.AddedDate;
+            patientToBeUpdated.ModifiedDate = DateTime.Now;
+            patientToBeUpdated.AddedBy = patientToBeUpdated.AddedBy;
+            patientToBeUpdated.ModifiedBy = patientToBeUpdated.ModifiedBy;
+
+            patientToBeUpdated.Type = patient.Type != 0 ? patient.Type : patientToBeUpdated.Type;
+
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return patientToBeUpdated;
+            throw new Exception("Problem saving changes");
         }
 
         public async Task DeleteAsync(Patient patient)

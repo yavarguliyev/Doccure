@@ -7,7 +7,7 @@ namespace Core.Services.Data
     {
         Task<Patient> GetAsync(int id);
         Task<Patient> CreateAsync(Patient newPatient);
-        Task UpdateAsync(Patient patientToBeUpdated, Patient patient);
+        Task<Patient> UpdateAsync(Patient patientToBeUpdated, Patient patient);
         Task DeleteAsync(Patient patient);
     }
 }

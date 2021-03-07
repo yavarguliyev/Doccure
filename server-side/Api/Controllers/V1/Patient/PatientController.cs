@@ -1,6 +1,7 @@
 ﻿using Api.Libs;
 using AutoMapper;
 using Core.DTOs.Auth;
+using Core.Models;
 using Core.Services.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,22 @@ namespace Api.Controllers.v1.Patient
             var response = _mapper.Map<UserDTO>(_auth.Patient);
 
             return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UserProfileUpdateDTO model)
+        {
+            if (_auth.Patient == null) return Unauthorized();
+
+            var userToBeUpdated = await _userService.GetAsync(_auth.Patient.Id);
+            var user = _mapper.Map<User>(model);
+            var response = _mapper.Map<UserDTO>(await _userService.UpdateAsync(userToBeUpdated, user));
+
+            return Ok(new
+            {
+                message = "Profile successfully updated!",
+                response = response
+            });
         }
 
         [HttpPut("update-password")]

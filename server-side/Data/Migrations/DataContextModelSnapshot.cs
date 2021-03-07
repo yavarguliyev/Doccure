@@ -70,9 +70,15 @@ namespace Data.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("timestamp");
 
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -104,6 +110,9 @@ namespace Data.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
 
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
@@ -123,11 +132,20 @@ namespace Data.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
                     b.Property<int?>("AdminId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Biography")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("Birth")
                         .HasColumnType("date");
+
+                    b.Property<string>("City")
+                        .HasColumnType("text");
 
                     b.Property<string>("Code")
                         .HasColumnType("text");
@@ -136,6 +154,9 @@ namespace Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ConnectionId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
                         .HasColumnType("text");
 
                     b.Property<int?>("DoctorId")
@@ -169,9 +190,15 @@ namespace Data.Migrations
                     b.Property<int?>("PatientId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
                     b.Property<string>("Photo")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("text");
 
                     b.Property<int>("Role")
                         .HasColumnType("integer");
@@ -179,6 +206,9 @@ namespace Data.Migrations
                     b.Property<string>("Slug")
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")
