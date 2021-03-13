@@ -10,7 +10,7 @@ namespace Api.Controllers.v1.Account
     {
         #region auth functionalities
         [HttpPost("login")]
-        public async Task<ActionResult<UserDTO>> Login(LoginDTO model)
+        public async Task<IActionResult> Login(LoginDTO model)
         {
             return Ok(await userService.LoginAsync(model.Email, model.Password));
         }
@@ -26,7 +26,7 @@ namespace Api.Controllers.v1.Account
         public async Task<IActionResult> ConfirmEmail(string token)
         {
             var response = await userService.ConfirmTokenAsync(token);
-            return Ok(new { message = "User confirmed!", response = response });
+            return Ok(new { message = "User confirmed!", response });
         }
 
         [HttpPost("forget-password")]
@@ -37,11 +37,11 @@ namespace Api.Controllers.v1.Account
         }
 
         [HttpPost("reset-password")]
-        public async Task<ActionResult<UserDTO>> ResetPassword(ResetPasswordDTO model, string token)
+        public async Task<IActionResult> ResetPassword(ResetPasswordDTO model, string token)
         {
             var user = await userService.GetByInviteTokenAsync(token);
             var response = await userService.UpdateAsync(user.Id, model.Password, model.ConfirmPassword, null);
-            return Ok(new { message = "Password reseted!", response = response });
+            return Ok(new { message = "Password reseted!", response });
         }
         #endregion
     }

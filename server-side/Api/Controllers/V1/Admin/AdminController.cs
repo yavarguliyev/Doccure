@@ -10,10 +10,10 @@ namespace Api.Controllers.v1.Admin
     {
         #region admin profile functionalities
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             if (auth.Admin == null) return Unauthorized();
-            return Ok(mapper.Map<UserDTO>(auth.Admin));
+            return Ok(mapper.Map<UserDTO>(await userService.GetAsync(auth.Admin.Id)));
         }
 
         [HttpPut]
@@ -22,7 +22,7 @@ namespace Api.Controllers.v1.Admin
             if (auth.Admin == null) return Unauthorized();
             var userToBeUpdated = await userService.GetAsync(auth.Admin.Id);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
-            return Ok(new { message = "Profile successfully updated!", response = response });
+            return Ok(new { message = "Profile successfully updated!", response });
         }
 
         [HttpPut("update-password")]
@@ -30,7 +30,7 @@ namespace Api.Controllers.v1.Admin
         {
             if (auth.Admin == null) return Unauthorized();
             var response = await userService.UpdateAsync(auth.Admin.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
-            return Ok(new { message = "Password successfully updated!", response = response });
+            return Ok(new { message = "Password successfully updated!", response });
         }
 
         [HttpPut("upload-photo")]

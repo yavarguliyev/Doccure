@@ -22,7 +22,7 @@ namespace Api.Controllers.v1.Patient
             if (auth.Patient == null) return Unauthorized();
             var userToBeUpdated = await userService.GetAsync(auth.Patient.Id);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
-            return Ok(new { message = "Profile successfully updated!", response = response });
+            return Ok(new { message = "Profile successfully updated!", response });
         }
 
         [HttpPut("update-password")]
@@ -30,7 +30,7 @@ namespace Api.Controllers.v1.Patient
         {
             if (auth.Patient == null) return Unauthorized();
             var response = await userService.UpdateAsync(auth.Patient.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
-            return Ok(new { message = "Password successfully updated!", response = response });
+            return Ok(new { message = "Password successfully updated!", response });
         }
 
         [HttpPut("upload-photo")]

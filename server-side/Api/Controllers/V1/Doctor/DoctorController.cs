@@ -11,10 +11,10 @@ namespace Api.Controllers.v1.Doctor
     {
         #region doctor functionalities
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             if (auth.Doctor == null) return Unauthorized();
-            return Ok(mapper.Map<UserDTO>(auth.Doctor));
+            return Ok(mapper.Map<UserDTO>(await userService.GetAsync(auth.Doctor.Id)));
         }
 
         [HttpPut]
@@ -22,7 +22,7 @@ namespace Api.Controllers.v1.Doctor
         {
             var userToBeUpdated = await userService.GetByConfirmTokenAsync(token);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
-            return Ok(new { message = "You successfully completed the registration!", response = response });
+            return Ok(new { message = "You successfully completed the registration!", response });
         }
 
         [HttpPut("update-profile")]
@@ -32,7 +32,7 @@ namespace Api.Controllers.v1.Doctor
             var userToBeUpdated = await userService.GetAsync(auth.Doctor.Id);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
 
-            return Ok(new { message = "You successfully completed the registration!", response = response });
+            return Ok(new { message = "You successfully completed the registration!", response });
         }
 
         [HttpPut("update-password")]
@@ -40,7 +40,7 @@ namespace Api.Controllers.v1.Doctor
         {
             if (auth.Doctor == null) return Unauthorized();
             var response = await userService.UpdateAsync(auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
-            return Ok(new { message = "Password successfully updated!", response = response });
+            return Ok(new { message = "Password successfully updated!", response });
         }
 
         [HttpPut("upload-photo")]
