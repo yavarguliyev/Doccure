@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Services.Common;
 using Services.Data;
+using Services.Mappings;
 using Services.Rest;
 using System;
 using System.Text.Json.Serialization;
@@ -104,7 +105,7 @@ namespace Api.Extensions
             services.AddScoped<DbContext>(provider => provider.GetService<DataContext>());
 
             // auto mapper profiles
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             // unit of Work
             services.AddTransient<IUnitOfWork, UnitOfWork>();

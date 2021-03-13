@@ -1,15 +1,15 @@
-﻿using Core.DTOs.Auth;
-using AutoMapper;
+﻿using AutoMapper;
+using Core.DTOs.Admin.Admin_Doctor;
+using Core.DTOs.Auth;
+using Core.DTOs.Doctor;
 using Core.Models;
 using System;
-using Core.DTOs.Admin.Admin_Doctor;
-using Core.DTOs.Doctor;
 
-namespace Api.Mappings
+namespace Services.Mappings
 {
-    public class MappingProfile : Profile
+    public class MappingProfiles : Profile
     {
-        public MappingProfile()
+        public MappingProfiles()
         {
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.Birth, opt => opt.MapFrom(src => ((DateTime)src.Birth).ToString("MMM dd, yyyy")));
@@ -19,8 +19,8 @@ namespace Api.Mappings
 
             CreateMap<NewDoctorModifyDTO, User>();
 
+            CreateMap<User, User>();
             CreateMap<RegisterDTO, User>();
-            CreateMap<LoginDTO, User>();
         }
     }
 }

@@ -9,9 +9,10 @@ namespace Api.Extensions
     {
         public static IApplicationBuilder AddApplicationBuilders(this IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             if (env.IsDevelopment())
             {
-                app.UseMiddleware<ErrorHandlingMiddleware>();
                 app.UseSwagger();
                 app.UseSwaggerUI(s =>
                 {
@@ -19,10 +20,6 @@ namespace Api.Extensions
                     s.DocumentTitle = "Swagger Documentation";
                     s.SwaggerEndpoint("/swagger/v1/swagger.json", "api/v1");
                 });
-            }
-            else if (env.IsProduction())
-            {
-                app.UseMiddleware<ErrorHandlingMiddleware>();
             }
 
             app.UseHttpsRedirection();

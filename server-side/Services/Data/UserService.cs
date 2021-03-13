@@ -1,4 +1,6 @@
-﻿using Core;
+﻿using AutoMapper;
+using Core;
+using Core.DTOs.Auth;
 using Core.Enum;
 using Core.Models;
 using Core.Services.Common;
@@ -16,18 +18,21 @@ namespace Services.Data
 {
     public class UserService : IUserService
     {
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
         private readonly IActivityService _activityService;
         private readonly IFileManager _fileManager;
 
-        public UserService(IUnitOfWork unitOfWork,
+        public UserService(IMapper mapper,
+                           IUnitOfWork unitOfWork,
                            IDoctorService doctorService,
                            IPatientService patientService,
                            IActivityService activityService,
                            IFileManager fileManager)
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
             _doctorService = doctorService;
             _patientService = patientService;
@@ -36,9 +41,9 @@ namespace Services.Data
         }
 
         #region get user
-        public async Task<IEnumerable<User>> GetAsync(UserRole role)
+        public async Task<IEnumerable<UserDTO>> GetAsync(UserRole role)
         {
-            return await _unitOfWork.User.Get(role);
+            return _mapper.Map<IEnumerable<UserDTO>>(await _unitOfWork.User.Get(role));
         }
 
         public async Task<User> GetAsync(int id)
@@ -83,7 +88,7 @@ namespace Services.Data
         #endregion
 
         #region create and update
-        public async Task<User> LoginAsync(string email, string password)
+        public async Task<UserDTO> LoginAsync(string email, string password)
         {
             var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Email == email);
             if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
@@ -92,14 +97,14 @@ namespace Services.Data
                 {
                     var loggedInUser = await this.TokenAsync(user.Id, Guid.NewGuid().ToString());
 
-                    return loggedInUser;
+                    return _mapper.Map<UserDTO>(loggedInUser);
                 }
             }
 
             throw new RestException(HttpStatusCode.Unauthorized, new { user = "Invalid email or password" });
         }
 
-        public async Task<User> CreateAsync(User newUser, UserRole role)
+        public async Task CreateAsync(User newUser, UserRole role)
         {
             await this.CheckEmailAsync(newUser.Email);
 
@@ -147,8 +152,6 @@ namespace Services.Data
                     var patient = await _patientService.CreateAsync(newPatient);
                     newUser.PatientId = patient.Id;
                     break;
-                default:
-                    break;
             }
 
             newUser.Role = role;
@@ -178,16 +181,12 @@ namespace Services.Data
                         case UserRole.Patient:
                             url = $"/patients/auth/confirm-email?token={newUser.ConfirmToken}";
                             break;
-                        default:
-                            throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
                     }
 
                     await _activityService.SendEmail(newUser, "Complete register process", "Register account",
                           "To complete register process please fill out all the neessary inputs!", true,
                           "Complete register process", url);
                 }
-
-                return newUser;
             }
             else
             {
@@ -195,7 +194,7 @@ namespace Services.Data
             }
         }
 
-        public async Task<User> UpdateAsync(User userToBeUpdated, User user)
+        public async Task<UserDTO> UpdateAsync(User userToBeUpdated, User user)
         {
             userToBeUpdated.Id = userToBeUpdated.Id;
             userToBeUpdated.Status = true;
@@ -208,11 +207,11 @@ namespace Services.Data
             userToBeUpdated.Photo = userToBeUpdated.Photo;
 
             userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
-            userToBeUpdated.Slug = user.Slug != null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
+            userToBeUpdated.Slug = user.Slug == null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
             userToBeUpdated.Email = user.Email != null ? user.Email : userToBeUpdated.Email;
             userToBeUpdated.Birth = user.Birth.Year != 0001 ? user.Birth : userToBeUpdated.Birth;
             userToBeUpdated.Phone = user.Phone != null ? user.Phone : userToBeUpdated.Phone;
-            userToBeUpdated.Password = userToBeUpdated.Password;
+            userToBeUpdated.Password = user.Password != null ? Crypto.HashPassword(user.Password) : userToBeUpdated.Password;
 
             userToBeUpdated.Biography = user.Biography != null ? user.Biography : userToBeUpdated.Biography;
             userToBeUpdated.PostalCode = user.PostalCode != null ? user.PostalCode : userToBeUpdated.PostalCode;
@@ -251,8 +250,8 @@ namespace Services.Data
             }
 
             userToBeUpdated.Token = Guid.NewGuid().ToString();
-            userToBeUpdated.InviteToken = userToBeUpdated.InviteToken;
-            userToBeUpdated.ConfirmToken = userToBeUpdated.ConfirmToken;
+            userToBeUpdated.InviteToken = null;
+            userToBeUpdated.ConfirmToken = null;
 
             userToBeUpdated.ConnectionId = user.ConnectionId != null ? user.ConnectionId : null;
 
@@ -261,39 +260,11 @@ namespace Services.Data
             userToBeUpdated.PatientId = userToBeUpdated.PatientId;
 
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success)
-            {
-                if (userToBeUpdated.InviteToken != null)
-                {
-                    var url = string.Empty;
-
-                    switch (userToBeUpdated.Role)
-                    {
-                        case UserRole.Doctor:
-                            url = $"/doctors/auth/reset-password?token={userToBeUpdated.InviteToken}";
-                            break;
-                        case UserRole.Patient:
-                            url = $"/patients/auth/reset-password?token={userToBeUpdated.InviteToken}";
-                            break;
-                        default:
-                            throw new RestException(HttpStatusCode.BadRequest, new { user = "Make sure you have valid role for resseting your account." });
-                    }
-
-                    await _activityService.SendEmail(userToBeUpdated, "Complete reset process",
-                          userToBeUpdated.Fullname + "'s password reset",
-                          "To complete reset process click to the button!", true,
-                          "Complete reset process", url);
-                }
-
-                return userToBeUpdated;
-            }
-            else
-            {
-                throw new Exception("Problem saving changes");
-            }
+            if (success) return _mapper.Map<UserDTO>(userToBeUpdated);
+            throw new Exception("Problem saving changes");
         }
 
-        public async Task<User> UpdateAsync(int id, string newPassword, string confirmPassword, string currentPassword)
+        public async Task<UserDTO> UpdateAsync(int id, string newPassword, string confirmPassword, string currentPassword)
         {
             var user = await this.GetAsync(id);
 
@@ -309,14 +280,17 @@ namespace Services.Data
                 }
             }
 
-            if (newPassword != confirmPassword) throw new RestException(HttpStatusCode.BadRequest, "Confirm Password should match the new password!");
+            if (newPassword != confirmPassword)
+            {
+                throw new RestException(HttpStatusCode.BadRequest, "Confirm Password should match the new password!");
+            }
+
             user.Password = Crypto.HashPassword(newPassword);
             user.Token = Guid.NewGuid().ToString();
             user.InviteToken = null;
 
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return user;
-
+            if (success) return _mapper.Map<UserDTO>(user);
             throw new Exception("Problem saving changes");
         }
 
@@ -353,39 +327,62 @@ namespace Services.Data
         #endregion
 
         #region update token
-        public async Task<User> TokenAsync(int id, string token)
+        public async Task<UserDTO> TokenAsync(int id, string token)
         {
             var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Id == id);
             user.Token = Guid.NewGuid().ToString();
 
-            await _unitOfWork.CommitAsync();
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return _mapper.Map<UserDTO>(user);
 
-            return user;
+            throw new Exception("Problem saving changes");
         }
 
-        public async Task<User> InviteTokenAsync(string token)
+        public async Task<UserDTO> InviteTokenAsync(User user)
         {
-            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.InviteToken == token);
-            user.InviteToken = user.InviteToken == null ? Guid.NewGuid().ToString() : null; ;
+            user.InviteToken = user.InviteToken == null ? Guid.NewGuid().ToString() : null;
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success)
+            {
+                var url = string.Empty;
 
-            await _unitOfWork.CommitAsync();
+                if (user.InviteToken != null)
+                {
+                    switch (user.Role)
+                    {
+                        case UserRole.Doctor:
+                            url = $"/doctors/auth/confirm-email?token={user.InviteToken}";
+                            break;
+                        case UserRole.Patient:
+                            url = $"/patients/auth/confirm-email?token={user.InviteToken}";
+                            break;
+                    }
 
-            return user;
+                    await _activityService.SendEmail(user, "Complete reset process",
+                          user.Fullname + "'s password reset",
+                          "To complete reset process click to the button!", true,
+                          "Complete reset process", url);
+                }
+
+                return _mapper.Map<UserDTO>(user);
+            }
+
+            throw new Exception("Problem saving changes");
         }
 
-        public async Task<User> ConfirmTokenAsync(string token)
+        public async Task<UserDTO> ConfirmTokenAsync(string token)
         {
             var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.ConfirmToken == token);
             user.ConfirmToken = user.ConfirmToken == null ? Guid.NewGuid().ToString() : null;
 
-            await _unitOfWork.CommitAsync();
-
-            return user;
+            var success = await _unitOfWork.CommitAsync() > 0;
+            if (success) return _mapper.Map<UserDTO>(user);
+            throw new Exception("Problem saving changes");
         }
         #endregion
 
         #region photo upload
-        public async Task<User> PhotoUpload(int id, IFormFile file)
+        public async Task<string> PhotoUpload(int id, IFormFile file)
         {
             var user = await this.GetAsync(id);
             if (user.Photo == null)
@@ -398,10 +395,8 @@ namespace Services.Data
                 user.Photo = _fileManager.UploadPhoto(file);
             }
 
-            user.Token = Guid.NewGuid().ToString();
-
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return user;
+            if (success) return user.Photo;
             throw new Exception("Problem saving changes");
         }
         #endregion

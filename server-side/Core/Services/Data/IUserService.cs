@@ -1,4 +1,5 @@
-﻿using Core.Enum;
+﻿using Core.DTOs.Auth;
+using Core.Enum;
 using Core.Models;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Core.Services.Data
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetAsync(UserRole role);
+        Task<IEnumerable<UserDTO>> GetAsync(UserRole role);
         Task<User> GetAsync(int id);
         Task<User> GetByTokenAsync(string token);
         Task<User> GetByInviteTokenAsync(string token);
@@ -18,17 +19,17 @@ namespace Core.Services.Data
         Task<User> GetByEmailAsync(string email);
         Task<bool> CheckEmailAsync(string email);
 
-        Task<User> LoginAsync(string email, string password);
-        Task<User> CreateAsync(User newUser, UserRole role);
-        Task<User> UpdateAsync(User userToBeUpdated, User user);
-        Task<User> UpdateAsync(int id, string newPassword, string confirmPassword, string currentPassword);
+        Task<UserDTO> LoginAsync(string email, string password);
+        Task CreateAsync(User newUser, UserRole role);
+        Task<UserDTO> UpdateAsync(User userToBeUpdated, User user);
+        Task<UserDTO> UpdateAsync(int id, string newPassword, string confirmPassword, string currentPassword);
         Task StatusAsync(int id);
         Task DeleteAsync(User user);
 
-        Task<User> TokenAsync(int id, string token);
-        Task<User> InviteTokenAsync(string token);
-        Task<User> ConfirmTokenAsync(string token);
+        Task<UserDTO> TokenAsync(int id, string token);
+        Task<UserDTO> InviteTokenAsync(User user);
+        Task<UserDTO> ConfirmTokenAsync(string token);
 
-        Task<User> PhotoUpload(int id, IFormFile file);
+        Task<string> PhotoUpload(int id, IFormFile file);
     }
 }
