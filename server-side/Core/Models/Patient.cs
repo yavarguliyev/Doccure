@@ -7,6 +7,9 @@ namespace Core.Models
     {
         public PatientType Type { get; set; }
 
+        public int? BloodGroupId { get; set; }
+        public BloodGroup BloodGroup { get; set; }
+
         public ICollection<User> Users { get; set; }
     }
 }

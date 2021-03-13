@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Data.Configurations
 {
-    public class PatientConfiguration : IEntityTypeConfiguration<Patient>
+    public class SocialMediaConfiguration : IEntityTypeConfiguration<SocialMedia>
     {
-        public void Configure(EntityTypeBuilder<Patient> builder)
+        public void Configure(EntityTypeBuilder<SocialMedia> builder)
         {
             builder
                .HasKey(x => x.Id);
@@ -38,12 +38,12 @@ namespace Data.Configurations
               .HasColumnType("timestamp");
 
             builder
-               .HasOne(x => x.BloodGroup)
-               .WithMany(x => x.Patients)
-               .HasForeignKey(x => x.BloodGroupId);
+               .HasOne(x => x.Setting)
+               .WithMany(x => x.SocialMedias)
+               .HasForeignKey(x => x.SettingId);
 
             builder
-               .ToTable("Patients");
+               .ToTable("SocialMedias");
         }
     }
 }

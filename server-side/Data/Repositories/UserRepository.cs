@@ -29,6 +29,7 @@ namespace Data.Repositories
         public async Task<User> Get(int id)
         {
             var user = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -43,6 +44,7 @@ namespace Data.Repositories
             if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
 
             var user = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -57,6 +59,7 @@ namespace Data.Repositories
             if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
 
             var user = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -71,6 +74,7 @@ namespace Data.Repositories
             if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
 
             var user = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -85,6 +89,7 @@ namespace Data.Repositories
             if (string.IsNullOrEmpty(slug)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Slug cannot be null" });
 
             var user = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -99,6 +104,7 @@ namespace Data.Repositories
             if (string.IsNullOrEmpty(email)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Email cannot be null" });
 
             var user = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -113,6 +119,7 @@ namespace Data.Repositories
             if (string.IsNullOrEmpty(email)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Email cannot be null" });
 
             bool check = await context.Users
+                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)

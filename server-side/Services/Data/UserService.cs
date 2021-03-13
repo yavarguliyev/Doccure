@@ -144,13 +144,13 @@ namespace Services.Data
             {
                 case UserRole.Doctor:
                     var newDoctor = new Doctor();
-                    var doctor = await _doctorService.CreateAsync(newDoctor);
-                    newUser.DoctorId = doctor.Id;
+                    var doctorId = await _doctorService.CreateAsync(newDoctor);
+                    newUser.DoctorId = doctorId;
                     break;
                 case UserRole.Patient:
                     var newPatient = new Patient();
-                    var patient = await _patientService.CreateAsync(newPatient);
-                    newUser.PatientId = patient.Id;
+                    var patientId = await _patientService.CreateAsync(newPatient);
+                    newUser.PatientId = patientId;
                     break;
             }
 
@@ -165,7 +165,6 @@ namespace Services.Data
             newUser.AdminId = null;
 
             await _unitOfWork.User.AddAsync(newUser);
-
             var success = await _unitOfWork.CommitAsync() > 0;
             if (success)
             {

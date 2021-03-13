@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Data.Repositories
@@ -13,7 +14,7 @@ namespace Data.Repositories
 
         public async Task<Patient> Get(int id)
         {
-            return await context.Patients.FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Patients.Where(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

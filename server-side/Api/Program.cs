@@ -23,8 +23,8 @@ namespace Api
             try
             {
                 var context = services.GetRequiredService<DataContext>();
-                context.Database.Migrate();
-                Seed.SeedData(context).Wait();
+                await context.Database.MigrateAsync();
+                await Seed.SeedData(context);
             }
             catch (Exception ex)
             {
@@ -36,10 +36,6 @@ namespace Api
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

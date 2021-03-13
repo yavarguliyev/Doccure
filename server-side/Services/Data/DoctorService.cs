@@ -23,7 +23,7 @@ namespace Services.Data
         #endregion
 
         #region create, update and delete
-        public async Task<Doctor> CreateAsync(Doctor newDoctor)
+        public async Task<int> CreateAsync(Doctor newDoctor)
         {
             newDoctor.Status = true;
             newDoctor.AddedDate = DateTime.Now;
@@ -34,7 +34,7 @@ namespace Services.Data
             await _unitOfWork.Doctor.AddAsync(newDoctor);
 
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return newDoctor;
+            if (success) return newDoctor.Id;
 
             throw new Exception("Problem saving changes");
         }

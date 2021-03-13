@@ -14,6 +14,13 @@ namespace Data
         private PatientRepository _patientRepository;
         private UserRepository _userRepository;
 
+        private IDoctorSocialMediaUrlLinkRepository _doctorSocialMediaUrlLinkRepository;
+        private IPrivacyRepository _privacyRepository;
+        private ISettingRepository _settingRepository;
+        private ISettingPhotoRepository _settingPhotoRepository;
+        private ISocialMediaRepository _socialMediaRepository;
+        private ITermRepository _termRepository;
+
         public UnitOfWork(DataContext context)
         {
             _context = context;
@@ -23,6 +30,13 @@ namespace Data
         public IDoctorRepository Doctor => _doctorRepository ??= new DoctorRepository(_context);
         public IPatientRepository Patient => _patientRepository ??= new PatientRepository(_context);
         public IUserRepository User => _userRepository ??= new UserRepository(_context);
+
+        public IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl => _doctorSocialMediaUrlLinkRepository ??= new DoctorSocialMediaUrlLinkRepository(_context);
+        public IPrivacyRepository Privacy => _privacyRepository ??= new PrivacyRepository(_context);
+        public ISettingRepository SettingRepository => _settingRepository ??= new SettingRepository(_context);
+        public ISettingPhotoRepository SettingPhoto => _settingPhotoRepository ??= new SettingPhotoRepository(_context);
+        public ISocialMediaRepository SocialMedia => _socialMediaRepository ??= new SocialMediaRepository(_context);
+        public ITermRepository Term => _termRepository ??= new TermRepository(_context);
 
         public async Task<int> CommitAsync()
         {

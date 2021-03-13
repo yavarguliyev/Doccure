@@ -5,7 +5,7 @@ namespace Core.Models
 {
     public class User : BaseEntity
     {
-        public int Age
+        protected int Age
         {
             get
             {
@@ -38,7 +38,7 @@ namespace Core.Models
         public string Token { get; set; }
         public string InviteToken { get; set; }
         public string ConfirmToken { get; set; }
-        
+
         public string ConnectionId { get; set; }
 
         public int? AdminId { get; set; }

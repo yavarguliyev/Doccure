@@ -10,6 +10,13 @@ namespace Core
         IPatientRepository Patient { get; }
         IUserRepository User { get; }
 
+        IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }
+        IPrivacyRepository Privacy { get; }
+        ISettingRepository SettingRepository { get; }
+        ISettingPhotoRepository SettingPhoto { get; }
+        ISocialMediaRepository SocialMedia { get; }
+        ITermRepository Term { get; }
+
         Task<int> CommitAsync();
     }
 }

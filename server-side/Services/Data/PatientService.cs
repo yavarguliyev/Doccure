@@ -23,7 +23,7 @@ namespace Services.Data
         #endregion
 
         #region create, update and delete
-        public async Task<Patient> CreateAsync(Patient newPatient)
+        public async Task<int> CreateAsync(Patient newPatient)
         {
             newPatient.Status = true;
             newPatient.AddedDate = DateTime.Now;
@@ -31,10 +31,12 @@ namespace Services.Data
             newPatient.AddedBy = "System";
             newPatient.ModifiedBy = "System";
 
+            newPatient.BloodGroupId = newPatient.BloodGroupId;
+
             await _unitOfWork.Patient.AddAsync(newPatient);
 
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return newPatient;
+            if (success) return newPatient.Id;
 
             throw new Exception("Problem saving changes");
         }
@@ -49,6 +51,8 @@ namespace Services.Data
             patientToBeUpdated.ModifiedBy = patientToBeUpdated.ModifiedBy;
 
             patientToBeUpdated.Type = patient.Type != 0 ? patient.Type : patientToBeUpdated.Type;
+
+            patientToBeUpdated.BloodGroupId = patient.BloodGroupId != null ? patient.BloodGroupId : patientToBeUpdated.BloodGroupId;
 
             var success = await _unitOfWork.CommitAsync() > 0;
             if (success) return patientToBeUpdated;
