@@ -432,11 +432,10 @@ $RECYCLE.BIN/
 .idea/
 *.sln.iml
 
-##
-## Visual Studio Code
-##
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# Visual Studio Code
+.vscode/
+.vs
+
+# Output folder used by Webpack or other FE stuff
+**/node_modules/*
+**/wwwroot/*
