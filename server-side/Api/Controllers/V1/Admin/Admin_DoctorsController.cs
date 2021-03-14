@@ -9,7 +9,7 @@ namespace Api.Controllers.v1.Admin
 {
     public class Admin_DoctorsController : BaseApiController
     {
-        #region admin_doctor crud
+        #region admin_doctors crud
         [HttpGet]
         public async Task<IActionResult> Get()
         {

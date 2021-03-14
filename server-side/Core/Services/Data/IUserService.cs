@@ -30,6 +30,6 @@ namespace Core.Services.Data
         Task<UserDTO> InviteTokenAsync(User user);
         Task<UserDTO> ConfirmTokenAsync(string token);
 
-        Task<string> PhotoUpload(int id, IFormFile file);
+        Task<string> PhotoUploadAsync(int id, IFormFile file);
     }
 }

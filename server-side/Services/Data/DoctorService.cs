@@ -9,10 +9,13 @@ namespace Services.Data
     public class DoctorService : IDoctorService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDoctorSocialMediaUrlLinkService _urlLink;
 
-        public DoctorService(IUnitOfWork unitOfWork)
+        public DoctorService(IUnitOfWork unitOfWork, 
+                             IDoctorSocialMediaUrlLinkService urlLink)
         {
             _unitOfWork = unitOfWork;
+            _urlLink = urlLink;
         }
 
         #region get doctor
@@ -34,7 +37,17 @@ namespace Services.Data
             await _unitOfWork.Doctor.AddAsync(newDoctor);
 
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return newDoctor.Id;
+            if (success)
+            {
+                var socialUrl = new DoctorSocialMediaUrlLink
+                {
+                    DoctorId = newDoctor.Id
+                };
+
+                await _urlLink.CreateAsync(socialUrl);
+
+                return newDoctor.Id;
+            }
 
             throw new Exception("Problem saving changes");
         }
@@ -58,6 +71,9 @@ namespace Services.Data
 
         public async Task DeleteAsync(Doctor doctor)
         {
+            var url = await _urlLink.GetAsync(doctor.Id);
+            await _urlLink.DeleteAsync(url);
+
             _unitOfWork.Doctor.Remove(doctor);
             await _unitOfWork.CommitAsync();
         }

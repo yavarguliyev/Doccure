@@ -29,18 +29,18 @@ namespace Api.Extensions
         {
             // controllers without view
             services.AddControllers()
-            .AddFluentValidation(options => 
-            {
-                options.RegisterValidatorsFromAssemblyContaining<LoginDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
-                options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
-            })
-            .AddJsonOptions(options =>
+                    .AddFluentValidation(options => 
+                    {
+                        options.RegisterValidatorsFromAssemblyContaining<LoginDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
+                    })
+                    .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
@@ -115,6 +115,13 @@ namespace Api.Extensions
             services.AddTransient<IDoctorService, DoctorService>();
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
+
+            services.AddTransient<IDoctorSocialMediaUrlLinkService, DoctorSocialMediaUrlLinkService>();
+            services.AddTransient<IPrivacyService, PrivacyService>();
+            services.AddTransient<ISettingPhotoService, SettingPhotoService>();
+            services.AddTransient<ISettingService, SettingService>();
+            services.AddTransient<ISocialMediaService, SocialMediaService>();
+            services.AddTransient<ITermService, TermService>();
 
             // file upload
             services.AddSingleton<IFileManager, FileManager>();

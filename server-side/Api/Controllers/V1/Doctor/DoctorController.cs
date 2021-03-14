@@ -47,7 +47,7 @@ namespace Api.Controllers.v1.Doctor
         public async Task<IActionResult> UploadPhoto(IFormFile file)
         {
             if (auth.Doctor == null) return Unauthorized();
-            var image = await userService.PhotoUpload(auth.Doctor.Id, file);
+            var image = await userService.PhotoUploadAsync(auth.Doctor.Id, file);
             return Ok(new { message = "Photo uploaded!", image });
         }
         #endregion

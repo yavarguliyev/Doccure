@@ -37,7 +37,7 @@ namespace Api.Controllers.v1.Admin
         public async Task<IActionResult> UploadPhoto(IFormFile file)
         {
             if (auth.Admin == null) return Unauthorized();
-            var image = await userService.PhotoUpload(auth.Admin.Id, file);
+            var image = await userService.PhotoUploadAsync(auth.Admin.Id, file);
             return Ok(new { message = "Photo uploaded!", image });
         }
         #endregion

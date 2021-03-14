@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Core.Models
+﻿namespace Core.DTOs.Admin.Admin_Setting
 {
-    public class Setting : BaseEntity
+    public class SettingDTO
     {
         public string ContactNumber { get; set; }
         public string Address { get; set; }
@@ -24,8 +22,5 @@ namespace Core.Models
         public string BlogsAndNewsSubTitle { get; set; }
 
         public string Information { get; set; }
-
-        public ICollection<SocialMedia> SocialMedias { get; set; }
-        public ICollection<SettingPhoto> SettingPhotos { get; set; }
     }
 }

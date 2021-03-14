@@ -303,6 +303,8 @@ namespace Services.Data
 
         public async Task DeleteAsync(User user)
         {
+            if (user.Photo != null) _fileManager.DeletePhoto(user.Photo);
+
             switch (user.Role)
             {
                 case UserRole.Doctor:
@@ -381,7 +383,7 @@ namespace Services.Data
         #endregion
 
         #region photo upload
-        public async Task<string> PhotoUpload(int id, IFormFile file)
+        public async Task<string> PhotoUploadAsync(int id, IFormFile file)
         {
             var user = await this.GetAsync(id);
             if (user.Photo == null)

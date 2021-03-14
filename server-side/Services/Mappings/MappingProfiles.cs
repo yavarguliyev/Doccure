@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.DTOs.Admin.Admin_Doctor;
+using Core.DTOs.Admin.Admin_Setting;
 using Core.DTOs.Auth;
 using Core.DTOs.Doctor;
 using Core.Models;
@@ -21,6 +22,12 @@ namespace Services.Mappings
 
             CreateMap<User, User>();
             CreateMap<RegisterDTO, User>();
+
+            CreateMap<Setting, SettingDTO>();
+            CreateMap<SettingPhoto, SettingPhotoDTO>();
+            CreateMap<SocialMedia, SocialMediaDTO>();
+            CreateMap<Privacy, PrivacyDTO>();
+            CreateMap<Term, TermDTO>();
         }
     }
 }

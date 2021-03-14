@@ -15,7 +15,7 @@ namespace Api.Controllers.v1.Account
             return Ok(await userService.LoginAsync(model.Email, model.Password));
         }
 
-        [HttpPost("register")]
+        [HttpPut("register")]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
             await userService.CreateAsync(mapper.Map<User>(model), UserRole.Patient);
@@ -29,14 +29,14 @@ namespace Api.Controllers.v1.Account
             return Ok(new { message = "User confirmed!", response });
         }
 
-        [HttpPost("forget-password")]
+        [HttpPut("forget-password")]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordDTO model)
         {
             await userService.InviteTokenAsync(await userService.GetByEmailAsync(model.Email));
             return Ok(new { message = "Email sent!" });
         }
 
-        [HttpPost("reset-password")]
+        [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDTO model, string token)
         {
             var user = await userService.GetByInviteTokenAsync(token);

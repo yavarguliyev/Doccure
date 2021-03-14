@@ -33,7 +33,7 @@ namespace Data
 
         public IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl => _doctorSocialMediaUrlLinkRepository ??= new DoctorSocialMediaUrlLinkRepository(_context);
         public IPrivacyRepository Privacy => _privacyRepository ??= new PrivacyRepository(_context);
-        public ISettingRepository SettingRepository => _settingRepository ??= new SettingRepository(_context);
+        public ISettingRepository Setting => _settingRepository ??= new SettingRepository(_context);
         public ISettingPhotoRepository SettingPhoto => _settingPhotoRepository ??= new SettingPhotoRepository(_context);
         public ISocialMediaRepository SocialMedia => _socialMediaRepository ??= new SocialMediaRepository(_context);
         public ITermRepository Term => _termRepository ??= new TermRepository(_context);

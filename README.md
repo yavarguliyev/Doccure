@@ -14,15 +14,13 @@ after confirming the doctor’s availability. Our main aim is to provide simple
 and effective online services for doctor appointments.
 ```
 
-<h2 style="color: #4689d4;">Benefits of this web or application.</h3>
+## Benefits of this web or application.
 
-<ul>
-  <li style="color: green;">To end with long waiting for the meeting with the doctor</li>
-  <li style="color: green;">Faster checkup and meet up with the doctorr</li>
-  <li style="color: green;">Big advantages to save your time</li>
-  <li style="color: green;">Online reports can be written by doctorsOnline reports can be written by doctors</li>
-  <li style="color: green;">Online reports can be taken by downloading a report file</li>
-</ul>
+- To end with long waiting for the meeting with the doctor
+- Faster checkup and meet up with the doctor
+- Big advantages to save your time
+- Online reports can be written by doctors
+- Online reports can be taken by downloading a report file
 
 # Patient Booking
 

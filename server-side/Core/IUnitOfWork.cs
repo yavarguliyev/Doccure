@@ -12,7 +12,7 @@ namespace Core
 
         IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }
         IPrivacyRepository Privacy { get; }
-        ISettingRepository SettingRepository { get; }
+        ISettingRepository Setting { get; }
         ISettingPhotoRepository SettingPhoto { get; }
         ISocialMediaRepository SocialMedia { get; }
         ITermRepository Term { get; }
