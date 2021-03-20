@@ -62,7 +62,7 @@ namespace Api.Extensions
             services.AddCors();
 
             // routing to lowercase
-            services.AddRouting(options => options.LowercaseUrls = true);// controllers without view
+            services.AddRouting(options => options.LowercaseUrls = true);
 
             // swagger documentation for api
             services.AddSwaggerGen(options =>

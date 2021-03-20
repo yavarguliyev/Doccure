@@ -16,20 +16,40 @@ namespace Data.Repositories
 
         private DataContext context { get { return Context as DataContext; } }
 
-        public async Task<IEnumerable<User>> Get(UserRole role)
+        public async Task<IEnumerable<User>> Get(UserRole role, int? id)
         {
-            return await context.Users
-                                 .Where(x => x.Status && x.Role == role)
-                                 .Include(x => x.Admin)
-                                 .Include(x => x.Doctor)
-                                 .Include(x => x.Patient)
-                                 .ToListAsync();
+            var user = await context.Users.FirstOrDefaultAsync(x => x.Id == (id ?? default(int)));
+            var users = context.Users.OrderByDescending(x => x.Id)
+                               .Include(x => x.Admin)
+                               .Include(x => x.Doctor)
+                               .Include(x => x.Patient);
+
+            if (user != null)
+            {
+
+                if (user.Role == UserRole.Admin)
+                {
+                    return await users.Where(x => x.Role == role).ToListAsync();
+                }
+
+                if (user.Role == UserRole.Doctor)
+                {
+                    return await users.Where(x => x.Status && x.Role == role).ToListAsync();
+                }
+
+                if (user.Role == UserRole.Patient)
+                {
+                    return await users.Where(x => x.Status && x.Role == role).ToListAsync();
+                }
+
+            }
+
+            return await users.Where(x => x.Status && x.Role == role).ToListAsync();
         }
 
         public async Task<User> Get(int id)
         {
             var user = await context.Users
-                                    .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
@@ -39,76 +59,33 @@ namespace Data.Repositories
             throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });
         }
 
-        public async Task<User> GetByToken(string token)
+        public async Task<User> Get(string token)
         {
             if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
 
-            var user = await context.Users
-                                    .Where(x => x.Status)
-                                    .Include(x => x.Admin)
-                                    .Include(x => x.Doctor)
-                                    .Include(x => x.Patient)
-                                    .FirstOrDefaultAsync(x => x.Token == token);
-            if (user != null) return user;
+            var query = context.Users.Where(x => x.Status)
+                                     .Include(x => x.Admin)
+                                     .Include(x => x.Doctor)
+                                     .Include(x => x.Patient);
+
+            var user = await query.FirstOrDefaultAsync(x => x.Token == token || 
+                                                       x.InviteToken == token || 
+                                                       x.ConfirmToken == token);
+            if (user != null)  return user;
 
             throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });
         }
 
-        public async Task<User> GetByInviteToken(string token)
+        public async Task<User> GetBy(string queryValue)
         {
-            if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
+            if (string.IsNullOrEmpty(queryValue)) throw new RestException(HttpStatusCode.BadRequest, new { user = "User value cannot be null" });
 
-            var user = await context.Users
-                                    .Where(x => x.Status)
+            var query = context.Users.Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
-                                    .Include(x => x.Patient)
-                                    .FirstOrDefaultAsync(x => x.InviteToken == token);
-            if (user != null) return user;
+                                    .Include(x => x.Patient);
 
-            throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });
-        }
-
-        public async Task<User> GetByConfirmToken(string token)
-        {
-            if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
-
-            var user = await context.Users
-                                    .Where(x => x.Status)
-                                    .Include(x => x.Admin)
-                                    .Include(x => x.Doctor)
-                                    .Include(x => x.Patient)
-                                    .FirstOrDefaultAsync(x => x.ConfirmToken == token);
-            if (user != null) return user;
-
-            throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });
-        }
-
-        public async Task<User> GetBySlug(string slug)
-        {
-            if (string.IsNullOrEmpty(slug)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Slug cannot be null" });
-
-            var user = await context.Users
-                                    .Where(x => x.Status)
-                                    .Include(x => x.Admin)
-                                    .Include(x => x.Doctor)
-                                    .Include(x => x.Patient)
-                                    .FirstOrDefaultAsync(x => x.Slug == slug);
-            if (user != null) return user;
-
-            throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });
-        }
-
-        public async Task<User> GetByEmail(string email)
-        {
-            if (string.IsNullOrEmpty(email)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Email cannot be null" });
-
-            var user = await context.Users
-                                    .Where(x => x.Status)
-                                    .Include(x => x.Admin)
-                                    .Include(x => x.Doctor)
-                                    .Include(x => x.Patient)
-                                    .FirstOrDefaultAsync(x => x.Email == email);
+            var user = await query.FirstOrDefaultAsync(x => x.Email == queryValue || x.Slug == queryValue);
             if (user != null) return user;
 
             throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });

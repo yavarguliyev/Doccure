@@ -20,7 +20,7 @@ namespace Api.Controllers.v1.Doctor
         [HttpPut]
         public async Task<IActionResult> Register(NewDoctorModifyDTO model, string token)
         {
-            var userToBeUpdated = await userService.GetByConfirmTokenAsync(token);
+            var userToBeUpdated = await userService.GetAsync(token);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
             return Ok(new { message = "You successfully completed the registration!", response });
         }

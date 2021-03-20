@@ -15,15 +15,15 @@ namespace Services.Rest
             _configuration = configuration;
         }
 
-        public async Task Send(string email, string name, string templateId, object data)
+        public async Task Send(string email, string name, object data)
         {
-            var client = new SendGridClient(_configuration["WebMaster:SendGridKey"]);
+            var client = new SendGridClient(_configuration["SendGrid:Key"]);
 
             var message = new SendGridMessage();
 
-            message.SetFrom("no-reply@doccure.com", "doccure.com");
+            message.SetFrom(_configuration["SendGrid:Email"], _configuration["SendGrid:Url"]);
             message.AddTo(email, name);
-            message.SetTemplateId(templateId);
+            message.SetTemplateId(_configuration["SendGrid:Id"]);
             message.SetTemplateData(data);
 
             await client.SendEmailAsync(message);

@@ -6,7 +6,7 @@ namespace Core.Services.Common
     public interface IActivityService
     {
         #region email
-        Task SendEmail(User user, string purpose, string titleText, string bodytext, bool btnActivve, string btnText, string url);
+        Task SendEmail(User user, string purpose, string titleText, string bodytext, bool btnActive, string url);
         #endregion
     }
 }

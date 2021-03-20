@@ -39,7 +39,7 @@ namespace Api.Libs
                 {
                     string token = encoded.Substring("Bearer ".Length).Trim();
 
-                    User admin = _userService.GetByTokenAsync(token.ToString()).Result;
+                    User admin = _userService.GetAsync(token.ToString()).Result;
                     if (admin != null && admin.Role == UserRole.Admin)
                     {
                         return admin;
@@ -65,7 +65,7 @@ namespace Api.Libs
                 {
                     string token = encoded.Substring("Bearer ".Length).Trim();
 
-                    User doctor = _userService.GetByTokenAsync(token.ToString()).Result;
+                    User doctor = _userService.GetAsync(token.ToString()).Result;
                     if (doctor != null && doctor.Role == UserRole.Doctor)
                     {
                         return doctor;
@@ -91,7 +91,7 @@ namespace Api.Libs
                 {
                     string token = encoded.Substring("Bearer ".Length).Trim();
 
-                    User patient = _userService.GetByTokenAsync(token.ToString()).Result;
+                    User patient = _userService.GetAsync(token.ToString()).Result;
                     if (patient != null && patient.Role == UserRole.Patient)
                     {
                         return patient;

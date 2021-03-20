@@ -32,14 +32,14 @@ namespace Api.Controllers.v1.Account
         [HttpPut("forget-password")]
         public async Task<IActionResult> ForgetPassword(ForgetPasswordDTO model)
         {
-            await userService.InviteTokenAsync(await userService.GetByEmailAsync(model.Email));
+            await userService.InviteTokenAsync(await userService.GetByAsync(model.Email));
             return Ok(new { message = "Email sent!" });
         }
 
         [HttpPut("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDTO model, string token)
         {
-            var user = await userService.GetByInviteTokenAsync(token);
+            var user = await userService.GetAsync(token);
             var response = await userService.UpdateAsync(user.Id, model.Password, model.ConfirmPassword, null);
             return Ok(new { message = "Password reseted!", response });
         }

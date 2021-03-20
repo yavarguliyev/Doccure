@@ -41,9 +41,9 @@ namespace Services.Data
         }
 
         #region get user
-        public async Task<IEnumerable<UserDTO>> GetAsync(UserRole role)
+        public async Task<IEnumerable<UserDTO>> GetAsync(UserRole role, int? id)
         {
-            return _mapper.Map<IEnumerable<UserDTO>>(await _unitOfWork.User.Get(role));
+            return _mapper.Map<IEnumerable<UserDTO>>(await _unitOfWork.User.Get(role, id));
         }
 
         public async Task<User> GetAsync(int id)
@@ -51,34 +51,19 @@ namespace Services.Data
             return await _unitOfWork.User.Get(id);
         }
 
-        public async Task<User> GetByTokenAsync(string token)
+        public async Task<User> GetAsync(string token)
         {
-            return await _unitOfWork.User.GetByToken(token);
+            return await _unitOfWork.User.Get(token);
         }
 
-        public async Task<User> GetByInviteTokenAsync(string token)
+        public async Task<User> GetByAsync(string slug)
         {
-            return await _unitOfWork.User.GetByInviteToken(token);
-        }
-
-        public async Task<User> GetByConfirmTokenAsync(string token)
-        {
-            return await _unitOfWork.User.GetByConfirmToken(token);
-        }
-
-        public async Task<User> GetBySlugAsync(string slug)
-        {
-            return await _unitOfWork.User.GetBySlug(slug);
+            return await _unitOfWork.User.GetBy(slug);
         }
 
         public async Task<User> GetByCodeAsync(string code)
         {
             return await _unitOfWork.User.SingleOrDefaultAsync(x => x.Code == code);
-        }
-
-        public async Task<User> GetByEmailAsync(string email)
-        {
-            return await _unitOfWork.User.GetByEmail(email);
         }
 
         public async Task<bool> CheckEmailAsync(string email)
@@ -156,8 +141,8 @@ namespace Services.Data
 
             newUser.Role = role;
 
-            newUser.Token = newUser.Token != null ? newUser.Token : null;
-            newUser.InviteToken = newUser.InviteToken != null ? newUser.InviteToken : null;
+            newUser.Token = null;
+            newUser.InviteToken = null;
             newUser.ConfirmToken = Guid.NewGuid().ToString();
 
             newUser.ConnectionId = newUser.ConnectionId != null ? newUser.ConnectionId : null;
@@ -168,23 +153,32 @@ namespace Services.Data
             var success = await _unitOfWork.CommitAsync() > 0;
             if (success)
             {
-                var url = string.Empty;
-
                 if (newUser.ConfirmToken != null)
                 {
+                    var purpose = string.Empty;
+                    var title = string.Empty;
+                    var body = string.Empty;
+                    var btn = false;
+                    var url = string.Empty;
+
+                    title = "Registered account";
+                    btn = true;
+
                     switch (newUser.Role)
                     {
                         case UserRole.Doctor:
+                            purpose = "Complete register process";
+                            body = "To complete register process please fill out all the neessary inputs!";
                             url = $"/doctors/auth/confirm-email?token={newUser.ConfirmToken}";
                             break;
                         case UserRole.Patient:
+                            purpose = "Email confirmation";
+                            body = "To confirm your account please click to the button!";
                             url = $"/patients/auth/confirm-email?token={newUser.ConfirmToken}";
                             break;
                     }
 
-                    await _activityService.SendEmail(newUser, "Complete register process", "Register account",
-                          "To complete register process please fill out all the neessary inputs!", true,
-                          "Complete register process", url);
+                    await _activityService.SendEmail(newUser, purpose, title, body, btn, url);
                 }
             }
             else
@@ -227,9 +221,6 @@ namespace Services.Data
                 case Gender.Female:
                     userToBeUpdated.Gender = Gender.Female;
                     break;
-                default:
-                    userToBeUpdated.Gender = userToBeUpdated.Gender;
-                    break;
             }
 
             switch (user.Role)
@@ -242,9 +233,6 @@ namespace Services.Data
                     break;
                 case UserRole.Patient:
                     userToBeUpdated.Role = UserRole.Patient;
-                    break;
-                default:
-                    userToBeUpdated.Role = userToBeUpdated.Role;
                     break;
             }
 
@@ -319,8 +307,6 @@ namespace Services.Data
                     _unitOfWork.User.Remove(user);
                     await _patientService.DeleteAsync(patient);
                     break;
-                default:
-                    break;
             }
 
             await _unitOfWork.CommitAsync();
@@ -345,10 +331,19 @@ namespace Services.Data
             var success = await _unitOfWork.CommitAsync() > 0;
             if (success)
             {
-                var url = string.Empty;
-
                 if (user.InviteToken != null)
                 {
+                    var purpose = string.Empty;
+                    var title = string.Empty;
+                    var body = string.Empty;
+                    var btn = false;
+                    var url = string.Empty;
+
+                    purpose = "Password reset process";
+                    title = "'s password reset";
+                    body = "To complete reset process click to the button!";
+                    btn = true;
+
                     switch (user.Role)
                     {
                         case UserRole.Doctor:
@@ -359,10 +354,7 @@ namespace Services.Data
                             break;
                     }
 
-                    await _activityService.SendEmail(user, "Complete reset process",
-                          user.Fullname + "'s password reset",
-                          "To complete reset process click to the button!", true,
-                          "Complete reset process", url);
+                    await _activityService.SendEmail(user, purpose, user.Fullname + title, body, btn, url);
                 }
 
                 return _mapper.Map<UserDTO>(user);

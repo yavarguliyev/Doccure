@@ -14,7 +14,7 @@ namespace Api.Controllers.v1.Admin
         public async Task<IActionResult> Get()
         {
             if (auth.Admin == null) return Unauthorized();
-            return Ok(await userService.GetAsync(UserRole.Doctor));
+            return Ok(await userService.GetAsync(UserRole.Doctor, auth.Admin.Id));
         }
 
         [HttpGet("{id}")]

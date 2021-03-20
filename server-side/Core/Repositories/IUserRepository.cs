@@ -7,13 +7,10 @@ namespace Core.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<IEnumerable<User>> Get(UserRole role);
+        Task<IEnumerable<User>> Get(UserRole role, int? id);
         Task<User> Get(int id);
-        Task<User> GetByToken(string token);
-        Task<User> GetByInviteToken(string token);
-        Task<User> GetByConfirmToken(string token);
-        Task<User> GetBySlug(string slug);
-        Task<User> GetByEmail(string email);
+        Task<User> Get(string token);
+        Task<User> GetBy(string queryValue);
         Task<bool> CheckEmail(string email);
     }
 }
