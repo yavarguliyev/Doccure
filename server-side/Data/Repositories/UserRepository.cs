@@ -26,7 +26,6 @@ namespace Data.Repositories
 
             if (user != null)
             {
-
                 if (user.Role == UserRole.Admin)
                 {
                     return await users.Where(x => x.Role == role).ToListAsync();
@@ -41,7 +40,6 @@ namespace Data.Repositories
                 {
                     return await users.Where(x => x.Status && x.Role == role).ToListAsync();
                 }
-
             }
 
             return await users.Where(x => x.Status && x.Role == role).ToListAsync();

@@ -365,7 +365,7 @@ namespace Services.Data
 
         public async Task<UserDTO> ConfirmTokenAsync(string token)
         {
-            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.ConfirmToken == token);
+            var user = await this.GetAsync(token);
             user.ConfirmToken = user.ConfirmToken == null ? Guid.NewGuid().ToString() : null;
 
             var success = await _unitOfWork.CommitAsync() > 0;

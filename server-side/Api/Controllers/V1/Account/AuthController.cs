@@ -15,7 +15,7 @@ namespace Api.Controllers.v1.Account
             return Ok(await userService.LoginAsync(model.Email, model.Password));
         }
 
-        [HttpPut("register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
             await userService.CreateAsync(mapper.Map<User>(model), UserRole.Patient);

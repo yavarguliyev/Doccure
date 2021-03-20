@@ -9,7 +9,7 @@ namespace Core.Validators
         {
             var options = ruleBuilder
                             .NotEmpty().WithMessage("Fullname must not be empty")
-                            .MinimumLength(9).WithMessage("Fullname can contain min 2 characters")
+                            .MinimumLength(2).WithMessage("Fullname can contain min 2 characters")
                             .MaximumLength(50).WithMessage("Fullname can contain max 50 characters");
 
             return options;

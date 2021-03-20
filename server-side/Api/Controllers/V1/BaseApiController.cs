@@ -26,7 +26,7 @@ namespace Api.Controllers.v1
         protected IMapper mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>();
 
         protected IAuth auth => _auth ??= HttpContext.RequestServices.GetService<IAuth>();
-        
+
         protected IUserService userService => _userService ??= HttpContext.RequestServices.GetService<IUserService>();
         
         protected ISettingService settingService => _settingService ??= HttpContext.RequestServices.GetService<ISettingService>();
