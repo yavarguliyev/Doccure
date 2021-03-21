@@ -378,11 +378,14 @@ namespace Services.Data
         public async Task<string> PhotoUploadAsync(int id, IFormFile file)
         {
             var user = await this.GetAsync(id);
-            if (user.Photo == null)
+
+            if (file == null) throw new RestException(HttpStatusCode.BadRequest, "File cannot be null");
+
+            if (user.Photo == null && file != null)
             {
                 user.Photo = _fileManager.UploadPhoto(file);
             }
-            else
+            else if (user.Photo != null && file != null)
             {
                 _fileManager.DeletePhoto(user.Photo);
                 user.Photo = _fileManager.UploadPhoto(file);
