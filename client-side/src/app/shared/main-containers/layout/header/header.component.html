@@ -1,0 +1,119 @@
+<!-- Header -->
+<header class="header">
+  <nav class="navbar navbar-expand-lg header-nav">
+    <div class="navbar-header">
+      <a id="mobile_btn" href="javascript:void(0);">
+        <span class="bar-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </a>
+      <a [routerLink]="['/']" class="navbar-brand logo">
+        <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+      </a>
+    </div>
+    <div class="main-menu-wrapper">
+      <div class="menu-header">
+        <a [routerLink]="['/']" class="menu-logo">
+          <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+        </a>
+        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+          <i class="fas fa-times"></i>
+        </a>
+      </div>
+      <ul class="main-nav">
+        <li class="active">
+          <a [routerLink]="['/']">Home</a>
+        </li>
+        <li class="has-submenu">
+          <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="['/']">Doctor Dashboard</a></li>
+            <li><a [routerLink]="['/']">Appointments</a></li>
+            <li><a [routerLink]="['/']">Schedule Timing</a></li>
+            <li><a [routerLink]="['/']">Patients List</a></li>
+            <li><a [routerLink]="['/']">Patients Profile</a></li>
+            <li><a [routerLink]="['/']">Chat</a></li>
+            <li><a [routerLink]="['/']">Invoices</a></li>
+            <li><a [routerLink]="['/']">Profile Settings</a></li>
+            <li><a [routerLink]="['/']">Reviews</a></li>
+            <li><a [routerLink]="['/']">Doctor Register</a></li>
+          </ul>
+        </li>	
+        <li class="has-submenu">
+          <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li class="has-submenu">
+              <a href="#">Doctors</a>
+              <ul class="submenu">
+                <li><a [routerLink]="['/']">Map Grid</a></li>
+                <li><a [routerLink]="['/']">Map List</a></li>
+              </ul>
+            </li>
+            <li><a [routerLink]="['/']">Search Doctor</a></li>
+            <li><a [routerLink]="['/']">Doctor Profile</a></li>
+            <li><a [routerLink]="['/']">Booking</a></li>
+            <li><a [routerLink]="['/']">Checkout</a></li>
+            <li><a [routerLink]="['/']">Booking Success</a></li>
+            <li><a [routerLink]="['/']">Patient Dashboard</a></li>
+            <li><a [routerLink]="['/']">Favourites</a></li>
+            <li><a [routerLink]="['/']">Chat</a></li>
+            <li><a [routerLink]="['/']">Profile Settings</a></li>
+            <li><a [routerLink]="['/']">Change Password</a></li>
+          </ul>
+        </li>	
+        <li class="has-submenu">
+          <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="['/']">Voice Call</a></li>
+            <li><a [routerLink]="['/']">Video Call</a></li>
+            <li><a [routerLink]="['/']">Search Doctors</a></li>
+            <li><a [routerLink]="['/']">Calendar</a></li>
+            <li><a [routerLink]="['/']">Components</a></li>
+            <li class="has-submenu">
+              <a [routerLink]="['/']">Invoices</a>
+              <ul class="submenu">
+                <li><a [routerLink]="['/']">Invoices</a></li>
+                <li><a [routerLink]="['/']">Invoice View</a></li>
+              </ul>
+            </li>
+            <li><a [routerLink]="['/']">Starter Page</a></li>
+            <li><a [routerLink]="['/']">Login</a></li>
+            <li><a [routerLink]="['/']">Register</a></li>
+            <li><a [routerLink]="['/']">Forgot Password</a></li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
+          <ul class="submenu">
+            <li><a [routerLink]="['/']">Blog List</a></li>
+            <li><a [routerLink]="['/']">Blog Grid</a></li>
+            <li><a [routerLink]="['/']">Blog Details</a></li>
+          </ul>
+        </li>
+        <li>
+          <a [routerLink]="['/']" target="_blank">Admin</a>
+        </li>
+        <li class="login-link">
+          <a [routerLink]="['/']">Login / Signup</a>
+        </li>
+      </ul>		 
+    </div>		 
+    <ul class="nav header-navbar-rht">
+      <li class="nav-item contact-item">
+        <div class="header-contact-img">
+          <i class="far fa-hospital"></i>							
+        </div>
+        <div class="header-contact-detail">
+          <p class="contact-header">Contact</p>
+          <p class="contact-info-header"> +1 315 369 5943</p>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link header-login" [routerLink]="['/']">login / Signup </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<!-- /Header -->
