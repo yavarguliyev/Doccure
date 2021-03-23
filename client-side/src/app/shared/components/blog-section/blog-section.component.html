@@ -1,0 +1,44 @@
+<!-- Blog Section -->
+<section class="section section-blogs">
+  <div class="container-fluid">
+
+    <!-- Section Header -->
+    <div class="section-header text-center">
+      <h2>Blogs and News</h2>
+      <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua.</p>
+    </div>
+    <!-- /Section Header -->
+
+    <div class="row blog-grid-row">
+
+      <!-- Blog Post -->
+      <div class="col-md-6 col-lg-3 col-sm-12" *ngFor="let item of blogs">
+        <div class="blog grid-blog">
+          <div class="blog-image">
+            <a [routerLink]="['/', item.slug]"><img class="img-fluid" src={{item.image}} alt={{item.title}}></a>
+          </div>
+          <div class="blog-content">
+            <ul class="entry-meta meta-item">
+              <li>
+                <div class="post-author">
+                  <a [routerLink]="['/', item.doctor.slug]"><img src={{item.doctor.image}} alt="Post Author"> <span>Dr.
+                      {{item.doctor.fullname}}</span></a>
+                </div>
+              </li>
+              <li><i class="far fa-clock"></i> 4 Dec 2019</li>
+            </ul>
+            <h3 class="blog-title"><a [routerLink]="['/', item.slug]">{{item.image}} alt={{item.title}}</a></h3>
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur em adipiscing elit, sed do eiusmod tempor.</p>
+          </div>
+        </div>
+      </div>
+      <!-- /Blog Post -->
+
+    </div>
+    <div class="view-all text-center">
+      <a [routerLink]="['/']" class="btn btn-primary">View All</a>
+    </div>
+  </div>
+</section>
+<!-- /Blog Section -->

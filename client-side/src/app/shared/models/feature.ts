@@ -1,10 +1,10 @@
-export interface Speciality {
+export interface Feature {
   id: number;
   name: string;
   image: string;
 }
 
-export class SpecialityP implements Speciality {
+export class FeatureF implements Feature {
   id: number;
   name: string;
   image: string;
