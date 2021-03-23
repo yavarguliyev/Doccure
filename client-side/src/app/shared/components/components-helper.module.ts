@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { HomeBannerComponent } from './home-banner/home-banner.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MainBreadcrumbComponent } from './main-breadcrumb/main-breadcrumb.component';
+import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MainBreadcrumbComponent } from './main-breadcrumb/main-breadcrumb.compo
     BlogSectionComponent,
     HomeBannerComponent,
     MainBreadcrumbComponent,
+    BlogSidebarComponent,
   ],
   imports: [CommonModule, RouterModule, SlickCarouselModule],
   exports: [
@@ -26,6 +28,7 @@ import { MainBreadcrumbComponent } from './main-breadcrumb/main-breadcrumb.compo
     BlogSectionComponent,
     HomeBannerComponent,
     MainBreadcrumbComponent,
+    BlogSidebarComponent
   ],
 })
 export class ComponentsHelperModule {}
