@@ -29,12 +29,7 @@ namespace Api.Extensions
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseCors(x => x
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .WithExposedHeaders("WWW-Authenticate")
-                            .WithOrigins("http://localhost:4200", "https://localhost:4200")
-                            .AllowCredentials());
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

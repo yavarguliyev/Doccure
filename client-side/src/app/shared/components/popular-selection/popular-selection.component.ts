@@ -1,36 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor, DoctorD } from '../../models/doctor';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-popular-selection',
   templateUrl: './popular-selection.component.html'
 })
 export class PopularSelectionComponent implements OnInit {
-  doctorOptions: OwlOptions = {
-    loop: true,
-    margin: 30,
-    nav: true,
-    dots: false,
-    navText: ['<i class="uil uil-angle-left"></i>', '<i class="uil uil-angle-right"></i>'],
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 3
-      },
-      1000: {
-        items: 4
-      },
-      1200: {
-        items: 4
-      },
-      1400: {
-        items: 4
-      }
-    }
-  };
+  public slideConfig = {slidesToShow: 3, slidesToScroll: 3};
 
   public doctors: Doctor[] = [];
   constructor() { }

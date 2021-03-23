@@ -1,36 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Speciality, SpecialityP } from '../../models/speciality';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-specialities',
   templateUrl: './specialities.component.html',
 })
 export class SpecialitiesComponent implements OnInit {
-  specialityOptions: OwlOptions = {
-    loop: true,
-    margin: 30,
-    nav: true,
-    dots: false,
-    navText: ['<i class="uil uil-angle-left"></i>', '<i class="uil uil-angle-right"></i>'],
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 4
-      },
-      1000: {
-        items: 5
-      },
-      1200: {
-        items: 7
-      },
-      1400: {
-        items: 7
-      }
-    }
-  };
+  public slideConfig = {slidesToShow: 4, slidesToScroll: 4};
 
   public specialities: Speciality[] = [];
 

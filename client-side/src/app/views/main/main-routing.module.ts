@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MainComponent } from './main.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditiosComponent } from './terms-conditios/terms-conditios.component';
 
 const routes: Routes = [
   {
@@ -10,6 +12,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'homepage' },
       { path: 'homepage', component: HomepageComponent },
+      { path: 'term-condition', component: TermsConditiosComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
     ]
   }
 ];

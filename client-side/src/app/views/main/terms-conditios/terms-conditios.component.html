@@ -1,0 +1,19 @@
+<app-main-breadcrumb [title]="'Terms and Conditions'"></app-main-breadcrumb>
+
+<!-- Page Content -->
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="terms-content">
+          <div class="terms-text" [innerHTML]='term?.termHeading'></div>
+          <div class="terms-text" [innerHTML]='term?.termSubheading'></div>
+          <div class="terms-text" [innerHTML]='term?.termBody'></div>
+          <div class="terms-text" [innerHTML]='term?.termFooter'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>		
+<!-- /Page Content -->

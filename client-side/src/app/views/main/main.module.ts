@@ -6,9 +6,11 @@ import { MainComponent } from './main.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LayoutMainModule } from 'src/app/shared/main-containers/layout/layoutmain.module';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
+import { TermsConditiosComponent } from './terms-conditios/terms-conditios.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
-  declarations: [MainComponent, HomepageComponent],
+  declarations: [MainComponent, HomepageComponent, TermsConditiosComponent, PrivacyPolicyComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

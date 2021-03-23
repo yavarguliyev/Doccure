@@ -1,28 +1,28 @@
 <!-- Clinic and Specialities -->
 <section class="section section-specialities">
   <div class="container-fluid">
-
     <div class="section-header text-center">
       <h2>Clinic and Specialities</h2>
-      <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua.</p>
     </div>
-
     <div class="row justify-content-center">
       <div class="col-md-9">
-        
         <!-- Slider -->
         <div class="specialities-slider slider">
 
           <!-- Slider Item -->
-          <owl-carousel-o [options]="specialityOptions" class="speicality-item text-center">
-            <ng-template carouselSlide *ngFor="let item of specialities">
-              <div class="speicality-img">
-                <img src={{item.image}} class="img-fluid" alt={{item.name}}>
-                <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let item of specialities" class="slide">
+              <div class="speicality-item text-center">
+                <div class="speicality-img">
+                  <img src={{item.image}} class="img-fluid" alt={{item.name}}>
+                  <span><i class="fa fa-circle" aria-hidden="true"></i></span>
+                </div>
+                <p>{{item.name}}</p>
               </div>
-              <p>{{item.name}}</p>
-            </ng-template>
-          </owl-carousel-o>
+            </div>
+          </ngx-slick-carousel>
           <!-- /Slider Item -->
 
         </div>

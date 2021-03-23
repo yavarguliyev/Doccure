@@ -59,7 +59,17 @@ namespace Api.Extensions
             });
 
             // api cors for allowing methods that coming from different localhosts
-            services.AddCors();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:4200");
+                });
+            });
 
             // routing to lowercase
             services.AddRouting(options => options.LowercaseUrls = true);
