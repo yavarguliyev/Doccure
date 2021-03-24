@@ -16,6 +16,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { DoctorBlogComponent } from './doctor-blog/doctor-blog.component';
 import { InvoicesDetailsComponent } from './invoices-details/invoices-details.component';
+import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,6 @@ import { InvoicesDetailsComponent } from './invoices-details/invoices-details.co
     DoctorBlogComponent,
     InvoicesDetailsComponent,
   ],
-  imports: [CommonModule, DoctorRoutingModule],
+  imports: [CommonModule, DoctorRoutingModule, ComponentsHelperModule],
 })
 export class DoctorModule {}

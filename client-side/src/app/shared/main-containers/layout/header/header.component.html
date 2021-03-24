@@ -23,23 +23,25 @@
         </a>
       </div>
       <ul class="main-nav">
-        <li class="active">
-          <a [routerLink]="['/']">Home</a>
+        <li [routerLinkActive]="['active']">
+          <a [routerLink]="['/main/homepage']">Home</a>
         </li>
-        <li class="has-submenu">
+        <li [routerLinkActive]="['active']" class="has-submenu">
           <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
-            <li><a [routerLink]="['/main/doctor/dashboard']">Doctor Dashboard</a></li>
-            <li><a [routerLink]="['/main/doctor/appointments']">Appointments</a></li>
-            <li><a [routerLink]="['/main/doctor/schedule-timings']">Schedule Timing</a></li>
-            <li><a [routerLink]="['/main/doctor/my-patients']">Patients List</a></li>
-            <li><a [routerLink]="['/main/doctor/message']">Chat</a></li>
-            <li><a [routerLink]="['/main/doctor/invoices']">Invoices</a></li>
-            <li><a [routerLink]="['/main/doctor/profile-settings']">Profile Settings</a></li>
-            <li><a [routerLink]="['/main/doctor/reviews']">Reviews</a></li>
-            <li><a [routerLink]="['/main/doctor/doctor-blog']">Blog</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/dashboard']">Doctor Dashboard</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/appointments']">Appointments</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/schedule-timings']">Schedule Timing</a>
+            </li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/my-patients']">Patients List</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/message']">Chat</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/invoices']">Invoices</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/profile-settings']">Profile Settings</a>
+            </li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/reviews']">Reviews</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/doctor-blog']">Blog</a></li>
           </ul>
-        </li>	
+        </li>
         <li class="has-submenu">
           <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
@@ -61,7 +63,7 @@
             <li><a [routerLink]="['/']">Profile Settings</a></li>
             <li><a [routerLink]="['/']">Change Password</a></li>
           </ul>
-        </li>	
+        </li>
         <li class="has-submenu">
           <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
@@ -83,10 +85,10 @@
             <li><a [routerLink]="['/']">Forgot Password</a></li>
           </ul>
         </li>
-        <li class="has-submenu">
+        <li [routerLinkActive]="['active']" class="has-submenu">
           <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
-            <li><a [routerLink]="['/main/blog/list']">Blog List</a></li>
+            <li [routerLinkActive]="['active']"><a [routerLink]="['/main/blog/list']">Blog List</a></li>
           </ul>
         </li>
         <li>
@@ -95,12 +97,12 @@
         <li class="login-link">
           <a [routerLink]="['/']">Login / Signup</a>
         </li>
-      </ul>		 
-    </div>		 
+      </ul>
+    </div>
     <ul class="nav header-navbar-rht">
       <li class="nav-item contact-item">
         <div class="header-contact-img">
-          <i class="far fa-hospital"></i>							
+          <i class="far fa-hospital"></i>
         </div>
         <div class="header-contact-detail">
           <p class="contact-header">Contact</p>

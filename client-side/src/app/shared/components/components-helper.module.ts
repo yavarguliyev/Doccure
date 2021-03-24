@@ -9,6 +9,7 @@ import { HomeBannerComponent } from './home-banner/home-banner.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MainBreadcrumbComponent } from './main-breadcrumb/main-breadcrumb.component';
 import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
+import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
     HomeBannerComponent,
     MainBreadcrumbComponent,
     BlogSidebarComponent,
+    DoctorSidebarComponent,
   ],
   imports: [CommonModule, RouterModule, SlickCarouselModule],
   exports: [
@@ -28,7 +30,8 @@ import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
     BlogSectionComponent,
     HomeBannerComponent,
     MainBreadcrumbComponent,
-    BlogSidebarComponent
+    BlogSidebarComponent,
+    DoctorSidebarComponent
   ],
 })
 export class ComponentsHelperModule {}
