@@ -12,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'homepage' },
       { path: 'homepage', component: HomepageComponent },
+      { path: 'doctor', loadChildren: () => import('./doctor/doctor.module').then(x => x.DoctorModule) },
       { path: 'blog', loadChildren: () => import('./blog/blog.module').then(x => x.BlogModule) },
       { path: 'term-condition', component: TermsConditiosComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },

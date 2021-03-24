@@ -5,10 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SlugifyPipe } from './shared/pipes/slugify.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SlugifyPipe
   ],
   imports: [
     BrowserModule,

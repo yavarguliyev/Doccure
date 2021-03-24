@@ -7,10 +7,10 @@ import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
 import { RouterModule } from '@angular/router';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
-
+import { UrlSanitizerPipe } from 'src/app/shared/pipes/url-sanitizer.pipe';
 
 @NgModule({
-  declarations: [BlogComponent, ListComponent, DetailsComponent],
+  declarations: [BlogComponent, ListComponent, DetailsComponent, UrlSanitizerPipe],
   imports: [
     CommonModule,
     BlogRoutingModule,

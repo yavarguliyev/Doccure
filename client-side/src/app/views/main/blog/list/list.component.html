@@ -11,7 +11,7 @@
         <div class="blog" *ngFor="let item of blogs">
           <div class="blog-image">
             <div class="video">
-              <iframe [src]='safeUrl(item.video!)' width="940" allowfullscreen></iframe>
+              <iframe [src]='item.video! | urlSanitizer' width="940" allowfullscreen></iframe>
             </div>
           </div>
           <h3 class="blog-title"><a [routerLink]="['/main/blog/details', item.slug]">{{item.title}}</a></h3>

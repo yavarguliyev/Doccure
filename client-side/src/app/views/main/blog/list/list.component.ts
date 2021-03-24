@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Blog, BlogB } from 'src/app/shared/models/blog';
 import { DoctorD } from 'src/app/shared/models/doctor';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list',
@@ -10,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ListComponent implements OnInit {
   public blogs: Blog[] = [];
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor() { }
 
   ngOnInit(): void {
     const url = 'https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0';
@@ -31,9 +30,4 @@ export class ListComponent implements OnInit {
     this.blogs.push(b3);
     this.blogs.push(b4);
   }
-
-  public safeUrl(url: string) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
 }
