@@ -1,3 +1,8 @@
 <div class="form-group">
-  <input class="form-control" type={{type}} placeholder={{label!}}>
+  <input
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    type="{{ type }}"
+    class="form-control"
+    placeholder="{{ label! }}"
+  />
 </div>

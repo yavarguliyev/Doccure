@@ -10,7 +10,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MainBreadcrumbComponent } from './main-breadcrumb/main-breadcrumb.component';
 import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
-import { AuthHandlerComponent } from './auth-handler/auth-handler.component';
 import { InputTextComponent } from './input-text/input-text.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -24,8 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MainBreadcrumbComponent,
     BlogSidebarComponent,
     DoctorSidebarComponent,
-    AuthHandlerComponent,
-    InputTextComponent,
+    InputTextComponent
   ],
   imports: [CommonModule, RouterModule, SlickCarouselModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -37,7 +35,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MainBreadcrumbComponent,
     BlogSidebarComponent,
     DoctorSidebarComponent,
-    AuthHandlerComponent,
     InputTextComponent
   ],
 })

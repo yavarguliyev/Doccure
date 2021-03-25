@@ -1,16 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-text',
-  templateUrl: './input-text.component.html'
+  templateUrl: './input-text.component.html',
 })
-export class InputTextComponent implements OnInit {
+export class InputTextComponent implements ControlValueAccessor {
   @Input() label!: string;
   @Input() type!: string;
 
-  constructor() {
-  }
-  ngOnInit(): void {
+  constructor(@Self() public ngControl: NgControl) {
+    this.ngControl.valueAccessor = this;
   }
 
+  writeValue(obj: any): void {}
+
+  registerOnChange(fn: any): void {}
+
+  registerOnTouched(fn: any): void {}
 }

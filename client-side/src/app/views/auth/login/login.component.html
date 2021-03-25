@@ -1,8 +1,27 @@
-<app-auth-handler
-  [isLogin]="true"
-  [email]="true"
-  [password]="true"
-  text="Login"
-  subhead="Access to our dashboard"
->
-</app-auth-handler>
+<h1>Login</h1>
+<p class="account-subtitle">Access to our dashboard</p>
+
+<!-- Form -->
+<form [formGroup]="fg" (ngSubmit)="fg.valid && loginSubmit()" autocomplete="off">
+  <app-input-text [type]='"email"' [label]='"Email"' [formControlName]='"email"'></app-input-text>
+  <app-input-text [type]='"password"' [label]='"Password"' [formControlName]='"password"'></app-input-text>
+  <div class="form-group">
+    <button [disabled]="!fg.valid" class="btn btn-primary btn-block" type="submit">
+      Login
+    </button>
+  </div>
+</form>
+<!-- /Form -->
+
+<div class="text-center forgotpass">
+  <a [routerLink]="['/auth/forget-password']">Forgot Password?</a>
+</div>
+
+<div class="login-or">
+  <span class="or-line"></span>
+  <span class="span-or">or</span>
+</div>
+
+<div class="text-center dont-have">
+  Don’t have an account? <a [routerLink]="['/auth/register']">Register</a>
+</div>
