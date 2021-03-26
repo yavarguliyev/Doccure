@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
   intitializeForm() {
     this.fg = this.fb.group({
       email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
   }
 
-  loginSubmit() {
+  loginSubmit(formGroup: FormGroup) {
 
-    console.log(this.fg.value);
+    console.log(formGroup);
   }
 }

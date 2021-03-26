@@ -12,6 +12,7 @@ import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
 import { InputTextComponent } from './input-text/input-text.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthHandlerComponent } from './auth-handler/auth-handler.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MainBreadcrumbComponent,
     BlogSidebarComponent,
     DoctorSidebarComponent,
-    InputTextComponent
+    InputTextComponent,
+    AuthHandlerComponent
   ],
   imports: [CommonModule, RouterModule, SlickCarouselModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -35,7 +37,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MainBreadcrumbComponent,
     BlogSidebarComponent,
     DoctorSidebarComponent,
-    InputTextComponent
+    InputTextComponent,
+    AuthHandlerComponent
   ],
 })
 export class ComponentsHelperModule {}
