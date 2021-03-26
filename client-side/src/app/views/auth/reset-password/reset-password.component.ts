@@ -22,8 +22,7 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  resetPasswordSubmit() {
-
-    console.log(this.fg.value);
+  resetPasswordSubmit(formGroup: FormGroup) {
+    console.log(formGroup.value);
   }
 }

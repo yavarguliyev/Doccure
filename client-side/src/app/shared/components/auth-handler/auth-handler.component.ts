@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './auth-handler.component.html'
 })
 export class AuthHandlerComponent implements OnInit {
-  @Input() submit: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Input() authSubmit!: ((formGroup: FormGroup) => void);
 
   @Input() title: string | undefined;
   @Input() subhead: string | undefined;
@@ -20,11 +21,5 @@ export class AuthHandlerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  onSubmit() {
-    this.submit.emit(this.formGroup);
-    console.log(this.formGroup);
-  }
+  ngOnInit(): void { }
 }

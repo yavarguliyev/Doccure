@@ -24,8 +24,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  registerSubmit() {
-
-    console.log(this.fg.value);
+  registerSubmit(formGroup: FormGroup) {
+    console.log(formGroup.value);
   }
 }
