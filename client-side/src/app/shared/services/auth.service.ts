@@ -8,16 +8,12 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-
   constructor(private http: HttpClient) {}
 
   public login(email: string, password: string) {
-    console.log(email);
-    // return this.http.post<User>(`${environment.api}/auth/login`, {
-    //   email,
-    //   password,
-    // }).pipe(map(user => {
-    //   console.log(user);
-    // }));
+    return this.http.post<User>(`${environment.api}/auth/login`, {
+      email,
+      password,
+    }).pipe(map(user => user));
   }
 }

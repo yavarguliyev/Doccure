@@ -21,7 +21,7 @@ export class ForgetPasswordComponent implements OnInit {
     });
   }
 
-  forgetPasswordSubmit(formGroup: FormGroup) {
-    console.log(formGroup.value);
+  forgetPasswordSubmit() {
+    console.log(this.fg.value);
   }
 }

@@ -18,7 +18,7 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   getPrivacies() {
-     this.api.getPrivaciesAndPolicies().subscribe((data) => this.privacy = data);
+     this.api.getPrivaciesAndPolicies().subscribe((response) => this.privacy = response);
   }
 
 }

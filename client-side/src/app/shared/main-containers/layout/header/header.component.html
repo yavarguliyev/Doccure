@@ -64,32 +64,14 @@
             <li><a [routerLink]="['/']">Change Password</a></li>
           </ul>
         </li>
-        <li class="has-submenu">
-          <a href="#">Pages <i class="fas fa-chevron-down"></i></a>
-          <ul class="submenu">
-            <li><a [routerLink]="['/']">Voice Call</a></li>
-            <li><a [routerLink]="['/']">Video Call</a></li>
-            <li><a [routerLink]="['/']">Search Doctors</a></li>
-            <li><a [routerLink]="['/']">Calendar</a></li>
-            <li><a [routerLink]="['/']">Components</a></li>
-            <li class="has-submenu">
-              <a [routerLink]="['/']">Invoices</a>
-              <ul class="submenu">
-                <li><a [routerLink]="['/']">Invoices</a></li>
-                <li><a [routerLink]="['/']">Invoice View</a></li>
-              </ul>
-            </li>
-            <li><a [routerLink]="['/']">Starter Page</a></li>
-            <li><a [routerLink]="['/']">Login</a></li>
-            <li><a [routerLink]="['/']">Register</a></li>
-            <li><a [routerLink]="['/']">Forgot Password</a></li>
-          </ul>
-        </li>
         <li [routerLinkActive]="['active']" class="has-submenu">
           <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
           <ul class="submenu">
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/blog/list']">Blog List</a></li>
           </ul>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a [routerLink]="['/main']">Search Doctors</a>
         </li>
         <li>
           <a [routerLink]="['/']" target="_blank">Admin</a>

@@ -15,7 +15,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
-  public validationErrors: string[] = [];
 
   public returnUrl!: string;
 
@@ -40,10 +39,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  loginSubmit(formGroup: FormGroup) {
-    const email = formGroup.value.email as string;
-    const password = formGroup.value.password as string;
+  loginSubmit() {
+    const email = this.fg.value.email as string;
+    const password = this.fg.value.password as string;
 
-    this.api.login(email, password);
+    this.api.login(email, password).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error.error.errors.user);
+      }
+    );
   }
 }

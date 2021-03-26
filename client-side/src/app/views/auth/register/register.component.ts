@@ -18,13 +18,12 @@ export class RegisterComponent implements OnInit {
   intitializeForm() {
     this.fg = this.fb.group({
       fullname: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required)
     });
   }
 
-  registerSubmit(formGroup: FormGroup) {
-    console.log(formGroup.value);
+  registerSubmit() {
+    console.log(this.fg.value);
   }
 }
