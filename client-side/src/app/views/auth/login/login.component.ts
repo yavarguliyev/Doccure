@@ -8,6 +8,7 @@ import {
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { ToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private title: Title,
     private api: AuthService,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
       },
       (error) => {
+        this.toastr.warning(error.error.errors.user, 'User');
         console.log(error.error.errors.user);
       }
     );
