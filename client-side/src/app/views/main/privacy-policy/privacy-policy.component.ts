@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Privacy } from 'src/app/shared/models/privacy';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 
 @Component({
   selector: 'app-privacy-policy',
-  templateUrl: './privacy-policy.component.html'
+  templateUrl: './privacy-policy.component.html',
 })
 export class PrivacyPolicyComponent implements OnInit {
   public privacy: Privacy | undefined;
 
-  constructor(private api: SettingsService, private title: Title) { }
+  constructor(private api: SettingsService, private title: Title) {}
 
   ngOnInit(): void {
     this.title.setTitle('Doccure | Privacy Policy');
@@ -18,7 +18,6 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   getPrivacies() {
-     this.api.getPrivaciesAndPolicies().subscribe((response) => this.privacy = response);
+    this.api.getPrivacy().subscribe((response: Privacy) => (this.privacy = response));
   }
-
 }

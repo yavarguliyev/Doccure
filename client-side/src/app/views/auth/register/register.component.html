@@ -4,6 +4,8 @@
 <!-- Form -->
 <form [formGroup]="fg" (ngSubmit)="fg.valid && registerSubmit()" autocomplete="off">
   <app-input-text  [type]='"text"' [label]='"Fullname"' [formControlName]='"fullname"'></app-input-text>
+  <app-input-select [formControlName]="'gender'" [values]="gender"></app-input-select>
+  <app-input-date  [label]="'Birth'" [formControlName]="'birth'" [maxDate]='maxDate'></app-input-date>
   <app-input-text  [type]='"password"' [label]='"Password"' [formControlName]='"password"'></app-input-text>
   <app-input-text  [type]='"password"' [label]='"Confirm Password"' [formControlName]='"confirmPassword"'></app-input-text>
   <div class="form-group">

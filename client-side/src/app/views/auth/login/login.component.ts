@@ -50,8 +50,8 @@ export class LoginComponent implements OnInit {
         console.log(response);
       },
       (error) => {
-        this.toastr.warning(error.error.errors.user, 'User');
-        console.log(error.error.errors.user);
+        this.toastr.warning('Error', 'User');
+        console.log(error);
       }
     );
   }

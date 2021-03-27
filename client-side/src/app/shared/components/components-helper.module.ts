@@ -12,6 +12,9 @@ import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
 import { InputTextComponent } from './input-text/input-text.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputDateComponent } from './input-date/input-date.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { InputSelectComponent } from './input-select/input-select.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +27,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BlogSidebarComponent,
     DoctorSidebarComponent,
     InputTextComponent,
+    InputDateComponent,
+    InputSelectComponent,
   ],
-  imports: [CommonModule, RouterModule, SlickCarouselModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    SlickCarouselModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot()
+  ],
   exports: [
     SpecialitiesComponent,
     PopularSelectionComponent,
@@ -36,6 +48,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BlogSidebarComponent,
     DoctorSidebarComponent,
     InputTextComponent,
+    InputDateComponent,
+    InputSelectComponent
   ],
 })
 export class ComponentsHelperModule {}

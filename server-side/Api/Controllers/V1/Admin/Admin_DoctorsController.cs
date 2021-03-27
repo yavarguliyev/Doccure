@@ -29,7 +29,7 @@ namespace Api.Controllers.v1.Admin
         {
             if (auth.Admin == null) return Unauthorized();
             await userService.CreateAsync(mapper.Map<User>(model), UserRole.Doctor);
-            return Ok(new { message = "New doctor registered!" });
+            return Ok(new { message = "New doctor created!" });
         }
 
         [HttpPut("status")]

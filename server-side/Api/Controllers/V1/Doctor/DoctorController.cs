@@ -17,6 +17,12 @@ namespace Api.Controllers.v1.Doctor
             return Ok(mapper.Map<UserDTO>(await userService.GetAsync(auth.Doctor.Id)));
         }
 
+        [HttpGet("{token}")]
+        public async Task<IActionResult> GetByToken(string token)
+        {
+            return Ok(mapper.Map<UserDTO>(await userService.GetAsync(token)));
+        }
+
         [HttpPut]
         public async Task<IActionResult> Register(NewDoctorModifyDTO model, string token)
         {

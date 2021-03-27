@@ -24,11 +24,14 @@ export interface User {
   state: string;
   country: string;
   biography: string;
+  message: string;
 }
 
 export interface UserFormValues {
   fullname?: string;
   email?: string;
+  gender: Gender;
+  birth?: Date;
   password?: string;
   confirmPassword?: string;
 }

@@ -4,6 +4,7 @@ import { Term } from '../models/term';
 import { Privacy } from '../models/privacy';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,13 @@ import { Observable } from 'rxjs';
 export class SettingsService {
   constructor(private http: HttpClient) {}
 
-  public getTermsAndCondition() {
+  public getTerm(): Observable<Term> {
     return this.http.get<Term>(`${environment.api}/admin_settings/terms`);
   }
 
-  public getPrivaciesAndPolicies(): Observable<Privacy> {
-    return this.http.get<Privacy>(`${environment.api}/admin_settings/privacies`);
+  public getPrivacy(): Observable<Privacy>
+  {
+    const url = `${environment.api}/admin_settings/privacies`;
+    return this.http.get<Privacy>(url);
   }
 }

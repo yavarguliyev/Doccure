@@ -1,0 +1,12 @@
+<div class="form-group">
+  <select
+    [class.is-invalid]="ngControl.touched && ngControl.invalid"
+    class="form-control"
+    [formControl]="formControl"
+  >
+    <option *ngFor="let item of values | keyvalue" [value]="item.value" [selected]="item.value">{{item.value}}</option>
+  </select>
+  <div *ngIf="ngControl.control?.errors?.required" class="invalid-feedback">
+    Please enter a {{ label }}
+  </div>
+</div>

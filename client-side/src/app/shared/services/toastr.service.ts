@@ -7,7 +7,7 @@ import { ToastrService as Toast } from 'ngx-toastr';
 export class ToastrService {
   constructor(private toastr: Toast) {}
 
-  public toastBody(): any {
+  private toastBody(): any {
     return {
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
