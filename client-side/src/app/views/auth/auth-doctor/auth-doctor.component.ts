@@ -6,17 +6,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Gender } from 'src/app/shared/enums/gender.enum';
+import { AuthDoctorService } from 'src/app/shared/services/auth-doctor.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'src/app/shared/services/toastr.service';
-import { EnumType } from 'typescript';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
+  selector: 'app-auth-doctor',
+  templateUrl: './auth-doctor.component.html',
 })
-export class RegisterComponent implements OnInit {
+export class AuthDoctorComponent implements OnInit {
   private token!: string;
 
   public fg: FormGroup = new FormGroup({});
@@ -26,14 +26,14 @@ export class RegisterComponent implements OnInit {
   constructor(
     private title: Title,
     private api: AuthService,
+    private authDoctorService: AuthDoctorService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Doccure | Register');
+    this.title.setTitle('Doccure | Doctor Register');
     this.checkRouter();
     this.intitializeForm();
     this.maxDate = new Date();
@@ -54,25 +54,15 @@ export class RegisterComponent implements OnInit {
     const token = this.route.snapshot.paramMap.get('token');
     token ? (this.token = token) : (this.token = '');
 
-    this.api.checkUser(this.token).subscribe(
-      () => {},
-      (error) => {
-        if (error.status === 404) {
-          this.router.navigate(['/errors/not-found']);
-        }
-      }
-    );
+    this.authDoctorService.checkUser(this.token).subscribe((res) => res);
   }
 
   registerSubmit() {
-    this.api.register(this.token, this.fg.value).subscribe(
+    this.authDoctorService.register(this.token, this.fg.value).subscribe(
       (response) => {
-        console.log(response);
         this.toastr.success(response.message, 'Success');
       },
-      (error) => {
-        this.toastr.warning('Error', 'User');
-      }
+      (error) => {}
     );
   }
 }

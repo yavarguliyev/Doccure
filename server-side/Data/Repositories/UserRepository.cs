@@ -89,18 +89,18 @@ namespace Data.Repositories
             throw new RestException(HttpStatusCode.NotFound, new { user = "User not found" });
         }
 
-        public async Task<bool> CheckEmail(string email)
+        public async Task<bool> Check(string queryValue)
         {
-            if (string.IsNullOrEmpty(email)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Email cannot be null" });
+            if (string.IsNullOrEmpty(queryValue)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Email cannot be null" });
 
             bool check = await context.Users
                                     .Where(x => x.Status)
                                     .Include(x => x.Admin)
                                     .Include(x => x.Doctor)
                                     .Include(x => x.Patient)
-                                    .FirstOrDefaultAsync(x => x.Email == email) != null ? true : false;
+                                    .FirstOrDefaultAsync(x => x.Email == queryValue || x.Slug == queryValue) != null ? true : false;
 
-            if (check) throw new RestException(HttpStatusCode.BadRequest, new { user = "This email is already exist" });
+            if (check) throw new RestException(HttpStatusCode.BadRequest, new { user = "This user is already exist" });
 
             return true;
         }

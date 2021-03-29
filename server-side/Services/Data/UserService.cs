@@ -66,9 +66,9 @@ namespace Services.Data
             return await _unitOfWork.User.SingleOrDefaultAsync(x => x.Code == code);
         }
 
-        public async Task<bool> CheckEmailAsync(string email)
+        public async Task<bool> CheckAsync(string queryValue)
         {
-            return await _unitOfWork.User.CheckEmail(email);
+            return await _unitOfWork.User.Check(queryValue);
         }
         #endregion
 
@@ -91,7 +91,7 @@ namespace Services.Data
 
         public async Task CreateAsync(User newUser, UserRole role)
         {
-            await this.CheckEmailAsync(newUser.Email);
+            await this.CheckAsync(newUser.Email);
 
             newUser.Status = true;
             newUser.AddedDate = DateTime.Now;
@@ -110,6 +110,9 @@ namespace Services.Data
             newUser.Photo = null;
             newUser.Fullname = newUser.Fullname != null ? newUser.Fullname : null;
             newUser.Slug = newUser.Fullname != null ? newUser.Fullname.Replace(" ", "-").ToLower() : null;
+
+            if (!string.IsNullOrEmpty(newUser.Slug)) await this.CheckAsync(newUser.Slug);
+
             newUser.Email = newUser.Email != null ? newUser.Email : null;
             newUser.Birth = newUser.Birth.Year != 0001 ? newUser.Birth : DateTime.Now;
             newUser.Phone = newUser.Phone != null ? newUser.Phone : null;
@@ -223,18 +226,7 @@ namespace Services.Data
                     break;
             }
 
-            switch (user.Role)
-            {
-                case UserRole.Admin:
-                    userToBeUpdated.Role = UserRole.Admin;
-                    break;
-                case UserRole.Doctor:
-                    userToBeUpdated.Role = UserRole.Doctor;
-                    break;
-                case UserRole.Patient:
-                    userToBeUpdated.Role = UserRole.Patient;
-                    break;
-            }
+            userToBeUpdated.Role = userToBeUpdated.Role;
 
             userToBeUpdated.Token = Guid.NewGuid().ToString();
             userToBeUpdated.InviteToken = null;

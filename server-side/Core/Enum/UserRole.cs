@@ -4,6 +4,7 @@
     {
         Other,
         Admin,
+        Admin_Pharmcy,
         Doctor,
         Patient
     }

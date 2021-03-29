@@ -14,7 +14,7 @@ namespace Core.Services.Data
         Task<User> GetAsync(string token);
         Task<User> GetByAsync(string queryValue);
         Task<User> GetByCodeAsync(string code);
-        Task<bool> CheckEmailAsync(string email);
+        Task<bool> CheckAsync(string queryValue);
 
         Task<UserDTO> LoginAsync(string email, string password);
         Task CreateAsync(User newUser, UserRole role);

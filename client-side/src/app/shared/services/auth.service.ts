@@ -1,31 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { User, UserFormValues } from '../models/user';
+import { User } from '../models/user';
 import { map } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private baseUrl = environment.api;
+  private currentUserSource = new ReplaySubject<User>(1);
+  public currentUser$ = this.currentUserSource.asObservable();
 
-  public checkUser(token: string) {
-    return this.http.get(`${environment.api}/doctor/${token}`);
-  }
+  constructor(private http: HttpClient) {}
 
   public login(email: string, password: string) {
     return this.http
-      .post<User>(`${environment.api}/auth/login`, {
+      .post<User>(`${this.baseUrl}/auth/login`, {
         email,
         password,
       })
-      .pipe(map((user) => user));
+      .pipe(
+        map((response: User) => {
+          const user = response;
+          if (user) {
+            this.setCurrentUser(user);
+          }
+        })
+      );
   }
 
-  public register(token: string, userForm: UserFormValues) {
-    return this.http
-      .put<User>(`${environment.api}/doctor?token=${token}`, userForm)
-      .pipe(map((user) => user));
+  setCurrentUser(user: User) {
+    localStorage.setItem(`${user.role}`, JSON.stringify(user));
+    this.currentUserSource.next(user);
+  }
+
+  logout(user: User) {
+    localStorage.removeItem(`${user.role}`);
+    this.currentUserSource.next(undefined);
   }
 }

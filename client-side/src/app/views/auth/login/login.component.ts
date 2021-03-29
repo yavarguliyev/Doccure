@@ -46,13 +46,8 @@ export class LoginComponent implements OnInit {
     const password = this.fg.value.password as string;
 
     this.api.login(email, password).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        this.toastr.warning('Error', 'User');
-        console.log(error);
-      }
+      (response) => { },
+      (error) => { }
     );
   }
 }

@@ -10,15 +10,17 @@ import { timeout } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class SettingsService {
+  private baseUrl = environment.api;
+
   constructor(private http: HttpClient) {}
 
   public getTerm(): Observable<Term> {
-    return this.http.get<Term>(`${environment.api}/admin_settings/terms`);
+    return this.http.get<Term>(`${this.baseUrl}/admin_settings/terms`);
   }
 
   public getPrivacy(): Observable<Privacy>
   {
-    const url = `${environment.api}/admin_settings/privacies`;
+    const url = `${this.baseUrl}/admin_settings/privacies`;
     return this.http.get<Privacy>(url);
   }
 }

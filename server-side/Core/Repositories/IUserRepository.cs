@@ -11,6 +11,6 @@ namespace Core.Repositories
         Task<User> Get(int id);
         Task<User> Get(string token);
         Task<User> GetBy(string queryValue);
-        Task<bool> CheckEmail(string email);
+        Task<bool> Check(string queryValue);
     }
 }

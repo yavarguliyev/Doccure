@@ -499,6 +499,14 @@ namespace Data.Data_Seed
                         ModifiedBy = "System",
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now
+                    },
+                    new Admin
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now
                     }
                 };
 
@@ -589,6 +597,40 @@ namespace Data.Data_Seed
                         ConfirmToken = null,
                         ConnectionId = null,
                         AdminId = 1,
+                        DoctorId = null,
+                        PatientId = null
+                    },
+
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Admin Pharmacy",
+                        Slug = "admin-pharmacy",
+                        Email = "admin@pharmacy.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Admin_Pharmcy,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = 2,
                         DoctorId = null,
                         PatientId = null
                     },
