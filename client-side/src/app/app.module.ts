@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { SlugifyPipe } from './shared/pipes/slugify.pipe';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
-import { AuthDoctorInterceptor } from './shared/interceptors/auth-doctor.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [AppComponent, SlugifyPipe],
@@ -18,14 +20,16 @@ import { AuthDoctorInterceptor } from './shared/interceptors/auth-doctor.interce
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    NgxSpinnerModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthDoctorInterceptor,
+      useClass: JwtInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

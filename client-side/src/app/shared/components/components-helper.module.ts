@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputDateComponent } from './input-date/input-date.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { InputSelectComponent } from './input-select/input-select.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { InputSelectComponent } from './input-select/input-select.component';
     InputTextComponent,
     InputDateComponent,
     InputSelectComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { InputSelectComponent } from './input-select/input-select.component';
     DoctorSidebarComponent,
     InputTextComponent,
     InputDateComponent,
-    InputSelectComponent
+    InputSelectComponent,
+    ConfirmDialogComponent
   ],
 })
 export class ComponentsHelperModule {}

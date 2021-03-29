@@ -6,9 +6,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private title: Title,
+    private router: Router,
     private api: AuthService,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private toastr: ToastrService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -45,9 +45,12 @@ export class LoginComponent implements OnInit {
     const email = this.fg.value.email as string;
     const password = this.fg.value.password as string;
 
-    this.api.login(email, password).subscribe(
-      (response) => { },
-      (error) => { }
-    );
+    this.api.login(email, password).subscribe(() => this.router.navigate([this.returnUrl]));
+  }
+
+  logout(role: string) {
+    const current = localStorage.getItem(role);
+    const user: User = current !== null ? JSON.parse(current) : null;
+    this.api.logout(user);
   }
 }

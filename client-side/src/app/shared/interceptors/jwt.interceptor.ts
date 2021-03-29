@@ -11,7 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs/operators';
 
 @Injectable()
-export class AuthDoctorInterceptor implements HttpInterceptor {
+export class JwtInterceptor implements HttpInterceptor {
   constructor(private accountService: AuthService) { }
 
   intercept(

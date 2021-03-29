@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthDoctorGuard } from 'src/app/shared/guards/auth-doctor.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MainComponent } from './main.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
@@ -12,16 +13,25 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'homepage' },
       { path: 'homepage', component: HomepageComponent },
-      { path: 'doctor', loadChildren: () => import('./doctor/doctor.module').then(x => x.DoctorModule) },
-      { path: 'blog', loadChildren: () => import('./blog/blog.module').then(x => x.BlogModule) },
+      {
+        path: 'doctor',
+        loadChildren: () =>
+          import('./doctor/doctor.module').then((x) => x.DoctorModule),
+        canActivate: [AuthDoctorGuard],
+      },
+      {
+        path: 'blog',
+        loadChildren: () =>
+          import('./blog/blog.module').then((x) => x.BlogModule),
+      },
       { path: 'term-condition', component: TermsConditiosComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {}
