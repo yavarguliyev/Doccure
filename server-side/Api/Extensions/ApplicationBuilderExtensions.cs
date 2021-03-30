@@ -22,7 +22,7 @@ namespace Api.Extensions
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseDefaultFiles();
