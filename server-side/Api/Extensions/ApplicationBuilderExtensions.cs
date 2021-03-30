@@ -40,6 +40,7 @@ namespace Api.Extensions
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("index", "fallback");
             });
 
             return app;
