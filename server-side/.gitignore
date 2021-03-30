@@ -438,4 +438,3 @@ $RECYCLE.BIN/
 
 # Output folder used by Webpack or other FE stuff
 **/node_modules/*
-**/wwwroot/*
