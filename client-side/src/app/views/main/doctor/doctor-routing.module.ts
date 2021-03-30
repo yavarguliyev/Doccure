@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthDoctorGuard } from 'src/app/shared/guards/auth-doctor.guard';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,6 +20,8 @@ const routes: Routes = [
   {
     path: '',
     component: DoctorComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthDoctorGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'appointments', component: AppointmentsComponent },

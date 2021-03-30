@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthDoctorGuard } from 'src/app/shared/guards/auth-doctor.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MainComponent } from './main.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
         path: 'doctor',
         loadChildren: () =>
           import('./doctor/doctor.module').then((x) => x.DoctorModule),
-        canActivate: [AuthDoctorGuard],
       },
       {
         path: 'blog',
