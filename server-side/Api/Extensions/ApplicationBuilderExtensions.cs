@@ -9,8 +9,6 @@ namespace Api.Extensions
     {
         public static IApplicationBuilder AddApplicationBuilders(this IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
-
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
@@ -22,8 +20,9 @@ namespace Api.Extensions
                 });
             }
 
-            app.UseHttpsRedirection();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseDefaultFiles();
