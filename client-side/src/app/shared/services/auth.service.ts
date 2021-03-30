@@ -14,7 +14,9 @@ export class AuthService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient,  private router: Router) {}
+  constructor(private http: HttpClient,  private router: Router) {
+    this.currentUser$.pipe(map(user => console.log(user)));
+  }
 
   public login(email: string, password: string) {
     return this.http

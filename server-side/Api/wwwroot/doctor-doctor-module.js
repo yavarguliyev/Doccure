@@ -562,6 +562,64 @@ InvoicesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 
 /***/ }),
 
+/***/ "/v19":
+/*!****************************************************!*\
+  !*** ./src/app/shared/guards/auth-doctor.guard.ts ***!
+  \****************************************************/
+/*! exports provided: AuthDoctorGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthDoctorGuard", function() { return AuthDoctorGuard; });
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth.service */ "IYfF");
+/* harmony import */ var _services_toastr_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/toastr.service */ "tLuA");
+
+
+
+
+
+class AuthDoctorGuard {
+    constructor(router, auth, toastr) {
+        this.router = router;
+        this.auth = auth;
+        this.toastr = toastr;
+    }
+    canActivate(next, state) {
+        let currentUser;
+        this.auth.currentUser$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["map"])(user => {
+            currentUser = user;
+        }));
+        console.log(currentUser);
+        // if (currentUser) { return true; }
+        this.router.navigate(['auth/login'], {
+            queryParams: { returnUrl: state.url },
+        });
+        this.toastr.error('You shall not pass!', 'Unauthorized');
+        return false;
+        // return this.auth.currentUser$.pipe(
+        //   map((user) => {
+        //     if (user.role.includes('Doctor')) {
+        //       return true;
+        //     }
+        //     this.router.navigate(['auth/login'], {
+        //       queryParams: { returnUrl: state.url },
+        //     });
+        //     this.toastr.error('You shall not pass!', 'Unauthorized');
+        //     return false;
+        //   })
+        // );
+    }
+}
+AuthDoctorGuard.ɵfac = function AuthDoctorGuard_Factory(t) { return new (t || AuthDoctorGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_services_toastr_service__WEBPACK_IMPORTED_MODULE_4__["ToastrService"])); };
+AuthDoctorGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: AuthDoctorGuard, factory: AuthDoctorGuard.ɵfac, providedIn: 'root' });
+
+
+/***/ }),
+
 /***/ "6urP":
 /*!********************************************************************************!*\
   !*** ./src/app/views/main/doctor/patient-profile/patient-profile.component.ts ***!
@@ -4722,21 +4780,23 @@ MessagesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DoctorRoutingModule", function() { return DoctorRoutingModule; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _appointments_appointments_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./appointments/appointments.component */ "z5VO");
-/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./change-password/change-password.component */ "RtyN");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "yjTe");
-/* harmony import */ var _doctor_blog_doctor_blog_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./doctor-blog/doctor-blog.component */ "8RL9");
-/* harmony import */ var _doctor_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./doctor.component */ "urax");
-/* harmony import */ var _invoices_details_invoices_details_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./invoices-details/invoices-details.component */ "dIzk");
-/* harmony import */ var _invoices_invoices_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./invoices/invoices.component */ "/VA6");
-/* harmony import */ var _messages_messages_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./messages/messages.component */ "Tfm1");
-/* harmony import */ var _my_patients_my_patients_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./my-patients/my-patients.component */ "IN+N");
-/* harmony import */ var _patient_profile_patient_profile_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./patient-profile/patient-profile.component */ "6urP");
-/* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "P8jO");
-/* harmony import */ var _reviews_reviews_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./reviews/reviews.component */ "alLA");
-/* harmony import */ var _schedule_timings_schedule_timings_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./schedule-timings/schedule-timings.component */ "i5nY");
-/* harmony import */ var _social_media_social_media_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./social-media/social-media.component */ "+RBQ");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var src_app_shared_guards_auth_doctor_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/guards/auth-doctor.guard */ "/v19");
+/* harmony import */ var _appointments_appointments_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./appointments/appointments.component */ "z5VO");
+/* harmony import */ var _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./change-password/change-password.component */ "RtyN");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "yjTe");
+/* harmony import */ var _doctor_blog_doctor_blog_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./doctor-blog/doctor-blog.component */ "8RL9");
+/* harmony import */ var _doctor_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./doctor.component */ "urax");
+/* harmony import */ var _invoices_details_invoices_details_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./invoices-details/invoices-details.component */ "dIzk");
+/* harmony import */ var _invoices_invoices_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./invoices/invoices.component */ "/VA6");
+/* harmony import */ var _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./messages/messages.component */ "Tfm1");
+/* harmony import */ var _my_patients_my_patients_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./my-patients/my-patients.component */ "IN+N");
+/* harmony import */ var _patient_profile_patient_profile_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./patient-profile/patient-profile.component */ "6urP");
+/* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "P8jO");
+/* harmony import */ var _reviews_reviews_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./reviews/reviews.component */ "alLA");
+/* harmony import */ var _schedule_timings_schedule_timings_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./schedule-timings/schedule-timings.component */ "i5nY");
+/* harmony import */ var _social_media_social_media_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./social-media/social-media.component */ "+RBQ");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
 
 
 
@@ -4757,30 +4817,32 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        component: _doctor_component__WEBPACK_IMPORTED_MODULE_5__["DoctorComponent"],
+        component: _doctor_component__WEBPACK_IMPORTED_MODULE_6__["DoctorComponent"],
+        runGuardsAndResolvers: 'always',
+        canActivate: [src_app_shared_guards_auth_doctor_guard__WEBPACK_IMPORTED_MODULE_1__["AuthDoctorGuard"]],
         children: [
-            { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_3__["DashboardComponent"] },
-            { path: 'appointments', component: _appointments_appointments_component__WEBPACK_IMPORTED_MODULE_1__["AppointmentsComponent"] },
-            { path: 'my-patients', component: _my_patients_my_patients_component__WEBPACK_IMPORTED_MODULE_9__["MyPatientsComponent"] },
-            { path: 'patient-profile/:slug', component: _patient_profile_patient_profile_component__WEBPACK_IMPORTED_MODULE_10__["PatientProfileComponent"] },
-            { path: 'schedule-timings', component: _schedule_timings_schedule_timings_component__WEBPACK_IMPORTED_MODULE_13__["ScheduleTimingsComponent"] },
-            { path: 'invoices', component: _invoices_invoices_component__WEBPACK_IMPORTED_MODULE_7__["InvoicesComponent"] },
-            { path: 'invoices/:id', component: _invoices_details_invoices_details_component__WEBPACK_IMPORTED_MODULE_6__["InvoicesDetailsComponent"] },
-            { path: 'reviews', component: _reviews_reviews_component__WEBPACK_IMPORTED_MODULE_12__["ReviewsComponent"] },
-            { path: 'message', component: _messages_messages_component__WEBPACK_IMPORTED_MODULE_8__["MessagesComponent"] },
-            { path: 'profile-settings', component: _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_11__["ProfileSettingsComponent"] },
-            { path: 'social-media', component: _social_media_social_media_component__WEBPACK_IMPORTED_MODULE_14__["SocialMediaComponent"] },
-            { path: 'change-password', component: _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_2__["ChangePasswordComponent"] },
-            { path: 'doctor-blog', component: _doctor_blog_doctor_blog_component__WEBPACK_IMPORTED_MODULE_4__["DoctorBlogComponent"] },
+            { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["DashboardComponent"] },
+            { path: 'appointments', component: _appointments_appointments_component__WEBPACK_IMPORTED_MODULE_2__["AppointmentsComponent"] },
+            { path: 'my-patients', component: _my_patients_my_patients_component__WEBPACK_IMPORTED_MODULE_10__["MyPatientsComponent"] },
+            { path: 'patient-profile/:slug', component: _patient_profile_patient_profile_component__WEBPACK_IMPORTED_MODULE_11__["PatientProfileComponent"] },
+            { path: 'schedule-timings', component: _schedule_timings_schedule_timings_component__WEBPACK_IMPORTED_MODULE_14__["ScheduleTimingsComponent"] },
+            { path: 'invoices', component: _invoices_invoices_component__WEBPACK_IMPORTED_MODULE_8__["InvoicesComponent"] },
+            { path: 'invoices/:id', component: _invoices_details_invoices_details_component__WEBPACK_IMPORTED_MODULE_7__["InvoicesDetailsComponent"] },
+            { path: 'reviews', component: _reviews_reviews_component__WEBPACK_IMPORTED_MODULE_13__["ReviewsComponent"] },
+            { path: 'message', component: _messages_messages_component__WEBPACK_IMPORTED_MODULE_9__["MessagesComponent"] },
+            { path: 'profile-settings', component: _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__["ProfileSettingsComponent"] },
+            { path: 'social-media', component: _social_media_social_media_component__WEBPACK_IMPORTED_MODULE_15__["SocialMediaComponent"] },
+            { path: 'change-password', component: _change_password_change_password_component__WEBPACK_IMPORTED_MODULE_3__["ChangePasswordComponent"] },
+            { path: 'doctor-blog', component: _doctor_blog_doctor_blog_component__WEBPACK_IMPORTED_MODULE_5__["DoctorBlogComponent"] },
         ]
     }
 ];
 class DoctorRoutingModule {
 }
 DoctorRoutingModule.ɵfac = function DoctorRoutingModule_Factory(t) { return new (t || DoctorRoutingModule)(); };
-DoctorRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_15__["ɵɵdefineNgModule"]({ type: DoctorRoutingModule });
-DoctorRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_15__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_15__["ɵɵsetNgModuleScope"](DoctorRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
+DoctorRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdefineNgModule"]({ type: DoctorRoutingModule });
+DoctorRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_16__["ɵɵsetNgModuleScope"](DoctorRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
 
 
 /***/ }),
@@ -5665,18 +5727,31 @@ ScheduleTimingsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DoctorComponent", function() { return DoctorComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var src_app_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/services/auth.service */ "IYfF");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
+
 
 
 class DoctorComponent {
-    constructor() { }
+    constructor(auth, router) {
+        this.auth = auth;
+        this.router = router;
+    }
     ngOnInit() {
+        this.setCurrentUser();
+    }
+    setCurrentUser() {
+        const current = localStorage.getItem('Doctor');
+        const user = current !== null ? JSON.parse(current) : null;
+        if (user) {
+            this.auth.setCurrentUser(user);
+        }
     }
 }
-DoctorComponent.ɵfac = function DoctorComponent_Factory(t) { return new (t || DoctorComponent)(); };
+DoctorComponent.ɵfac = function DoctorComponent_Factory(t) { return new (t || DoctorComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); };
 DoctorComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DoctorComponent, selectors: [["app-doctor"]], decls: 1, vars: 0, template: function DoctorComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
-    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]], encapsulation: 2 });
+    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]], encapsulation: 2 });
 
 
 /***/ }),

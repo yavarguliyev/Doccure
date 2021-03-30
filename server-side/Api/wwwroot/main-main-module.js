@@ -35,50 +35,6 @@ LayoutMainModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineI
 
 /***/ }),
 
-/***/ "/v19":
-/*!****************************************************!*\
-  !*** ./src/app/shared/guards/auth-doctor.guard.ts ***!
-  \****************************************************/
-/*! exports provided: AuthDoctorGuard */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthDoctorGuard", function() { return AuthDoctorGuard; });
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth.service */ "IYfF");
-/* harmony import */ var _services_toastr_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/toastr.service */ "tLuA");
-
-
-
-
-
-class AuthDoctorGuard {
-    constructor(router, auth, toastr) {
-        this.router = router;
-        this.auth = auth;
-        this.toastr = toastr;
-    }
-    canActivate(next, state) {
-        return this.auth.currentUser$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["map"])((user) => {
-            if (user.role.includes('Doctor')) {
-                return true;
-            }
-            console.log(user);
-            this.router.navigate(['auth/login'], { queryParams: { returnUrl: state.url } });
-            this.toastr.error('You shall not pass!', 'Unauthorized');
-            return false;
-        }));
-    }
-}
-AuthDoctorGuard.ɵfac = function AuthDoctorGuard_Factory(t) { return new (t || AuthDoctorGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_services_toastr_service__WEBPACK_IMPORTED_MODULE_4__["ToastrService"])); };
-AuthDoctorGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: AuthDoctorGuard, factory: AuthDoctorGuard.ɵfac, providedIn: 'root' });
-
-
-/***/ }),
-
 /***/ "6Fix":
 /*!*******************************************!*\
   !*** ./src/app/views/main/main.module.ts ***!
@@ -1076,13 +1032,11 @@ HomepageComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainRoutingModule", function() { return MainRoutingModule; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var src_app_shared_guards_auth_doctor_guard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/guards/auth-doctor.guard */ "/v19");
-/* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./homepage/homepage.component */ "e8VL");
-/* harmony import */ var _main_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main.component */ "E15m");
-/* harmony import */ var _privacy_policy_privacy_policy_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./privacy-policy/privacy-policy.component */ "tDf1");
-/* harmony import */ var _terms_conditios_terms_conditios_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./terms-conditios/terms-conditios.component */ "chsL");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ "fXoL");
-
+/* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./homepage/homepage.component */ "e8VL");
+/* harmony import */ var _main_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./main.component */ "E15m");
+/* harmony import */ var _privacy_policy_privacy_policy_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./privacy-policy/privacy-policy.component */ "tDf1");
+/* harmony import */ var _terms_conditios_terms_conditios_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./terms-conditios/terms-conditios.component */ "chsL");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
 
 
 
@@ -1093,30 +1047,29 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        component: _main_component__WEBPACK_IMPORTED_MODULE_3__["MainComponent"],
+        component: _main_component__WEBPACK_IMPORTED_MODULE_2__["MainComponent"],
         children: [
             { path: '', redirectTo: 'homepage' },
-            { path: 'homepage', component: _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_2__["HomepageComponent"] },
+            { path: 'homepage', component: _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_1__["HomepageComponent"] },
             {
                 path: 'doctor',
                 loadChildren: () => __webpack_require__.e(/*! import() | doctor-doctor-module */ "doctor-doctor-module").then(__webpack_require__.bind(null, /*! ./doctor/doctor.module */ "Sotd")).then((x) => x.DoctorModule),
-                canActivate: [src_app_shared_guards_auth_doctor_guard__WEBPACK_IMPORTED_MODULE_1__["AuthDoctorGuard"]],
             },
             {
                 path: 'blog',
                 loadChildren: () => __webpack_require__.e(/*! import() | blog-blog-module */ "blog-blog-module").then(__webpack_require__.bind(null, /*! ./blog/blog.module */ "cEtv")).then((x) => x.BlogModule),
             },
-            { path: 'term-condition', component: _terms_conditios_terms_conditios_component__WEBPACK_IMPORTED_MODULE_5__["TermsConditiosComponent"] },
-            { path: 'privacy-policy', component: _privacy_policy_privacy_policy_component__WEBPACK_IMPORTED_MODULE_4__["PrivacyPolicyComponent"] },
+            { path: 'term-condition', component: _terms_conditios_terms_conditios_component__WEBPACK_IMPORTED_MODULE_4__["TermsConditiosComponent"] },
+            { path: 'privacy-policy', component: _privacy_policy_privacy_policy_component__WEBPACK_IMPORTED_MODULE_3__["PrivacyPolicyComponent"] },
         ],
     },
 ];
 class MainRoutingModule {
 }
 MainRoutingModule.ɵfac = function MainRoutingModule_Factory(t) { return new (t || MainRoutingModule)(); };
-MainRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineNgModule"]({ type: MainRoutingModule });
-MainRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵsetNgModuleScope"](MainRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
+MainRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineNgModule"]({ type: MainRoutingModule });
+MainRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineInjector"]({ imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] });
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵsetNgModuleScope"](MainRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"]] }); })();
 
 
 /***/ }),

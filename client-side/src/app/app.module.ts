@@ -29,7 +29,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
       useClass: JwtInterceptor,
       multi: true,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

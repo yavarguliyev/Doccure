@@ -35,6 +35,6 @@ import { ComponentsHelperModule } from 'src/app/shared/components/components-hel
     DoctorBlogComponent,
     InvoicesDetailsComponent,
   ],
-  imports: [CommonModule, DoctorRoutingModule, ComponentsHelperModule],
+  imports: [CommonModule, DoctorRoutingModule, ComponentsHelperModule]
 })
 export class DoctorModule {}
