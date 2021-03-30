@@ -145,8 +145,6 @@ namespace Api.Extensions
                 options.UseNpgsql(connStr);
             });
 
-            services.AddScoped<DbContext>(provider => provider.GetService<DataContext>());
-
             // auto mapper profiles
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
