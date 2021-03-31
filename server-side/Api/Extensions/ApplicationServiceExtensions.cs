@@ -75,36 +75,7 @@ namespace Api.Extensions
       services.AddRouting(options => options.LowercaseUrls = true);
 
       // swagger documentation for api
-      services.AddSwaggerGen(options =>
-      {
-        options.SwaggerDoc("v1", new OpenApiInfo
-        {
-          Version = "v1",
-          Title = "Api"
-        });
-        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        {
-          Description = "JWT Authorization header using the Bearer scheme (Example: Authorization: 'Bearer {token}')",
-          Name = "Authorization",
-          In = ParameterLocation.Header,
-          Type = SecuritySchemeType.ApiKey,
-          Scheme = "Bearer"
-        });
-        options.AddSecurityRequirement(new OpenApiSecurityRequirement
-          {
-                    {
-                    new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
-          });
-      });
+      services.AddSwaggerDocumentation();
 
       // database connection
 
