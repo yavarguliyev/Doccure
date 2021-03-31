@@ -67,7 +67,6 @@ namespace Api.Extensions
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials()
-                          .AllowAnyOrigin()
                           .WithOrigins("http://localhost:4200");
               });
       });
