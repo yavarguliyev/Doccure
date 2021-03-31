@@ -16,7 +16,7 @@ namespace Api.Extensions
         app.UseSwaggerDocumentation();
       }
 
-      // app.UseHttpsRedirection();
+      app.UseHttpsRedirection();
 
       app.UseRouting();
 
