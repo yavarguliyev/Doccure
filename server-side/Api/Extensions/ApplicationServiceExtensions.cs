@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 using Services.Common;
 using Services.Data;
 using Services.Mappings;
@@ -67,7 +66,7 @@ namespace Api.Extensions
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials()
-                          .WithOrigins("http://localhost:4200");
+                          .WithOrigins("http://localhost:4200", "https://localhost:4200");
               });
       });
 
