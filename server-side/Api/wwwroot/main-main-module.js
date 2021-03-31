@@ -1101,7 +1101,7 @@ const _c9 = function () { return ["/main/doctor/profile-settings"]; };
 const _c10 = function () { return ["/main/doctor/reviews"]; };
 const _c11 = function () { return ["/main/doctor/doctor-blog"]; };
 const _c12 = function () { return ["/main/blog/list"]; };
-const _c13 = function () { return ["/main"]; };
+const _c13 = function () { return ["/main/search-doctors"]; };
 class HeaderComponent {
     constructor() { }
     ngOnInit() { }

@@ -572,7 +572,7 @@ InvoicesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthDoctorGuard", function() { return AuthDoctorGuard; });
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
+/* harmony import */ var _enums_userRole_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../enums/userRole.enum */ "5lKF");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/auth.service */ "IYfF");
@@ -589,33 +589,49 @@ class AuthDoctorGuard {
         this.toastr = toastr;
     }
     canActivate(next, state) {
-        let currentUser;
-        this.auth.currentUser$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_0__["map"])(user => {
-            currentUser = user;
-        }));
-        console.log(currentUser);
-        // if (currentUser) { return true; }
-        this.router.navigate(['auth/login'], {
-            queryParams: { returnUrl: state.url },
-        });
-        this.toastr.error('You shall not pass!', 'Unauthorized');
-        return false;
-        // return this.auth.currentUser$.pipe(
-        //   map((user) => {
-        //     if (user.role.includes('Doctor')) {
-        //       return true;
-        //     }
-        //     this.router.navigate(['auth/login'], {
-        //       queryParams: { returnUrl: state.url },
-        //     });
-        //     this.toastr.error('You shall not pass!', 'Unauthorized');
-        //     return false;
-        //   })
-        // );
+        this.auth.currentUser$.subscribe((user) => (this.user = user));
+        if (this.user && this.user.role === _enums_userRole_enum__WEBPACK_IMPORTED_MODULE_0__["UserRole"].doctor) {
+            return true;
+        }
+        else if (this.user && this.user.role !== _enums_userRole_enum__WEBPACK_IMPORTED_MODULE_0__["UserRole"].doctor) {
+            // not logged in so redirect to login page with the return url
+            this.router.navigate(['auth/login'], {
+                queryParams: { returnUrl: state.url },
+            });
+            this.toastr.error('You shall not pass!', 'Authorized');
+            return false;
+        }
+        else {
+            this.router.navigate(['auth/login'], {
+                queryParams: { returnUrl: state.url },
+            });
+            return false;
+        }
     }
 }
 AuthDoctorGuard.ɵfac = function AuthDoctorGuard_Factory(t) { return new (t || AuthDoctorGuard)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_services_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinject"](_services_toastr_service__WEBPACK_IMPORTED_MODULE_4__["ToastrService"])); };
 AuthDoctorGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjectable"]({ token: AuthDoctorGuard, factory: AuthDoctorGuard.ɵfac, providedIn: 'root' });
+
+
+/***/ }),
+
+/***/ "5lKF":
+/*!***********************************************!*\
+  !*** ./src/app/shared/enums/userRole.enum.ts ***!
+  \***********************************************/
+/*! exports provided: UserRole */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserRole", function() { return UserRole; });
+var UserRole;
+(function (UserRole) {
+    UserRole["other"] = "Other";
+    UserRole["admin"] = "Admin";
+    UserRole["doctor"] = "Doctor";
+    UserRole["patient"] = "Patient";
+})(UserRole || (UserRole = {}));
 
 
 /***/ }),
@@ -5727,31 +5743,18 @@ ScheduleTimingsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DoctorComponent", function() { return DoctorComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var src_app_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/shared/services/auth.service */ "IYfF");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
-
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "tyNb");
 
 
 class DoctorComponent {
-    constructor(auth, router) {
-        this.auth = auth;
-        this.router = router;
-    }
+    constructor() { }
     ngOnInit() {
-        this.setCurrentUser();
-    }
-    setCurrentUser() {
-        const current = localStorage.getItem('Doctor');
-        const user = current !== null ? JSON.parse(current) : null;
-        if (user) {
-            this.auth.setCurrentUser(user);
-        }
     }
 }
-DoctorComponent.ɵfac = function DoctorComponent_Factory(t) { return new (t || DoctorComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_shared_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"])); };
+DoctorComponent.ɵfac = function DoctorComponent_Factory(t) { return new (t || DoctorComponent)(); };
 DoctorComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: DoctorComponent, selectors: [["app-doctor"]], decls: 1, vars: 0, template: function DoctorComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "router-outlet");
-    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterOutlet"]], encapsulation: 2 });
+    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterOutlet"]], encapsulation: 2 });
 
 
 /***/ }),
