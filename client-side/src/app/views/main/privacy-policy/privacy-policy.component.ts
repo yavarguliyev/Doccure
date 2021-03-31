@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { map } from 'rxjs/operators';
 import { Privacy } from 'src/app/shared/models/privacy';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 
@@ -18,6 +19,6 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   getPrivacies() {
-    this.api.getPrivacy().subscribe((response: Privacy) => (this.privacy = response));
+    this.api.getPrivacy().subscribe((response) => (this.privacy = response));
   }
 }

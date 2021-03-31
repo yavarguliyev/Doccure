@@ -9,7 +9,6 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Gender } from 'src/app/shared/enums/gender.enum';
 import { AuthDoctorService } from 'src/app/shared/services/auth-doctor.service';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { ToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class AuthDoctorComponent implements OnInit {
 
   constructor(
     private title: Title,
-    private api: AuthService,
     private authDoctorService: AuthDoctorService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -54,7 +52,7 @@ export class AuthDoctorComponent implements OnInit {
     const token = this.route.snapshot.paramMap.get('token');
     token ? (this.token = token) : (this.token = '');
 
-    this.authDoctorService.checkUser(this.token).subscribe((res) => res);
+    this.authDoctorService.checkUser(this.token).forEach((res) => res);
   }
 
   registerSubmit() {

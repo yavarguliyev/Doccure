@@ -44,4 +44,11 @@ export class AuthService {
     this.currentUserSource.next(undefined);
     this.router.navigate(['/auth/login']);
   }
+
+  isExist(user: string) {
+    const currentUser = localStorage.getItem(user);
+    if (currentUser) {
+      this.router.navigate(['/']);
+    }
+  }
 }
