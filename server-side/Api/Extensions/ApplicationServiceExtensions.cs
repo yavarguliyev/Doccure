@@ -48,14 +48,14 @@ namespace Api.Extensions
       // Api versioning
       services.AddApiVersioning(v =>
       {
-              // shows that api accept any versions
-              v.ReportApiVersions = true;
+        // shows that api accept any versions
+        v.ReportApiVersions = true;
 
-              // if there is available version show the default version
-              v.AssumeDefaultVersionWhenUnspecified = true;
+        // if there is available version show the default version
+        v.AssumeDefaultVersionWhenUnspecified = true;
 
-              // default version 1.0
-              v.DefaultApiVersion = new ApiVersion(1, 0);
+        // default version 1.0
+        v.DefaultApiVersion = new ApiVersion(1, 0);
       });
 
       // api cors for allowing methods that coming from different localhosts
@@ -63,12 +63,13 @@ namespace Api.Extensions
       {
         opt.AddPolicy("CorsPolicy", policy =>
               {
-            policy
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials()
-                      .WithOrigins("https://localhost:4200");
-          });
+                policy
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowAnyOrigin()
+                          .AllowCredentials()
+                          .WithOrigins("https://localhost:4200", "http://localhost:4200");
+              });
       });
 
       // routing to lowercase
@@ -114,20 +115,20 @@ namespace Api.Extensions
 
         string connStr;
 
-              // Depending on if in development or production, use either Heroku-provided
-              // connection string, or development connection string from env var.
-              if (env == "Development")
+        // Depending on if in development or production, use either Heroku-provided
+        // connection string, or development connection string from env var.
+        if (env == "Development")
         {
-                // Use connection string from file.
-                connStr = configuration.GetConnectionString("DefaultConnection");
+          // Use connection string from file.
+          connStr = configuration.GetConnectionString("DefaultConnection");
         }
         else
         {
-                // Use connection string provided at runtime by Heroku.
-                var connUrl = Environment.GetEnvironmentVariable("HEROKU_POSTGRESQL_CYAN_URL");
+          // Use connection string provided at runtime by Heroku.
+          var connUrl = Environment.GetEnvironmentVariable("HEROKU_POSTGRESQL_CYAN_URL");
 
-                // Parse connection URL to connection string for Npgsql
-                connUrl = connUrl.Replace("postgres://", string.Empty);
+          // Parse connection URL to connection string for Npgsql
+          connUrl = connUrl.Replace("postgres://", string.Empty);
           var pgUserPass = connUrl.Split("@")[0];
           var pgHostPortDb = connUrl.Split("@")[1];
           var pgHostPort = pgHostPortDb.Split("/")[0];
@@ -140,9 +141,9 @@ namespace Api.Extensions
           connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}; SSL Mode=Require; Trust Server Certificate=true";
         }
 
-              // Whether the connection string came from the local development configuration file
-              // or from the environment variable from Heroku, use it to set up your DbContext.
-              options.UseNpgsql(connStr);
+        // Whether the connection string came from the local development configuration file
+        // or from the environment variable from Heroku, use it to set up your DbContext.
+        options.UseNpgsql(connStr);
       });
 
       // auto mapper profiles
