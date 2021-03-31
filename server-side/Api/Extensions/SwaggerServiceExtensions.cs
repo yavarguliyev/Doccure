@@ -53,7 +53,6 @@ namespace Api.Extensions
       app.UseSwagger();
       app.UseSwaggerUI(s =>
       {
-        s.RoutePrefix = "/swagger";
         s.DocumentTitle = "Swagger Documentation";
         s.SwaggerEndpoint("/swagger/v1/swagger.json", "api/v1");
         s.DocExpansion(DocExpansion.None);

@@ -36,10 +36,7 @@ export class AuthDoctorGuard implements CanActivate {
     if (this.user && this.user.role === UserRole.doctor) {
       return true;
     } else if (this.user && this.user.role !== UserRole.doctor) {
-      // not logged in so redirect to login page with the return url
-      this.router.navigate(['auth/login'], {
-        queryParams: { returnUrl: state.url },
-      });
+      this.router.navigate(['/']);
       this.toastr.error('You shall not pass!', 'Authorized');
       return false;
     } else {

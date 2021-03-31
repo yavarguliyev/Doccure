@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserRole } from './shared/enums/userRole.enum';
 import { User } from './shared/models/user';
 import { AuthService } from './shared/services/auth.service';
 
@@ -19,20 +18,19 @@ export class AppComponent implements OnInit {
   }
 
   setCurrentUser() {
-    const admin = localStorage.getItem('Admin');
-    const doctor = localStorage.getItem('Doctor');
-    const patient = localStorage.getItem('Patient');
-
-    if (admin) {
-      this.user = admin !== null ? JSON.parse(admin) : null;
-    } else if (doctor) {
-      this.user = doctor !== null ? JSON.parse(doctor) : null;
-    } else if (patient) {
-      this.user = patient !== null ? JSON.parse(patient) : null;
-    }
+    this.checkUser('Admin');
+    this.checkUser('Doctor');
+    this.checkUser('Patient');
 
     if (this.user) {
       this.auth.setCurrentUser(this.user);
+    }
+  }
+
+  checkUser(user: string) {
+    const currentUser = localStorage.getItem(user);
+    if (currentUser) {
+      this.user = currentUser !== null ? JSON.parse(currentUser) : null;
     }
   }
 }

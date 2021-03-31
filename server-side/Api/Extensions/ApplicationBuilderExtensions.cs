@@ -5,39 +5,48 @@ using Microsoft.Extensions.Hosting;
 
 namespace Api.Extensions
 {
-  public static class ApplicationBuilderExtensions
-  {
-    public static IApplicationBuilder AddApplicationBuilders(this IApplicationBuilder app, IWebHostEnvironment env)
+    public static class ApplicationBuilderExtensions
     {
-      app.UseMiddleware<ErrorHandlingMiddleware>();
+        public static IApplicationBuilder AddApplicationBuilders(this IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
-      if (env.IsDevelopment())
-      {
-        app.UseSwaggerDocumentation();
-      }
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+            app.UseCsp(opt => 
+            {
+                opt.BlockAllMixedContent();
+            });
 
-      app.UseHttpsRedirection();
+            if (env.IsDevelopment())
+            {
+                app.UseSwaggerDocumentation();
+            }
 
-      app.UseRouting();
+            app.UseHttpsRedirection();
 
-      app.UseDefaultFiles();
-      app.UseStaticFiles();
+            app.UseRouting();
 
-      app.UseCors("CorsPolicy");
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
-      app.UseAuthentication();
-      app.UseAuthorization();
+            app.UseCors("CorsPolicy");
 
-      app.UseDefaultFiles();
-      app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-      app.UseEndpoints(endpoints =>
-      {
-        endpoints.MapControllers();
-        endpoints.MapFallbackToController("index", "fallback");
-      });
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
-      return app;
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapFallbackToController("index", "fallback");
+            });
+
+            return app;
+        }
     }
-  }
 }
