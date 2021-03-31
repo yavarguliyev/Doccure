@@ -13,16 +13,10 @@ namespace Api.Extensions
 
       if (env.IsDevelopment())
       {
-        app.UseSwagger();
-        app.UseSwaggerUI(s =>
-        {
-          s.RoutePrefix = "";
-          s.DocumentTitle = "Swagger Documentation";
-          s.SwaggerEndpoint("/swagger/v1/swagger.json", "api/v1");
-        });
-
-        app.UseHttpsRedirection();
+        app.UseSwaggerDocumentation();
       }
+
+      // app.UseHttpsRedirection();
 
       app.UseRouting();
 
