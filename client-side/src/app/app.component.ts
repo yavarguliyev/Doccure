@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
     if (admin) {
       this.user = admin !== null ? JSON.parse(admin) : null;
-    } else if(doctor) {
+    } else if (doctor) {
       this.user = doctor !== null ? JSON.parse(doctor) : null;
     } else if (patient) {
       this.user = patient !== null ? JSON.parse(patient) : null;
@@ -34,7 +34,5 @@ export class AppComponent implements OnInit {
     if (this.user) {
       this.auth.setCurrentUser(this.user);
     }
-
-    console.log(this.user);
   }
 }
