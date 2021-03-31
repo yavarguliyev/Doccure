@@ -5,44 +5,45 @@ using Microsoft.Extensions.Hosting;
 
 namespace Api.Extensions
 {
-    public static class ApplicationBuilderExtensions
+  public static class ApplicationBuilderExtensions
+  {
+    public static IApplicationBuilder AddApplicationBuilders(this IApplicationBuilder app, IWebHostEnvironment env)
     {
-        public static IApplicationBuilder AddApplicationBuilders(this IApplicationBuilder app, IWebHostEnvironment env)
+      app.UseMiddleware<ErrorHandlingMiddleware>();
+
+      if (env.IsDevelopment())
+      {
+        app.UseSwagger();
+        app.UseSwaggerUI(s =>
         {
-            if (env.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(s =>
-                {
-                    s.RoutePrefix = "";
-                    s.DocumentTitle = "Swagger Documentation";
-                    s.SwaggerEndpoint("/swagger/v1/swagger.json", "api/v1");
-                });
-            }
+          s.RoutePrefix = "";
+          s.DocumentTitle = "Swagger Documentation";
+          s.SwaggerEndpoint("/swagger/v1/swagger.json", "api/v1");
+        });
 
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+        app.UseHttpsRedirection();
+      }
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
+      app.UseRouting();
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+      app.UseDefaultFiles();
+      app.UseStaticFiles();
 
-            app.UseCors("CorsPolicy");
+      app.UseCors("CorsPolicy");
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+      app.UseAuthentication();
+      app.UseAuthorization();
 
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+      app.UseDefaultFiles();
+      app.UseStaticFiles();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapFallbackToController("index", "fallback");
-            });
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapControllers();
+        endpoints.MapFallbackToController("index", "fallback");
+      });
 
-            return app;
-        }
+      return app;
     }
+  }
 }
