@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{Kb0Y:function(n,t,o){"use strict";o.r(t),o.d(t,"AdminModule",function(){return u});var e=o("ofXK"),r=o("tyNb"),c=o("fXoL");const i=[];let s=(()=>{class n{}return n.\u0275fac=function(t){return new(t||n)},n.\u0275mod=c.Jb({type:n}),n.\u0275inj=c.Ib({imports:[[r.e.forChild(i)],r.e]}),n})(),u=(()=>{class n{}return n.\u0275fac=function(t){return new(t||n)},n.\u0275mod=c.Jb({type:n}),n.\u0275inj=c.Ib({imports:[[e.c,s]]}),n})()}}]);
-//# sourceMappingURL=7.cf7a684379b06323069d.js.map

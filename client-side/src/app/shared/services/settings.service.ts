@@ -4,7 +4,6 @@ import { Term } from '../models/term';
 import { Privacy } from '../models/privacy';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { timeout } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
