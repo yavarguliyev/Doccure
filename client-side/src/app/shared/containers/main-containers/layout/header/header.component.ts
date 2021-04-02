@@ -9,7 +9,6 @@ import { ConfirmService } from 'src/app/shared/services/confirm.service';
 })
 export class HeaderComponent implements OnInit {
   public user!: User;
-  public role!: string;
 
   constructor(private api: AuthService, private confirm: ConfirmService) {}
 
@@ -17,10 +16,10 @@ export class HeaderComponent implements OnInit {
     this.checkUser();
   }
 
-  public logout(user: string) {
+  public logout() {
     this.confirm.confirm('Confirm logout', 'Do you want to logout?').subscribe((result) => {
       if (result) {
-        this.api.logout(user);
+        this.api.logout();
       }
     });
   }
@@ -28,6 +27,5 @@ export class HeaderComponent implements OnInit {
   private checkUser() {
     const userExist: User = this.api.checkUser();
     this.user = userExist;
-    this.role = userExist.role;
   }
 }

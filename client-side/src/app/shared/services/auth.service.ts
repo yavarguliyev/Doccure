@@ -39,7 +39,7 @@ export class AuthService {
     this.currentUserSource.next(user);
   }
 
-  public logout(user: string) {
+  public logout() {
     localStorage.removeItem('token');
     this.currentUserSource.next(undefined);
     this.router.navigate(['/auth/login']);

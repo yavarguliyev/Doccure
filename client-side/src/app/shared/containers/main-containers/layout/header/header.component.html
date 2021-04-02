@@ -93,7 +93,7 @@
       </li>
 
       <!-- User Menu -->
-      <li class="nav-item dropdown has-arrow logged-item show" *ngIf="user!==null && user.role==='Doctor'">
+      <li class="nav-item dropdown has-arrow logged-item show" *ngIf="user!==null">
         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
           <span class="user-img">
             <img class="rounded-circle" [src]="user.photo ? user.photo : 'assets/img/user.png'" width="31" alt={{user.fullname}}>
@@ -111,7 +111,7 @@
           </div>
           <a class="dropdown-item" [routerLink]="['/main/doctor/dashboard']">Dashboard</a>
           <a class="dropdown-item" [routerLink]="['/main/doctor/profile-settings']">Profile Settings</a>
-          <a href="javascript:void(0);" class="dropdown-item" (click)="logout(role)">Logout</a>
+          <a href="javascript:void(0);" class="dropdown-item" (click)="logout()">Logout</a>
         </div>
       </li>
       <!-- /User Menu -->
