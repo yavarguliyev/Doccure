@@ -76,9 +76,6 @@
         <li>
           <a [routerLink]="['/']" target="_blank">Admin</a>
         </li>
-        <li class="login-link">
-          <a [routerLink]="['/']">Login / Signup</a>
-        </li>
       </ul>
     </div>
     <ul class="nav header-navbar-rht">
@@ -92,17 +89,23 @@
         </div>
       </li>
 
+      <li class="nav-item" *ngIf="user===null">
+        <a class="nav-link header-login" [routerLink]="['/auth/login']">Login / Signup </a>
+      </li>
+
       <!-- User Menu -->
       <li class="nav-item dropdown has-arrow logged-item show" *ngIf="user!==null">
-        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" *ngIf="user!==null">
           <span class="user-img">
-            <img class="rounded-circle" [src]="user.photo ? user.photo : 'assets/img/user.png'" width="31" alt={{user.fullname}}>
+            <img class="rounded-circle" [src]="user.photo ? user.photo : 'assets/img/user.png'" width="31"
+              alt={{user.fullname}}>
           </span>
         </a>
-        <div class="dropdown-menu dropdown-menu-right show">
+        <div class="dropdown-menu dropdown-menu-right show"  *ngIf="user!==null">
           <div class="user-header">
             <div class="avatar avatar-sm">
-              <img [src]="user.photo ? user.photo : 'assets/img/user.png'" alt={{user.fullname}} class="avatar-img rounded-circle">
+              <img [src]="user.photo ? user.photo : 'assets/img/user.png'" alt={{user.fullname}}
+                class="avatar-img rounded-circle">
             </div>
             <div class="user-text">
               <h6>{{user.fullname}}</h6>
@@ -115,10 +118,6 @@
         </div>
       </li>
       <!-- /User Menu -->
-
-      <li class="nav-item" *ngIf="user===null">
-        <a class="nav-link header-login" [routerLink]="['/auth/login']">Login / Signup </a>
-      </li>
     </ul>
   </nav>
 </header>
