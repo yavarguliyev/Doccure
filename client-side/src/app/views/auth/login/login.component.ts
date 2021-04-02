@@ -7,8 +7,6 @@ import {
 } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserRole } from 'src/app/shared/enums/userRole.enum';
-import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -29,9 +27,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.api.isExist(UserRole.admin);
-    this.api.isExist(UserRole.doctor);
-    this.api.isExist(UserRole.patient);
+    this.api.isExist();
     this.title.setTitle('Gambo | Login');
     this.intitializeForm();
 
@@ -52,11 +48,5 @@ export class LoginComponent implements OnInit {
     this.api
       .login(email, password)
       .subscribe(() => this.router.navigate([this.returnUrl]));
-  }
-
-  logout(role: string) {
-    const current = localStorage.getItem(role);
-    const user: User = current !== null ? JSON.parse(current) : null;
-    this.api.logout(user);
   }
 }

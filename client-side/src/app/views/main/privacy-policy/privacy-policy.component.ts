@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { Privacy } from 'src/app/shared/models/privacy';
 import { SettingsService } from 'src/app/shared/services/settings.service';
 
@@ -11,14 +11,18 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 export class PrivacyPolicyComponent implements OnInit {
   public privacy: Privacy | undefined;
 
-  constructor(private api: SettingsService, private title: Title) {}
+  constructor(private api: SettingsService, private title: Title, private router: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.title.setTitle('Doccure | Privacy Policy');
     this.getPrivacies();
   }
 
-  getPrivacies() {
-    this.api.getPrivacy().subscribe((response) => (this.privacy = response));
+  private getPrivacies() {
+    this.api.getPrivacy().subscribe({
+      next: (response: Privacy) => (this.privacy = response),
+      error: (error: Error) => console.error(error),
+      complete: () => console.log(),
+    });
   }
 }

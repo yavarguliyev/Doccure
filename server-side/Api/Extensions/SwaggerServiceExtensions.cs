@@ -16,11 +16,6 @@ namespace Api.Extensions
       {
         options.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "Api" });
 
-        var security = new Dictionary<string, IEnumerable<string>>
-          {
-                    {"Bearer", new string[] { }},
-          };
-
         options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
           Description = "JWT Authorization header using the Bearer scheme (Example: Authorization: 'Bearer {token}')",
