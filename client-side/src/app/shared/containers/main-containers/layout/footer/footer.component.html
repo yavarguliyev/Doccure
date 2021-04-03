@@ -1,111 +1,105 @@
 <!-- Footer -->
 <footer class="footer">
-				
+  
   <!-- Footer Top -->
   <div class="footer-top">
     <div class="container-fluid">
       <div class="row">
+
         <div class="col-lg-3 col-md-6">
-        
           <!-- Footer Widget -->
           <div class="footer-widget footer-about">
             <div class="footer-logo">
-              <img src="assets/img/footer-logo.png" alt="logo">
+              <img src="assets/img/footer-logo.png" alt="logo" />
             </div>
-            <div class="footer-about-content">
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            <div #footerDesc class="footer-about-content">
               <div class="social-icon">
                 <ul>
-                  <li>
-                    <a [routerLink]="['/']" target="_blank"><i class="fab fa-facebook-f"></i> </a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['/']" target="_blank"><i class="fab fa-twitter"></i> </a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['/']" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['/']" target="_blank"><i class="fab fa-instagram"></i></a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['/']" target="_blank"><i class="fab fa-dribbble"></i> </a>
+                  <li *ngFor="let item of socialMedia">
+                    <a [href]="item.link" target="_blank"
+                      ><i class="fab fa-{{ item.icon }}"></i>
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
           <!-- /Footer Widget -->
-          
         </div>
-        
+
         <div class="col-lg-3 col-md-6">
-        
           <!-- Footer Widget -->
           <div class="footer-widget footer-menu">
             <h2 class="footer-title">For Patients</h2>
             <ul>
-              <li><a [routerLink]="['/']">Search for Doctors</a></li>
-              <li><a [routerLink]="['/']">Login</a></li>
-              <li><a [routerLink]="['/']">Register</a></li>
-              <li><a [routerLink]="['/']">Booking</a></li>
-              <li><a [routerLink]="['/']">Patient Dashboard</a></li>
+              <li><a [routerLink]="['/main/search-doctors']">Search for Doctors</a></li>
+              <li><a [routerLink]="['/auth/patient-login']">Login</a></li>
+              <li><a [routerLink]="['/auth/patient-register']">Register</a></li>
+              <li><a [routerLink]="['/main/patient/booking/:slug']">Booking</a></li>
+              <li><a [routerLink]="['/main/patient/dashboard']">Patient Dashboard</a></li>
             </ul>
           </div>
           <!-- /Footer Widget -->
-          
         </div>
-        
+
         <div class="col-lg-3 col-md-6">
-        
           <!-- Footer Widget -->
           <div class="footer-widget footer-menu">
             <h2 class="footer-title">For Doctors</h2>
             <ul>
-              <li><a [routerLink]="['/']">Appointments</a></li>
-              <li><a [routerLink]="['/']">Chat</a></li>
-              <li><a [routerLink]="['/']">Login</a></li>
-              <li><a [routerLink]="['/']">Register</a></li>
-              <li><a [routerLink]="['/']">Doctor Dashboard</a></li>
+              <li>
+                <a [routerLink]="['/main/doctor/appointments']">Appointments</a>
+              </li>
+              <li><a [routerLink]="['/main/doctor/message']">Chat</a></li>
+              <li>
+                <a
+                  [routerLink]="[
+                    user && user.role === 'Doctor' ? '/' : '/auth/login'
+                  ]"
+                  >Login</a
+                >
+              </li>
+              <li>
+                <a [routerLink]="['/main/doctor/dashboard']"
+                  >Doctor Dashboard</a
+                >
+              </li>
             </ul>
           </div>
           <!-- /Footer Widget -->
-          
         </div>
-        
+
         <div class="col-lg-3 col-md-6">
-        
           <!-- Footer Widget -->
           <div class="footer-widget footer-contact">
             <h2 class="footer-title">Contact Us</h2>
             <div class="footer-contact-info">
-              <div class="footer-address">
+              <div #footerAddress class="footer-address">
                 <span><i class="fas fa-map-marker-alt"></i></span>
-                <p> 3556  Beech Street, San Francisco,<br> California, CA 94108 </p>
               </div>
               <p>
                 <i class="fas fa-phone-alt"></i>
-                +1 315 369 5943
+                {{ footer?.contactNumber }}
               </p>
               <p class="mb-0">
-                <i class="fas fa-envelope"></i>
-                doccure@example.com
+                <a class="text-white" href="{{ footer?.email }}">
+                  <i class="fas fa-envelope"></i>
+                  {{ footer?.email }}
+                </a>
               </p>
             </div>
           </div>
           <!-- /Footer Widget -->
-          
         </div>
-        
+
       </div>
     </div>
   </div>
   <!-- /Footer Top -->
-  
+
   <!-- Footer Bottom -->
-          <div class="footer-bottom">
+  <div class="footer-bottom">
     <div class="container-fluid">
-    
       <!-- Copyright -->
       <div class="copyright">
         <div class="row">
@@ -115,24 +109,25 @@
             </div>
           </div>
           <div class="col-md-6 col-lg-6">
-          
             <!-- Copyright Menu -->
             <div class="copyright-menu">
               <ul class="policy-menu">
-                <li><a [routerLink]="['/main/term-condition']">Terms and Conditions</a></li>
+                <li>
+                  <a [routerLink]="['/main/term-condition']"
+                    >Terms and Conditions</a
+                  >
+                </li>
                 <li><a [routerLink]="['/main/privacy-policy']">Policy</a></li>
               </ul>
             </div>
             <!-- /Copyright Menu -->
-            
           </div>
         </div>
       </div>
       <!-- /Copyright -->
-      
     </div>
   </div>
   <!-- /Footer Bottom -->
-  
+
 </footer>
 <!-- /Footer -->

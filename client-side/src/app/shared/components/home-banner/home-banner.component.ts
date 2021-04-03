@@ -5,10 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home-banner.component.html'
 })
 export class HomeBannerComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

@@ -1,18 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Feature, FeatureF } from '../../models/feature';
+import { MainPageSettings } from '../../models/main-page-settings';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-available-features',
   templateUrl: './available-features.component.html'
 })
 export class AvailableFeaturesComponent implements OnInit {
+  @ViewChild('available') availableSettings!: ElementRef;
+
   public slideConfig = {slidesToShow: 4, slidesToScroll: 4};
 
   public features: Feature[] = [];
 
-  constructor() { }
+  constructor(private settings: SettingsService) { }
 
   ngOnInit(): void {
+    this.getSettings();
+
     const f1 = new FeatureF(1, 'Patient Ward', 'assets/img/features/feature-01.jpg');
     const f2 = new FeatureF(2, 'Test Room', 'assets/img/features/feature-02.jpg');
     const f3 = new FeatureF(3, 'ICU', 'assets/img/features/feature-03.jpg');
@@ -28,4 +34,19 @@ export class AvailableFeaturesComponent implements OnInit {
     this.features.push(f6);
   }
 
+  private getSettings() {
+    this.settings
+      .getMainPageSettings()
+      .subscribe((response: MainPageSettings) => {
+        this.availableSettings.nativeElement.insertAdjacentHTML(
+          'afterbegin',
+          response.availableTitle
+        );
+
+        this.availableSettings.nativeElement.insertAdjacentHTML(
+          'beforeend',
+          response.availableSubTitle
+        );
+      });
+  }
 }

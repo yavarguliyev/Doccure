@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.isExist();
-    this.title.setTitle('Gambo | Login');
+    this.title.setTitle('Doccure | Login');
     this.intitializeForm();
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';

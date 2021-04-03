@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { User } from './shared/models/user';
 import { AuthService } from './shared/services/auth.service';
 
@@ -11,26 +10,17 @@ export class AppComponent implements OnInit {
   private user!: User;
   title = 'Doccure';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit(): void {
     this.setCurrentUser();
   }
 
   setCurrentUser() {
-    this.checkUser('Admin');
-    this.checkUser('Doctor');
-    this.checkUser('Patient');
+    this.user = this.auth.checkUser();
 
     if (this.user) {
       this.auth.setCurrentUser(this.user);
-    }
-  }
-
-  checkUser(user: string) {
-    const currentUser = localStorage.getItem(user);
-    if (currentUser) {
-      this.user = currentUser !== null ? JSON.parse(currentUser) : null;
     }
   }
 }
