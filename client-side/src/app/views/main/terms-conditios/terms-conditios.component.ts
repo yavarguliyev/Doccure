@@ -17,7 +17,10 @@ export class TermsConditiosComponent implements OnInit {
   }
 
   private getTerms() {
-    this.api.getTerm().subscribe((response) => this.term = response);
+    this.api.getTerm().subscribe({
+      next: (response: Term) => (this.term = response),
+      error: (error: Error) => console.error(error),
+      complete: () => console.log(),
+    });
   }
-
 }

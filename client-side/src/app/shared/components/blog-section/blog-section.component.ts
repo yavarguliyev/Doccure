@@ -1,18 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Blog, BlogB } from '../../models/blog';
 import { DoctorD } from '../../models/doctor';
+import { MainPageSettings } from '../../models/main-page-settings';
+import { SettingsService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-blog-section',
   templateUrl: './blog-section.component.html'
 })
 export class BlogSectionComponent implements OnInit {
+  @ViewChild('blog') blogSettings!: ElementRef;
 
   public blogs: Blog[] = [];
 
-  constructor() { }
+  constructor(private settings: SettingsService) { }
 
   ngOnInit(): void {
+    this.getSettings();
+
     const d1 = new DoctorD(1, 'Ruby Perrin', 'ruby-perrin', 'assets/img/doctors/doctor-thumb-01.jpg');
     const b1 = new BlogB(1, 'Doccure – Making your clinic painless visit?', 'doccure-–-making-your-clinic-painless-visit', 'assets/img/blog/blog-01.jpg', d1);
 
@@ -31,4 +36,19 @@ export class BlogSectionComponent implements OnInit {
     this.blogs.push(b4);
   }
 
+  private getSettings() {
+    this.settings
+      .getMainPageSettings()
+      .subscribe((response: MainPageSettings) => {
+        this.blogSettings.nativeElement.insertAdjacentHTML(
+          'afterbegin',
+          response.blogsAndNewsTitle
+        );
+
+        this.blogSettings.nativeElement.insertAdjacentHTML(
+          'beforeend',
+          response.blogsAndNewsSubTitle
+        );
+      });
+  }
 }

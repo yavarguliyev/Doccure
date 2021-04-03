@@ -2,7 +2,7 @@
 <header class="header">
   <nav class="navbar navbar-expand-lg header-nav">
     <div class="navbar-header">
-      <a id="mobile_btn" href="javascript:void(0);">
+      <a (click)="parentElement($event)" id="mobile_btn" href="javascript:void(0);">
         <span class="bar-icon">
           <span></span>
           <span></span>
@@ -18,7 +18,7 @@
         <a [routerLink]="['/']" class="menu-logo">
           <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
         </a>
-        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+        <a (click)="closeMenu($event)" id="menu_close" class="menu-close" href="javascript:void(0);">
           <i class="fas fa-times"></i>
         </a>
       </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="header-contact-detail">
           <p class="contact-header">Contact</p>
-          <p class="contact-info-header"> +1 315 369 5943</p>
+          <p class="contact-info-header"> {{footer?.contactNumber}}</p>
         </div>
       </li>
 
@@ -94,14 +94,14 @@
       </li>
 
       <!-- User Menu -->
-      <li class="nav-item dropdown has-arrow logged-item show" *ngIf="user!==undefined">
-        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+      <li #loggedInUserParent class="nav-item dropdown has-arrow logged-item" [ngClass]="show ? 'show': ''" *ngIf="user!==undefined">
+        <a (click)="loggedInUser($event)" href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
           <span class="user-img">
             <img class="rounded-circle" [src]="user.photo ? user.photo : 'assets/img/user.png'" width="31"
               alt={{user.fullname}}>
           </span>
         </a>
-        <div class="dropdown-menu dropdown-menu-right show">
+        <div #loggedInUserChild class="dropdown-menu dropdown-menu-right" [ngClass]="show ? 'show': ''">
           <div class="user-header">
             <div class="avatar avatar-sm">
               <img [src]="user.photo ? user.photo : 'assets/img/user.png'" alt={{user.fullname}}
