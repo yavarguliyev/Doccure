@@ -19,29 +19,31 @@ namespace Testing.TestingControllers.v1.Auth
         }
 
         [Fact]
-        public async Task Login_Unauthorized()
-        {
-            var model = new LoginDTO { Email = "dmin@dmin.com", Password = "AZaz12" };
-            var json = JsonConvert.SerializeObject(model);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("/api/v1/auth/login", data);
-            var result = JsonConvert.DeserializeObject<UserDTO>(await response.Content.ReadAsStringAsync());
-            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-            Assert.True(result.Id == 0);
-            Assert.True(result.Token == null);
-        }
-
-        [Fact]
-        public async Task Login_Ok()
+        public async Task Login()
         {
             var model = new LoginDTO { Email = "admin@admin.com", Password = "yavar10Yr" };
             var json = JsonConvert.SerializeObject(model);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/api/v1/auth/login", data);
             var result = JsonConvert.DeserializeObject<UserDTO>(await response.Content.ReadAsStringAsync());
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.True(result.Id != 0);
-            Assert.True(result.Token != null);
+            if(response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+            }
+            else if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+                Assert.True(result.Id != 0);
+                Assert.True(result.Token != null);
+            }
         }
     }
 }

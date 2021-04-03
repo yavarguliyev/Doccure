@@ -75,7 +75,7 @@ namespace Services.Data
         #region create and update
         public async Task<UserDTO> LoginAsync(string email, string password)
         {
-            var user = await _unitOfWork.User.SingleOrDefaultAsync(x => x.Email == email);
+            var user = await this.GetByAsync(email);
             if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
             {
                 if (user != null && user.Token != null)

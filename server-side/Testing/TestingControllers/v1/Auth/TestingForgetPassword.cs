@@ -19,27 +19,7 @@ namespace Testing.TestingControllers.v1.Auth
         }
 
         [Fact]
-        public async Task ForgetPassword_BadRequest()
-        {
-            var model = new ForgetPasswordDTO { Email = null };
-            var json = JsonConvert.SerializeObject(model);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync("/api/v1/auth/forget-password", data);
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task ForgetPassword_NotFound()
-        {
-            var model = new ForgetPasswordDTO { Email = "dmin@dmin.com" };
-            var json = JsonConvert.SerializeObject(model);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync("/api/v1/auth/forget-password", data);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task ForgetPassword_Ok()
+        public async Task ForgetPassword()
         {
             var model = new ForgetPasswordDTO { Email = "dmin@dmin.com" };
             var json = JsonConvert.SerializeObject(model);
@@ -49,7 +29,11 @@ namespace Testing.TestingControllers.v1.Auth
             {
                 Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             }
-            else
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            }
+            else if(response.StatusCode == HttpStatusCode.OK)
             {
                 Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             }

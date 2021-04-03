@@ -19,47 +19,7 @@ namespace Testing.TestingControllers.v1.Auth
         }
 
         [Fact]
-        public async Task ResetPassword_Token_Cannot_Be_Null()
-        {
-            string token = null;
-            var model = new ResetPasswordDTO { };
-            var json = JsonConvert.SerializeObject(model);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/v1/auth/reset-password?token={token}", data);
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task ResetPassword_User_NotFound()
-        {
-            var token = "b37fa949-71db-43ee-b361-c6e465652d42";
-            var model = new ResetPasswordDTO { Password = "AZaz12", ConfirmPassword = "AZaz12" };
-            var json = JsonConvert.SerializeObject(model);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/v1/auth/reset-password?token={token}", data);
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task ResetPassword_Password_ConfirmPassword_Cannot_Be_Null()
-        {
-            var token = "b37fa949-71db-43ee-b361-c6e465652d42";
-            var model = new ResetPasswordDTO { Password = "AZaz12", ConfirmPassword = "AZaz12" };
-            var json = JsonConvert.SerializeObject(model);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/v1/auth/reset-password?token={token}", data);
-            if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-            }
-            else if(response.StatusCode == HttpStatusCode.BadRequest)
-            {
-                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-            }
-        }
-
-        [Fact]
-        public async Task ResetPassword_Ok()
+        public async Task ResetPassword()
         {
             var token = "b37fa949-71db-43ee-b361-c6e465652d42";
             var model = new ResetPasswordDTO { Password = "AZaz12", ConfirmPassword = "AZaz12" };

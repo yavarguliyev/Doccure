@@ -19,25 +19,6 @@ namespace Testing.TestingControllers.v1.Auth
         }
 
         [Fact]
-        public async Task ConfirEmail_NotFound()
-        {
-            var token = "e9e336a0-712f-4a05-b3c8-24ed5a1b0522";
-            var response = await client.GetAsync($"/api/v1/auth/confirm-email?token={token}");
-            if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-            }
-        }
-
-        [Fact]
-        public async Task ConfirEmail_Token_Cannot_Be_Empty()
-        {
-            string token = null;
-            var response = await client.GetAsync($"/api/v1/auth/confirm-email?token={token}");
-            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [Fact]
         public async Task ConfirEmail_Ok()
         {
             var token = "e9e336a0-712f-4a05-b3c8-24ed5a1b0522";
@@ -46,6 +27,10 @@ namespace Testing.TestingControllers.v1.Auth
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            }
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             }
             else if (result.Id != 0)
             {
