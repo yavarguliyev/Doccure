@@ -1,5 +1,5 @@
 <app-home-banner></app-home-banner>
-<app-specialities></app-specialities>
-<app-popular-selection></app-popular-selection>
-<app-available-features></app-available-features>
-<app-blog-section></app-blog-section>
+<app-specialities *ngIf="setting" [setting]="setting"></app-specialities>
+<app-popular-selection *ngIf="setting" [setting]="setting"></app-popular-selection>
+<app-available-features *ngIf="setting" [setting]="setting"></app-available-features>
+<app-blog-section *ngIf="setting" [setting]="setting"></app-blog-section>

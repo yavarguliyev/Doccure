@@ -3,28 +3,28 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-4">
-        <div class="section-header ">
-          <h2>Book Our Doctor</h2>
-          <p>Lorem Ipsum is simply dummy text </p>
-        </div>
-        <div class="about-content">
-          <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-            looking at its layout. The point of using Lorem Ipsum.</p>
-          <p>web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will
-            uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes</p>
+        <div #popularTitle class="section-header"></div>
+        <div #popularText class="about-content">
           <a href="javascript:;">Read More..</a>
         </div>
       </div>
       <div class="col-lg-8">
         <div class="doctor-slider slider">
-
           <!-- Doctor Widget -->
-          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+          <ngx-slick-carousel
+            class="carousel"
+            #slickModal="slick-carousel"
+            [config]="slideConfig"
+          >
             <div ngxSlickItem *ngFor="let item of doctors" class="slide">
               <div class="profile-widget">
                 <div class="doc-img">
                   <a [routerLink]="['/']">
-                    <img class="img-fluid" alt={{item.fullname}} src={{item.photo}}>
+                    <img
+                      class="img-fluid"
+                      alt="{{ item.fullname }}"
+                      src="{{ item.photo }}"
+                    />
                   </a>
                   <a href="javascript:void(0)" class="fav-btn">
                     <i class="far fa-bookmark"></i>
@@ -32,10 +32,12 @@
                 </div>
                 <div class="pro-content">
                   <h3 class="title">
-                    <a [routerLink]="['/', item.id]">{{item.fullname}}</a>
+                    <a [routerLink]="['/', item.id]">{{ item.fullname }}</a>
                     <i class="fas fa-check-circle verified"></i>
                   </h3>
-                  <p class="speciality">MDS - Periodontology and Oral Implantology, BDS</p>
+                  <p class="speciality">
+                    MDS - Periodontology and Oral Implantology, BDS
+                  </p>
                   <div class="rating">
                     <i class="fas fa-star filled"></i>
                     <i class="fas fa-star filled"></i>
@@ -45,23 +47,29 @@
                     <span class="d-inline-block average-rating">(17)</span>
                   </div>
                   <ul class="available-info">
-                    <li>
-                      <i class="fas fa-map-marker-alt"></i> Florida, USA
-                    </li>
+                    <li><i class="fas fa-map-marker-alt"></i> Florida, USA</li>
                     <li>
                       <i class="far fa-clock"></i> Available on Fri, 22 Mar
                     </li>
                     <li>
                       <i class="far fa-money-bill-alt"></i> $300 - $1000
-                      <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i>
+                      <i
+                        class="fas fa-info-circle"
+                        data-toggle="tooltip"
+                        title="Lorem Ipsum"
+                      ></i>
                     </li>
                   </ul>
                   <div class="row row-sm">
                     <div class="col-6">
-                      <a [routerLink]="['/', item.id]" class="btn view-btn">View Profile</a>
+                      <a [routerLink]="['/', item.id]" class="btn view-btn"
+                        >View Profile</a
+                      >
                     </div>
                     <div class="col-6">
-                      <a [routerLink]="['/', item.id]" class="btn book-btn">Book Now</a>
+                      <a [routerLink]="['/', item.id]" class="btn book-btn"
+                        >Book Now</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -69,7 +77,6 @@
             </div>
           </ngx-slick-carousel>
           <!-- /Doctor Widget -->
-
         </div>
       </div>
     </div>

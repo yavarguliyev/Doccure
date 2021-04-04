@@ -23,7 +23,8 @@ namespace Services.Mappings
             CreateMap<User, User>();
             CreateMap<RegisterDTO, User>();
 
-            CreateMap<Setting, SettingDTO>();
+            CreateMap<Setting, SettingDTO>()
+                .ForMember(x => x.SocialMediaDTOs, opt => opt.MapFrom(src => src.SocialMedias));
             CreateMap<SettingPhoto, SettingPhotoDTO>();
             CreateMap<SocialMedia, SocialMediaDTO>();
             CreateMap<Privacy, PrivacyDTO>();

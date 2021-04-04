@@ -15,7 +15,7 @@
             <div #footerDesc class="footer-about-content">
               <div class="social-icon">
                 <ul>
-                  <li *ngFor="let item of socialMedia">
+                  <li *ngFor="let item of this.footer.socialMediaDTOs">
                     <a [href]="item.link" target="_blank"
                       ><i class="fab fa-{{ item.icon }}"></i>
                     </a>
@@ -79,12 +79,12 @@
               </div>
               <p>
                 <i class="fas fa-phone-alt"></i>
-                {{ footer?.contactNumber }}
+                {{ footer.contactNumber }}
               </p>
               <p class="mb-0">
-                <a class="text-white" href="{{ footer?.email }}">
+                <a class="text-white" href="{{ footer.email }}">
                   <i class="fas fa-envelope"></i>
-                  {{ footer?.email }}
+                  {{ footer.email }}
                 </a>
               </p>
             </div>

@@ -14,7 +14,10 @@ namespace Data.Repositories
 
         public async Task<Setting> Get()
         {
-            return await context.Settings.Where(x => x.Status).FirstOrDefaultAsync();
+            return await context.Settings
+                                .Where(x => x.Status)
+                                .Include(x => x.SocialMedias)
+                                .FirstOrDefaultAsync();
         }
     }
 }

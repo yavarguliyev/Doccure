@@ -1,4 +1,6 @@
-﻿namespace Core.DTOs.Admin.Admin_Setting
+﻿using System.Collections.Generic;
+
+namespace Core.DTOs.Admin.Admin_Setting
 {
     public class SettingDTO
     {
@@ -22,5 +24,7 @@
         public string BlogsAndNewsSubTitle { get; set; }
 
         public string Information { get; set; }
+
+        public ICollection<SocialMediaDTO> SocialMediaDTOs { get; set; }
     }
 }

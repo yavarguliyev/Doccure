@@ -15,10 +15,15 @@ namespace Api.Extensions
             app.UseReferrerPolicy(opt => opt.NoReferrer());
             app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
             app.UseXfo(opt => opt.Deny());
-            app.UseCsp(opt => 
-            {
-                opt.BlockAllMixedContent();
-            });
+            app.UseCsp(opt => opt
+               .BlockAllMixedContent()
+               //.StyleSources(s => s.Self().CustomSources())
+               //.FontSources(s => s.Self().CustomSources())
+               //.FormActions(s => s.Self().CustomSources())
+               //.FrameAncestors(s => s.Self().CustomSources())
+               //.ImageSources(s => s.Self().CustomSources())
+               //.ScriptSources(s => s.Self().CustomSources())
+               );
 
             if (env.IsDevelopment())
             {

@@ -1,3 +1,4 @@
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { Doctor } from './doctor';
 
 export interface Blog {
@@ -6,7 +7,7 @@ export interface Blog {
   slug: string;
   image: string;
   doctor: Doctor;
-  video?: string;
+  video?: any;
 }
 
 export class BlogB implements Blog {
@@ -15,9 +16,9 @@ export class BlogB implements Blog {
   slug: string;
   image: string;
   doctor: Doctor;
-  video?: string;
+  video?: any;
 
-  constructor(id: number, title: string, slug: string, image: string, doctor: Doctor, video?: string) {
+  constructor(id: number, title: string, slug: string, image: string, doctor: Doctor, video?: any) {
     this.id = id;
     this.title = title;
     this.slug = slug;
