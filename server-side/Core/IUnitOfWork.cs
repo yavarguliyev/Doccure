@@ -10,6 +10,7 @@ namespace Core
         IPatientRepository Patient { get; }
         IUserRepository User { get; }
 
+        IBlogRespository Blog { get; }
         IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }
         IPrivacyRepository Privacy { get; }
         ISettingRepository Setting { get; }

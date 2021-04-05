@@ -127,6 +127,7 @@ namespace Api.Extensions
       services.AddTransient<IPatientService, PatientService>();
       services.AddTransient<IUserService, UserService>();
 
+      services.AddTransient<IBlogService, BlogService>();
       services.AddTransient<IDoctorSocialMediaUrlLinkService, DoctorSocialMediaUrlLinkService>();
       services.AddTransient<IPrivacyService, PrivacyService>();
       services.AddTransient<ISettingPhotoService, SettingPhotoService>();

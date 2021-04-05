@@ -3,7 +3,7 @@
   <app-header *ngIf="setting" [header]="setting"></app-header>
   <router-outlet
     *ngIf="setting"
-    (activate)="onHomePageLoaded($event)"
+    (activate)="onHomePageLoaded($event);"
   ></router-outlet>
   <app-footer *ngIf="setting" [footer]="setting"></app-footer>
 
