@@ -22,12 +22,12 @@ export class MainService {
       return of(blog);
     }
 
-    const url = `${this.baseUrl}/blog/${slug}`;
+    const url = `${this.baseUrl}/blog/details/${slug}`;
     return this.http.get<Blog>(url);
   }
 
   public getBlogList(): Observable<Blog[]> {
-    const url = `${this.baseUrl}/blog`;
+    const url = `${this.baseUrl}/blog/list`;
     return this.http.get<Blog[]>(url);
   }
 }
