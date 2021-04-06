@@ -26,12 +26,12 @@
               <ul>
                 <li>
                   <div class="post-author">
-                    <a [routerLink]="['/']"
+                    <a [routerLink]="['/main/patient/doctor-profile', item.doctor?.slug]"
                       ><img
-                        src="assets/img/user.png"
-                        alt="yavar-guliyev"
+                        src={{item.doctor?.photo}}
+                        alt={{item.doctor?.fullname}}
                       />
-                      <span>Dr. Yavar Guliyev</span></a
+                      <span>Dr. {{item.doctor?.fullname}}</span></a
                     >
                   </div>
                 </li>

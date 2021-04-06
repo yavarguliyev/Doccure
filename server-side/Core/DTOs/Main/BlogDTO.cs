@@ -1,4 +1,6 @@
-﻿namespace Core.DTOs.Main
+﻿using Core.DTOs.Auth;
+
+namespace Core.DTOs.Main
 {
     public class BlogDTO
     {
@@ -8,6 +10,6 @@
         public string Description { get; set; }
         public string Photo { get; set; }
 
-        public int? DoctorId { get; set; }
+        public UserDTO Doctor { get; set; }
     }
 }

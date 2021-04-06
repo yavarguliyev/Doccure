@@ -18,6 +18,8 @@ namespace Data.Repositories
         public async Task<IEnumerable<Blog>> Get()
         {
             return await context.Blogs
+                                .Include(x => x.Doctor)
+                                .ThenInclude(x => x.Users)
                                 .Where(x => x.Status)
                                 .ToListAsync();
         }
@@ -27,6 +29,7 @@ namespace Data.Repositories
             var blog = await context.Blogs
                                     .Where(x => x.Status)
                                     .Include(x => x.Doctor)
+                                    .ThenInclude(x => x.Users)
                                     .FirstOrDefaultAsync(x => x.Slug == slug);
 
             if (blog != null) return blog;

@@ -8,7 +8,7 @@
         <div class="blog-view">
           <div class="blog blog-single-post">
             <div class="blog-image">
-              <a href="javascript:void(0);"><img alt="" src="assets/img/blog/blog-01.jpg" class="img-fluid"></a>
+              <a href="javascript:void(0);"><img alt={{blog.title}} src={{blog.photo}} class="img-fluid"></a>
             </div>
             <h3 class="blog-title">{{blog.title}}</h3>
             <div class="blog-info clearfix">
@@ -16,8 +16,8 @@
                 <ul>
                   <li>
                     <div class="post-author">
-                      <a href="doctor-profile.html"><img src="assets/img/doctors/doctor-thumb-02.jpg" alt="Post Author">
-                        <span>Dr. Darren Elder</span></a>
+                      <a [routerLink]="['/']"><img src={{blog.doctor?.photo}} alt={{blog.doctor?.fullname}}>
+                        <span>Dr. {{blog.doctor?.fullname}}</span></a>
                     </div>
                   </li>
                   <li><i class="far fa-calendar"></i>4 Dec 2019</li>
@@ -50,12 +50,12 @@
               <div class="about-author">
                 <div class="about-author-img">
                   <div class="author-img-wrap">
-                    <a href="doctor-profile.html"><img class="img-fluid rounded-circle" alt=""
-                        src="assets/img/doctors/doctor-thumb-02.jpg"></a>
+                    <a [routerLink]="['/main/patient/doctor-profile', blog.doctor?.slug]"><img class="img-fluid rounded-circle" alt={{blog.doctor?.fullname}}
+                        src={{blog.doctor?.photo}}></a>
                   </div>
                 </div>
                 <div class="author-details">
-                  <a href="doctor-profile.html" class="blog-author-name">Dr. Darren Elder</a>
+                  <a [routerLink]="['/']" class="blog-author-name">Dr. {{blog.doctor?.fullname}}</a>
                   <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
                 </div>

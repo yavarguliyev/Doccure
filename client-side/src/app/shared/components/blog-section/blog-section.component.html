@@ -12,14 +12,14 @@
       <div class="col-md-6 col-lg-3 col-sm-12" *ngFor="let item of blogs">
         <div class="blog grid-blog">
           <div class="blog-image">
-            <a [routerLink]="['/', item.slug]"><img class="img-fluid" src={{item.photo}} alt={{item.title}}></a>
+            <a [routerLink]="['/main/blog/details', item.slug]"><img class="img-fluid" src={{item.photo}} alt={{item.title}}></a>
           </div>
           <div class="blog-content">
             <ul class="entry-meta meta-item">
               <li>
                 <div class="post-author">
-                  <a [routerLink]="['/']"><img src="assets/img/user.png" alt="Yavar Guliyev">
-                    <span>Dr. Yavar Guliyev</span></a>
+                  <a [routerLink]="['/main/patient/doctor-profile', item.doctor?.slug]"><img src={{item.doctor?.photo}} alt={{item.doctor?.fullname}}>
+                    <span>Dr. {{item.doctor?.fullname}}</span></a>
                 </div>
               </li>
               <li><i class="far fa-clock"></i> 2 Dec 2019</li>

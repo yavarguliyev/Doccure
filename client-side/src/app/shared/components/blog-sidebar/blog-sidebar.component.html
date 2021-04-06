@@ -23,7 +23,7 @@
         <li *ngFor="let item of blogs">
           <div class="post-thumb">
             <a [routerLink]="['/main/blog/details', item.slug]">
-              <img class="img-fluid" src="assets/img/blog/blog-thumb-01.jpg" alt="">
+              <img class="img-fluid" src={{item.photo}} alt={{item.title}}>
             </a>
           </div>
           <div class="post-info">

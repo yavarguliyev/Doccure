@@ -6,7 +6,7 @@ export interface Blog {
   slug: string;
   description: string;
   photo: string;
-  doctorId?: number;
+  doctor?: Doctor;
   video?: any;
 }
 
@@ -16,7 +16,7 @@ export class BlogB implements Blog {
   slug: string;
   description: string;
   photo: string;
-  doctorId?: number;
+  doctor?: Doctor;
   video?: any;
 
   constructor(
@@ -25,7 +25,7 @@ export class BlogB implements Blog {
     slug: string,
     description: string,
     photo: string,
-    doctorId?: number,
+    doctor?: Doctor,
     video?: any
   ) {
     this.id = id;
@@ -33,7 +33,7 @@ export class BlogB implements Blog {
     this.slug = slug;
     this.description = description;
     this.photo = photo;
-    this.doctorId = doctorId;
+    this.doctor = doctor;
     this.video = video;
   }
 }
