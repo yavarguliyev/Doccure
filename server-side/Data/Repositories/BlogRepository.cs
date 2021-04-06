@@ -21,6 +21,7 @@ namespace Data.Repositories
                                 .Include(x => x.Doctor)
                                 .ThenInclude(x => x.Users)
                                 .Where(x => x.Status)
+                                .Take(4)
                                 .ToListAsync();
         }
 

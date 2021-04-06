@@ -25,7 +25,6 @@ namespace Services.Mappings
 
             CreateMap<NewDoctorModifyDTO, User>();
 
-            CreateMap<User, User>();
             CreateMap<RegisterDTO, User>();
 
             CreateMap<Blog, BlogDTO>()
