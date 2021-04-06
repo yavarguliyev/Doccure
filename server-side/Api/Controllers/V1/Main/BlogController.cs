@@ -5,13 +5,13 @@ namespace Api.Controllers.v1.Main
 {
   public class BlogController : BaseApiController
   {
-    [HttpGet("list")]
+    [HttpGet]
     public async Task<IActionResult> List()
     {
       return Ok(await blogService.GetAsync());
     }
 
-    [HttpGet("details/{slug}")]
+    [HttpGet("{slug}")]
     public async Task<IActionResult> Details(string slug)
     {
       return Ok(await blogService.GetAsync(slug));

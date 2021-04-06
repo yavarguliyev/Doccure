@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Blog } from 'src/app/shared/models/blog';
 import { MainService } from 'src/app/shared/services/main.service';
@@ -9,7 +9,7 @@ import { MainService } from 'src/app/shared/services/main.service';
 })
 export class DetailsComponent implements OnInit {
   public blog!: Blog;
-  @Input() blogs: Blog[] = [];
+  public blogs: Blog[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -26,5 +26,9 @@ export class DetailsComponent implements OnInit {
   private apiResponses() {
     const slug: any = this.route.snapshot.paramMap.get('slug');
     this.main.getBlog(slug).subscribe((response) => (this.blog = response));
+
+    this.main
+        .getBlogList()
+        .subscribe((response) => (this.blogs = response));
   }
 }
