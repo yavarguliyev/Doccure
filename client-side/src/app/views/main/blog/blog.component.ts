@@ -10,8 +10,6 @@ import { ListComponent } from './list/list.component';
 })
 export class BlogComponent implements OnInit {
   public blogs: Blog[] = [];
-  public slug: any;
-  public blog!: Blog;
 
   constructor(private main: MainService) {}
 
@@ -23,10 +21,6 @@ export class BlogComponent implements OnInit {
     this.main
         .getBlogList()
         .subscribe((response) => (this.blogs = response));
-
-    this.main
-      .getBlog('what-are-the-benefits-of-online-doctor-booking')
-      .subscribe((response) => (this.blog = response));
   }
 
   public onBlogListPageLoaded(component: ListComponent) {

@@ -20,69 +20,17 @@
     </div>
     <div class="card-body">
       <ul class="latest-posts">
-        <li>
+        <li *ngFor="let item of blogs">
           <div class="post-thumb">
-            <a href="blog-details.html">
+            <a [routerLink]="['/main/blog/details', item.slug]">
               <img class="img-fluid" src="assets/img/blog/blog-thumb-01.jpg" alt="">
             </a>
           </div>
           <div class="post-info">
             <h4>
-              <a href="blog-details.html">Doccure – Making your clinic painless visit?</a>
+              <a [routerLink]="['/main/blog/details', item.slug]">{{item.title}}</a>
             </h4>
             <p>4 Dec 2019</p>
-          </div>
-        </li>
-        <li>
-          <div class="post-thumb">
-            <a href="blog-details.html">
-              <img class="img-fluid" src="assets/img/blog/blog-thumb-02.jpg" alt="">
-            </a>
-          </div>
-          <div class="post-info">
-            <h4>
-              <a href="blog-details.html">What are the benefits of Online Doctor Booking?</a>
-            </h4>
-            <p>3 Dec 2019</p>
-          </div>
-        </li>
-        <li>
-          <div class="post-thumb">
-            <a href="blog-details.html">
-              <img class="img-fluid" src="assets/img/blog/blog-thumb-03.jpg" alt="">
-            </a>
-          </div>
-          <div class="post-info">
-            <h4>
-              <a href="blog-details.html">Benefits of consulting with an Online Doctor</a>
-            </h4>
-            <p>3 Dec 2019</p>
-          </div>
-        </li>
-        <li>
-          <div class="post-thumb">
-            <a href="blog-details.html">
-              <img class="img-fluid" src="assets/img/blog/blog-thumb-04.jpg" alt="">
-            </a>
-          </div>
-          <div class="post-info">
-            <h4>
-              <a href="blog-details.html">5 Great reasons to use an Online Doctor</a>
-            </h4>
-            <p>2 Dec 2019</p>
-          </div>
-        </li>
-        <li>
-          <div class="post-thumb">
-            <a href="blog-details.html">
-              <img class="img-fluid" src="assets/img/blog/blog-thumb-05.jpg" alt="">
-            </a>
-          </div>
-          <div class="post-info">
-            <h4>
-              <a href="blog-details.html">Online Doctor Appointment Scheduling</a>
-            </h4>
-            <p>1 Dec 2019</p>
           </div>
         </li>
       </ul>

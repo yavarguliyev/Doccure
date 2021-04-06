@@ -1,5 +1,5 @@
 <router-outlet
-  *ngIf="blog && blogs.length !== 0"
+  *ngIf="blogs.length !== 0"
   (activate)="onBlogListPageLoaded($event)"
-  (activate)="onBlogDetailsPageLoaded($event)"
+  (activate)="onBlogListPageLoaded($event)"
 ></router-outlet>

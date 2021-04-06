@@ -96,7 +96,7 @@
 
       <!-- Blog Sidebar -->
       <div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
-        <app-blog-sidebar></app-blog-sidebar>
+        <app-blog-sidebar *ngIf="blogs.length !== 0" [blogs]="blogs"></app-blog-sidebar>
       </div>
       <!-- /Blog Sidebar -->
     </div>
