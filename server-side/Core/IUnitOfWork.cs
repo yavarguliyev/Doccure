@@ -12,6 +12,9 @@ namespace Core
 
         IBlogRespository Blog { get; }
         IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }
+
+        IFeatureRepository Feature { get; }
+        ISpecialityRepository Speciality { get; }
         IPrivacyRepository Privacy { get; }
         ISettingRepository Setting { get; }
         ISettingPhotoRepository SettingPhoto { get; }

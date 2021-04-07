@@ -1,17 +1,14 @@
 export interface Feature {
-  id: number;
   name: string;
-  image: string;
+  photo: string;
 }
 
 export class FeatureF implements Feature {
-  id: number;
   name: string;
-  image: string;
+  photo: string;
 
-  constructor(id: number, name: string, image: string) {
-    this.id = id;
+  constructor(name: string, photo: string) {
     this.name = name;
-    this.image = image;
+    this.photo = photo;
   }
 }

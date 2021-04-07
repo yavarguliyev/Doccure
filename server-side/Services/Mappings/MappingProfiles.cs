@@ -38,6 +38,12 @@ namespace Services.Mappings
             CreateMap<SocialMedia, SocialMediaDTO>();
             CreateMap<Privacy, PrivacyDTO>();
             CreateMap<Term, TermDTO>();
+
+            CreateMap<Speciality, SpecialityDTO>()
+                .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "specialities-01_aieefa.png"));
+            
+            CreateMap<Feature, FeatureDTO>()
+                .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "feature-01_ejdasv.jpg"));
         }
     }
 }

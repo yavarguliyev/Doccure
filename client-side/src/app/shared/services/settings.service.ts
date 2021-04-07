@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { SocialMedia } from '../models/social-media-settings';
 import { MainPageSettings } from '../models/main-page-settings';
+import { Speciality } from '../models/speciality';
+import { Feature } from '../models/feature';
 
 @Injectable({
   providedIn: 'root',
@@ -32,5 +34,15 @@ export class SettingsService {
   public getSocialMedia(): Observable<SocialMedia[]> {
     const url = `${this.baseUrl}/admin_settings/social-media`;
     return this.http.get<SocialMedia[]>(url);
+  }
+
+  public getFeature(): Observable<Feature[]> {
+    const url = `${this.baseUrl}/admin_settings/features`;
+    return this.http.get<Feature[]>(url);
+  }
+
+  public getSpeciality(): Observable<Speciality[]> {
+    const url = `${this.baseUrl}/admin_settings/specialities`;
+    return this.http.get<Speciality[]>(url);
   }
 }

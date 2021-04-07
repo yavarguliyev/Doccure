@@ -1128,6 +1128,142 @@ namespace Data.Data_Seed
                     await context.SaveChangesAsync();
                 }
             }
+
+            if (!context.Features.Any())
+            {
+                var features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        ClinicName = "Operation",
+                        Photo = null
+                    },
+                    new Feature
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        ClinicName = "Medical",
+                        Photo = null
+                    },
+                    new Feature
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        ClinicName = "Patient Ward",
+                        Photo = null
+                    },
+                    new Feature
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        ClinicName = "Test Room",
+                        Photo = null
+                    },
+                    new Feature
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        ClinicName = "ICU",
+                        Photo = null
+                    },
+                    new Feature
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        ClinicName = "Laboratory",
+                        Photo = null
+                    }
+                };
+
+                foreach (var feature in features)
+                {
+                    await context.Features.AddRangeAsync(feature);
+                    await context.SaveChangesAsync();
+                }
+            }
+
+            if (!context.Specialities.Any())
+            {
+                var specialities = new List<Speciality>
+                {
+                    new Speciality
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Name = "Cardiologist",
+                        Photo = null
+                    },
+                    new Speciality
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Name = "Dentist",
+                        Photo = null
+                    },
+                    new Speciality
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Name = "Neurologist",
+                        Photo = null
+                    },
+                    new Speciality
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Name = "Orthopedics",
+                        Photo = null
+                    },
+                    new Speciality
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Name = "Urologist",
+                        Photo = null
+                    }
+                };
+
+                foreach (var speciality in specialities)
+                {
+                    await context.Specialities.AddRangeAsync(speciality);
+                    await context.SaveChangesAsync();
+                }
+            }
         }
     }
 }

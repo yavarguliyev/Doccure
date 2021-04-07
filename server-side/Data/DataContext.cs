@@ -20,8 +20,11 @@ namespace Data
             builder.ApplyConfiguration(new UserConfiguration());
 
             builder.ApplyConfiguration(new BlogConfiguration());
-            builder.ApplyConfiguration(new BloodGroupConfiguration());
             builder.ApplyConfiguration(new DoctorSocialMediaUrlLinkConfiguration());
+
+            builder.ApplyConfiguration(new FeatureConfiguration());
+            builder.ApplyConfiguration(new SpecialityConfiguration());
+            builder.ApplyConfiguration(new BloodGroupConfiguration());
             builder.ApplyConfiguration(new SocialMediaConfiguration());
             builder.ApplyConfiguration(new SettingConfiguration());
             builder.ApplyConfiguration(new SettingPhotoConfiguration());
@@ -34,9 +37,12 @@ namespace Data
         public DbSet<Patient> Patients { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public DbSet<BloodGroup> BloodGroups { get; set; }
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<DoctorSocialMediaUrlLink> DoctorSocialMediaUrlLinks { get; set; }
+
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<BloodGroup> BloodGroups { get; set; }
         public DbSet<SocialMedia> SocialMedias { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<SettingPhoto> SettingPhotos { get; set; }

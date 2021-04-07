@@ -13,7 +13,7 @@
           <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let item of features" class="slide">
               <div class="feature-item text-center">
-                <img src={{item.image}} class="img-fluid" alt={{item.name}}>
+                <img src={{item.photo}} class="img-fluid" alt={{item.name}}>
                 <p>{{item.name}}</p>
               </div>
             </div>

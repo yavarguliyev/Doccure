@@ -18,6 +18,9 @@ namespace Api.Controllers.v1
         private IUserService _userService;
 
         private IBlogService _blogService;
+
+        private IFeatureService _featureService;
+        private ISpecialityService _specialityService;
         private ISettingService _settingService;
         private ISettingPhotoService _settingPhotoService;
         private ISocialMediaService _socialMediaService;
@@ -31,6 +34,9 @@ namespace Api.Controllers.v1
         protected IUserService userService => _userService ??= HttpContext.RequestServices.GetService<IUserService>();
         
         protected IBlogService blogService => _blogService ??= HttpContext.RequestServices.GetService<IBlogService>();
+        
+        protected IFeatureService featureService => _featureService ??= HttpContext.RequestServices.GetService<IFeatureService>();
+        protected ISpecialityService specialityService => _specialityService ??= HttpContext.RequestServices.GetService<ISpecialityService>();
         protected ISettingService settingService => _settingService ??= HttpContext.RequestServices.GetService<ISettingService>();
         protected ISettingPhotoService settingPhotoService => _settingPhotoService ??= HttpContext.RequestServices.GetService<ISettingPhotoService>();
         protected ISocialMediaService socialMediaService => _socialMediaService ??= HttpContext.RequestServices.GetService<ISocialMediaService>();

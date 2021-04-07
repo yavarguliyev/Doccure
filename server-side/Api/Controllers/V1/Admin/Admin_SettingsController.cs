@@ -42,6 +42,18 @@ namespace Api.Controllers.v1.Admin
             if (auth.Admin == null) return Unauthorized();
             return Ok(await settingPhotoService.GetAsync());
         }
+
+        [HttpGet("features")]
+        public async Task<IActionResult> Features()
+        {
+            return Ok(await featureService.GetAsync());
+        }
+
+        [HttpGet("specialities")]
+        public async Task<IActionResult> Specialities()
+        {
+            return Ok(await specialityService.GetAsync());
+        }
         #endregion
 
         #region admin_settings edit

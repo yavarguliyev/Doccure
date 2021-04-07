@@ -16,6 +16,9 @@ namespace Data
 
         private IBlogRespository _blogRespository;
         private IDoctorSocialMediaUrlLinkRepository _doctorSocialMediaUrlLinkRepository;
+
+        private IFeatureRepository _featureRepository;
+        private ISpecialityRepository _specialityRepository;
         private IPrivacyRepository _privacyRepository;
         private ISettingRepository _settingRepository;
         private ISettingPhotoRepository _settingPhotoRepository;
@@ -34,6 +37,9 @@ namespace Data
 
         public IBlogRespository Blog => _blogRespository ??= new BlogRepository(_context);
         public IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl => _doctorSocialMediaUrlLinkRepository ??= new DoctorSocialMediaUrlLinkRepository(_context);
+
+        public IFeatureRepository Feature => _featureRepository ??= new FeatureRepository(_context);
+        public ISpecialityRepository Speciality => _specialityRepository ??= new SpecialityRepository(_context);
         public IPrivacyRepository Privacy => _privacyRepository ??= new PrivacyRepository(_context);
         public ISettingRepository Setting => _settingRepository ??= new SettingRepository(_context);
         public ISettingPhotoRepository SettingPhoto => _settingPhotoRepository ??= new SettingPhotoRepository(_context);
