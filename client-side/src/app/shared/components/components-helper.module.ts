@@ -6,7 +6,6 @@ import { AvailableFeaturesComponent } from './available-features/available-featu
 import { BlogSectionComponent } from './blog-section/blog-section.component';
 import { RouterModule } from '@angular/router';
 import { HomeBannerComponent } from './home-banner/home-banner.component';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MainBreadcrumbComponent } from './main-breadcrumb/main-breadcrumb.component';
 import { BlogSidebarComponent } from './blog-sidebar/blog-sidebar.component';
 import { DoctorSidebarComponent } from './doctor-sidebar/doctor-sidebar.component';
@@ -16,6 +15,7 @@ import { InputDateComponent } from './input-date/input-date.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { InputSelectComponent } from './input-select/input-select.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -35,10 +35,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
   imports: [
     CommonModule,
     RouterModule,
-    SlickCarouselModule,
     FormsModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    CarouselModule
   ],
   exports: [
     SpecialitiesComponent,

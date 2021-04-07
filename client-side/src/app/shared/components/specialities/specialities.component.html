@@ -7,25 +7,17 @@
         <!-- Slider -->
         <div class="specialities-slider slider">
           <!-- Slider Item -->
-          <ngx-slick-carousel
-            class="carousel"
-            #slickModal="slick-carousel"
-            [config]="slideConfig"
-          >
-            <div ngxSlickItem *ngFor="let item of specialities" class="slide">
+          <owl-carousel-o [options]="options" class="feature-item text-center">
+            <ng-template carouselSlide *ngFor="let item of specialities">
               <div class="speicality-item text-center">
                 <div class="speicality-img">
-                  <img
-                    src="{{ item.photo }}"
-                    class="img-fluid"
-                    alt="{{ item.name }}"
-                  />
+                  <img src="{{ item.photo }}" class="img-fluid" alt="{{ item.name }}" />
                   <span><i class="fa fa-circle" aria-hidden="true"></i></span>
                 </div>
                 <p>{{ item.name }}</p>
               </div>
-            </div>
-          </ngx-slick-carousel>
+            </ng-template>
+          </owl-carousel-o>
           <!-- /Slider Item -->
         </div>
         <!-- /Slider -->

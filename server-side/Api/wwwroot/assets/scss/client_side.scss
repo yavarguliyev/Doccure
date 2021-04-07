@@ -3005,8 +3005,8 @@ html.menu-opened body {
 .feature-item img {
   border-radius: 100%;
   box-shadow: 1px 6px 14px rgba(0, 0, 0, 0.2);
-  height: 115px;
-  object-fit: cover;
+  max-height: 100%;
+  object-fit: scale-down;
   width: 115px;
 }
 .feature-item p {

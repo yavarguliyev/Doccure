@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Doctor, DoctorD } from '../../models/doctor';
 import { MainPageSettings } from '../../models/main-page-settings';
 
@@ -21,6 +22,30 @@ export class PopularSelectionComponent implements OnInit {
   private popularText!: ElementRef;
 
   public slideConfig = { slidesToShow: 3, slidesToScroll: 3 };
+
+  public customOptions: OwlOptions = {
+    loop: true,
+    margin: 30,
+    nav: false,
+    dots: true,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 4
+      },
+      1200: {
+        items: 5
+      },
+      1400: {
+        items: 5
+      }
+    }
+  };
 
   public doctors: Doctor[] = [];
   constructor(private changeDetectorRef: ChangeDetectorRef) {}

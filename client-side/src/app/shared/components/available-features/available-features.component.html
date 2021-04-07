@@ -3,23 +3,21 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-5 features-img">
-        <img src="assets/img/features/feature.png" class="img-fluid" alt="Feature">
+        <img src="assets/img/features/feature.png" class="img-fluid" alt="Feature" />
       </div>
       <div class="col-md-7">
         <div #available class="section-header"></div>
         <div class="features-slider slider">
-
           <!-- Slider Item -->
-          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-            <div ngxSlickItem *ngFor="let item of features" class="slide">
-              <div class="feature-item text-center">
-                <img src={{item.photo}} class="img-fluid" alt={{item.name}}>
-                <p>{{item.name}}</p>
-              </div>
-            </div>
-          </ngx-slick-carousel>
+          <owl-carousel-o [options]="options" class="feature-item text-center">
+            <ng-template carouselSlide *ngFor="let item of features" class="slide">
+								<div class="item">
+									<img src="{{ item.photo }}" class="img-fluid" alt="{{ item.name }}" />
+                  <p>{{ item.name }}</p>
+								</div>
+            </ng-template>
+          </owl-carousel-o>
           <!-- /Slider Item -->
-
         </div>
       </div>
     </div>

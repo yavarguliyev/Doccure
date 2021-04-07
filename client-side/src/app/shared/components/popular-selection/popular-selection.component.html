@@ -11,12 +11,8 @@
       <div class="col-lg-8">
         <div class="doctor-slider slider">
           <!-- Doctor Widget -->
-          <ngx-slick-carousel
-            class="carousel"
-            #slickModal="slick-carousel"
-            [config]="slideConfig"
-          >
-            <div ngxSlickItem *ngFor="let item of doctors" class="slide">
+          <owl-carousel-o [options]="customOptions" class="cate-slider">
+            <ng-template carouselSlide *ngFor="let item of doctors">
               <div class="profile-widget">
                 <div class="doc-img">
                   <a [routerLink]="['/']">
@@ -74,8 +70,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </ngx-slick-carousel>
+            </ng-template>
+          </owl-carousel-o>
           <!-- /Doctor Widget -->
         </div>
       </div>

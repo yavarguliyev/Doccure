@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { MainPageSettings } from '../../models/main-page-settings';
 import { Speciality } from '../../models/speciality';
 import { SettingsService } from '../../services/settings.service';
@@ -19,7 +20,29 @@ export class SpecialitiesComponent implements OnInit {
   @ViewChild('clinic', { static: false })
   private clinicSettings!: ElementRef;
 
-  public slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
+  public options: OwlOptions = {
+    loop: true,
+    margin: 30,
+    nav: false,
+    dots: true,
+    responsive: {
+      0: {
+        items: 2
+      },
+      600: {
+        items: 5
+      },
+      1000: {
+        items: 5
+      },
+      1200: {
+        items: 7
+      },
+      1400: {
+        items: 7
+      }
+    }
+  };
 
   public specialities: Speciality[] = [];
 

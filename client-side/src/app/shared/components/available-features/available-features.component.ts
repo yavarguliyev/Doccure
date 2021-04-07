@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Feature } from '../../models/feature';
 import { MainPageSettings } from '../../models/main-page-settings';
 import { SettingsService } from '../../services/settings.service';
@@ -19,7 +20,29 @@ export class AvailableFeaturesComponent implements OnInit {
   @ViewChild('available', { static: false })
   private availableSettings!: ElementRef;
 
-  public slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
+  public options: OwlOptions = {
+    loop: true,
+    margin: 30,
+    nav: false,
+    dots: true,
+    responsive: {
+      0: {
+        items: 3
+      },
+      600: {
+        items: 5
+      },
+      1000: {
+        items: 7
+      },
+      1200: {
+        items: 7
+      },
+      1400: {
+        items: 7
+      }
+    }
+  };
 
   public features: Feature[] = [];
 
