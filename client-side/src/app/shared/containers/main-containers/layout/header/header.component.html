@@ -10,13 +10,13 @@
         </span>
       </a>
       <a [routerLink]="['/']" class="navbar-brand logo">
-        <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+        <img *ngIf="headerPhoto" src="{{headerPhoto.photo}}logo_pwttjs.png" class="img-fluid" alt={{headerPhoto.name}}>
       </a>
     </div>
     <div class="main-menu-wrapper">
       <div class="menu-header">
         <a [routerLink]="['/']" class="menu-logo">
-          <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+          <img *ngIf="headerPhoto" src="{{headerPhoto.photo}}logo_pwttjs.png" class="img-fluid" alt={{headerPhoto.name}}>
         </a>
         <a (click)="closeMenu($event)" id="menu_close" class="menu-close" href="javascript:void(0);">
           <i class="fas fa-times"></i>
@@ -27,8 +27,8 @@
           <a [routerLink]="['/main/homepage']">Home</a>
         </li>
         <li [routerLinkActive]="['active']" class="has-submenu">
-          <a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
-          <ul class="submenu">
+          <a (click)="openNav($event)" href="#">Doctors <i class="fas fa-chevron-down"></i></a>
+          <ul #navItem class="submenu">
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/dashboard']">Doctor Dashboard</a></li>
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/appointments']">Appointments</a></li>
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/schedule-timings']">Schedule Timing</a>
@@ -42,9 +42,9 @@
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/doctor-blog']">Blog</a></li>
           </ul>
         </li>
-        <li class="has-submenu">
-          <a href="#">Patients <i class="fas fa-chevron-down"></i></a>
-          <ul class="submenu">
+        <li class="has-submenu" [routerLinkActive]="['active']" class="has-submenu">
+          <a (click)="openNav($event)" href="#">Patients <i class="fas fa-chevron-down"></i></a>
+          <ul #navItem class="submenu">
             <li class="has-submenu">
               <a href="#">Doctors</a>
               <ul class="submenu">
@@ -65,15 +65,15 @@
           </ul>
         </li>
         <li [routerLinkActive]="['active']" class="has-submenu">
-          <a href="#">Blog <i class="fas fa-chevron-down"></i></a>
-          <ul class="submenu">
+          <a (click)="openNav($event)" href="#">Blog <i class="fas fa-chevron-down"></i></a>
+          <ul #navItem class="submenu">
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/blog/list']">Blog List</a></li>
           </ul>
         </li>
         <li [routerLinkActive]="['active']">
           <a [routerLink]="['/main/search-doctors']">Search Doctors</a>
         </li>
-        <li>
+        <li *ngIf="user.role === 'Admin'">
           <a [routerLink]="['/']" target="_blank">Admin</a>
         </li>
       </ul>

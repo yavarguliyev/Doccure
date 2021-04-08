@@ -147,7 +147,7 @@ namespace Data.Data_Seed
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                         SettingId = 1,
-                        Name = "HeaderLogo",
+                        Name = "HeaderAndInvoice",
                         Photo = null
                     },
                     new SettingPhoto
@@ -158,7 +158,7 @@ namespace Data.Data_Seed
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                         SettingId = 1,
-                        Name = "FooterLogo",
+                        Name = "Footer",
                         Photo = null
                     },
                     new SettingPhoto
@@ -169,7 +169,7 @@ namespace Data.Data_Seed
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                         SettingId = 1,
-                        Name = "InvoiceLogo",
+                        Name = "Available",
                         Photo = null
                     },
                     new SettingPhoto
@@ -180,7 +180,7 @@ namespace Data.Data_Seed
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                         SettingId = 1,
-                        Name = "AvailableLogo",
+                        Name = "Patient",
                         Photo = null
                     },
                     new SettingPhoto
@@ -191,97 +191,9 @@ namespace Data.Data_Seed
                         AddedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                         SettingId = 1,
-                        Name = "PatientLoginLogo",
+                        Name = "AdminAndDoctor",
                         Photo = null
                     },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "PatientRegisterLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "PatientForgotPasswordLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "PatientResetPasswordLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "DoctorLoginLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "DoctorRegisterLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "DoctorForgotPasswordLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "DoctorResetPasswordLogo",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "AdminLoginLogo",
-                        Photo = null
-                    }
                 };
 
                 foreach (var settingPhoto in settingPhotos)
@@ -530,6 +442,96 @@ namespace Data.Data_Seed
                         ModifiedDate = DateTime.Now,
                         Position = DoctorPosition.Dentist,
                         Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Neurologist,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Urologist,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Cardiologist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Orthopedics,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Neurologist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Position = DoctorPosition.Cardiologist,
+                        Type = WorkingType.Freelancer
                     }
                 };
 
@@ -553,7 +555,117 @@ namespace Data.Data_Seed
                         ModifiedDate = DateTime.Now,
                         Type = PatientType.OldPatient,
                         BloodGroupId = 1
-                    }
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.NewPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.OldPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.NewPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.OldPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.NewPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.OldPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.NewPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.OldPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.NewPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.OldPatient,
+                        BloodGroupId = 1
+                    },
+                    new Patient
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Type = PatientType.NewPatient,
+                        BloodGroupId = 1
+                    },
                 };
 
                 foreach (var patient in patients)
@@ -600,7 +712,6 @@ namespace Data.Data_Seed
                         DoctorId = null,
                         PatientId = null
                     },
-
                     new User
                     {
                         Status = true,
@@ -644,9 +755,42 @@ namespace Data.Data_Seed
                         ModifiedDate = DateTime.Now,
                         Code = new Random().Next(100000, 999999).ToString(),
                         Photo = null,
-                        Fullname = "Yavar Guliyev",
-                        Slug = "yavar-guliyev",
-                        Email = "guliyev.yavar@gmail.com",
+                        Fullname = "Ruby Perrin",
+                        Slug = "ruby-perrin",
+                        Email = "perrin.ruby@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 1,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Darren Elder",
+                        Slug = "darren-elder",
+                        Email = "elder.darren@test.com",
                         Birth = new DateTime(1990, 06, 29),
                         Phone = "+994 55 904-68-23",
                         Password = Crypto.HashPassword("yavar10Yr"),
@@ -665,7 +809,271 @@ namespace Data.Data_Seed
                         ConfirmToken = null,
                         ConnectionId = null,
                         AdminId = null,
-                        DoctorId = 1,
+                        DoctorId = 2,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Deborah Angel",
+                        Slug = "deborah-angel",
+                        Email = "angel.deborah@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 3,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Sofia Brient",
+                        Slug = "sofia-brient",
+                        Email = "brient.sofia@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 4,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Marvin Campbell",
+                        Slug = "marvin-campbell",
+                        Email = "campbell.marvin@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 5,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Katherina Berthold",
+                        Slug = "katherina-berthold",
+                        Email = "berthold.katherina@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 6,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Linda Tobin",
+                        Slug = "linda-tobin",
+                        Email = "tobin.linda@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 7,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Paul Richard",
+                        Slug = "richard-paul",
+                        Email = "paul.richard@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 8,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "John Gibbs",
+                        Slug = "john-gibbs",
+                        Email = "gibbs.john@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 9,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Olga Barlow",
+                        Slug = "olga-barlow",
+                        Email = "barlow.olga@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = 10,
                         PatientId = null
                     },
 
@@ -678,9 +1086,9 @@ namespace Data.Data_Seed
                         ModifiedDate = DateTime.Now,
                         Code = new Random().Next(100000, 999999).ToString(),
                         Photo = null,
-                        Fullname = "Huseyn Asadov",
-                        Slug = "huseyn-asadov",
-                        Email = "asadov.huseyn@gmail.com",
+                        Fullname = "Richard Wilson",
+                        Slug = "richard-wilson",
+                        Email = "wilson.richard@test.com",
                         Birth = new DateTime(1990, 06, 29),
                         Phone = "+994 55 904-68-23",
                         Password = Crypto.HashPassword("yavar10Yr"),
@@ -701,6 +1109,369 @@ namespace Data.Data_Seed
                         AdminId = null,
                         DoctorId = null,
                         PatientId = 1
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Charlene Reed",
+                        Slug = "charlene-reed",
+                        Email = "reed.charlene@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 1
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Travis Trimble",
+                        Slug = "travis-trimble",
+                        Email = "trimble.travis@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 3
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Carl Kelly",
+                        Slug = "carl-kelly",
+                        Email = "kelly.carl@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 4
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Michelle Fairfax",
+                        Slug = "michelle-fairfax",
+                        Email = "fairfax.michelle@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 5
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Gina Moore",
+                        Slug = "gina-moore",
+                        Email = "moore.gina@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 6
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Elsie Gilley",
+                        Slug = "elsie-gilley",
+                        Email = "gilley.elsie@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 7
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Joan Gardner",
+                        Slug = "joan-gardner",
+                        Email = "gardner.joan@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 8
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Daniel Griffing",
+                        Slug = "daniel-griffing",
+                        Email = "griffing.daniel@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 9
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Walter Roberson",
+                        Slug = "walter-roberson",
+                        Email = "roberson.walter@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 10
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Robert Rhodes",
+                        Slug = "robert-rhodes",
+                        Email = "rhodes.robert@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 11
+                    },
+                    new User
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        Code = new Random().Next(100000, 999999).ToString(),
+                        Photo = null,
+                        Fullname = "Harry Williams",
+                        Slug = "harry-williams",
+                        Email = "williams.harry@test.com",
+                        Birth = new DateTime(1990, 06, 29),
+                        Phone = "+994 55 904-68-23",
+                        Password = Crypto.HashPassword("yavar10Yr"),
+                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                        "labore et dolore magna aliqua.</div>",
+                        PostalCode = "22434",
+                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
+                        City = "Miami",
+                        State = "Florida",
+                        Country = "United States",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        Token = Guid.NewGuid().ToString(),
+                        InviteToken = null,
+                        ConfirmToken = null,
+                        ConnectionId = null,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 12
                     },
                 };
 

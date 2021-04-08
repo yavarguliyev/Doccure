@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppointmentDetailsService } from 'src/app/shared/services/appointment-details.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appoinmentDetails: AppointmentDetailsService) { }
 
   ngOnInit(): void {
   }
 
+  public appointmentDetails() {
+    this.appoinmentDetails.show();
+  }
 }

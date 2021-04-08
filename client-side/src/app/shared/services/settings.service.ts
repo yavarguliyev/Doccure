@@ -8,6 +8,7 @@ import { SocialMedia } from '../models/social-media-settings';
 import { MainPageSettings } from '../models/main-page-settings';
 import { Speciality } from '../models/speciality';
 import { Feature } from '../models/feature';
+import { PagesPhotos } from '../models/pages-images';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,11 @@ export class SettingsService {
   public getMainPageSettings(): Observable<MainPageSettings> {
     const url = `${this.baseUrl}/admin_settings/settings`;
     return this.http.get<MainPageSettings>(url);
+  }
+
+  public getPagesPhotots(name: string): Observable<PagesPhotos> {
+    const url = `${this.baseUrl}/admin_settings/setting-photo?name=${name}`;
+    return this.http.get<PagesPhotos>(url);
   }
 
   public getSocialMedia(): Observable<SocialMedia[]> {

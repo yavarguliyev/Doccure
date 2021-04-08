@@ -7,8 +7,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MainPageSettings } from 'src/app/shared/models/main-page-settings';
+import { PagesPhotos } from 'src/app/shared/models/pages-images';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { SettingsService } from 'src/app/shared/services/settings.service';
 
 @Component({
   selector: 'app-footer',
@@ -22,13 +24,16 @@ export class FooterComponent implements OnInit {
   private footerAddress!: ElementRef;
   @ViewChild('footerDesc', { static: false })
   private footerDesc!: ElementRef;
+  public footerPhoto!: PagesPhotos;
 
   constructor(
     private api: AuthService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private settingService: SettingsService
   ) {}
 
   ngOnInit(): void {
+    this.apiResponses();
     this.user = this.api.checkUser();
     this.insertHTML();
   }
@@ -45,5 +50,9 @@ export class FooterComponent implements OnInit {
       'afterbegin',
       this.footer.footerDesc
     );
+  }
+
+  private apiResponses() {
+    this.settingService.getPagesPhotots('Footer').subscribe((response) => (this.footerPhoto = response));
   }
 }

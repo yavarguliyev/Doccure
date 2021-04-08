@@ -9,6 +9,7 @@ import {
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Feature } from '../../models/feature';
 import { MainPageSettings } from '../../models/main-page-settings';
+import { PagesPhotos } from '../../models/pages-images';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class AvailableFeaturesComponent implements OnInit {
   @Input() setting!: MainPageSettings;
   @ViewChild('available', { static: false })
   private availableSettings!: ElementRef;
+  public availablePhoto!: PagesPhotos;
 
   public options: OwlOptions = {
     loop: true,
@@ -73,5 +75,7 @@ export class AvailableFeaturesComponent implements OnInit {
     this.settingService
       .getFeature()
       .subscribe((response) => (this.features = response));
+
+    this.settingService.getPagesPhotots('Available').subscribe((response) => (this.availablePhoto = response));
   }
 }

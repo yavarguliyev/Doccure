@@ -16,6 +16,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { InputSelectComponent } from './input-select/input-select.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import { MedicalRecordComponent } from './medical-record/medical-record.component';
+import { TimeSlotComponent } from './time-slot/time-slot.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     InputDateComponent,
     InputSelectComponent,
     ConfirmDialogComponent,
+    AppointmentDetailsComponent,
+    MedicalRecordComponent,
+    TimeSlotComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +58,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     InputTextComponent,
     InputDateComponent,
     InputSelectComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    AppointmentDetailsComponent
   ],
 })
 export class ComponentsHelperModule {}
