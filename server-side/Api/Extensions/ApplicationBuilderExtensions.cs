@@ -11,17 +11,6 @@ namespace Api.Extensions
     {
       app.UseMiddleware<ErrorHandlingMiddleware>();
 
-      if (env.IsDevelopment())
-      {
-        app.UseSwaggerDocumentation();
-      }
-      else
-      {
-        app.UseHsts(options => options.MaxAge(days: 30));
-      }
-
-      app.UseHttpsRedirection();
-
       app.UseXContentTypeOptions();
       app.UseReferrerPolicy(opt => opt.NoReferrer());
       app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
@@ -35,6 +24,21 @@ namespace Api.Extensions
          //.ImageSources(s => s.Self().CustomSources())
          //.ScriptSources(s => s.Self().CustomSources())
          );
+
+      if (env.IsDevelopment())
+      {
+        app.UseSwaggerDocumentation();
+      }
+      else
+      {
+        app.Use(async (context, next) =>
+        {
+          context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+          await next.Invoke();
+        });
+      }
+
+      app.UseHttpsRedirection();
 
       app.UseRouting();
 
