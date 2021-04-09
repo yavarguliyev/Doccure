@@ -1,6 +1,5 @@
 ﻿using Core.DTOs.Auth;
 using Core.Enum;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -11,15 +10,8 @@ using Xunit;
 
 namespace Testing.TestingControllers.v1.Admin
 {
-    public class TestingAdminUpdate : IClassFixture<WebApplicationFactory<Api.Startup>>
+    public class TestingAdminUpdate : TestBase
     {
-        private readonly HttpClient client;
-
-        public TestingAdminUpdate(WebApplicationFactory<Api.Startup> fixture)
-        {
-            client = fixture.CreateClient();
-        }
-
         [Fact]
         public async Task Update()
         {
@@ -36,16 +28,18 @@ namespace Testing.TestingControllers.v1.Admin
                 Country = "dqwdqwdwq",
                 Gender = Gender.Male
             };
+
             var json = JsonConvert.SerializeObject(model);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PutAsync("/api/v1/admin", data);
             response.Headers.Add("Authorization", "Bearer b37fa949-71db-43ee-b361-c6e465652d42");
             var result = JsonConvert.DeserializeObject<UserDTO>(await response.Content.ReadAsStringAsync());
+            
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
             }
-            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            else if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             }

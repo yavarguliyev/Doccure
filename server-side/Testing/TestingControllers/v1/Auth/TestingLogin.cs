@@ -1,5 +1,4 @@
 ﻿using Core.DTOs.Auth;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
@@ -9,15 +8,8 @@ using Xunit;
 
 namespace Testing.TestingControllers.v1.Auth
 {
-    public class TestingLogin : IClassFixture<WebApplicationFactory<Api.Startup>>
+    public class TestingLogin : TestBase
     {
-        private readonly HttpClient client;
-
-        public TestingLogin(WebApplicationFactory<Api.Startup> fixture)
-        {
-            client = fixture.CreateClient();
-        }
-
         [Fact]
         public async Task Login()
         {
@@ -26,6 +18,7 @@ namespace Testing.TestingControllers.v1.Auth
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/api/v1/auth/login", data);
             var result = JsonConvert.DeserializeObject<UserDTO>(await response.Content.ReadAsStringAsync());
+
             if(response.StatusCode == HttpStatusCode.BadRequest)
             {
                 Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);

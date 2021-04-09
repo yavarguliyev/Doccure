@@ -1,6 +1,5 @@
 ﻿using Core.DTOs.Auth;
 using Core.Enum;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -11,15 +10,8 @@ using Xunit;
 
 namespace Testing.TestingControllers.v1.Auth
 {
-    public class TestingRegister : IClassFixture<WebApplicationFactory<Api.Startup>>
+    public class TestingRegister : TestBase
     {
-        private readonly HttpClient client;
-
-        public TestingRegister(WebApplicationFactory<Api.Startup> fixture)
-        {
-            client = fixture.CreateClient();
-        }
-
         [Fact]
         public async Task Register_Email_Cannot_Be_Null()
         {
@@ -74,6 +66,7 @@ namespace Testing.TestingControllers.v1.Auth
             var json = JsonConvert.SerializeObject(model);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/api/v1/auth/register", data);
+
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
