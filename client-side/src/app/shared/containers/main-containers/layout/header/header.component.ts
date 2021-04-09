@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
   public user!: User;
   @Input() header!: MainPageSettings;
   public headerPhoto!: PagesPhotos;
-  @ViewChildren('navItem') navItem!: QueryList<ElementRef>;
+  @ViewChildren('navItem') navItems!: QueryList<ElementRef>;
 
   constructor(
     private api: AuthService,
@@ -37,8 +37,15 @@ export class HeaderComponent implements OnInit {
 
   public openNav(event: Event) {
     event.preventDefault();
-    // const item = this.navItem.nativeElement;
-    // item.style.display !== 'block' ? (item.style.display = 'block') : (item.style.display = 'none');
+    const navItem: ElementRef[] = this.navItems.toArray();
+    const target = event.currentTarget as HTMLElement;
+    const next = target.nextElementSibling;
+    navItem.forEach(x => {
+      const item = x.nativeElement;
+      if (item === next) {
+        item.style.display !== 'block' ? (item.style.display = 'block') : (item.style.display = 'none');
+      }
+    });
   }
 
   public logout() {

@@ -11,5 +11,11 @@ export class AuthComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.parentElementChilds();
+  }
+
+  private parentElementChilds() {
+    document.querySelector('html')?.classList.remove('menu-opened');
+    document.querySelector('#main-html-child')?.classList.remove('opened');
   }
 }
