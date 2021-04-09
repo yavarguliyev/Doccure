@@ -48,20 +48,20 @@
             <li class="has-submenu">
               <a href="#">Doctors</a>
               <ul class="submenu">
-                <li><a [routerLink]="['/']">Map Grid</a></li>
-                <li><a [routerLink]="['/']">Map List</a></li>
+                <li><a [routerLink]="['/main/patient']">Map Grid</a></li>
+                <li><a [routerLink]="['/main/patient']">Map List</a></li>
               </ul>
             </li>
-            <li><a [routerLink]="['/']">Search Doctor</a></li>
-            <li><a [routerLink]="['/']">Doctor Profile</a></li>
-            <li><a [routerLink]="['/']">Booking</a></li>
-            <li><a [routerLink]="['/']">Checkout</a></li>
-            <li><a [routerLink]="['/']">Booking Success</a></li>
-            <li><a [routerLink]="['/']">Patient Dashboard</a></li>
-            <li><a [routerLink]="['/']">Favourites</a></li>
-            <li><a [routerLink]="['/']">Chat</a></li>
-            <li><a [routerLink]="['/']">Profile Settings</a></li>
-            <li><a [routerLink]="['/']">Change Password</a></li>
+            <li><a [routerLink]="['/main/patient']">Search Doctor</a></li>
+            <li><a [routerLink]="['/main/patient']">Doctor Profile</a></li>
+            <li><a [routerLink]="['/main/patient']">Booking</a></li>
+            <li><a [routerLink]="['/main/patient']">Checkout</a></li>
+            <li><a [routerLink]="['/main/patient']">Booking Success</a></li>
+            <li><a [routerLink]="['/main/patient']">Patient Dashboard</a></li>
+            <li><a [routerLink]="['/main/patient']">Favourites</a></li>
+            <li><a [routerLink]="['/main/patient']">Chat</a></li>
+            <li><a [routerLink]="['/main/patient']">Profile Settings</a></li>
+            <li><a [routerLink]="['/main/patient']">Change Password</a></li>
           </ul>
         </li>
         <li [routerLinkActive]="['active']" class="has-submenu">
@@ -73,7 +73,7 @@
         <li [routerLinkActive]="['active']">
           <a [routerLink]="['/main/search-doctors']">Search Doctors</a>
         </li>
-        <li *ngIf="user.role === 'Admin'">
+        <li *ngIf="user && user.role === 'Admin'">
           <a [routerLink]="['/']" target="_blank">Admin</a>
         </li>
       </ul>
