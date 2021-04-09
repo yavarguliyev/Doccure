@@ -8,6 +8,7 @@ using Core.Services.Data;
 using Core.Services.Rest;
 using Data;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,14 @@ namespace Api.Extensions
               .AddJsonOptions(options =>
       {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      });
+
+      // security headers
+      services.AddHsts(options =>
+      {
+        options.Preload = true;
+        options.IncludeSubDomains = true;
+        options.MaxAge = TimeSpan.FromDays(365);
       });
 
       // Api versioning

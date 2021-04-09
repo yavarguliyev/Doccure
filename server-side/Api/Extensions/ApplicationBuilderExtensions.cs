@@ -16,23 +16,16 @@ namespace Api.Extensions
       {
         app.UseSwaggerDocumentation();
       }
+      else if (env.IsProduction())
+      {
+        app.UseHsts(options => options.MaxAge(days: 30));
+      }
 
-      app.UseHsts(options => options.MaxAge(days: 30)); 
+
+      // security headers
+      app.UseMiddleware<SecurityHeadersMiddleware>();
+
       app.UseHttpsRedirection();
-
-      app.UseXContentTypeOptions();
-      app.UseReferrerPolicy(opt => opt.NoReferrer());
-      app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
-      app.UseXfo(opt => opt.Deny());
-      app.UseCsp(opt => opt
-         .BlockAllMixedContent()
-         //.StyleSources(s => s.Self().CustomSources())
-         //.FontSources(s => s.Self().CustomSources())
-         //.FormActions(s => s.Self().CustomSources())
-         //.FrameAncestors(s => s.Self().CustomSources())
-         //.ImageSources(s => s.Self().CustomSources())
-         //.ScriptSources(s => s.Self().CustomSources())
-         );
 
       app.UseRouting();
 
