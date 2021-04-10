@@ -19,6 +19,9 @@ MIT
 @angular/router
 MIT
 
+ng-circle-progress
+MIT
+
 ngx-bootstrap
 MIT
 The MIT License (MIT)
