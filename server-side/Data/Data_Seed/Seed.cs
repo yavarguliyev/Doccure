@@ -542,6 +542,159 @@ namespace Data.Data_Seed
                 }
             }
 
+            if(!context.DoctorSocialMediaUrlLinks.Any())
+            {
+                var url = new List<DoctorSocialMediaUrlLink>
+                {
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 1
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 2
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 3
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 4
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 5
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 6
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 7
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 8
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 9
+                    },
+                    new DoctorSocialMediaUrlLink
+                    {
+                        Status = true,
+                        AddedBy = "System",
+                        ModifiedBy = "System",
+                        AddedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FacebookURL = "https://www.facebook.com/",
+                        TwitterURL = "https://www.twitter.com/",
+                        LinkedinURL = "https://www.pinterest.com/",
+                        InstagramURL = "https://www.instagram.com/",
+                        PinterestURL = "https://www.linkedin.com/",
+                        DoctorId = 10
+                    }
+                };
+
+                foreach (var social in url)
+                {
+                    await context.DoctorSocialMediaUrlLinks.AddRangeAsync(social);
+                    await context.SaveChangesAsync();
+                }
+            }
+
             if (!context.Patients.Any())
             {
                 var patients = new List<Patient>

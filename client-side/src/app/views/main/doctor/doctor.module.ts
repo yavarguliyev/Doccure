@@ -17,6 +17,7 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
 import { DoctorBlogComponent } from './doctor-blog/doctor-blog.component';
 import { InvoicesDetailsComponent } from './invoices-details/invoices-details.component';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,12 @@ import { ComponentsHelperModule } from 'src/app/shared/components/components-hel
     DoctorBlogComponent,
     InvoicesDetailsComponent,
   ],
-  imports: [CommonModule, DoctorRoutingModule, ComponentsHelperModule]
+  imports: [
+    CommonModule,
+    DoctorRoutingModule,
+    ComponentsHelperModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class DoctorModule {}

@@ -38,7 +38,7 @@ export class AuthDoctorComponent implements OnInit {
     this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
-  intitializeForm() {
+  private intitializeForm() {
     this.fg = this.fb.group({
       fullname: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
@@ -48,19 +48,16 @@ export class AuthDoctorComponent implements OnInit {
     });
   }
 
-  checkRouter() {
+  private checkRouter() {
     const token = this.route.snapshot.paramMap.get('token');
     token ? (this.token = token) : (this.token = '');
 
     this.authDoctorService.checkUser(this.token).forEach((res) => res);
   }
 
-  registerSubmit() {
-    this.authDoctorService.register(this.token, this.fg.value).subscribe(
-      (response) => {
-        this.toastr.success(response.message, 'Success');
-      },
-      (error) => {}
-    );
+  public registerSubmit() {
+    this.authDoctorService
+      .register(this.token, this.fg.value)
+      .forEach((response) => this.toastr.success(response.message, 'Success'));
   }
 }

@@ -8,6 +8,7 @@ import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 export class InputTextComponent implements ControlValueAccessor, AfterViewInit {
   @Input() label!: string;
   @Input() type!: string;
+  @Input() value!: string;
 
   public formControl = new FormControl('');
 

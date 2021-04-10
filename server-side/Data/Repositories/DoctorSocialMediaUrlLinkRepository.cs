@@ -19,6 +19,7 @@ namespace Data.Repositories
             var doctor = await context.Doctors
                                       .Where(x => x.Status)
                                       .FirstOrDefaultAsync(x => x.Id == id);
+
             if (doctor == null) throw new RestException(HttpStatusCode.NotFound, "Not found!");
 
            return await context.DoctorSocialMediaUrlLinks

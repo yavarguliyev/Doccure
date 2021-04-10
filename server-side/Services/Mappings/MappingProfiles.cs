@@ -43,6 +43,9 @@ namespace Services.Mappings
             CreateMap<NewDoctorModifyDTO, User>();
             CreateMap<RegisterDTO, User>();
 
+            CreateMap<DoctorSocialMediaUrlLink, DoctorSocialMediaUrlLinkDTO>();
+            CreateMap<DoctorSocialMediaUrlLinkDTO, DoctorSocialMediaUrlLink>();
+
             CreateMap<SocialMedia, SocialMediaDTO>();
             CreateMap<Privacy, PrivacyDTO>();
             CreateMap<Term, TermDTO>();

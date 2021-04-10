@@ -41,6 +41,15 @@ namespace Api.Controllers.v1.Doctor
             return Ok(mapper.Map<UserDTO>(await userService.GetAsync(token)));
         }
 
+        [HttpGet("social-media-url")]
+        public async Task<IActionResult> GetDoctorSocialMedialUrl()
+        {
+            if (auth.Doctor == null) return Unauthorized();
+            return Ok(mapper.Map<DoctorSocialMediaUrlLinkDTO>(await urlLinkService.GetAsync(auth.Doctor.Id)));
+        }
+        #endregion
+
+        #region update
         [HttpPut]
         public async Task<IActionResult> Register(NewDoctorModifyDTO model, string token)
         {
@@ -59,6 +68,16 @@ namespace Api.Controllers.v1.Doctor
             return Ok(new { message = "You successfully completed the registration!", response });
         }
 
+        [HttpPut("update-social-media-url")]
+        public async Task<IActionResult> UpdateSocialMediaUrl(DoctorSocialMediaUrlLinkDTO model)
+        {
+            if (auth.Doctor == null) return Unauthorized();
+            var urlLinkToBeUpdated = await urlLinkService.GetAsync(auth.Doctor.Id);
+            await urlLinkService.UpdateAsync(urlLinkToBeUpdated, mapper.Map<DoctorSocialMediaUrlLink>(model));
+
+            return Ok(new { message = "You successfully completed the registration!" });
+        }
+
         [HttpPut("update-password")]
         public async Task<IActionResult> UpdatePassword(AuthPasswordUpdateDTO model)
         {
@@ -66,7 +85,9 @@ namespace Api.Controllers.v1.Doctor
             var response = await userService.UpdateAsync(auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
             return Ok(new { message = "Password successfully updated!", response });
         }
+        #endregion
 
+        #region upload
         [HttpPut("upload-photo")]
         public async Task<IActionResult> UploadPhoto(IFormFile file)
         {
