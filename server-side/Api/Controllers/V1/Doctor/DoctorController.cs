@@ -55,7 +55,7 @@ namespace Api.Controllers.v1.Doctor
         {
             var userToBeUpdated = await userService.GetAsync(token);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
-            return Ok(new { message = "You successfully completed the registration!", response });
+            return Ok(new { message = "Registration successfully completed!", response });
         }
 
         [HttpPut("update-profile")]
@@ -65,7 +65,7 @@ namespace Api.Controllers.v1.Doctor
             var userToBeUpdated = await userService.GetAsync(auth.Doctor.Id);
             var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
 
-            return Ok(new { message = "You successfully completed the registration!", response });
+            return Ok(new { message = "Profile info successfully updated!", response });
         }
 
         [HttpPut("update-social-media-url")]
@@ -75,7 +75,7 @@ namespace Api.Controllers.v1.Doctor
             var urlLinkToBeUpdated = await urlLinkService.GetAsync(auth.Doctor.Id);
             await urlLinkService.UpdateAsync(urlLinkToBeUpdated, mapper.Map<DoctorSocialMediaUrlLink>(model));
 
-            return Ok(new { message = "You successfully completed the registration!" });
+            return Ok(new { message = "Social Media URLs successfully updated!" });
         }
 
         [HttpPut("update-password")]
