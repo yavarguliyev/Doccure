@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
     this.checkUser();
   }
 
@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
   public logout() {
     this.confirm
       .confirm('Confirm logout', 'Do you want to logout?')
-      .subscribe((result) => {
+      .forEach((result) => {
         if (result) {
           this.api.logout();
         }
@@ -82,9 +82,9 @@ export class HeaderComponent implements OnInit {
     document.querySelector('#main-html-child')?.classList.toggle('opened');
   }
 
-  private apiResponses() {
+  private apiResponse() {
     this.settingService
       .getPagesPhotots('HeaderAndInvoice')
-      .subscribe((response) => (this.headerPhoto = response));
+      .forEach((response) => (this.headerPhoto = response));
   }
 }

@@ -15,13 +15,13 @@ export class MainComponent implements OnInit {
   constructor(private settings: SettingsService) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
   }
 
-  private apiResponses() {
+  private apiResponse() {
     this.settings
       .getMainPageSettings()
-      .subscribe((response) => (this.setting = response));
+      .forEach((response) => (this.setting = response));
   }
 
   public onHomePageLoaded(component: HomepageComponent) {

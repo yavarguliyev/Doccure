@@ -54,7 +54,7 @@ export class AvailableFeaturesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
     this.inserHTML();
   }
 
@@ -71,11 +71,11 @@ export class AvailableFeaturesComponent implements OnInit {
     );
   }
 
-  private apiResponses() {
+  private apiResponse() {
     this.settingService
       .getFeature()
-      .subscribe((response) => (this.features = response));
+      .forEach((response) => (this.features = response));
 
-    this.settingService.getPagesPhotots('Available').subscribe((response) => (this.availablePhoto = response));
+    this.settingService.getPagesPhotots('Available').forEach((response) => (this.availablePhoto = response));
   }
 }

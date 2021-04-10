@@ -10,18 +10,15 @@ import { ListComponent } from './list/list.component';
 })
 export class BlogComponent implements OnInit {
   public blogs: Blog[] = [];
-  private component!: DetailsComponent;
 
   constructor(private main: MainService) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
   }
 
-  private apiResponses() {
-    this.main
-        .getBlogList()
-        .subscribe((response) => (this.blogs = response));
+  private apiResponse() {
+    this.main.getBlogList().forEach((response) => (this.blogs = response));
   }
 
   public onBlogListPageLoaded(component: ListComponent) {

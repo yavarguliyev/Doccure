@@ -5,7 +5,7 @@ using Core.DTOs.Auth;
 using Core.DTOs.Doctor;
 using Core.DTOs.Main;
 using Core.Models;
-using System;
+using Services.Helpers;
 using System.Linq;
 
 namespace Services.Mappings
@@ -17,7 +17,9 @@ namespace Services.Mappings
         public MappingProfiles()
         {
             CreateMap<User, UserDTO>()
-                .ForMember(x => x.Birth, opt => opt.MapFrom(src => ((DateTime)src.Birth).ToString("MMM dd, yyyy")))
+                .ForMember(x => x.Age, opt => opt.MapFrom(src => src.Birth.CalculateAge()))
+                .ForMember(x => x.FullAddress, opt => opt.MapFrom(src => src.City + ", " + src.Country))
+                .ForMember(x => x.BloodGroup, opt => opt.MapFrom(src => src.Patient.BloodGroup.Name))
                 .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "avatar_vpbhfa.png"));
 
             CreateMap<Blog, BlogDTO>()

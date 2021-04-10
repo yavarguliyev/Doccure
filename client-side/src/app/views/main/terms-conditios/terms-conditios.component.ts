@@ -5,11 +5,11 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 
 @Component({
   selector: 'app-terms-conditios',
-  templateUrl: './terms-conditios.component.html'
+  templateUrl: './terms-conditios.component.html',
 })
 export class TermsConditiosComponent implements OnInit {
   public term: Term | undefined;
-  constructor(private api: SettingsService, private title: Title) { }
+  constructor(private api: SettingsService, private title: Title) {}
 
   ngOnInit(): void {
     this.title.setTitle('Doccure | Terms and Condition');
@@ -17,10 +17,6 @@ export class TermsConditiosComponent implements OnInit {
   }
 
   private getTerms() {
-    this.api.getTerm().subscribe({
-      next: (response: Term) => (this.term = response),
-      error: (error: Error) => console.error(error),
-      complete: () => console.log(),
-    });
+    this.api.getTerm().forEach((response) => (this.term = response));
   }
 }

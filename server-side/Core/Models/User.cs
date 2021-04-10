@@ -5,17 +5,6 @@ namespace Core.Models
 {
     public class User : BaseEntity
     {
-        protected int Age
-        {
-            get
-            {
-                var now = DateTime.Today;
-                var age = now.Year - Birth.Year;
-                if (Birth > now.AddYears(-age)) age--;
-                return age;
-            }
-        }
-
         public string Code { get; set; }
         public string Photo { get; set; }
         public string Fullname { get; set; }

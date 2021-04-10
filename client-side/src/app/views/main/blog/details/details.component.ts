@@ -20,11 +20,11 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
   }
 
-  private apiResponses() {
+  private apiResponse() {
     const slug: any = this.route.snapshot.paramMap.get('slug');
-    this.main.getBlog(slug).subscribe((response) => (this.blog = response));
+    this.main.getBlog(slug).forEach((response) => (this.blog = response));
   }
 }

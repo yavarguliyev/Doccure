@@ -14,10 +14,10 @@ export class HomepageComponent implements OnInit {
   constructor(private main: MainService) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
   }
 
-  private apiResponses() {
-    this.main.getBlogList().subscribe((response) => (this.blogs = response));
+  private apiResponse() {
+    this.main.getBlogList().forEach((response) => (this.blogs = response));
   }
 }

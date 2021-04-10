@@ -1,8 +1,10 @@
 ﻿using Core.DTOs.Auth;
 using Core.DTOs.Doctor;
+using Core.Enum;
 using Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.v1.Doctor
@@ -15,6 +17,13 @@ namespace Api.Controllers.v1.Doctor
         {
             if (auth.Doctor == null) return Unauthorized();
             return Ok(mapper.Map<UserDTO>(await userService.GetAsync(auth.Doctor.Id)));
+        }
+
+        [HttpGet("patients/appointment")]
+        public async Task<IActionResult> GetPatientAppointment()
+        {
+            if (auth.Doctor == null) return Unauthorized();
+            return Ok(mapper.Map<IEnumerable<UserDTO>>(await userService.GetAsync(UserRole.Patient, null)));
         }
 
         [HttpGet("{token}")]

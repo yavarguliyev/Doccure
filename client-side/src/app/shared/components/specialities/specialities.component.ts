@@ -27,21 +27,21 @@ export class SpecialitiesComponent implements OnInit {
     dots: true,
     responsive: {
       0: {
-        items: 2
+        items: 2,
       },
       600: {
-        items: 5
+        items: 5,
       },
       1000: {
-        items: 5
+        items: 5,
       },
       1200: {
-        items: 7
+        items: 7,
       },
       1400: {
-        items: 7
-      }
-    }
+        items: 7,
+      },
+    },
   };
 
   public specialities: Speciality[] = [];
@@ -52,7 +52,7 @@ export class SpecialitiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
     this.inserHTML();
   }
 
@@ -70,9 +70,9 @@ export class SpecialitiesComponent implements OnInit {
     );
   }
 
-  private apiResponses() {
+  private apiResponse() {
     this.settingService
       .getSpeciality()
-      .subscribe((response) => (this.specialities = response));
+      .forEach((response) => (this.specialities = response));
   }
 }

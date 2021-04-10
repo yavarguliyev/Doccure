@@ -7,23 +7,20 @@ export interface User {
   fullname: string;
   slug: string;
   email: string;
-  birth?: Date;
-  gender: Gender;
-  token: string;
+  phone: number;
+  fullAddress: string;
   role: string;
+  age: number;
+  gender: Gender;
+  bloodGroup: string;
   status: boolean;
+  token: string;
   inviteToken?: string;
   confirmToken?: string;
   connectionId?: string;
   adminId?: number;
   doctorId?: number;
   patientId?: number;
-  postalCode: string;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  biography: string;
   message: string;
 }
 

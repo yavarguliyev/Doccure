@@ -33,7 +33,7 @@ export class FooterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.apiResponses();
+    this.apiResponse();
     this.user = this.api.checkUser();
     this.insertHTML();
   }
@@ -52,7 +52,9 @@ export class FooterComponent implements OnInit {
     );
   }
 
-  private apiResponses() {
-    this.settingService.getPagesPhotots('Footer').subscribe((response) => (this.footerPhoto = response));
+  private apiResponse() {
+    this.settingService
+      .getPagesPhotots('Footer')
+      .forEach((response) => (this.footerPhoto = response));
   }
 }
