@@ -11,6 +11,7 @@ import { MyPatientsComponent } from './my-patients/my-patients.component';
 })
 export class DoctorComponent implements OnInit {
   public patients: User[] = [];
+  public patient!: User;
   constructor(private doctorService: DoctorService) { }
 
   ngOnInit(): void {

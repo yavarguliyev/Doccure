@@ -18,7 +18,8 @@ namespace Data.Repositories
 
     public async Task<IEnumerable<User>> Get(UserRole role, int? id)
     {
-      var user = await context.Users.FirstOrDefaultAsync(x => x.Id == (id ?? default(int)));
+      var user = await context.Users
+                              .FirstOrDefaultAsync(x => x.Id == (id ?? default(int)));
       var users = context.Users.OrderByDescending(x => x.Id)
                          .Include(x => x.Admin)
                          .Include(x => x.Doctor)
@@ -42,7 +43,7 @@ namespace Data.Repositories
       var user = await context.Users
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor)
-                              .Include(x => x.Patient)
+                              .Include(x => x.Patient).ThenInclude(x => x.BloodGroup)
                               .FirstOrDefaultAsync(x => x.Id == id);
       if (user != null) return user;
 
@@ -56,7 +57,7 @@ namespace Data.Repositories
       var query = context.Users.Where(x => x.Status)
                                .Include(x => x.Admin)
                                .Include(x => x.Doctor)
-                               .Include(x => x.Patient);
+                               .Include(x => x.Patient).ThenInclude(x => x.BloodGroup);
 
       var user = await query.FirstOrDefaultAsync(x => x.Token == token ||
                                                  x.InviteToken == token ||
@@ -73,7 +74,7 @@ namespace Data.Repositories
       var query = context.Users.Where(x => x.Status)
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor)
-                              .Include(x => x.Patient);
+                              .Include(x => x.Patient).ThenInclude(x => x.BloodGroup);
 
       var user = await query.FirstOrDefaultAsync(x => x.Email == queryValue || x.Slug == queryValue);
       if (user != null) return user;
@@ -89,7 +90,7 @@ namespace Data.Repositories
                               .Where(x => x.Status)
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor)
-                              .Include(x => x.Patient)
+                              .Include(x => x.Patient).ThenInclude(x => x.BloodGroup)
                               .FirstOrDefaultAsync(x => x.Email == queryValue || x.Slug == queryValue) != null ? true : false;
 
       if (check) throw new RestException(HttpStatusCode.BadRequest, new { user = "This user is already exist" });

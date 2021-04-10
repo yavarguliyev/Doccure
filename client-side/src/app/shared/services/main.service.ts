@@ -9,14 +9,14 @@ import { Blog } from '../models/blog';
 })
 export class MainService {
   private baseUrl = environment.api;
-  memberCache = new Map();
+  private memberCache = new Map();
 
   constructor(private http: HttpClient) {}
 
   public getBlog(slug: any): Observable<Blog> {
     const blog = [...this.memberCache.values()]
                 .reduce((arr, elem) => arr.concat(elem.result), [])
-                .find((b: Blog) => b.slug === slug);
+                .find((x: Blog) => x.slug === slug);
 
     if (blog) {
       return of(blog);

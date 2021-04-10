@@ -11,19 +11,28 @@ namespace Api.Controllers.v1.Doctor
 {
     public class DoctorController : BaseApiController
     {
-        #region doctor functionalities
+        #region patient
+        [HttpGet("patients/appointment")]
+        public async Task<IActionResult> GetPatientsAppointment()
+        {
+            if (auth.Doctor == null) return Unauthorized();
+            return Ok(mapper.Map<IEnumerable<UserDTO>>(await userService.GetAsync(UserRole.Patient, null)));
+        }
+
+        [HttpGet("patient/{slug}")]
+        public async Task<IActionResult> GetPatientBySlug(string slug)
+        {
+            if (auth.Doctor == null) return Unauthorized();
+            return Ok(mapper.Map<UserDTO>(await userService.GetByAsync(slug)));
+        }
+        #endregion
+
+        #region doctor
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             if (auth.Doctor == null) return Unauthorized();
             return Ok(mapper.Map<UserDTO>(await userService.GetAsync(auth.Doctor.Id)));
-        }
-
-        [HttpGet("patients/appointment")]
-        public async Task<IActionResult> GetPatientAppointment()
-        {
-            if (auth.Doctor == null) return Unauthorized();
-            return Ok(mapper.Map<IEnumerable<UserDTO>>(await userService.GetAsync(UserRole.Patient, null)));
         }
 
         [HttpGet("{token}")]

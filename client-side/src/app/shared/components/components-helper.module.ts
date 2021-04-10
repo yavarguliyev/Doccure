@@ -23,6 +23,11 @@ import { DoctorDashboardPatientsAppointmentComponent } from './doctor-dashboard-
 import { DashboardCanvasComponent } from './dashboard-canvas/dashboard-canvas.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { PagesActionForUserDashboardComponent } from './pages-action-for-user-dashboard/pages-action-for-user-dashboard.component';
+import { PatientProfileMedicalRecordComponent } from './patient-profile-medical-record/patient-profile-medical-record.component';
+import { PatientProfilePrescriptionComponent } from './patient-profile-prescription/patient-profile-prescription.component';
+import { PatientProfileBillingComponent } from './patient-profile-billing/patient-profile-billing.component';
+import { PatientProfileAppointmentComponent } from './patient-profile-appointment/patient-profile-appointment.component';
+import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,11 @@ import { PagesActionForUserDashboardComponent } from './pages-action-for-user-da
     DoctorDashboardPatientsAppointmentComponent,
     DashboardCanvasComponent,
     PagesActionForUserDashboardComponent,
+    PatientProfileMedicalRecordComponent,
+    PatientProfilePrescriptionComponent,
+    PatientProfileBillingComponent,
+    PatientProfileAppointmentComponent,
+    PatientUserTabsComponent,
   ],
   imports: [
     CommonModule,
@@ -83,7 +93,12 @@ import { PagesActionForUserDashboardComponent } from './pages-action-for-user-da
     AppointmentDetailsComponent,
     DoctorDashboardPatientsAppointmentComponent,
     DashboardCanvasComponent,
-    PagesActionForUserDashboardComponent
+    PagesActionForUserDashboardComponent,
+    PatientProfileMedicalRecordComponent,
+    PatientProfilePrescriptionComponent,
+    PatientProfileBillingComponent,
+    PatientProfileAppointmentComponent,
+    PatientUserTabsComponent
   ],
 })
 export class ComponentsHelperModule {}

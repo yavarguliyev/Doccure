@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AppointmentDetailsComponent } from '../components/appointment-details/appointment-details.component';
+import { MedicalRecordComponent } from '../components/medical-record/medical-record.component';
 import { TimeSlotComponent } from '../components/time-slot/time-slot.component';
 
 @Injectable({
@@ -17,5 +18,9 @@ export class ModalServicesService {
 
   public timeSlot() {
     this.bsModelRef = this.modalService.show(TimeSlotComponent);
+  }
+
+  public medicalRecord() {
+    this.bsModelRef = this.modalService.show(MedicalRecordComponent);
   }
 }

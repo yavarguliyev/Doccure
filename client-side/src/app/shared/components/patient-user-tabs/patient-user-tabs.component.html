@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-body pt-0">
+    <div class="user-tabs">
+      <ul class="nav nav-tabs nav-tabs-bottom nav-justified flex-wrap">
+        <li class="nav-item">
+          <a (click)="switchNavTabs($event)" #activeLink class="nav-link active" href="#appointments">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="switchNavTabs($event)" #activeLink class="nav-link" href="#pres"><span>Prescription</span></a>
+        </li>
+        <li class="nav-item">
+          <a (click)="switchNavTabs($event)" #activeLink class="nav-link" href="#medical"><span
+              class="med-records">Medical Records</span></a>
+        </li>
+        <li class="nav-item">
+          <a (click)="switchNavTabs($event)" #activeLink class="nav-link" href="#billing"><span>Billing</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="tab-content">
+      <!-- Appointment Tab -->
+      <div #patient_profile class="tab-pane fade show active" id="appointments">
+        <app-patient-profile-appointment></app-patient-profile-appointment>
+      </div>
+      <!-- /Appointment Tab -->
+      <!-- Prescription Tab -->
+      <div #patient_profile class="tab-pane fade" id="pres">
+        <app-patient-profile-prescription></app-patient-profile-prescription>
+      </div>
+      <!-- /Prescription Tab -->
+      <!-- Medical Records Tab -->
+      <div #patient_profile class="tab-pane fade" id="medical">
+        <app-patient-profile-medical-record></app-patient-profile-medical-record>
+      </div>
+      <!-- /Medical Records Tab -->
+      <!-- Billing Tab -->
+      <div #patient_profile class="tab-pane" id="billing">
+        <app-patient-profile-billing></app-patient-profile-billing>
+      </div>
+      <!-- Billing Tab -->
+    </div>
+  </div>
+</div>

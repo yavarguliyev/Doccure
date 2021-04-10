@@ -56,9 +56,9 @@ namespace Services.Data
             return await _unitOfWork.User.Get(token);
         }
 
-        public async Task<User> GetByAsync(string slug)
+        public async Task<User> GetByAsync(string queryValue)
         {
-            return await _unitOfWork.User.GetBy(slug);
+            return await _unitOfWork.User.GetBy(queryValue);
         }
 
         public async Task<User> GetByCodeAsync(string code)
