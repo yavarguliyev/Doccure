@@ -7,7 +7,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ResetPasswordComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
-  public validationErrors: string[] = [];
 
   constructor(private fb: FormBuilder) { }
 
@@ -15,14 +14,14 @@ export class ResetPasswordComponent implements OnInit {
     this.intitializeForm();
   }
 
-  intitializeForm() {
+  private intitializeForm() {
     this.fg = this.fb.group({
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required)
     });
   }
 
-  resetPasswordSubmit() {
+  public resetPasswordSubmit() {
     console.log(this.fg.value);
   }
 }

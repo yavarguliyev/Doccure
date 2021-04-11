@@ -15,13 +15,13 @@ export class ForgetPasswordComponent implements OnInit {
     this.intitializeForm();
   }
 
-  intitializeForm() {
+  private intitializeForm() {
     this.fg = this.fb.group({
       email: new FormControl('', Validators.required),
     });
   }
 
-  forgetPasswordSubmit() {
+  public forgetPasswordSubmit() {
     console.log(this.fg.value);
   }
 }

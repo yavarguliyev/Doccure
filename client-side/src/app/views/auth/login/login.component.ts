@@ -34,19 +34,19 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  intitializeForm() {
+  private intitializeForm() {
     this.fg = this.fb.group({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
 
-  loginSubmit() {
+  public loginSubmit() {
     const email = this.fg.value.email as string;
     const password = this.fg.value.password as string;
 
     this.api
       .login(email, password)
-      .subscribe(() => this.router.navigate([this.returnUrl]));
+      .forEach(() => this.router.navigate([this.returnUrl]));
   }
 }

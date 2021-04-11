@@ -39,7 +39,7 @@ export class SocialMediaComponent implements OnInit {
     });
   }
 
-  intitializeForm() {
+  private intitializeForm() {
     this.fg = this.fb.group({
       facebookURL: new FormControl('', Validators.required),
       twitterURL: new FormControl('', Validators.required),

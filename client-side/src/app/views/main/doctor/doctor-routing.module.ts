@@ -6,7 +6,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DoctorBlogComponent } from './doctor-blog/doctor-blog.component';
 import { DoctorComponent } from './doctor.component';
-import { InvoicesDetailsComponent } from './invoices-details/invoices-details.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyPatientsComponent } from './my-patients/my-patients.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
       { path: 'patient-profile/:slug', component: PatientProfileComponent },
       { path: 'schedule-timings', component: ScheduleTimingsComponent },
       { path: 'invoices', component: InvoicesComponent },
-      { path: 'invoices/:id', component: InvoicesDetailsComponent },
       { path: 'reviews', component: ReviewsComponent },
       { path: 'message', component: MessagesComponent },
       { path: 'profile-settings', component: ProfileSettingsComponent },

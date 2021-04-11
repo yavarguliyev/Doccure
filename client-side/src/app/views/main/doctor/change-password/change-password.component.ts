@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
     this.intitializeForm();
   }
 
-  intitializeForm() {
+  private intitializeForm() {
     this.fg = this.fb.group({
       newPassword: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),

@@ -28,6 +28,8 @@ import { PatientProfilePrescriptionComponent } from './patient-profile-prescript
 import { PatientProfileBillingComponent } from './patient-profile-billing/patient-profile-billing.component';
 import { PatientProfileAppointmentComponent } from './patient-profile-appointment/patient-profile-appointment.component';
 import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.component';
+import { InvoiceTableComponent } from './invoice-table/invoice-table.component';
+import { TimeSlotFormComponent } from './time-slot-form/time-slot-form.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.
     PatientProfileBillingComponent,
     PatientProfileAppointmentComponent,
     PatientUserTabsComponent,
+    InvoiceTableComponent,
+    TimeSlotFormComponent,
   ],
   imports: [
     CommonModule,
@@ -74,7 +78,7 @@ import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.
       innerStrokeWidth: 0,
       subtitleColor: '#444444',
       showInnerStroke: false,
-      startFromZero: false
+      startFromZero: false,
     }),
   ],
   exports: [
@@ -98,7 +102,9 @@ import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.
     PatientProfilePrescriptionComponent,
     PatientProfileBillingComponent,
     PatientProfileAppointmentComponent,
-    PatientUserTabsComponent
+    PatientUserTabsComponent,
+    InvoiceTableComponent,
+    TimeSlotFormComponent
   ],
 })
 export class ComponentsHelperModule {}

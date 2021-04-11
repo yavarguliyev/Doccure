@@ -15,7 +15,6 @@ import { SocialMediaComponent } from './social-media/social-media.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { PatientProfileComponent } from './patient-profile/patient-profile.component';
 import { DoctorBlogComponent } from './doctor-blog/doctor-blog.component';
-import { InvoicesDetailsComponent } from './invoices-details/invoices-details.component';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,7 +33,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChangePasswordComponent,
     PatientProfileComponent,
     DoctorBlogComponent,
-    InvoicesDetailsComponent,
   ],
   imports: [
     CommonModule,

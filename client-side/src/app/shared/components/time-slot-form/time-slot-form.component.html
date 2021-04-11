@@ -1,0 +1,83 @@
+<form (ngSubmit)="fg.valid && submitAddOrEdit()" autocomplete="off">
+  <div #row_count class="hours-info">
+
+    <div class="row form-row hours-cont">
+      <div class="col-12 col-md-10">
+        <div class="row form-row">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Start Time</label>
+              <input type="time" class="form-control">
+              <!-- <app-input-date [formControlName]="'start'" [maxDate]="maxDate"></app-input-date> -->
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>End Time</label>
+              <input type="time" class="form-control">
+              <!-- <app-input-date [formControlName]="'end'" [maxDate]="maxDate"></app-input-date> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row form-row hours-cont">
+      <div class="col-12 col-md-10">
+        <div class="row form-row">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Start Time</label>
+              <input type="time" class="form-control">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>End Time</label>
+              <input type="time" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+        <a (click)="removeAddedElement($event)" href="javascript:void(0);" class="btn btn-danger trash">
+          <i class="far fa-trash-alt"></i>
+        </a>
+      </div>
+    </div>
+    <div class="row form-row hours-cont">
+      <div class="col-12 col-md-10">
+        <div class="row form-row">
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>Start Time</label>
+              <input type="time" class="form-control">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label>End Time</label>
+              <input type="time" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+        <a (click)="removeAddedElement($event)" href="javascript:void(0);" class="btn btn-danger trash">
+          <i class="far fa-trash-alt"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="add-more mb-3">
+    <a (click)="addRowCount()" href="javascript:void(0);" class="add-hours"><i class="fa fa-plus-circle"></i>
+      Add More</a>
+  </div>
+  <div class="submit-section text-center">
+    <button [disabled]="!fg.valid" type="submit" class="btn btn-primary submit-btn">
+      Save Changes
+    </button>
+  </div>
+</form>

@@ -15,7 +15,7 @@ import { LayoutMainModule } from 'src/app/shared/containers/main-containers/layo
     CommonModule,
     MainRoutingModule,
     LayoutMainModule,
-    ComponentsHelperModule
+    ComponentsHelperModule,
   ],
 })
 export class MainModule { }

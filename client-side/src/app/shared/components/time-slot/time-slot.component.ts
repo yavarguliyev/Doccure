@@ -3,14 +3,12 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-time-slot',
-  templateUrl: './time-slot.component.html'
+  templateUrl: './time-slot.component.html',
 })
 export class TimeSlotComponent implements OnInit {
+  constructor(public bsModalRef: BsModalRef) {}
 
-  constructor(public bsModalRef: BsModalRef) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   public close() {
     this.bsModalRef.hide();
