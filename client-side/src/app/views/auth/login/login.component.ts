@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -15,12 +15,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
-
   public returnUrl!: string;
 
   constructor(
     private title: Title,
-    private router: Router,
     private api: AuthService,
     private fb: FormBuilder,
     private route: ActivatedRoute
@@ -45,8 +43,6 @@ export class LoginComponent implements OnInit {
     const email = this.fg.value.email as string;
     const password = this.fg.value.password as string;
 
-    this.api
-      .login(email, password)
-      .forEach(() => this.router.navigate([this.returnUrl]));
+    this.api.login(email, password, this.returnUrl);
   }
 }

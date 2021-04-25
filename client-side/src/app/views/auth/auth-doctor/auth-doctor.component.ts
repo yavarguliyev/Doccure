@@ -7,9 +7,8 @@ import {
 } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Gender } from 'src/app/shared/enums/gender.enum';
 import { AuthDoctorService } from 'src/app/shared/services/auth-doctor.service';
-import { ToastrService } from 'src/app/shared/services/toastr.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-auth-doctor',
@@ -17,25 +16,20 @@ import { ToastrService } from 'src/app/shared/services/toastr.service';
 })
 export class AuthDoctorComponent implements OnInit {
   private token!: string;
-
   public fg: FormGroup = new FormGroup({});
-  public maxDate!: Date;
-  public gender = Gender;
 
   constructor(
     private title: Title,
     private authDoctorService: AuthDoctorService,
+    private authService: AuthService,
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private toastr: ToastrService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.title.setTitle('Doccure | Doctor Register');
     this.checkRouter();
     this.intitializeForm();
-    this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   private intitializeForm() {
@@ -52,12 +46,10 @@ export class AuthDoctorComponent implements OnInit {
     const token = this.route.snapshot.paramMap.get('token');
     token ? (this.token = token) : (this.token = '');
 
-    this.authDoctorService.checkUser(this.token).forEach((res) => res);
+    this.authService.checkExistUser(this.token);
   }
 
   public registerSubmit() {
-    this.authDoctorService
-      .register(this.token, this.fg.value)
-      .forEach((response) => this.toastr.success(response.message, 'Success'));
+    this.authDoctorService.register(this.token, this.fg.value);
   }
 }

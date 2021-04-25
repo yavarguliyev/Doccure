@@ -21,7 +21,6 @@ export interface User {
   adminId?: number;
   doctorId?: number;
   patientId?: number;
-  message: string;
 }
 
 export interface UserFormValues {

@@ -11,8 +11,7 @@ namespace Services.Common
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEmailService _emailService;
 
-        public ActivityService(IHttpContextAccessor httpContextAccessor,
-                               IEmailService emailService)
+        public ActivityService(IHttpContextAccessor httpContextAccessor, IEmailService emailService)
         {
             _httpContextAccessor = httpContextAccessor;
             _emailService = emailService;

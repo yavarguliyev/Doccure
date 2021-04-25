@@ -9,6 +9,12 @@ namespace Api.Controllers.v1.Account
     public class AuthController : BaseApiController
     {
         #region auth functionalities
+        [HttpGet("{token}")]
+        public async Task<IActionResult> GetByToken(string token)
+        {
+            return Ok(mapper.Map<UserDTO>(await userService.GetAsync(token)));
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO model)
         {

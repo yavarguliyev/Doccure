@@ -1,26 +1,7 @@
-<h1>Register</h1>
-<p class="account-subtitle">Access to our dashboard</p>
-
-<!-- Form -->
-<form [formGroup]="fg" (ngSubmit)="fg.valid && registerSubmit()" autocomplete="off">
-  <app-input-text  [type]='"text"' [label]='"Fullname"' [formControlName]='"fullname"'></app-input-text>
-  <app-input-select [formControlName]="'gender'" [values]="gender"></app-input-select>
-  <app-input-date  [label]="'Birth'" [formControlName]="'birth'" [maxDate]='maxDate'></app-input-date>
-  <app-input-text  [type]='"password"' [label]='"Password"' [formControlName]='"password"'></app-input-text>
-  <app-input-text  [type]='"password"' [label]='"Confirm Password"' [formControlName]='"confirmPassword"'></app-input-text>
-  <div class="form-group">
-    <button [disabled]="!fg.valid" class="btn btn-primary btn-block" type="submit">
-      Register
-    </button>
-  </div>
-</form>
-<!-- /Form -->
-
-<div class="login-or">
-  <span class="or-line"></span>
-  <span class="span-or">or</span>
-</div>
-
-<div class="text-center dont-have">
-  Already have an account? <a [routerLink]="['/auth/login']">Login</a>
-</div>
+<app-auth-auth
+  [isRegister]="true"
+  [title]="'Register'"
+  [subTitle]="'Access to our dashboard'"
+  [fg]="fg"
+  (submitForm)="registerSubmit()"
+></app-auth-auth>

@@ -30,6 +30,7 @@ import { PatientProfileAppointmentComponent } from './patient-profile-appointmen
 import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.component';
 import { InvoiceTableComponent } from './invoice-table/invoice-table.component';
 import { TimeSlotFormComponent } from './time-slot-form/time-slot-form.component';
+import { AuthAuthComponent } from './auth/auth-auth.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { TimeSlotFormComponent } from './time-slot-form/time-slot-form.component
     PatientUserTabsComponent,
     InvoiceTableComponent,
     TimeSlotFormComponent,
+    AuthAuthComponent,
   ],
   imports: [
     CommonModule,
@@ -104,7 +106,8 @@ import { TimeSlotFormComponent } from './time-slot-form/time-slot-form.component
     PatientProfileAppointmentComponent,
     PatientUserTabsComponent,
     InvoiceTableComponent,
-    TimeSlotFormComponent
+    TimeSlotFormComponent,
+    AuthAuthComponent
   ],
 })
 export class ComponentsHelperModule {}

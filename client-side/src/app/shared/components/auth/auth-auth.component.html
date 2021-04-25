@@ -1,0 +1,61 @@
+<!-- Main Wrapper -->
+<div class="main-wrapper login-body">
+  <div class="login-wrapper">
+    <div class="container">
+      <div class="loginbox">
+        <div class="login-left">
+          <img class="img-fluid" src="assets/img/logo-white.png" alt="Logo" />
+        </div>
+        <div class="login-right">
+          <div class="login-right-wrap">
+            <h1 *ngIf="title">{{ title }}</h1>
+            <p *ngIf="subTitle" class="account-subtitle">
+             {{ subTitle }}
+            </p>
+
+            <!-- Form -->
+            <form [formGroup]="fg" (ngSubmit)="fg.valid && submit()" autocomplete="off">
+              <app-input-text *ngIf="isRegister" [type]="'text'" [label]="'Fullname'" [formControlName]="'fullname'">
+              </app-input-text>
+              <app-input-select *ngIf="isRegister" [formControlName]="'gender'" [values]="gender"></app-input-select>
+              <app-input-date *ngIf="isRegister" [label]="'Birth'" [formControlName]="'birth'" [maxDate]="maxDate">
+              </app-input-date>
+              <app-input-text *ngIf="isLogin || isForget" [type]="'email'" [label]="'Email'" [formControlName]="'email'">
+              </app-input-text>
+              <app-input-text *ngIf="isLogin || isRegister || isReset" [type]="'password'" [label]="'Password'"
+                [formControlName]="'password'">
+              </app-input-text>
+              <app-input-text *ngIf="isRegister || isReset" [type]="'password'" [label]="'Confirm Password'"
+                [formControlName]="'confirmPassword'">
+              </app-input-text>
+              <div class="form-group">
+                <button [disabled]="!fg.valid" *ngIf="title" class="btn btn-primary btn-block" type="submit">
+                  {{ isForget ? 'Send Email' : title }}
+                </button>
+              </div>
+            </form>
+            <!-- /Form -->
+
+            <div *ngIf="isLogin" class="text-center forgotpass">
+              <a [routerLink]="['/auth/forget-password']">Forgot Password?</a>
+            </div>
+
+            <div *ngIf="isRegister" class="login-or">
+              <span class="or-line"></span>
+              <span class="span-or">or</span>
+            </div>
+
+            <div *ngIf="isRegister" class="text-center dont-have">
+              Already have an account? <a [routerLink]="['/auth/login']">Login</a>
+            </div>
+
+            <div *ngIf="isForget" class="text-center dont-have">
+              Remember your password? <a [routerLink]="['/auth/login']">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Main Wrapper -->
