@@ -1,0 +1,24 @@
+<div class="row form-row hours-cont" [formGroup]="fg">
+  <div class="col-12 col-md-10">
+    <div class="row form-row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label>Start Time</label>
+          <app-input-date [label]="'Start Time'" [formControlName]="'start'" [maxDate]='maxDate'></app-input-date>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label>End Time</label>
+          <app-input-date [label]="'End Time'" [formControlName]="'end'" [maxDate]='maxDate '></app-input-date>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-2" *ngIf="!main">
+    <label class="d-md-block d-sm-none d-none">&nbsp;</label>
+    <a (click)="removeAddedElement($event)" href="javascript:void(0)" class="btn btn-danger trash">
+      <i class="far fa-trash-alt"></i>
+    </a>
+  </div>
+</div>

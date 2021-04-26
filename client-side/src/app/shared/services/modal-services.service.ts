@@ -8,19 +8,22 @@ import { TimeSlotComponent } from '../components/time-slot/time-slot.component';
   providedIn: 'root'
 })
 export class ModalServicesService {
-  public bsModelRef!: BsModalRef;
+  private bsModelRef!: BsModalRef;
+  private config = {
+    animated: true
+  };
 
   constructor(private modalService: BsModalService) { }
 
   public appointmentDetails() {
-    this.bsModelRef = this.modalService.show(AppointmentDetailsComponent);
+    this.bsModelRef = this.modalService.show(AppointmentDetailsComponent, this.config);
   }
 
   public timeSlot() {
-    this.bsModelRef = this.modalService.show(TimeSlotComponent);
+    this.bsModelRef = this.modalService.show(TimeSlotComponent, this.config);
   }
 
   public medicalRecord() {
-    this.bsModelRef = this.modalService.show(MedicalRecordComponent);
+    this.bsModelRef = this.modalService.show(MedicalRecordComponent, this.config);
   }
 }

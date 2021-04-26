@@ -29,8 +29,8 @@ import { PatientProfileBillingComponent } from './patient-profile-billing/patien
 import { PatientProfileAppointmentComponent } from './patient-profile-appointment/patient-profile-appointment.component';
 import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.component';
 import { InvoiceTableComponent } from './invoice-table/invoice-table.component';
-import { TimeSlotFormComponent } from './time-slot-form/time-slot-form.component';
 import { AuthAuthComponent } from './auth/auth-auth.component';
+import { TimeSlotFormInputComponent } from './time-slot-form-input/time-slot-form-input.component';
 
 @NgModule({
   declarations: [
@@ -58,8 +58,8 @@ import { AuthAuthComponent } from './auth/auth-auth.component';
     PatientProfileAppointmentComponent,
     PatientUserTabsComponent,
     InvoiceTableComponent,
-    TimeSlotFormComponent,
     AuthAuthComponent,
+    TimeSlotFormInputComponent,
   ],
   imports: [
     CommonModule,
@@ -106,8 +106,8 @@ import { AuthAuthComponent } from './auth/auth-auth.component';
     PatientProfileAppointmentComponent,
     PatientUserTabsComponent,
     InvoiceTableComponent,
-    TimeSlotFormComponent,
-    AuthAuthComponent
+    AuthAuthComponent,
+    TimeSlotFormInputComponent
   ],
 })
 export class ComponentsHelperModule {}

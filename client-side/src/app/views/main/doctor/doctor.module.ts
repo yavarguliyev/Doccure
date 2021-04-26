@@ -32,7 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SocialMediaComponent,
     ChangePasswordComponent,
     PatientProfileComponent,
-    DoctorBlogComponent,
+    DoctorBlogComponent
   ],
   imports: [
     CommonModule,

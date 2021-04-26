@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Gender } from '../../enums/gender.enum';
 
 @Component({
@@ -20,7 +20,7 @@ export class AuthAuthComponent implements OnInit {
   public maxDate!: Date;
   public gender = Gender;
 
-  constructor(private fb: FormBuilder) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.maxDate = new Date();
