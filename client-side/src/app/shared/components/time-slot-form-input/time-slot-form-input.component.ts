@@ -1,24 +1,29 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-time-slot-form-input',
   templateUrl: './time-slot-form-input.component.html',
+  encapsulation: ViewEncapsulation.None,
 })
 export class TimeSlotFormInputComponent implements OnInit {
+  @ViewChild('startPicker') startPicker: any;
+  @ViewChild('endPicker') endPicker: any;
+
   @Input() row!: ElementRef;
   @Input() main = false;
   @Input() fg!: FormGroup;
-  public maxDate!: Date;
-  public formControl = new FormControl('');
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() + 1);
-    this.maxDate.setMonth(this.maxDate.getMonth() + 31);
-  }
+  ngOnInit(): void { }
 
   public removeAddedElement(event: Event) {
     event.preventDefault();

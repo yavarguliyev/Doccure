@@ -10,7 +10,8 @@ import { TimeSlotComponent } from '../components/time-slot/time-slot.component';
 export class ModalServicesService {
   private bsModelRef!: BsModalRef;
   private config = {
-    animated: true
+    animated: true,
+    class: 'gray modal-md'
   };
 
   constructor(private modalService: BsModalService) { }

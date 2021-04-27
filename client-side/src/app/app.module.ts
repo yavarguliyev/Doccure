@@ -11,8 +11,16 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +35,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+    MatDatepickerModule,
+    MatInputModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

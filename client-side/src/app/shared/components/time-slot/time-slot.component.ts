@@ -35,8 +35,8 @@ export class TimeSlotComponent implements OnInit {
 
   private intitializeForm() {
     this.fg = this.fb.group({
-      start: new FormControl('', Validators.required),
-      end: new FormControl('', Validators.required),
+      start: new FormControl(new Date(), Validators.required),
+      end: new FormControl(new Date(), Validators.required),
     });
   }
 

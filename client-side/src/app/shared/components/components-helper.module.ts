@@ -31,6 +31,13 @@ import { PatientUserTabsComponent } from './patient-user-tabs/patient-user-tabs.
 import { InvoiceTableComponent } from './invoice-table/invoice-table.component';
 import { AuthAuthComponent } from './auth/auth-auth.component';
 import { TimeSlotFormInputComponent } from './time-slot-form-input/time-slot-form-input.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -82,6 +89,11 @@ import { TimeSlotFormInputComponent } from './time-slot-form-input/time-slot-for
       showInnerStroke: false,
       startFromZero: false,
     }),
+    MatDatepickerModule,
+    MatInputModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   exports: [
     SpecialitiesComponent,
@@ -107,7 +119,7 @@ import { TimeSlotFormInputComponent } from './time-slot-form-input/time-slot-for
     PatientUserTabsComponent,
     InvoiceTableComponent,
     AuthAuthComponent,
-    TimeSlotFormInputComponent
+    TimeSlotFormInputComponent,
   ],
 })
 export class ComponentsHelperModule {}
