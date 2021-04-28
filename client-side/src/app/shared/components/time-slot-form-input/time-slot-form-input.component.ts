@@ -6,7 +6,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-time-slot-form-input',
@@ -20,6 +20,9 @@ export class TimeSlotFormInputComponent implements OnInit {
   @Input() row!: ElementRef;
   @Input() main = false;
   @Input() fg!: FormGroup;
+
+  @Input() starts!: FormArray;
+  @Input() ends!: FormArray;
 
   constructor() {}
 

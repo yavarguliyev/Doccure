@@ -1,23 +1,22 @@
 <div class="row form-row hours-cont" [formGroup]="fg">
   <div class="col-sm-12 col-md-10">
     <div class="row form-row">
-      <div class="col-sm-12-6 col-md-6">
-        <div class="form-group">
+      <div class="col-sm-12-6 col-md-6" formArrayName="starts">
+        <div class="form-group" *ngFor="let start of starts.controls; index as s">
           <label>Start Time</label>
           <mat-form-field>
             <input matInput [ngxMatDatetimePicker]="startPicker" placeholder="Choose a start time"
-              [formControlName]="'start'">
+              [formControlName]="s">
             <mat-datepicker-toggle matSuffix [for]="$any(startPicker)"></mat-datepicker-toggle>
             <ngx-mat-datetime-picker #startPicker></ngx-mat-datetime-picker>
           </mat-form-field>
         </div>
       </div>
-      <div class="col-sm-12-6 col-md-6">
-        <div class="form-group">
+      <div class="col-sm-12-6 col-md-6" formArrayName="ends">
+        <div class="form-group" *ngFor="let end of ends.controls; index as e">
           <label>End Time</label>
           <mat-form-field>
-            <input matInput [ngxMatDatetimePicker]="endPicker" placeholder="Choose a end time"
-              [formControlName]="'end'">
+            <input matInput [ngxMatDatetimePicker]="endPicker" placeholder="Choose a end time" [formControlName]="e">
             <mat-datepicker-toggle matSuffix [for]="$any(endPicker)"></mat-datepicker-toggle>
             <ngx-mat-datetime-picker #endPicker></ngx-mat-datetime-picker>
           </mat-form-field>

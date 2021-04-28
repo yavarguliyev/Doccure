@@ -8,7 +8,13 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { TimeSlotFormInputComponent } from '../time-slot-form-input/time-slot-form-input.component';
 
@@ -35,9 +41,17 @@ export class TimeSlotComponent implements OnInit {
 
   private intitializeForm() {
     this.fg = this.fb.group({
-      start: new FormControl(new Date(), Validators.required),
-      end: new FormControl(new Date(), Validators.required),
+      starts: this.fb.array([new FormControl(new Date(), Validators.required)]),
+      ends: this.fb.array([new FormControl(new Date(), Validators.required)]),
     });
+  }
+
+  get starts(): FormArray {
+    return this.fg.get('starts') as FormArray;
+  }
+
+  get ends(): FormArray {
+    return this.fg.get('ends') as FormArray;
   }
 
   public addRowCount() {
@@ -47,6 +61,8 @@ export class TimeSlotComponent implements OnInit {
 
     componentRef.instance.row = this.row;
     componentRef.instance.fg = this.fg;
+    componentRef.instance.starts = this.starts;
+    componentRef.instance.ends = this.ends;
     this.appRef.attachView(componentRef.hostView);
 
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
@@ -56,6 +72,12 @@ export class TimeSlotComponent implements OnInit {
   }
 
   public submitAddOrEdit() {
+    this.fg.value.starts = [];
+    this.fg.value.ends = [];
+
+    this.fg.value.starts.push(this.starts.value);
+    this.fg.value.ends.push(this.ends.value);
+
     console.log(this.fg.value);
   }
 

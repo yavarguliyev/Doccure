@@ -9,7 +9,7 @@
   <div class="modal-body">
     <form [formGroup]="fg" (ngSubmit)="fg.valid && submitAddOrEdit()" autocomplete="off">
       <div #row_count class="hours-info">
-        <app-time-slot-form-input [main]="true" [fg]="fg"></app-time-slot-form-input>
+        <app-time-slot-form-input [main]="true" [fg]="fg" [starts]="starts" [ends]="ends"></app-time-slot-form-input>
       </div>
       <div class="add-more mb-3">
         <a (click)="addRowCount()" href="javascript:void(0);" class="add-hours"><i class="fa fa-plus-circle"></i>
