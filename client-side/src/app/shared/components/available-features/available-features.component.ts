@@ -74,7 +74,7 @@ export class AvailableFeaturesComponent implements OnInit {
   private apiResponse() {
     this.settingService
       .getFeature()
-      .forEach((response) => (this.features = response));
+      .subscribe((response) => (this.features = response));
 
     this.settingService.getPagesPhotots('Available').forEach((response) => (this.availablePhoto = response));
   }

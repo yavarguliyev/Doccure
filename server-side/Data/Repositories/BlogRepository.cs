@@ -1,8 +1,8 @@
-﻿using Core.Models;
+﻿using Core.Helpers;
+using Core.Models;
 using Core.Repositories;
 using Data.Errors;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -15,14 +15,15 @@ namespace Data.Repositories
 
         private DataContext context { get { return Context as DataContext; } }
 
-        public async Task<IEnumerable<Blog>> Get()
+        public async Task<PagedList<Blog>> Get(BlogParams blogParams)
         {
-            return await context.Blogs
-                                .Include(x => x.Doctor)
-                                .ThenInclude(x => x.Users)
-                                .Where(x => x.Status)
-                                .Take(4)
-                                .ToListAsync();
+            var blogs = context.Blogs.OrderByDescending(x => x.AddedDate)
+                                     .Include(x => x.Doctor)
+                                     .ThenInclude(x => x.Users)
+                                     .Where(x => x.Status)
+                                     .AsQueryable();
+
+            return await PagedList<Blog>.CreateAsync(blogs, blogParams.PageNumber, blogParams.PageSize);
         }
 
         public async Task<Blog> Get(string slug)

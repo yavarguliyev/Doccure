@@ -2,22 +2,40 @@
   <div class="col-sm-12 col-md-10">
     <div class="row form-row">
       <div class="col-sm-12-6 col-md-6" formArrayName="starts">
-        <div class="form-group" *ngFor="let start of starts.controls; index as s">
-          <label>Start Time</label>
+        <div
+          class="form-group"
+          *ngFor="let start of starts.controls; index as s;"
+        >
+          <label>Start Time {{s+1}}</label>
           <mat-form-field>
-            <input matInput [ngxMatDatetimePicker]="startPicker" placeholder="Choose a start time"
-              [formControlName]="s">
-            <mat-datepicker-toggle matSuffix [for]="$any(startPicker)"></mat-datepicker-toggle>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="startPicker"
+              placeholder="Choose a start time"
+              [formControlName]="s"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(startPicker)"
+            ></mat-datepicker-toggle>
             <ngx-mat-datetime-picker #startPicker></ngx-mat-datetime-picker>
           </mat-form-field>
         </div>
       </div>
       <div class="col-sm-12-6 col-md-6" formArrayName="ends">
         <div class="form-group" *ngFor="let end of ends.controls; index as e">
-          <label>End Time</label>
+          <label>End Time {{e}}</label>
           <mat-form-field>
-            <input matInput [ngxMatDatetimePicker]="endPicker" placeholder="Choose a end time" [formControlName]="e">
-            <mat-datepicker-toggle matSuffix [for]="$any(endPicker)"></mat-datepicker-toggle>
+            <input
+              matInput
+              [ngxMatDatetimePicker]="endPicker"
+              placeholder="Choose a end time"
+              [formControlName]="e"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(endPicker)"
+            ></mat-datepicker-toggle>
             <ngx-mat-datetime-picker #endPicker></ngx-mat-datetime-picker>
           </mat-form-field>
         </div>
@@ -26,14 +44,12 @@
   </div>
   <div class="col-sm-12 col-md-2" *ngIf="!main">
     <label class="d-md-block d-sm-none d-none">&nbsp;</label>
-    <a (click)="removeAddedElement($event)" href="javascript:void(0)" class="btn btn-danger trash">
+    <a
+      (click)="removeAddedElement($event)"
+      href="javascript:void(0)"
+      class="btn btn-danger trash"
+    >
       <i class="far fa-trash-alt"></i>
     </a>
   </div>
 </div>
-
-<style>
-  .cdk-overlay-container {
-    z-index: 10000 !important;
-  }
-</style>

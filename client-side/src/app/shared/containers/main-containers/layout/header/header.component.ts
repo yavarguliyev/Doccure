@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
   public logout() {
     this.confirm
       .confirm('Confirm logout', 'Do you want to logout?')
-      .forEach((result) => {
+      .subscribe((result) => {
         if (result) {
           this.api.logout();
         }
@@ -85,6 +85,6 @@ export class HeaderComponent implements OnInit {
   private apiResponse() {
     this.settingService
       .getPagesPhotots('HeaderAndInvoice')
-      .forEach((response) => (this.headerPhoto = response));
+      .subscribe((response) => (this.headerPhoto = response));
   }
 }

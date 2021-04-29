@@ -2,7 +2,7 @@
 <!-- Page Content -->
 <div class="content">
   <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="blogs.length !== 0">
       <div class="col-lg-8 col-md-12">
         <!-- Blog Post -->
         <div class="blog" *ngFor="let item of blogs">
@@ -26,12 +26,16 @@
               <ul>
                 <li>
                   <div class="post-author">
-                    <a [routerLink]="['/main/patient/doctor-profile', item.doctor?.slug]"
+                    <a
+                      [routerLink]="[
+                        '/main/patient/doctor-profile',
+                        item.doctor?.slug
+                      ]"
                       ><img
-                        src={{item.doctor?.photo}}
-                        alt={{item.doctor?.fullname}}
+                        src="{{ item.doctor?.photo }}"
+                        alt="{{ item.doctor?.fullname }}"
                       />
-                      <span>Dr. {{item.doctor?.fullname}}</span></a
+                      <span>Dr. {{ item.doctor?.fullname }}</span></a
                     >
                   </div>
                 </li>
@@ -41,15 +45,7 @@
               </ul>
             </div>
           </div>
-          <div class="blog-content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco sit
-              laboris ullamco laborisut aliquip ex ea commodo consequat. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
-            </p>
+          <div #blog_description class="blog-content" id={{item.slug}}>
             <a
               [routerLink]="['/main/blog/details', item.slug]"
               class="read-more"
@@ -60,43 +56,30 @@
         <!-- /Blog Post -->
 
         <!-- Blog Pagination -->
-        <div class="row">
+        <div class="row" *ngIf="pagination != null || pagination !== undefined">
           <div class="col-md-12">
             <div class="blog-pagination">
               <nav>
-                <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1"
-                      ><i class="fas fa-angle-double-left"></i
-                    ></a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#"
-                      >2 <span class="sr-only">(current)</span></a
-                    >
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#"
-                      ><i class="fas fa-angle-double-right"></i
-                    ></a>
-                  </li>
-                </ul>
+                <pagination
+                  [boundaryLinks]="true"
+                  [totalItems]="pagination.totalItems"
+                  [itemsPerPage]="pagination.itemsPerPage"
+                  (pageChanged)="pageChanged($event)"
+                  previousText="&lsaquo;"
+                  nextText="&rsaquo;"
+                  firstText="&laquo;"
+                  lastText="&raquo;"
+                >
+                </pagination>
               </nav>
             </div>
           </div>
         </div>
         <!-- /Blog Pagination -->
       </div>
-
       <!-- Blog Sidebar -->
       <div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
-        <app-blog-sidebar *ngIf="blogs.length !== 0" [blogs]="blogs"></app-blog-sidebar>
+        <app-blog-sidebar [blogs]="blogs"></app-blog-sidebar>
       </div>
       <!-- /Blog Sidebar -->
     </div>

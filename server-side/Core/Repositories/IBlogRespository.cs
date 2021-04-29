@@ -1,12 +1,12 @@
-﻿using Core.Models;
-using System.Collections.Generic;
+﻿using Core.Helpers;
+using Core.Models;
 using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
     public interface IBlogRespository : IRepository<Blog>
     {
-        Task<IEnumerable<Blog>> Get();
+        Task<PagedList<Blog>> Get(BlogParams blogParams);
         Task<Blog> Get(string slug);
     }
 }

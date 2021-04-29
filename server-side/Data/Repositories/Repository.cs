@@ -77,27 +77,6 @@ namespace Data.Repositories
 
             await Context.SaveChangesAsync();
         }
-
-#pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
-        public async Task<PagedResult<TEntity>> Paginate<TEntity>(IQueryable<TEntity> query, int? page, int? pageSize = 15) where TEntity : class
-#pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
-        {
-            var result = new PagedResult<TEntity>();
-            result.CurrentPage = page.HasValue && page.Value > 1 ? page.Value : 1;
-            result.PageSize = pageSize ?? 15;
-            result.TotalCount = query.Count();
-
-            var pageCount = (double)result.TotalCount / result.PageSize;
-            result.PagesCount = (int)Math.Ceiling(pageCount);
-
-            result.NextPage = result.PagesCount > result.CurrentPage ? result.CurrentPage + 1 : 0;
-            result.PreviousPage = result.CurrentPage > 1 ? result.CurrentPage - 1 : 0;
-
-            var skip = (result.CurrentPage - 1) * result.PageSize;
-            result.Data = await query.Skip(skip).Take(result.PageSize).ToListAsync();
-
-            return result;
-        }
         #endregion
     }
 }

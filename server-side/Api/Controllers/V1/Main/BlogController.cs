@@ -1,20 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Api.Extensions;
+using Core.DTOs.Main;
+using Core.Helpers;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.v1.Main
 {
-  public class BlogController : BaseApiController
-  {
-    [HttpGet]
-    public async Task<IActionResult> List()
+    public class BlogController : BaseApiController
     {
-      return Ok(await blogService.GetAsync());
-    }
+        [HttpGet]
+        public async Task<IActionResult> List([FromQuery] BlogParams blogParams)
+        {
+            var blogs = await blogService.GetAsync(blogParams);
+            var blogsDto = mapper.Map<IEnumerable<BlogDTO>>(blogs);
 
-    [HttpGet("{slug}")]
-    public async Task<IActionResult> Details(string slug)
-    {
-      return Ok(await blogService.GetAsync(slug));
+            Response.AddPagination(blogs.CurrentPage, blogs.PageSize, blogs.TotalCount, blogs.TotalPages);
+
+            return Ok(blogsDto);
+        }
+
+        [HttpGet("{slug}")]
+        public async Task<IActionResult> Details(string slug)
+        {
+            return Ok(await blogService.GetAsync(slug));
+        }
     }
-  }
 }

@@ -19,13 +19,13 @@ export class DoctorSidebarComponent implements OnInit {
   }
 
   private currentUser() {
-    this.userService.currentUser$.forEach((response) => (this.user = response));
+    this.userService.currentUser$.subscribe((response) => (this.user = response));
   }
 
   public logout() {
     this.confirm
       .confirm('Confirm logout', 'Do you want to logout?')
-      .forEach((result) => {
+      .subscribe((result) => {
         if (result) {
           this.userService.logout();
         }

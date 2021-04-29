@@ -17,6 +17,6 @@ export class TermsConditiosComponent implements OnInit {
   }
 
   private getTerms() {
-    this.api.getTerm().forEach((response) => (this.term = response));
+    this.api.getTerm().subscribe((response) => (this.term = response));
   }
 }

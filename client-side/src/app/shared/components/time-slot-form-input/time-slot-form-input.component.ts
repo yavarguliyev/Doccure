@@ -11,6 +11,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-time-slot-form-input',
   templateUrl: './time-slot-form-input.component.html',
+  styleUrls: ['./time-slot-form-input.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TimeSlotFormInputComponent implements OnInit {

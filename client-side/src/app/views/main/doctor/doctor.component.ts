@@ -19,7 +19,7 @@ export class DoctorComponent implements OnInit {
   }
 
   private apiResponse() {
-    this.doctorService.patientsAppointment().forEach((response) => (this.patients = response));
+    this.doctorService.patientsAppointment().subscribe((response) => (this.patients = response));
   }
 
   public onDashboardLoaded(component: DashboardComponent) {

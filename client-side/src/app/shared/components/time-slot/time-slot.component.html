@@ -2,21 +2,41 @@
 <div class="modal-content">
   <div class="modal-header">
     <h5 class="modal-title">Add Time Slots</h5>
-    <button (click)="close()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button
+      (click)="close()"
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="fg" (ngSubmit)="fg.valid && submitAddOrEdit()" autocomplete="off">
+    <form
+      [formGroup]="fg"
+      (ngSubmit)="fg.valid && submitAddOrEdit()"
+      autocomplete="off"
+    >
       <div #row_count class="hours-info">
-        <app-time-slot-form-input [main]="true" [fg]="fg" [starts]="starts" [ends]="ends"></app-time-slot-form-input>
+        <app-time-slot-form-input
+          [main]="true"
+          [fg]="fg"
+          [starts]="starts"
+          [ends]="ends"
+        ></app-time-slot-form-input>
       </div>
       <div class="add-more mb-3">
-        <a (click)="addRowCount()" href="javascript:void(0);" class="add-hours"><i class="fa fa-plus-circle"></i>
-          Add More</a>
+        <a (click)="addRowCount()" href="javascript:void(0);" class="add-hours"
+          ><i class="fa fa-plus-circle"></i> Add More</a
+        >
       </div>
       <div class="submit-section text-center">
-        <button [disabled]="!fg.valid" type="submit" class="btn btn-primary submit-btn">
+        <button
+          [disabled]="!fg.valid"
+          type="submit"
+          class="btn btn-primary submit-btn"
+        >
           Save Changes
         </button>
       </div>

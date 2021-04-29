@@ -8,6 +8,7 @@ import { DetailsComponent } from './details/details.component';
 import { RouterModule } from '@angular/router';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
 import { UrlSanitizerPipe } from 'src/app/shared/pipes/url-sanitizer.pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [BlogComponent, ListComponent, DetailsComponent, UrlSanitizerPipe],
@@ -15,7 +16,11 @@ import { UrlSanitizerPipe } from 'src/app/shared/pipes/url-sanitizer.pipe';
     CommonModule,
     BlogRoutingModule,
     RouterModule,
-    ComponentsHelperModule
-  ]
+    ComponentsHelperModule,
+    PaginationModule.forRoot(),
+  ],
+  exports: [
+    PaginationModule,
+  ],
 })
 export class BlogModule { }

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using Core;
 using Core.DTOs.Main;
+using Core.Helpers;
+using Core.Models;
 using Core.Services.Data;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Services.Data
@@ -19,9 +20,9 @@ namespace Services.Data
         }
 
         #region get blog
-        public async Task<IEnumerable<BlogDTO>> GetAsync()
+        public async Task<PagedList<Blog>> GetAsync(BlogParams blogParams)
         {
-            return _mapper.Map<IEnumerable<BlogDTO>>(await _unitOfWork.Blog.Get());
+            return await _unitOfWork.Blog.Get(blogParams);
         }
 
         public async Task<BlogDTO> GetAsync(string slug)

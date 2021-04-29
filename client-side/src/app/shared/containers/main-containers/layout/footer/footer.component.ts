@@ -55,6 +55,6 @@ export class FooterComponent implements OnInit {
   private apiResponse() {
     this.settingService
       .getPagesPhotots('Footer')
-      .forEach((response) => (this.footerPhoto = response));
+      .subscribe((response) => (this.footerPhoto = response));
   }
 }

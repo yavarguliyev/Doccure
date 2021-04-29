@@ -21,6 +21,6 @@ export class PrivacyPolicyComponent implements OnInit {
   }
 
   private getPrivacies() {
-    this.api.getPrivacy().forEach((response) => (this.privacy = response));
+    this.api.getPrivacy().subscribe((response) => (this.privacy = response));
   }
 }

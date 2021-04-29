@@ -73,6 +73,6 @@ export class SpecialitiesComponent implements OnInit {
   private apiResponse() {
     this.settingService
       .getSpeciality()
-      .forEach((response) => (this.specialities = response));
+      .subscribe((response) => (this.specialities = response));
   }
 }
