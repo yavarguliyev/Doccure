@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-messages',
-  templateUrl: './messages.component.html'
+  templateUrl: './messages.component.html',
 })
 export class MessagesComponent implements OnInit {
+  @ViewChild('chat_list') chatlist: ElementRef;
+  public showChatRight = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  public showChat(event: boolean) {
+    this.showChatRight = !this.showChatRight;
   }
-
 }

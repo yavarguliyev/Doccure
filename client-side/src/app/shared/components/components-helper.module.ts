@@ -38,6 +38,8 @@ import {
   NgxMatNativeDateModule,
   NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { ChatLefSideBarComponent } from './chat-lef-side-bar/chat-lef-side-bar.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import {
     InvoiceTableComponent,
     AuthAuthComponent,
     TimeSlotFormInputComponent,
+    ChatMessageComponent,
+    ChatLefSideBarComponent,
   ],
   imports: [
     CommonModule,
@@ -120,6 +124,8 @@ import {
     InvoiceTableComponent,
     AuthAuthComponent,
     TimeSlotFormInputComponent,
+    ChatMessageComponent,
+    ChatLefSideBarComponent
   ],
 })
 export class ComponentsHelperModule {}
