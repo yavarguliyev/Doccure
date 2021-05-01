@@ -1,4 +1,5 @@
-﻿using Api.Middleware;
+﻿using Api.Hubs;
+using Api.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -56,6 +57,7 @@ namespace Api.Extensions
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
+        endpoints.MapHub<ChatHub>("hubs/chat");
         endpoints.MapFallbackToController("index", "fallback");
       });
 

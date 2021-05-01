@@ -1,5 +1,6 @@
 ﻿using Core.Enum;
 using System;
+using System.Collections.Generic;
 
 namespace Core.Models
 {
@@ -37,5 +38,8 @@ namespace Core.Models
         public Admin Admin { get; set; }
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
+
+        public ICollection<Chat> Chats { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

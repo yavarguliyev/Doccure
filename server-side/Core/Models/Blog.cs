@@ -1,4 +1,6 @@
-﻿namespace Core.Models
+﻿using System.Collections.Generic;
+
+namespace Core.Models
 {
     public class Blog : BaseEntity
     {
@@ -8,7 +10,9 @@
         public string Description { get; set; }
         public string Photo { get; set; }
 
-        public int? DoctorId { get; set; }
+        public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

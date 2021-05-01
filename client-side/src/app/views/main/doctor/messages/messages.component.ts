@@ -12,7 +12,7 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  public showChat(event: boolean) {
-    this.showChatRight = !this.showChatRight;
+  public showChat() {
+    this.showChatRight = true;
   }
 }

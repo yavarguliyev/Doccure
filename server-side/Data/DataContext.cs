@@ -15,6 +15,9 @@ namespace Data
             builder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
 
             builder.ApplyConfiguration(new AdminConfiguration());
+            builder.ApplyConfiguration(new ChatConfiguration());
+            builder.ApplyConfiguration(new CommentConfiguration());
+            builder.ApplyConfiguration(new CommentReplyConfiguration());
             builder.ApplyConfiguration(new DoctorConfiguration());
             builder.ApplyConfiguration(new PatientConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
@@ -33,6 +36,9 @@ namespace Data
         }
 
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommentReply> CommentReplies { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<User> Users { get; set; }

@@ -240,7 +240,7 @@ namespace Data.Migrations
                     Video = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Photo = table.Column<string>(type: "text", nullable: true),
-                    DoctorId = table.Column<int>(type: "integer", nullable: true),
+                    DoctorId = table.Column<int>(type: "integer", nullable: false),
                     AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
@@ -255,7 +255,7 @@ namespace Data.Migrations
                         column: x => x.DoctorId,
                         principalTable: "Doctors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -504,6 +504,93 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Chats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Sent = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Received = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    File = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    IsSeen = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    InviteToken = table.Column<string>(type: "text", nullable: true),
+                    AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Chats_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    BlogId = table.Column<int>(type: "integer", nullable: false),
+                    Text = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    IsReply = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Blogs_BlogId",
+                        column: x => x.BlogId,
+                        principalTable: "Blogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommentReplies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    CommentId = table.Column<int>(type: "integer", nullable: false),
+                    Text = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentReplies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommentReplies_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Award_DoctorId",
                 table: "Award",
@@ -513,6 +600,26 @@ namespace Data.Migrations
                 name: "IX_Blogs_DoctorId",
                 table: "Blogs",
                 column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Chats_UserId",
+                table: "Chats",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentReplies_CommentId",
+                table: "CommentReplies",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_BlogId",
+                table: "Comments",
+                column: "BlogId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorSocialMediaUrlLinks_DoctorId",
@@ -576,7 +683,10 @@ namespace Data.Migrations
                 name: "Award");
 
             migrationBuilder.DropTable(
-                name: "Blogs");
+                name: "Chats");
+
+            migrationBuilder.DropTable(
+                name: "CommentReplies");
 
             migrationBuilder.DropTable(
                 name: "DoctorSocialMediaUrlLinks");
@@ -612,10 +722,16 @@ namespace Data.Migrations
                 name: "Terms");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Settings");
+
+            migrationBuilder.DropTable(
+                name: "Blogs");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Admins");

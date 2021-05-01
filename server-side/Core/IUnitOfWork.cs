@@ -6,6 +6,9 @@ namespace Core
     public interface IUnitOfWork
     {
         IAdminRepository Admin { get; }
+        IChatRepository Chat { get; }
+        ICommentRepository Comment { get; }
+        ICommentReplyRepository CommentReply { get; }
         IDoctorRepository Doctor { get; }
         IPatientRepository Patient { get; }
         IUserRepository User { get; }

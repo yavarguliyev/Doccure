@@ -13,19 +13,22 @@ import {
   templateUrl: './chat-lef-side-bar.component.html',
 })
 export class ChatLefSideBarComponent implements OnInit {
-  @Output() showChatRight = new EventEmitter();
   @ViewChildren('media_chat') mediaChat: QueryList<ElementRef>;
+  @Output() showChatRight = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  public show() {
-    this.showChatRight.emit(false);
-    // const element: ElementRef[] = this.mediaChat.toArray();
-    // element.forEach((x) => {
-    //   x.nativeElement.classList.toggle('active');
-    //   this.showChatRight.emit(false);
-    // });
+  public show(id: number) {
+    const element: ElementRef[] = this.mediaChat.toArray();
+    element.forEach(x => x.nativeElement.classList.remove('active'));
+    element.forEach((x) => {
+      const elementId = parseInt(x.nativeElement.getAttribute('id'));
+      if(elementId === id) {
+        this.showChatRight.emit(id);
+        x.nativeElement.classList.add('active');
+      }
+    });
   }
 }

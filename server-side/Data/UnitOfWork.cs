@@ -10,6 +10,9 @@ namespace Data
         private readonly DataContext _context;
 
         private AdminRepository _adminRepository;
+        private ChatRepository _chatRepository;
+        private CommentRepository _commentRepository;
+        private CommentReplyRepository _commentReplyRepository;
         private DoctorRepository _doctorRepository;
         private PatientRepository _patientRepository;
         private UserRepository _userRepository;
@@ -31,6 +34,9 @@ namespace Data
         }
 
         public IAdminRepository Admin => _adminRepository ??= new AdminRepository(_context);
+        public IChatRepository Chat => _chatRepository ??= new ChatRepository(_context);
+        public ICommentRepository Comment => _commentRepository ??= new CommentRepository(_context);
+        public ICommentReplyRepository CommentReply => _commentReplyRepository ??= new CommentReplyRepository(_context);
         public IDoctorRepository Doctor => _doctorRepository ??= new DoctorRepository(_context);
         public IPatientRepository Patient => _patientRepository ??= new PatientRepository(_context);
         public IUserRepository User => _userRepository ??= new UserRepository(_context);

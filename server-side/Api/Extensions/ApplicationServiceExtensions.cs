@@ -123,6 +123,9 @@ namespace Api.Extensions
 
             // services
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IChatService, ChatService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<ICommentReplyService, CommentReplyService>();
             services.AddTransient<IDoctorService, DoctorService>();
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
@@ -137,6 +140,9 @@ namespace Api.Extensions
             services.AddTransient<ISettingService, SettingService>();
             services.AddTransient<ISocialMediaService, SocialMediaService>();
             services.AddTransient<ITermService, TermService>();
+
+            // signalR
+            services.AddSignalR();
 
             // file upload
             services.AddSingleton<IFileManager, FileManager>();
