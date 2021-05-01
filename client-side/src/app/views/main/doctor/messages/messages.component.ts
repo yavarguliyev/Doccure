@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Chat, ChatMessage } from 'src/app/shared/models/chat';
+import { timer } from 'rxjs';
+import { Chat } from 'src/app/shared/models/chat';
 import { User } from 'src/app/shared/models/user';
 import { ChatService } from 'src/app/shared/services/chat.service';
 
@@ -40,10 +41,17 @@ export class MessagesComponent implements OnInit {
   }
 
   public showChat(id: number) {
-    const chat: Chat = Object.values(this.chats).find(x => x.patient.id === id);
+    const chat: Chat = Object.values(this.chats).find(
+      (x) => x.patient.id === id
+    );
     this.user = chat.patient ? chat.patient : null;
+    this.showChatRight = false;
     if (this.user !== null) {
-      this.showChatRight = true;
+      timer(100)
+        .toPromise()
+        .then(() => {
+          this.showChatRight = true;
+        });
     }
   }
 }

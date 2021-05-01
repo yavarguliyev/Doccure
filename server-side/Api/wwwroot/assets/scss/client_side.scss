@@ -4940,6 +4940,19 @@ html.menu-opened body {
 .chat-cont-left .chat-users-list a.media.active {
   background-color: #f5f5f6;
 }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.chat-cont-right.current {
+  opacity: 0;
+  transform: translateX(0px);
+  animation: fadeIn 0.5s ease-in 1 forwards;
+}
+
 .chat-cont-right {
   -ms-flex: 0 0 65%;
   flex: 0 0 65%;

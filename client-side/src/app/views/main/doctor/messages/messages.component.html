@@ -7,7 +7,7 @@
           <div class="chat-cont-left">
             <app-chat-lef-side-bar [chats]="chats" (showChatRight)="showChat($event)"></app-chat-lef-side-bar>
           </div>
-          <div #chat_list class="chat-cont-right">
+          <div #chat_list class="chat-cont-right" [ngClass]="{'current' : showChatRight}">
             <app-chat-message *ngIf="user" [show]="showChatRight" [user]="user"></app-chat-message>
           </div>
         </div>
