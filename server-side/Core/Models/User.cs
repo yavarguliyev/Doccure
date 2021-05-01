@@ -39,7 +39,8 @@ namespace Core.Models
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
 
-        public ICollection<Chat> Chats { get; set; }
+        public ICollection<Chat> Doctors { get; set; }
+        public ICollection<Chat> Patients { get; set; }
         public ICollection<Comment> Comments { get; set; }
     }
 }

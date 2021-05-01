@@ -38,26 +38,14 @@ namespace Data.Configurations
               .HasColumnType("timestamp");
 
             builder
-                .Property(x => x.Sent)
-                .HasMaxLength(100);
+               .HasOne(x => x.Doctor)
+               .WithMany(x => x.Doctors)
+               .HasForeignKey(x => x.DoctorId);
 
             builder
-                .Property(x => x.Received)
-                .HasMaxLength(100);
-
-            builder
-                .Property(x => x.File)
-                .HasMaxLength(100);
-
-            builder
-               .Property(x => x.IsSeen)
-               .IsRequired()
-               .HasDefaultValue(false);
-
-            builder
-               .HasOne(x => x.User)
-               .WithMany(x => x.Chats)
-               .HasForeignKey(x => x.UserId);
+               .HasOne(x => x.Patient)
+               .WithMany(x => x.Patients)
+               .HasForeignKey(x => x.PatientId);
 
             builder
                .ToTable("Chats");

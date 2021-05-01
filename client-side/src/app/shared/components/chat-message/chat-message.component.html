@@ -1,18 +1,19 @@
 <!-- Chat Right -->
-<ng-container *ngIf="show">
+<ng-container *ngIf="user && show">
   <div class="chat-header">
     <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
       <i class="material-icons">chevron_left</i>
     </a>
     <div class="media">
       <div class="media-img-wrap">
-        <div class="avatar avatar-online">
-          <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+        <div class="avatar"
+          [ngClass]="{'avatar-online' : user.connectionId !== null, 'avatar-offline' : user.connectionId === null}">
+          <img src={{user.photo}} alt={{user.fullname}} class="avatar-img rounded-circle">
         </div>
       </div>
       <div class="media-body">
-        <div class="user-name">Richard Wilson</div>
-        <div class="user-status">online</div>
+        <div class="user-name">{{user.fullname}}</div>
+        <div class="user-status">{{user.connectionId ? 'online' : 'offline'}}</div>
       </div>
     </div>
     <div class="chat-options">
@@ -99,121 +100,7 @@
             </div>
           </div>
         </li>
-        <li class="media sent">
-          <div class="media-body">
-            <div class="msg-box">
-              <div>
-                <p>Where?</p>
-                <ul class="chat-msg-info">
-                  <li>
-                    <div class="chat-time">
-                      <span>8:42 AM</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="msg-box">
-              <div>
-                <p>OK, my name is Limingqiang. I like singing, playing basketballand so on.</p>
-                <ul class="chat-msg-info">
-                  <li>
-                    <div class="chat-time">
-                      <span>8:42 AM</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="msg-box">
-              <div>
-                <div class="chat-msg-attachments">
-                  <div class="chat-attachment">
-                    <img src="assets/img/img-04.jpg" alt="Attachment">
-                    <div class="chat-attach-caption">placeholder.jpg</div>
-                    <a href="#" class="chat-attach-download">
-                      <i class="fas fa-download"></i>
-                    </a>
-                  </div>
-                </div>
-                <ul class="chat-msg-info">
-                  <li>
-                    <div class="chat-time">
-                      <span>8:50 AM</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="media received">
-          <div class="avatar">
-            <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
-          </div>
-          <div class="media-body">
-            <div class="msg-box">
-              <div>
-                <p>You wait for notice.</p>
-                <p>Consectetuorem ipsum dolor sit?</p>
-                <p>Ok?</p>
-                <ul class="chat-msg-info">
-                  <li>
-                    <div class="chat-time">
-                      <span>8:55 PM</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
         <li class="chat-date">Today</li>
-        <li class="media received">
-          <div class="avatar">
-            <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
-          </div>
-          <div class="media-body">
-            <div class="msg-box">
-              <div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
-                <ul class="chat-msg-info">
-                  <li>
-                    <div class="chat-time">
-                      <span>10:17 AM</span>
-                    </div>
-                  </li>
-                  <li><a href="#">Edit</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="media sent">
-          <div class="media-body">
-            <div class="msg-box">
-              <div>
-                <p>Lorem ipsum dollar sit</p>
-                <div class="chat-msg-actions dropdown">
-                  <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fe fe-elipsis-v"></i>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Delete</a>
-                  </div>
-                </div>
-                <ul class="chat-msg-info">
-                  <li>
-                    <div class="chat-time">
-                      <span>10:19 AM</span>
-                    </div>
-                  </li>
-                  <li><a href="#">Edit</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
         <li class="media received">
           <div class="avatar">
             <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">

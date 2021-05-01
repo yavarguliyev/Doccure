@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     this.setCurrentUser();
   }
 
-  setCurrentUser() {
+  private setCurrentUser() {
     this.user = this.auth.checkUser();
 
     if (this.user) {

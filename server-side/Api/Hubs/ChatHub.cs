@@ -5,30 +5,47 @@ using System.Threading.Tasks;
 
 namespace Api.Hubs
 {
-    public class ChatHub : Hub
+  public class ChatHub : Hub
+  {
+    private readonly IUserService _userService;
+    private readonly IChatService _chatService;
+
+    public ChatHub(IUserService userService, IChatService chatService)
     {
-        private readonly IChatService _chatService;
-
-        public ChatHub(IChatService chatService)
-        {
-            _chatService = chatService;
-        }
-
-        public override async Task OnConnectedAsync()
-        {
-            await Clients.Group("").SendAsync("", "");
-            await Clients.Caller.SendAsync("", "");
-        }
-
-        public override async Task OnDisconnectedAsync(Exception exception)
-        {
-            await Clients.Group("").SendAsync("", "");
-            await base.OnDisconnectedAsync(exception);
-        }
-
-        public async Task SendMessage()
-        {
-            await Clients.Group("").SendAsync("NewMessage", "");
-        }
+      _userService = userService;
+      _chatService = chatService;
     }
+
+    public override async Task OnConnectedAsync()
+    {
+      var connectionId = Context.ConnectionId;
+      var token = Context.GetHttpContext().Request.Query["token"].ToString();
+      var user = await _userService.GetAsync(token);
+      if (user != null)
+      {
+        await _userService.ConnectionIdAsync(user.Id, connectionId);
+      }
+
+      var chat = await _chatService.GetAsync(user.Id);
+      await Clients.Caller.SendAsync("ReceiveMessageThread", chat);
+    }
+
+    public override async Task OnDisconnectedAsync(Exception exception)
+    {
+      var connectionId = Context.ConnectionId;
+      var token = Context.GetHttpContext().Request.Query["token"].ToString();
+      var user = await _userService.GetAsync(token);
+      if (user != null)
+      {
+        await _userService.ConnectionIdAsync(user.Id, connectionId);
+      }
+
+      await base.OnDisconnectedAsync(exception);
+    }
+
+    public async Task SendMessage()
+    {
+      await Clients.Group("").SendAsync("NewMessage", "");
+    }
+  }
 }

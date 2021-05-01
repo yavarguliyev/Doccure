@@ -187,12 +187,55 @@ namespace Data.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp");
 
-                    b.Property<string>("File")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("InviteToken")
                         .HasColumnType("text");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Chats");
+                });
+
+            modelBuilder.Entity("Core.Models.ChatMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+
+                    b.Property<string>("AddedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DoctorContent")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<bool>("IsSeen")
                         .ValueGeneratedOnAdd()
@@ -206,11 +249,11 @@ namespace Data.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("timestamp");
 
-                    b.Property<string>("Received")
+                    b.Property<string>("PatientContent")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("Sent")
+                    b.Property<string>("Photo")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
@@ -218,14 +261,11 @@ namespace Data.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ChatId");
 
-                    b.ToTable("Chats");
+                    b.ToTable("ChatMessages");
                 });
 
             modelBuilder.Entity("Core.Models.Comment", b =>
@@ -1055,13 +1095,32 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.Chat", b =>
                 {
-                    b.HasOne("Core.Models.User", "User")
-                        .WithMany("Chats")
-                        .HasForeignKey("UserId")
+                    b.HasOne("Core.Models.User", "Doctor")
+                        .WithMany("Doctors")
+                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("Core.Models.User", "Patient")
+                        .WithMany("Patients")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Core.Models.ChatMessage", b =>
+                {
+                    b.HasOne("Core.Models.Chat", "Chat")
+                        .WithMany("ChatMessages")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
                 });
 
             modelBuilder.Entity("Core.Models.Comment", b =>
@@ -1208,6 +1267,11 @@ namespace Data.Migrations
                     b.Navigation("Patients");
                 });
 
+            modelBuilder.Entity("Core.Models.Chat", b =>
+                {
+                    b.Navigation("ChatMessages");
+                });
+
             modelBuilder.Entity("Core.Models.Comment", b =>
                 {
                     b.Navigation("CommentReplies");
@@ -1246,9 +1310,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.User", b =>
                 {
-                    b.Navigation("Chats");
-
                     b.Navigation("Comments");
+
+                    b.Navigation("Doctors");
+
+                    b.Navigation("Patients");
                 });
 #pragma warning restore 612, 618
         }

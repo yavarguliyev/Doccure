@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-chat-message',
@@ -6,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ChatMessageComponent implements OnInit {
   @Input() show = false;
+  @Input() user: User;
   constructor() { }
 
   ngOnInit(): void {

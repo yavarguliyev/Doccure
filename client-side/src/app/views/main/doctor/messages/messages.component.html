@@ -5,10 +5,10 @@
       <div class="col-xl-12">
         <div class="chat-window">
           <div class="chat-cont-left">
-            <app-chat-lef-side-bar (showChatRight)="showChat()"></app-chat-lef-side-bar>
+            <app-chat-lef-side-bar [chats]="chats" (showChatRight)="showChat($event)"></app-chat-lef-side-bar>
           </div>
           <div #chat_list class="chat-cont-right">
-            <app-chat-message [show]="showChatRight"></app-chat-message>
+            <app-chat-message *ngIf="user" [show]="showChatRight" [user]="user"></app-chat-message>
           </div>
         </div>
       </div>

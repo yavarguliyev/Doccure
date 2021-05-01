@@ -16,6 +16,7 @@ namespace Data
 
             builder.ApplyConfiguration(new AdminConfiguration());
             builder.ApplyConfiguration(new ChatConfiguration());
+            builder.ApplyConfiguration(new ChatMessageConfiguration());
             builder.ApplyConfiguration(new CommentConfiguration());
             builder.ApplyConfiguration(new CommentReplyConfiguration());
             builder.ApplyConfiguration(new DoctorConfiguration());
@@ -37,6 +38,7 @@ namespace Data
 
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<CommentReply> CommentReplies { get; set; }
         public DbSet<Doctor> Doctors { get; set; }

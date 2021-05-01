@@ -514,7 +514,7 @@ namespace Data.Data_Seed
                 }
                 #endregion
             }
-            
+
             if (!context.Users.Any())
             {
                 #region users
@@ -1340,11 +1340,8 @@ namespace Data.Data_Seed
                             ModifiedBy = "System",
                             AddedDate = DateTime.Now,
                             ModifiedDate = DateTime.Now,
-                            UserId = 3,
-                            Sent = "I'm just looking around. Are you there? That time!",
-                            Received = null,
-                            File = null,
-                            IsSeen = true
+                            DoctorId = 3,
+                            PatientId = 13,
                         },
                         new Chat
                         {
@@ -1353,90 +1350,8 @@ namespace Data.Data_Seed
                             ModifiedBy = "System",
                             AddedDate = DateTime.Now,
                             ModifiedDate = DateTime.Now,
-                            UserId = 3,
-                            Sent = "Are you there? That time!",
-                            Received = null,
-                            File = null,
-                            IsSeen = true
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            UserId = 13,
-                            Sent = null,
-                            Received = "Hello. What can I do for you?",
-                            File = null,
-                            IsSeen = true
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            UserId = 13,
-                            Sent = null,
-                            Received = "Where?",
-                            File = null,
-                            IsSeen = true
-                        },
-
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            UserId = 4,
-                            Sent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
-                            Received = null,
-                            File = null,
-                            IsSeen = false
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            UserId = 4,
-                            Sent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-                            Received = null,
-                            File = null,
-                            IsSeen = false
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            UserId = 14,
-                            Sent = null,
-                            Received = "Lorem ipsum dollar sit",
-                            File = null,
-                            IsSeen = false
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            UserId = 14,
-                            Sent = null,
-                            Received = "Really?",
-                            File = null,
-                            IsSeen = false
+                            DoctorId = 4,
+                            PatientId = 14,
                         },
                     };
 
@@ -1445,8 +1360,129 @@ namespace Data.Data_Seed
                         await context.Chats.AddRangeAsync(chat);
                         await context.SaveChangesAsync();
                     }
+
+                    #region chat messages
+                    if (!context.ChatMessages.Any())
+                    {
+                        var chatMessages = new List<ChatMessage>
+                        {
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 1,
+                                DoctorContent = "I'm just looking around. Are you there? That time!",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = true
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 1,
+                                DoctorContent = "Are you there? That time!",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = true
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 1,
+                                DoctorContent = null,
+                                PatientContent = "Hello. What can I do for you?",
+                                Photo = null,
+                                IsSeen = true
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 1,
+                                DoctorContent = null,
+                                PatientContent = "Where?",
+                                Photo = null,
+                                IsSeen = true
+                            },
+
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 2,
+                                DoctorContent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 2,
+                                DoctorContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 2,
+                                DoctorContent = null,
+                                PatientContent = "Lorem ipsum dollar sit",
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 2,
+                                DoctorContent = null,
+                                PatientContent = "Really?",
+                                Photo = null,
+                                IsSeen = false
+                            },
+                        };
+
+                        foreach (var chatMessage in chatMessages)
+                        {
+                            await context.ChatMessages.AddRangeAsync(chatMessage);
+                            await context.SaveChangesAsync();
+                        }
+                    }
+                    #endregion
                 }
                 #endregion
+
                 #endregion
 
                 #region blogs

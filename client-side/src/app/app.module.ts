@@ -21,6 +21,7 @@ import {
   NgxMatNativeDateModule,
   NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import {
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
+    TimeagoModule.forRoot(),
     MatDatepickerModule,
     MatInputModule,
     NgxMatDatetimePickerModule,

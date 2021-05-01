@@ -26,6 +26,7 @@ namespace Core.Services.Data
         Task<UserDTO> TokenAsync(int id, string token);
         Task<UserDTO> InviteTokenAsync(User user);
         Task<UserDTO> ConfirmTokenAsync(string token);
+        Task ConnectionIdAsync(int id, string connectionId);
 
         Task<string> PhotoUploadAsync(int id, IFormFile file);
     }

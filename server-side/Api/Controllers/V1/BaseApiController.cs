@@ -16,6 +16,7 @@ namespace Api.Controllers.v1
         private IAuth _auth;
 
         private IUserService _userService;
+        private IChatService _chatService;
         private IDoctorSocialMediaUrlLinkService _urlLinkService;
 
         private IBlogService _blogService;
@@ -33,6 +34,7 @@ namespace Api.Controllers.v1
         protected IAuth auth => _auth ??= HttpContext.RequestServices.GetService<IAuth>();
 
         protected IUserService userService => _userService ??= HttpContext.RequestServices.GetService<IUserService>();
+        protected IChatService chatService => _chatService ??= HttpContext.RequestServices.GetService<IChatService>();
         protected IDoctorSocialMediaUrlLinkService urlLinkService => _urlLinkService ??= HttpContext.RequestServices.GetService<IDoctorSocialMediaUrlLinkService>();
         
         protected IBlogService blogService => _blogService ??= HttpContext.RequestServices.GetService<IBlogService>();

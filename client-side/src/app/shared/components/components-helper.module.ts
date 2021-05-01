@@ -40,6 +40,7 @@ import {
 } from '@angular-material-components/datetime-picker';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ChatLefSideBarComponent } from './chat-lef-side-bar/chat-lef-side-bar.component';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ChatLefSideBarComponent } from './chat-lef-side-bar/chat-lef-side-bar.c
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
+    TimeagoModule.forRoot(),
     CarouselModule,
     NgCircleProgressModule.forRoot({
       backgroundGradient: true,
