@@ -1350,7 +1350,27 @@ namespace Data.Data_Seed
                             ModifiedBy = "System",
                             AddedDate = DateTime.Now,
                             ModifiedDate = DateTime.Now,
+                            DoctorId = 3,
+                            PatientId = 15,
+                        },
+                        new Chat
+                        {
+                            Status = true,
+                            AddedBy = "System",
+                            ModifiedBy = "System",
+                            AddedDate = DateTime.Now,
+                            ModifiedDate = DateTime.Now,
                             DoctorId = 4,
+                            PatientId = 14,
+                        },
+                        new Chat
+                        {
+                            Status = true,
+                            AddedBy = "System",
+                            ModifiedBy = "System",
+                            AddedDate = DateTime.Now,
+                            ModifiedDate = DateTime.Now,
+                            DoctorId = 5,
                             PatientId = 14,
                         },
                     };
@@ -1466,6 +1486,112 @@ namespace Data.Data_Seed
                                 AddedDate = DateTime.Now,
                                 ModifiedDate = DateTime.Now,
                                 ChatId = 2,
+                                DoctorContent = null,
+                                PatientContent = "Really?",
+                                Photo = null,
+                                IsSeen = false
+                            },
+
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 3,
+                                DoctorContent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 3,
+                                DoctorContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 3,
+                                DoctorContent = null,
+                                PatientContent = "Lorem ipsum dollar sit",
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 3,
+                                DoctorContent = null,
+                                PatientContent = "Really?",
+                                Photo = null,
+                                IsSeen = false
+                            },
+
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 4,
+                                DoctorContent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 4,
+                                DoctorContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 4,
+                                DoctorContent = null,
+                                PatientContent = "Lorem ipsum dollar sit",
+                                Photo = null,
+                                IsSeen = false
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 4,
                                 DoctorContent = null,
                                 PatientContent = "Really?",
                                 Photo = null,
