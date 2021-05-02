@@ -15,3 +15,19 @@ export interface ChatMessage {
   patientContent: string;
   addedDate: Date;
 }
+
+export class ChatMessageFormValues {
+  chatId: number;
+  userId: number;
+  photo: string;
+  doctorContent: string;
+  patientContent: string;
+
+  constructor(chatId: number, userId: number, photo: string, doctorContent: string, patientContent: string) {
+    this.chatId = chatId;
+    this.userId = userId;
+    this.photo = photo;
+    this.doctorContent = doctorContent;
+    this.patientContent = patientContent;
+  }
+}

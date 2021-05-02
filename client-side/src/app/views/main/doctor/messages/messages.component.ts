@@ -12,6 +12,8 @@ export class MessagesComponent implements OnInit {
   @ViewChild('chat_list') chatlist: ElementRef;
   public user: User;
   public chats: Chat[] = [];
+  public chat$: Chat[] = [];
+  public currentChat: Chat;
   public showChatRight = false;
   public loading = false;
 
@@ -44,6 +46,7 @@ export class MessagesComponent implements OnInit {
     const chat: Chat = Object.values(this.chats).find(
       (x) => x.patient.id === id
     );
+    this.currentChat = chat;
     this.user = chat.patient ? chat.patient : null;
     this.showChatRight = false;
     if (this.user !== null) {

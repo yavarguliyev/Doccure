@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Chat } from '../models/chat';
+import { Chat, ChatMessageFormValues } from '../models/chat';
 import { User } from '../models/user';
 import { SpinnerService } from './spinner.service';
 
@@ -15,9 +16,12 @@ export class ChatService {
   private hubUrl = environment.hubUrl;
   private hubConnection: HubConnection;
   private messageThreadSource = new BehaviorSubject<Chat[]>([]);
-  private messageThread$ = this.messageThreadSource.asObservable();
+  public messageThread$ = this.messageThreadSource.asObservable();
 
-  constructor(private http: HttpClient, private spinnerService: SpinnerService) {}
+  constructor(
+    private http: HttpClient,
+    private spinnerService: SpinnerService
+  ) {}
 
   public createHubConnection(user: User) {
     this.spinnerService.busy();
@@ -36,6 +40,12 @@ export class ChatService {
     this.hubConnection.on('ReceiveMessageThread', (chat) => {
       this.messageThreadSource.next(chat);
     });
+
+    this.hubConnection.on('NewMessage', (message) => {
+      this.messageThread$.pipe(take(1)).subscribe((messages) => {
+        this.messageThreadSource.next([...messages, message]);
+      });
+    });
   }
 
   public stopHubConnection() {
@@ -47,5 +57,11 @@ export class ChatService {
 
   public getMessages(id: number) {
     return this.http.get<Chat[]>(this.baseUrl + `/chat?id=${id}`);
+  }
+
+  async sendMessage(message: ChatMessageFormValues) {
+    return this.hubConnection
+      .invoke('SendMessage', message)
+      .catch((error) => console.log(error));
   }
 }

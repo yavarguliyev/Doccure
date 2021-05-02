@@ -3,6 +3,7 @@ using Core;
 using Core.DTOs.Admin.Admin_Doctor;
 using Core.DTOs.Auth;
 using Core.DTOs.Doctor;
+using Core.DTOs.Main;
 using Core.Services.Common;
 using Core.Services.Data;
 using Core.Services.Rest;
@@ -38,6 +39,7 @@ namespace Api.Extensions
                         options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
                         options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
                         options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
+                        options.RegisterValidatorsFromAssemblyContaining<CreateChatMessageDTO>();
                     })
                     .AddJsonOptions(options =>
             {
@@ -124,6 +126,7 @@ namespace Api.Extensions
             // services
             services.AddTransient<IAdminService, AdminService>();
             services.AddTransient<IChatService, ChatService>();
+            services.AddTransient<IChatMessageService, ChatMessageService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ICommentReplyService, CommentReplyService>();
             services.AddTransient<IDoctorService, DoctorService>();

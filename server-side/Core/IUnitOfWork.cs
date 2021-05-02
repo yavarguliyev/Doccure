@@ -7,6 +7,7 @@ namespace Core
     {
         IAdminRepository Admin { get; }
         IChatRepository Chat { get; }
+        IChatMessageRepository ChatMessage { get; }
         ICommentRepository Comment { get; }
         ICommentReplyRepository CommentReply { get; }
         IDoctorRepository Doctor { get; }

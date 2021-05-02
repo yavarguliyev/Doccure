@@ -22,5 +22,10 @@ namespace Services.Data
         {
             return _mapper.Map<IEnumerable<ChatDTO>>(await _unitOfWork.Chat.Get(id));
         }
+
+        public async Task<ChatDTO> GetAsync(int id, int userId)
+        {
+            return _mapper.Map<ChatDTO>(await _unitOfWork.Chat.Get(id, userId));
+        }
     }
 }

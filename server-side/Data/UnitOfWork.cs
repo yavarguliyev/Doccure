@@ -11,6 +11,7 @@ namespace Data
 
         private AdminRepository _adminRepository;
         private ChatRepository _chatRepository;
+        private ChatMessageRepository _chatMessageRepository;
         private CommentRepository _commentRepository;
         private CommentReplyRepository _commentReplyRepository;
         private DoctorRepository _doctorRepository;
@@ -35,6 +36,7 @@ namespace Data
 
         public IAdminRepository Admin => _adminRepository ??= new AdminRepository(_context);
         public IChatRepository Chat => _chatRepository ??= new ChatRepository(_context);
+        public IChatMessageRepository ChatMessage => _chatMessageRepository ??= new ChatMessageRepository(_context);
         public ICommentRepository Comment => _commentRepository ??= new CommentRepository(_context);
         public ICommentReplyRepository CommentReply => _commentReplyRepository ??= new CommentReplyRepository(_context);
         public IDoctorRepository Doctor => _doctorRepository ??= new DoctorRepository(_context);
