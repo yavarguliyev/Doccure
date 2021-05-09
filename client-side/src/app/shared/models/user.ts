@@ -1,4 +1,5 @@
 import { Gender } from '../enums/gender.enum';
+import { UserRole } from '../enums/userRole.enum';
 
 export interface User {
   id: number;
@@ -9,7 +10,7 @@ export interface User {
   email: string;
   phone: number;
   fullAddress: string;
-  role: string;
+  role: UserRole;
   age: number;
   gender: Gender;
   bloodGroup: string;

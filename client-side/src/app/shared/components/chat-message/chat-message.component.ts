@@ -1,6 +1,6 @@
+import { Chat } from 'src/app/shared/models/chat';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { ChatMessage, ChatMessageFormValues } from '../../models/chat';
 import { User } from '../../models/user';
 import { ChatService } from '../../services/chat.service';
@@ -18,7 +18,8 @@ export class ChatMessageComponent implements OnInit {
   @Input() chatId: number;
   public messages: ChatMessage[] = [];
 
-  public messageThread$: Observable<ChatMessage[]>;
+  @Input() chat: Chat;
+  @Input() role = 0;
 
   constructor(private chatService: ChatService) {}
 
@@ -35,6 +36,7 @@ export class ChatMessageComponent implements OnInit {
         null,
         null
       );
+
       if (currentUser.role === 'Doctor') {
         message.doctorContent = this.messageContent;
       } else if (currentUser.role === 'Patient') {

@@ -5,15 +5,16 @@
       <div class="col-xl-12">
         <div class="chat-window">
           <div class="chat-cont-left">
-            <app-chat-lef-side-bar [chats]="chats" (showChatRight)="showChat($event)"></app-chat-lef-side-bar>
+            <app-chat-lef-side-bar [chats]="chat$ | async" (showChatRight)="showChat($event)"></app-chat-lef-side-bar>
           </div>
           <div #chat_list class="chat-cont-right" [ngClass]="{'current' : showChatRight}">
-            <app-chat-message *ngIf="user && currentChat" [show]="showChatRight" [chatId]="currentChat.id" [user]="user"></app-chat-message>
+            <app-chat-message *ngIf="user && currentChat" [show]="showChatRight" [chatId]="currentChat.id"
+              [chat]="currentChat" [user]="user" [role]="role"></app-chat-message>
           </div>
         </div>
       </div>
     </div>
     <!-- /Row -->
   </div>
-</div>		
+</div>
 <!-- /Page Content -->

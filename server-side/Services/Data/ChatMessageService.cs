@@ -1,7 +1,10 @@
-﻿using Core;
+﻿using AutoMapper;
+using Core;
+using Core.DTOs.Main;
 using Core.Models;
 using Core.Services.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Services.Data
@@ -9,10 +12,17 @@ namespace Services.Data
     public class ChatMessageService : IChatMessageService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ChatMessageService(IUnitOfWork unitOfWork)
+        public ChatMessageService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<ChatMessageDTO>> GetAsync()
+        {
+            return _mapper.Map<IEnumerable<ChatMessageDTO>>(await _unitOfWork.ChatMessage.Get());
         }
 
         public async Task CreateAsync(ChatMessage newChatMessage)

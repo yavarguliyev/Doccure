@@ -1,77 +1,52 @@
-  <!-- Chat Right -->
-  <ng-container *ngIf="user && show">
-    <div class="chat-header">
-      <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
-        <i class="material-icons">chevron_left</i>
-      </a>
-      <div class="media">
-        <div class="media-img-wrap">
-          <div class="avatar"
-            [ngClass]="{'avatar-online' : user.connectionId !== null, 'avatar-offline' : user.connectionId === null}">
-            <img src={{user.photo}} alt={{user.fullname}} class="avatar-img rounded-circle">
-          </div>
-        </div>
-        <div class="media-body">
-          <div class="user-name">{{user.fullname}}</div>
-          <div class="user-status">{{user.connectionId ? 'online' : 'offline'}}</div>
+<!-- Chat Right -->
+<ng-container *ngIf="user && show">
+  <div class="chat-header">
+    <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
+      <i class="material-icons">chevron_left</i>
+    </a>
+    <div class="media">
+      <div class="media-img-wrap">
+        <div class="avatar"
+          [ngClass]="{'avatar-online' : user.connectionId !== null, 'avatar-offline' : user.connectionId === null}">
+          <img src={{user.photo}} alt={{user.fullname}} class="avatar-img rounded-circle">
         </div>
       </div>
-      <div class="chat-options">
-        <a href="javascript:void(0)">
-          <i class="material-icons">more_vert</i>
-        </a>
+      <div class="media-body">
+        <div class="user-name">{{user.fullname}}</div>
+        <div class="user-status">{{user.connectionId ? 'online' : 'offline'}}</div>
       </div>
     </div>
-    <div class="chat-body">
-      <div class="chat-scroll">
-        <ul class="list-unstyled">
-          <li class="media sent">
-            <div class="media-body">
-              <div class="msg-box">
-                <div>
-                  <p>Hello. What can I do for you?</p>
-                  <ul class="chat-msg-info">
-                    <li>
-                      <div class="chat-time">
-                        <span>8:30 AM</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="media received">
-            <div class="avatar">
-              <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+    <div class="chat-options">
+      <a href="javascript:void(0)">
+        <i class="material-icons">more_vert</i>
+      </a>
+    </div>
+  </div>
+  <div class="chat-body">
+    <div class="chat-scroll">
+      <ul class="list-unstyled">
+        <li class="chat-date">Today</li>
+        <ng-container *ngIf="role === 3"></ng-container>
+        <ng-container *ngIf="role === 4">
+          <li class="media" *ngFor="let message of chat.chatMessageDTOs"
+            [ngClass]="{'sent': message.doctorContent, 'received': message.patientContent}">
+            <div class="avatar" *ngIf="message.patientContent">
+              <img src={{chat.patient.photo}} alt={{chat.patient.fullname}} class="avatar-img rounded-circle">
             </div>
             <div class="media-body">
               <div class="msg-box">
                 <div>
-                  <p>I'm just looking around.</p>
-                  <p>Will you tell me something about yourself?</p>
+                  <p>{{message.doctorContent ? message.doctorContent : message.patientContent}}</p>
                   <ul class="chat-msg-info">
                     <li>
                       <div class="chat-time">
-                        <span>8:35 AM</span>
+                        <span>{{message.addedDate | timeago}}</span>
                       </div>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="msg-box">
-                <div>
-                  <p>Are you there? That time!</p>
-                  <ul class="chat-msg-info">
-                    <li>
-                      <div class="chat-time">
-                        <span>8:40 AM</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="msg-box">
+              <div class="msg-box" *ngIf="message.photo">
                 <div>
                   <div class="chat-msg-attachments">
                     <div class="chat-attachment">
@@ -81,47 +56,7 @@
                         <i class="fas fa-download"></i>
                       </a>
                     </div>
-                    <div class="chat-attachment">
-                      <img src="assets/img/img-03.jpg" alt="Attachment">
-                      <div class="chat-attach-caption">placeholder.jpg</div>
-                      <a href="#" class="chat-attach-download">
-                        <i class="fas fa-download"></i>
-                      </a>
-                    </div>
                   </div>
-                  <ul class="chat-msg-info">
-                    <li>
-                      <div class="chat-time">
-                        <span>8:41 AM</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="chat-date">Today</li>
-          <li class="media received">
-            <div class="avatar">
-              <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
-            </div>
-            <div class="media-body">
-              <div class="msg-box">
-                <div>
-                  <div class="msg-typing">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="media sent" *ngFor="let message of messages">
-            <div class="media-body">
-              <div class="msg-box">
-                <div>
-                  <p>{{message.doctorContent}}</p>
                   <ul class="chat-msg-info">
                     <li>
                       <div class="chat-time">
@@ -133,28 +68,45 @@
               </div>
             </div>
           </li>
-        </ul>
-      </div>
-    </div>
-    <div class="chat-footer">
-      <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="btn-file btn">
-              <i class="fa fa-paperclip"></i>
-              <!-- <input type="file"> -->
+        </ng-container>
+        <li class="media received">
+          <div class="avatar">
+            <img src="assets/img/patients/patient.jpg" alt="User Image" class="avatar-img rounded-circle">
+          </div>
+          <div class="media-body">
+            <div class="msg-box">
+              <div>
+                <div class="msg-typing">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
             </div>
           </div>
-          <input type="text" class="input-msg-send form-control" name="messageContent" required
-            [(ngModel)]="messageContent" placeholder="Type something">
-          <div class="input-group-append">
-            <button type="submit" [disabled]="!messageForm.valid || loading" class="btn msg-send-btn">
-              <i *ngIf="!loading" class="fab fa-telegram-plane"></i>
-              <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
-            </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="chat-footer">
+    <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="btn-file btn">
+            <i class="fa fa-paperclip"></i>
+            <!-- <input type="file"> -->
           </div>
         </div>
-      </form>
-    </div>
-  </ng-container>
-  <!-- /Chat Right -->
+        <input type="text" class="input-msg-send form-control" name="messageContent" required
+          [(ngModel)]="messageContent" placeholder="Type something">
+        <div class="input-group-append">
+          <button type="submit" [disabled]="!messageForm.valid || loading" class="btn msg-send-btn">
+            <i *ngIf="!loading" class="fab fa-telegram-plane"></i>
+            <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-container>
+<!-- /Chat Right -->

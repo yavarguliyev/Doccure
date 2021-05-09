@@ -21,7 +21,7 @@ export class ChatService {
   constructor(
     private http: HttpClient,
     private spinnerService: SpinnerService
-  ) {}
+  ) { }
 
   public createHubConnection(user: User) {
     this.spinnerService.busy();
@@ -37,13 +37,21 @@ export class ChatService {
       .catch((error) => console.log(error))
       .finally(() => this.spinnerService.idle());
 
-    this.hubConnection.on('ReceiveMessageThread', (chat) => {
-      this.messageThreadSource.next(chat);
+    this.hubConnection.on('ReceiveMessageThread', (message) => {
+      this.messageThreadSource.next(message);
     });
 
     this.hubConnection.on('NewMessage', (message) => {
-      this.messageThread$.pipe(take(1)).subscribe((messages) => {
-        this.messageThreadSource.next([...messages, message]);
+      this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
+        const chat: Chat = messages.find(x => x.id === message.id);
+        message.chatMessageDTOs.map(x => {
+          if (x.chatId === chat.id) {
+            chat.chatMessageDTOs.push(x);
+          }
+        });
+        messages.splice(messages.indexOf(message.id));
+        messages.push(chat);
+        this.messageThreadSource.next(messages);
       });
     });
   }
