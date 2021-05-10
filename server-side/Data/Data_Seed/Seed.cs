@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Core.Enum;
 
 namespace Data.Data_Seed
 {
@@ -14,7 +14,7 @@ namespace Data.Data_Seed
         {
             if (!context.Admins.Any())
             {
-                var admins = new List<Admin> 
+                var admins = new List<Admin>
                 {
                     new Admin {},
                     new Admin {}
@@ -35,8 +35,59 @@ namespace Data.Data_Seed
             if (!context.Doctors.Any())
             {
                 #region doctor
-                var doctorJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Doctor.json");
-                var doctors = JsonConvert.DeserializeObject<List<Doctor>>(doctorJSON);
+                var doctors = new List<Doctor>
+                {
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Neurologist,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Urologist,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Cardiologist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Dentist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Orthopedics,
+                        Type = WorkingType.Freelancer
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Neurologist,
+                        Type = WorkingType.Payable
+                    },
+                    new Doctor
+                    {
+                        Position = DoctorPosition.Cardiologist,
+                        Type = WorkingType.Freelancer
+                    }
+                };
                 foreach (var doctor in doctors)
                 {
                     doctor.Status = true;
@@ -52,8 +103,49 @@ namespace Data.Data_Seed
                 #region doctor social urls
                 if (!context.DoctorSocialMediaUrlLinks.Any())
                 {
-                    var urlJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/DoctorSocialMediaUrlLink.json");
-                    var url = JsonConvert.DeserializeObject<List<DoctorSocialMediaUrlLink>>(urlJSON);
+                    var url = new List<DoctorSocialMediaUrlLink>
+                    {
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 1
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 2
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 3
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 4
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 5
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 6
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 7
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 8
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 9
+                        },
+                        new DoctorSocialMediaUrlLink
+                        {
+                            DoctorId = 10
+                        }
+                    };
                     foreach (var social in url)
                     {
                         social.Status = true;
@@ -79,8 +171,33 @@ namespace Data.Data_Seed
             if (!context.BloodGroups.Any())
             {
                 #region blood groups
-                var bloodGroupJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/BloodGroup.json");
-                var bloodGroups = JsonConvert.DeserializeObject<List<BloodGroup>>(bloodGroupJSON);
+                var bloodGroups = new List<BloodGroup>
+                {
+                    new BloodGroup
+                    {
+                        Name = "A-"
+                    },
+                    new BloodGroup
+                    {
+                        Name = "A+"
+                    },
+                    new BloodGroup
+                    {
+                        Name = "B-"
+                    },
+                    new BloodGroup
+                    {
+                        Name = "B+"
+                    },
+                    new BloodGroup
+                    {
+                        Name = "AB-"
+                    },
+                    new BloodGroup
+                    {
+                        Name = "AB+"
+                    }
+                };
                 foreach (var bloodGroup in bloodGroups)
                 {
                     bloodGroup.Status = true;
@@ -96,8 +213,57 @@ namespace Data.Data_Seed
                 #region patients
                 if (!context.Patients.Any())
                 {
-                    var patientJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Patient.json");
-                    var patients = JsonConvert.DeserializeObject<List<Patient>>(patientJSON);
+                    var patients = new List<Patient>
+                    {
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                        new Patient
+                        {
+                            BloodGroupId = 1
+                        },
+                    };
                     foreach (var patient in patients)
                     {
                         patient.Status = true;
@@ -117,8 +283,281 @@ namespace Data.Data_Seed
             if (!context.Users.Any())
             {
                 #region users
-                var userJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/User.json");
-                var users = JsonConvert.DeserializeObject<List<User>>(userJSON);
+                var users = new List<User>
+                {
+                    #region admins
+                    new User
+                    {
+                        Fullname = "Admin Admin",
+                        Slug = "admin-admin",
+                        Email = "admin@admin.com",
+                        Role = UserRole.Admin,
+                        Gender = Gender.Male,
+                        AdminId = 1,
+                        DoctorId = null,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Admin Pharmacy",
+                        Slug = "admin-pharmacy",
+                        Email = "admin@pharmacy.com",
+                        Role = UserRole.Admin_Pharmcy,
+                        Gender = Gender.Male,
+                        AdminId = 2,
+                        DoctorId = null,
+                        PatientId = null
+                    },
+                    #endregion
+
+                    #region doctors
+                    new User
+                    {
+                        Fullname = "Ruby Perrin",
+                        Slug = "ruby-perrin",
+                        Email = "perrin.ruby@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = 1,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Darren Elder",
+                        Slug = "darren-elder",
+                        Email = "elder.darren@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = 2,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Deborah Angel",
+                        Slug = "deborah-angel",
+                        Email = "angel.deborah@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = 3,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Sofia Brient",
+                        Slug = "sofia-brient",
+                        Email = "brient.sofia@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = 4,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Marvin Campbell",
+                        Slug = "marvin-campbell",
+                        Email = "campbell.marvin@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = 5,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Katherina Berthold",
+                        Slug = "katherina-berthold",
+                        Email = "berthold.katherina@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = 6,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Linda Tobin",
+                        Slug = "linda-tobin",
+                        Email = "tobin.linda@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = 7,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Paul Richard",
+                        Slug = "richard-paul",
+                        Email = "paul.richard@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = 8,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "John Gibbs",
+                        Slug = "john-gibbs",
+                        Email = "gibbs.john@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = 9,
+                        PatientId = null
+                    },
+                    new User
+                    {
+                        Fullname = "Olga Barlow",
+                        Slug = "olga-barlow",
+                        Email = "barlow.olga@test.com",
+                        Role = UserRole.Doctor,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = 10,
+                        PatientId = null
+                    },
+                    #endregion
+
+                    #region patients
+                    new User
+                    {
+                        Fullname = "Richard Wilson",
+                        Slug = "richard-wilson",
+                        Email = "wilson.richard@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 1
+                    },
+                    new User
+                    {
+                        Fullname = "Charlene Reed",
+                        Slug = "charlene-reed",
+                        Email = "reed.charlene@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 2
+                    },
+                    new User
+                    {
+                        Fullname = "Travis Trimble",
+                        Slug = "travis-trimble",
+                        Email = "trimble.travis@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 3
+                    },
+                    new User
+                    {
+                        Fullname = "Carl Kelly",
+                        Slug = "carl-kelly",
+                        Email = "kelly.carl@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 4
+                    },
+                    new User
+                    {
+                        Fullname = "Michelle Fairfax",
+                        Slug = "michelle-fairfax",
+                        Email = "fairfax.michelle@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 5
+                    },
+                    new User
+                    {
+                        Fullname = "Gina Moore",
+                        Slug = "gina-moore",
+                        Email = "moore.gina@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 6
+                    },
+                    new User
+                    {
+                        Fullname = "Elsie Gilley",
+                        Slug = "elsie-gilley",
+                        Email = "gilley.elsie@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 7
+                    },
+                    new User
+                    {
+                        Fullname = "Joan Gardner",
+                        Slug = "joan-gardner",
+                        Email = "gardner.joan@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Female,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 8
+                    },
+                    new User
+                    {
+                        Fullname = "Daniel Griffing",
+                        Slug = "daniel-griffing",
+                        Email = "griffing.daniel@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 9
+                    },
+                    new User
+                    {
+                        Fullname = "Walter Roberson",
+                        Slug = "walter-roberson",
+                        Email = "roberson.walter@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 10
+                    },
+                    new User
+                    {
+                        Fullname = "Robert Rhodes",
+                        Slug = "robert-rhodes",
+                        Email = "rhodes.robert@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 11
+                    },
+                    new User
+                    {
+                        Fullname = "Harry Williams",
+                        Slug = "harry-williams",
+                        Email = "williams.harry@test.com",
+                        Role = UserRole.Patient,
+                        Gender = Gender.Male,
+                        AdminId = null,
+                        DoctorId = null,
+                        PatientId = 12
+                    },
+                    #endregion
+                };
                 foreach (var user in users)
                 {
                     user.Status = true;
@@ -152,8 +591,34 @@ namespace Data.Data_Seed
                 #region chat
                 if (!context.Chats.Any())
                 {
-                    var chatJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Chat.json");
-                    var chats = JsonConvert.DeserializeObject<List<Chat>>(chatJSON);
+                    var chats = new List<Chat>
+                    {
+                        new Chat
+                        {
+                            DoctorId = 3,
+                            PatientId = 13,
+                        },
+                        new Chat
+                        {
+                            DoctorId = 3,
+                            PatientId = 14,
+                        },
+                        new Chat
+                        {
+                            DoctorId = 3,
+                            PatientId = 15,
+                        },
+                        new Chat
+                        {
+                            DoctorId = 4,
+                            PatientId = 14,
+                        },
+                        new Chat
+                        {
+                            DoctorId = 5,
+                            PatientId = 14,
+                        },
+                    };
                     foreach (var chat in chats)
                     {
                         chat.Status = true;
@@ -169,8 +634,35 @@ namespace Data.Data_Seed
                     #region chat messages
                     if (!context.ChatMessages.Any())
                     {
-                        var chatMessageJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/ChatMessage.json");
-                        var chatMessages = JsonConvert.DeserializeObject<List<ChatMessage>>(chatMessageJSON);
+                        var chatMessages = new List<ChatMessage>
+                        {
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 1,
+                                DoctorContent = "I'm just looking around. Are you there? That time!",
+                                PatientContent = null,
+                                Photo = null,
+                                IsSeen = true
+                            },
+                            new ChatMessage
+                            {
+                                Status = true,
+                                AddedBy = "System",
+                                ModifiedBy = "System",
+                                AddedDate = DateTime.Now,
+                                ModifiedDate = DateTime.Now,
+                                ChatId = 1,
+                                DoctorContent = null,
+                                PatientContent = "Hello. What can I do for you?",
+                                Photo = null,
+                                IsSeen = true
+                            }
+                        };
                         foreach (var chatMessage in chatMessages)
                         {
                             chatMessage.Status = true;
@@ -189,13 +681,61 @@ namespace Data.Data_Seed
                     #endregion
                 }
                 #endregion
-                #endregion
 
                 #region blogs
                 if (!context.Blogs.Any())
                 {
-                    var blogJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Blog.json");
-                    var blogs = JsonConvert.DeserializeObject<List<Blog>>(blogJSON);
+                    var blogs = new List<Blog>
+                    {
+                        new Blog
+                        {
+                            Title = "Doccure – Making your clinic painless visit?",
+                            Slug = "doccure-–-making-your-clinic-painless-visit",
+                            DoctorId = 1
+                        },
+                        new Blog
+                        {
+                            Title = "What are the benefits of Online Doctor Booking?",
+                            Slug = "what-are-the-benefits-of-online-doctor-booking",
+                            DoctorId = 2
+                        },
+                        new Blog
+                        {
+                            Title = "Benefits of consulting with an Online Doctor",
+                            Slug = "benefits-of-consulting-with-an-online-doctor",
+                            DoctorId = 3
+                        },
+                        new Blog
+                        {
+                            Title = "5 Great reasons to use an Online Doctor",
+                            Slug = "5-great-reasons-to-use-an-online-doctor",
+                            DoctorId = 4
+                        },
+                        new Blog
+                        {
+                            Title = "Online Doctor Appointment Scheduling",
+                            Slug = "online-doctor-appointment-scheduling",
+                            DoctorId = 5
+                        },
+                        new Blog
+                        {
+                            Title = "Simple steps to make your doctor visits exceptional!",
+                            Slug = "simple-steps-to-make-your-doctor-visits-exceptional",
+                            DoctorId = 6
+                        },
+                        new Blog
+                        {
+                            Title = "Choose your own Online Doctor Appointment",
+                            Slug = "choose-your-own-online-doctor-appointment",
+                            DoctorId = 7
+                        },
+                        new Blog
+                        {
+                            Title = "Simple steps to visit your doctor today",
+                            Slug = "simple-steps-to-visit-your-doctor-today",
+                            DoctorId = 8
+                        }
+                    };
                     foreach (var blog in blogs)
                     {
                         blog.Status = true;
@@ -256,6 +796,7 @@ namespace Data.Data_Seed
                     #endregion
                 }
                 #endregion
+                #endregion
             }
 
             #region settings
@@ -315,8 +856,29 @@ namespace Data.Data_Seed
 
                 if (!context.SettingPhotos.Any())
                 {
-                    var settingPhotoJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/SettingPhoto.json");
-                    var settingPhotos = JsonConvert.DeserializeObject<List<SettingPhoto>>(settingPhotoJSON);
+                    var settingPhotos = new List<SettingPhoto>
+                    {
+                        new SettingPhoto
+                        {
+                            Name = "HeaderAndInvoice",
+                        },
+                        new SettingPhoto
+                        {
+                            Name = "Footer",
+                        },
+                        new SettingPhoto
+                        {
+                            Name = "Available",
+                        },
+                        new SettingPhoto
+                        {
+                            Name = "Patient",
+                        },
+                        new SettingPhoto
+                        {
+                            Name = "AdminAndDoctor",
+                        }
+                    };
                     foreach (var settingPhoto in settingPhotos)
                     {
                         settingPhoto.Status = true;
@@ -335,8 +897,39 @@ namespace Data.Data_Seed
 
                 if (!context.SocialMedias.Any())
                 {
-                    var socialMediaJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/SocialMedia.json");
-                    var socialMedias = JsonConvert.DeserializeObject<List<SocialMedia>>(socialMediaJSON);
+                    var socialMedias = new List<SocialMedia> 
+                    {
+                        new SocialMedia
+                        {
+                            Name = "Facebook",
+                            Icon = "facebook-f",
+                            Link = "https://www.facebook.com/"
+                        },
+                        new SocialMedia
+                        {
+                            Name = "Twitter",
+                            Icon = "twitter",
+                            Link = "https://www.twitter.com/"
+                        },
+                        new SocialMedia
+                        {
+                            Name = "Linkedin",
+                            Icon = "linkedin-in",
+                            Link = "https://www.linkedin.com/"
+                        },
+                        new SocialMedia
+                        {
+                            Name = "Instagram",
+                            Icon = "instagram",
+                            Link = "https://www.instagram.com/"
+                        },
+                        new SocialMedia
+                        {
+                            Name = "Dribbble",
+                            Icon = "dribbble",
+                            Link = "https://www.dribbble.com/"
+                        }
+                    };
                     foreach (var socialMedia in socialMedias)
                     {
                         socialMedia.Status = true;
@@ -418,8 +1011,33 @@ namespace Data.Data_Seed
 
             if (!context.Features.Any())
             {
-                var featureJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Feature.json");
-                var features = JsonConvert.DeserializeObject<List<Feature>>(featureJSON);
+                var features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        ClinicName = "Operation"
+                    },
+                    new Feature
+                    {
+                        ClinicName = "Medical"
+                    },
+                    new Feature
+                    {
+                        ClinicName = "Patient Ward"
+                    },
+                    new Feature
+                    {
+                        ClinicName = "Test Room"
+                    },
+                    new Feature
+                    {
+                        ClinicName = "ICU"
+                    },
+                    new Feature
+                    {
+                        ClinicName = "Laboratory"
+                    }
+                };
                 foreach (var feature in features)
                 {
                     feature.Status = true;
@@ -437,8 +1055,29 @@ namespace Data.Data_Seed
 
             if (!context.Specialities.Any())
             {
-                var specialitieJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Speciality.json");
-                var specialities = JsonConvert.DeserializeObject<List<Speciality>>(specialitieJSON);
+                var specialities = new List<Speciality>
+                {
+                    new Speciality
+                    {
+                        Name = "Cardiologist"
+                    },
+                    new Speciality
+                    {
+                        Name = "Dentist"
+                    },
+                    new Speciality
+                    {
+                        Name = "Neurologist"
+                    },
+                    new Speciality
+                    {
+                        Name = "Orthopedics"
+                    },
+                    new Speciality
+                    {
+                        Name = "Urologist"
+                    }
+                };
                 foreach (var speciality in specialities)
                 {
                     speciality.Status = true;
