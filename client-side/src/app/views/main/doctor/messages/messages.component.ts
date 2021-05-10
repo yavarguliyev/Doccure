@@ -48,6 +48,7 @@ export class MessagesComponent implements OnInit {
     this.chatService.messageThread$.subscribe((chat: Chat[]) => {
       this.currentChat = Object.values(chat).find((c) => c.patient.id === id);
     });
+    console.log(this.currentChat);
     this.user = this.currentChat.patient;
     this.role = parseInt(this.user.role);
     this.showChatRight = false;
