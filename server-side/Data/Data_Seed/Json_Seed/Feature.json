@@ -1,0 +1,20 @@
+[
+  {
+    "ClinicName": "Operation"
+  },
+  {
+    "ClinicName": "Medical"
+  },
+  {
+    "ClinicName": "Patient Ward"
+  },
+  {
+    "ClinicName": "Test Room"
+  },
+  {
+    "ClinicName": "ICU"
+  },
+  {
+    "ClinicName": "Laboratory"
+  }
+]

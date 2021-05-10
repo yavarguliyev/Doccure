@@ -19,18 +19,24 @@ export class ChatLefSideBarComponent implements OnInit {
   @Output() showChatRight = new EventEmitter();
   @Input() chats: Chat[] = [];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  public chatMessage(chat: Chat): ChatMessage {
-    const chatMessage: ChatMessage = Object.values(chat.chatMessageDTOs).find(x => x.chatId === chat.id && x.isSeen === false);
+  public chatMessage(chat: Chat): ChatMessage | any {
+    const chatMessage: ChatMessage = Object.values(chat.chatMessageDTOs).find(
+      (x) => x.chatId === chat.id && (x.isSeen === false || x.isSeen === true)
+    );
     return chatMessage;
   }
 
-  public getLastText(chat: Chat): ChatMessage | null {
+  public getLastText(chat: Chat): ChatMessage {
     const sender = chat.chatMessageDTOs[chat.chatMessageDTOs.length - 1];
-    const message = sender.patientContent ? sender : chat.chatMessageDTOs.find(x => x.chatId === chat.id && x.patientContent !== null);
+    const message = sender.patientContent
+      ? sender
+      : chat.chatMessageDTOs.find(
+          (x) => x.chatId === chat.id && x.patientContent !== null
+        );
     return message;
   }
 

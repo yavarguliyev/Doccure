@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Facebook",
+    "Icon": "facebook-f",
+    "Link": "https://www.facebook.com/"
+  },
+  {
+    "Name": "Twitter",
+    "Icon": "twitter",
+    "Link": "https://www.twitter.com/"
+  },
+  {
+    "Name": "Linkedin",
+    "Icon": "linkedin-in",
+    "Link": "https://www.linkedin.com/"
+  },
+  {
+    "Name": "Instagram",
+    "Icon": "instagram",
+    "Link": "https://www.instagram.com/"
+  },
+  {
+    "Name": "Dribbble",
+    "Icon": "dribbble",
+    "Link": "https://www.dribbble.com/"
+  }
+]

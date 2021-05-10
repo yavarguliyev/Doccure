@@ -1,10 +1,10 @@
-﻿using Core.Enum;
-using Core.Models;
+﻿using Core.Models;
 using CryptoHelper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Data.Data_Seed
 {
@@ -14,28 +14,19 @@ namespace Data.Data_Seed
         {
             if (!context.Admins.Any())
             {
-                var admins = new List<Admin>
+                var admins = new List<Admin> 
                 {
-                    new Admin
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now
-                    },
-                    new Admin
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now
-                    }
+                    new Admin {},
+                    new Admin {}
                 };
-
                 foreach (var admin in admins)
                 {
+                    admin.Status = true;
+                    admin.AddedBy = "System";
+                    admin.ModifiedBy = "System";
+                    admin.AddedDate = DateTime.Now;
+                    admin.ModifiedDate = DateTime.Now;
+
                     await context.Admins.AddRangeAsync(admin);
                     await context.SaveChangesAsync();
                 }
@@ -44,337 +35,60 @@ namespace Data.Data_Seed
             if (!context.Doctors.Any())
             {
                 #region doctor
-                var doctors = new List<Doctor>
-                {
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Dentist,
-                        Type = WorkingType.Payable
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Neurologist,
-                        Type = WorkingType.Freelancer
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Dentist,
-                        Type = WorkingType.Payable
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Urologist,
-                        Type = WorkingType.Freelancer
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Cardiologist,
-                        Type = WorkingType.Payable
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Dentist,
-                        Type = WorkingType.Freelancer
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Dentist,
-                        Type = WorkingType.Payable
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Orthopedics,
-                        Type = WorkingType.Freelancer
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Neurologist,
-                        Type = WorkingType.Payable
-                    },
-                    new Doctor
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Position = DoctorPosition.Cardiologist,
-                        Type = WorkingType.Freelancer
-                    }
-                };
-
+                var doctorJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Doctor.json");
+                var doctors = JsonConvert.DeserializeObject<List<Doctor>>(doctorJSON);
                 foreach (var doctor in doctors)
                 {
+                    doctor.Status = true;
+                    doctor.AddedBy = "System";
+                    doctor.ModifiedBy = "System";
+                    doctor.AddedDate = DateTime.Now;
+                    doctor.ModifiedDate = DateTime.Now;
+
                     await context.Doctors.AddRangeAsync(doctor);
                     await context.SaveChangesAsync();
                 }
-                #endregion
 
                 #region doctor social urls
                 if (!context.DoctorSocialMediaUrlLinks.Any())
                 {
-                    var url = new List<DoctorSocialMediaUrlLink>
-                    {
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 1
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 2
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 3
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 4
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 5
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 6
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 7
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 8
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 9
-                        },
-                        new DoctorSocialMediaUrlLink
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            FacebookURL = "https://www.facebook.com/",
-                            TwitterURL = "https://www.twitter.com/",
-                            LinkedinURL = "https://www.pinterest.com/",
-                            InstagramURL = "https://www.instagram.com/",
-                            PinterestURL = "https://www.linkedin.com/",
-                            DoctorId = 10
-                        }
-                    };
-
+                    var urlJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/DoctorSocialMediaUrlLink.json");
+                    var url = JsonConvert.DeserializeObject<List<DoctorSocialMediaUrlLink>>(urlJSON);
                     foreach (var social in url)
                     {
+                        social.Status = true;
+                        social.AddedBy = "System";
+                        social.ModifiedBy = "System";
+                        social.AddedDate = DateTime.Now;
+                        social.ModifiedDate = DateTime.Now;
+
+                        social.FacebookURL = "https://www.facebook.com/";
+                        social.TwitterURL = "https://www.twitter.com/";
+                        social.LinkedinURL = "https://www.linkedin.com/";
+                        social.InstagramURL = "https://www.instagram.com/";
+                        social.PinterestURL = "https://www.pinterest.com/";
+
                         await context.DoctorSocialMediaUrlLinks.AddRangeAsync(social);
                         await context.SaveChangesAsync();
                     }
                 }
+                #endregion
                 #endregion
             }
 
             if (!context.BloodGroups.Any())
             {
                 #region blood groups
-                var bloodGroups = new List<BloodGroup>
-                {
-                    new BloodGroup
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "A-"
-                    },
-                    new BloodGroup
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "A+"
-                    },
-                    new BloodGroup
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "B-"
-                    },
-                    new BloodGroup
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "B+"
-                    },
-                    new BloodGroup
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "AB-"
-                    },
-                    new BloodGroup
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "AB+"
-                    }
-                };
-                #endregion
-
+                var bloodGroupJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/BloodGroup.json");
+                var bloodGroups = JsonConvert.DeserializeObject<List<BloodGroup>>(bloodGroupJSON);
                 foreach (var bloodGroup in bloodGroups)
                 {
+                    bloodGroup.Status = true;
+                    bloodGroup.AddedBy = "System";
+                    bloodGroup.ModifiedBy = "System";
+                    bloodGroup.AddedDate = DateTime.Now;
+                    bloodGroup.ModifiedDate = DateTime.Now;
+
                     await context.BloodGroups.AddRangeAsync(bloodGroup);
                     await context.SaveChangesAsync();
                 }
@@ -382,948 +96,55 @@ namespace Data.Data_Seed
                 #region patients
                 if (!context.Patients.Any())
                 {
-                    var patients = new List<Patient>
-                    {
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.OldPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.NewPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.OldPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.NewPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.OldPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.NewPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.OldPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.NewPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.OldPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.NewPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.OldPatient,
-                            BloodGroupId = 1
-                        },
-                        new Patient
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Type = PatientType.NewPatient,
-                            BloodGroupId = 1
-                        },
-                    };
-
+                    var patientJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Patient.json");
+                    var patients = JsonConvert.DeserializeObject<List<Patient>>(patientJSON);
                     foreach (var patient in patients)
                     {
+                        patient.Status = true;
+                        patient.AddedBy = "System";
+                        patient.ModifiedBy = "System";
+                        patient.AddedDate = DateTime.Now;
+                        patient.ModifiedDate = DateTime.Now;
+
                         await context.Patients.AddRangeAsync(patient);
                         await context.SaveChangesAsync();
                     }
                 }
+                #endregion
                 #endregion
             }
 
             if (!context.Users.Any())
             {
                 #region users
-                var users = new List<User>
-                {
-                    #region admins
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Admin Admin",
-                        Slug = "admin-admin",
-                        Email = "admin@admin.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Admin,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = 1,
-                        DoctorId = null,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Admin Pharmacy",
-                        Slug = "admin-pharmacy",
-                        Email = "admin@pharmacy.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Admin_Pharmcy,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = 2,
-                        DoctorId = null,
-                        PatientId = null
-                    },
-                    #endregion
-
-                    #region doctors
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Ruby Perrin",
-                        Slug = "ruby-perrin",
-                        Email = "perrin.ruby@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 1,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Darren Elder",
-                        Slug = "darren-elder",
-                        Email = "elder.darren@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 2,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Deborah Angel",
-                        Slug = "deborah-angel",
-                        Email = "angel.deborah@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 3,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Sofia Brient",
-                        Slug = "sofia-brient",
-                        Email = "brient.sofia@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 4,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Marvin Campbell",
-                        Slug = "marvin-campbell",
-                        Email = "campbell.marvin@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 5,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Katherina Berthold",
-                        Slug = "katherina-berthold",
-                        Email = "berthold.katherina@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 6,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Linda Tobin",
-                        Slug = "linda-tobin",
-                        Email = "tobin.linda@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 7,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Paul Richard",
-                        Slug = "richard-paul",
-                        Email = "paul.richard@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 8,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "John Gibbs",
-                        Slug = "john-gibbs",
-                        Email = "gibbs.john@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 9,
-                        PatientId = null
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Olga Barlow",
-                        Slug = "olga-barlow",
-                        Email = "barlow.olga@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Doctor,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = 10,
-                        PatientId = null
-                    },
-                    #endregion
-
-                    #region patients
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Richard Wilson",
-                        Slug = "richard-wilson",
-                        Email = "wilson.richard@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 1
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Charlene Reed",
-                        Slug = "charlene-reed",
-                        Email = "reed.charlene@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 1
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Travis Trimble",
-                        Slug = "travis-trimble",
-                        Email = "trimble.travis@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 3
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Carl Kelly",
-                        Slug = "carl-kelly",
-                        Email = "kelly.carl@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 4
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Michelle Fairfax",
-                        Slug = "michelle-fairfax",
-                        Email = "fairfax.michelle@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 5
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Gina Moore",
-                        Slug = "gina-moore",
-                        Email = "moore.gina@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 6
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Elsie Gilley",
-                        Slug = "elsie-gilley",
-                        Email = "gilley.elsie@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 7
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Joan Gardner",
-                        Slug = "joan-gardner",
-                        Email = "gardner.joan@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Female,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 8
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Daniel Griffing",
-                        Slug = "daniel-griffing",
-                        Email = "griffing.daniel@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 9
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Walter Roberson",
-                        Slug = "walter-roberson",
-                        Email = "roberson.walter@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 10
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Robert Rhodes",
-                        Slug = "robert-rhodes",
-                        Email = "rhodes.robert@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 11
-                    },
-                    new User
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Code = new Random().Next(100000, 999999).ToString(),
-                        Photo = null,
-                        Fullname = "Harry Williams",
-                        Slug = "harry-williams",
-                        Email = "williams.harry@test.com",
-                        Birth = new DateTime(1990, 06, 29),
-                        Phone = "+994 55 904-68-23",
-                        Password = Crypto.HashPassword("yavar10Yr"),
-                        Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                        "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                        "labore et dolore magna aliqua.</div>",
-                        PostalCode = "22434",
-                        Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>",
-                        City = "Miami",
-                        State = "Florida",
-                        Country = "United States",
-                        Role = UserRole.Patient,
-                        Gender = Gender.Male,
-                        Token = Guid.NewGuid().ToString(),
-                        InviteToken = null,
-                        ConfirmToken = null,
-                        ConnectionId = null,
-                        AdminId = null,
-                        DoctorId = null,
-                        PatientId = 12
-                    },
-                    #endregion
-                };
-
+                var userJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/User.json");
+                var users = JsonConvert.DeserializeObject<List<User>>(userJSON);
                 foreach (var user in users)
                 {
+                    user.Status = true;
+                    user.AddedBy = "System";
+                    user.ModifiedBy = "System";
+                    user.AddedDate = DateTime.Now;
+                    user.ModifiedDate = DateTime.Now;
+
+                    user.Code = new Random().Next(100000, 999999).ToString();
+                    user.Token = Guid.NewGuid().ToString();
+                    user.Password = Crypto.HashPassword("yavar10Yr");
+                    user.Photo = null;
+                    user.InviteToken = null;
+                    user.ConfirmToken = null;
+                    user.ConnectionId = null;
+                    user.Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                                     "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                                     "labore et dolore magna aliqua.</div>";
+                    user.PostalCode = "22434";
+                    user.Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>";
+                    user.City = "Miami";
+                    user.State = "Florida";
+                    user.Country = "United States";
+                    user.Phone = "+994 55 904-68-23";
+                    user.Birth = new DateTime(1990, 06, 29);
+
                     await context.Users.AddRangeAsync(user);
                     await context.SaveChangesAsync();
                 }
@@ -1331,52 +152,16 @@ namespace Data.Data_Seed
                 #region chat
                 if (!context.Chats.Any())
                 {
-                    var chats = new List<Chat>
-                    {
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            DoctorId = 3,
-                            PatientId = 13,
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            DoctorId = 3,
-                            PatientId = 15,
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            DoctorId = 4,
-                            PatientId = 14,
-                        },
-                        new Chat
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            DoctorId = 5,
-                            PatientId = 14,
-                        },
-                    };
-
+                    var chatJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Chat.json");
+                    var chats = JsonConvert.DeserializeObject<List<Chat>>(chatJSON);
                     foreach (var chat in chats)
                     {
+                        chat.Status = true;
+                        chat.AddedBy = "System";
+                        chat.ModifiedBy = "System";
+                        chat.AddedDate = DateTime.Now;
+                        chat.ModifiedDate = DateTime.Now;
+
                         await context.Chats.AddRangeAsync(chat);
                         await context.SaveChangesAsync();
                     }
@@ -1384,223 +169,19 @@ namespace Data.Data_Seed
                     #region chat messages
                     if (!context.ChatMessages.Any())
                     {
-                        var chatMessages = new List<ChatMessage>
-                        {
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 1,
-                                DoctorContent = "I'm just looking around. Are you there? That time!",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = true
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 1,
-                                DoctorContent = "Are you there? That time!",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = true
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 1,
-                                DoctorContent = null,
-                                PatientContent = "Hello. What can I do for you?",
-                                Photo = null,
-                                IsSeen = true
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 1,
-                                DoctorContent = null,
-                                PatientContent = "Where?",
-                                Photo = null,
-                                IsSeen = true
-                            },
-
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 2,
-                                DoctorContent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 2,
-                                DoctorContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 2,
-                                DoctorContent = null,
-                                PatientContent = "Lorem ipsum dollar sit",
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 2,
-                                DoctorContent = null,
-                                PatientContent = "Really?",
-                                Photo = null,
-                                IsSeen = false
-                            },
-
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 3,
-                                DoctorContent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 3,
-                                DoctorContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 3,
-                                DoctorContent = null,
-                                PatientContent = "Lorem ipsum dollar sit",
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 3,
-                                DoctorContent = null,
-                                PatientContent = "Really?",
-                                Photo = null,
-                                IsSeen = false
-                            },
-
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 4,
-                                DoctorContent = "You wait for notice. Consectetuorem ipsum dolor sit? Ok?",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 4,
-                                DoctorContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-                                PatientContent = null,
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 4,
-                                DoctorContent = null,
-                                PatientContent = "Lorem ipsum dollar sit",
-                                Photo = null,
-                                IsSeen = false
-                            },
-                            new ChatMessage
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 4,
-                                DoctorContent = null,
-                                PatientContent = "Really?",
-                                Photo = null,
-                                IsSeen = false
-                            },
-                        };
-
+                        var chatMessageJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/ChatMessage.json");
+                        var chatMessages = JsonConvert.DeserializeObject<List<ChatMessage>>(chatMessageJSON);
                         foreach (var chatMessage in chatMessages)
                         {
+                            chatMessage.Status = true;
+                            chatMessage.AddedBy = "System";
+                            chatMessage.ModifiedBy = "System";
+                            chatMessage.AddedDate = DateTime.Now;
+                            chatMessage.ModifiedDate = DateTime.Now;
+
+                            chatMessage.Photo = null;
+                            chatMessage.IsSeen = true;
+
                             await context.ChatMessages.AddRangeAsync(chatMessage);
                             await context.SaveChangesAsync();
                         }
@@ -1608,423 +189,56 @@ namespace Data.Data_Seed
                     #endregion
                 }
                 #endregion
-
                 #endregion
 
                 #region blogs
                 if (!context.Blogs.Any())
                 {
-                    var blogs = new List<Blog>
-                    {
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Doccure – Making your clinic painless visit?",
-                            Slug = "doccure-–-making-your-clinic-painless-visit",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 1
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "What are the benefits of Online Doctor Booking?",
-                            Slug = "what-are-the-benefits-of-online-doctor-booking",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 2
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Benefits of consulting with an Online Doctor",
-                            Slug = "benefits-of-consulting-with-an-online-doctor",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 3
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "5 Great reasons to use an Online Doctor",
-                            Slug = "5-great-reasons-to-use-an-online-doctor",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 4
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Online Doctor Appointment Scheduling",
-                            Slug = "online-doctor-appointment-scheduling",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 5
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Simple steps to make your doctor visits exceptional!",
-                            Slug = "simple-steps-to-make-your-doctor-visits-exceptional",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 6
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Choose your own Online Doctor Appointment",
-                            Slug = "choose-your-own-online-doctor-appointment",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 7
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Simple steps to visit your doctor today",
-                            Slug = "simple-steps-to-visit-your-doctor-today",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 8
-                        },
-                        new Blog
-                        {
-                            Status = true,
-                            AddedBy = "System",
-                            ModifiedBy = "System",
-                            AddedDate = DateTime.Now,
-                            ModifiedDate = DateTime.Now,
-                            Title = "Online Doctoral Programs",
-                            Slug = "online-doctoral-programs",
-                            Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0",
-                            Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>",
-                            Photo = null,
-                            DoctorId = 9
-                        }
-                    };
-
+                    var blogJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Blog.json");
+                    var blogs = JsonConvert.DeserializeObject<List<Blog>>(blogJSON);
                     foreach (var blog in blogs)
                     {
+                        blog.Status = true;
+                        blog.AddedBy = "System";
+                        blog.ModifiedBy = "System";
+                        blog.AddedDate = DateTime.Now;
+                        blog.ModifiedDate = DateTime.Now;
+
+                        blog.Photo = null;
+                        blog.Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0";
+                        blog.Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
+                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
+                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
+                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
+                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
+                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
+                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
+                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
+                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
+                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
+                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
+                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
+                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
+                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
+                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
+                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
+                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
+                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
+                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
+                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
+                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
+                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
+                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
+                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
+                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
+                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
+                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>";
+
                         await context.Blogs.AddRangeAsync(blog);
                         await context.SaveChangesAsync();
                     }
@@ -2032,31 +246,11 @@ namespace Data.Data_Seed
                     #region comments
                     if (!context.Comments.Any())
                     {
-                        var commens = new List<Comment>
-                        {
-                            new Comment
-                            {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                            }
-                        };
+                        var commens = new List<Comment>();
 
                         if (!context.CommentReplies.Any())
                         {
-                            var commenReply = new List<CommentReply>
-                            {
-                                new CommentReply
-                                {
-                                    Status = true,
-                                    AddedBy = "System",
-                                    ModifiedBy = "System",
-                                    AddedDate = DateTime.Now,
-                                    ModifiedDate = DateTime.Now,
-                                }
-                            };
+                            var commenReply = new List<CommentReply>();
                         }
                     }
                     #endregion
@@ -2113,152 +307,49 @@ namespace Data.Data_Seed
                         "fermentum. Curabitur sit amet lacinia lorem. Nullam finibus pellentesque libero.</p>",
                     }
                 };
-
                 foreach (var setting in settings)
                 {
                     await context.Settings.AddRangeAsync(setting);
                     await context.SaveChangesAsync();
                 }
-            }
 
-            if (!context.SettingPhotos.Any())
-            {
-                var settingPhotos = new List<SettingPhoto>
+                if (!context.SettingPhotos.Any())
                 {
-                    new SettingPhoto
+                    var settingPhotoJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/SettingPhoto.json");
+                    var settingPhotos = JsonConvert.DeserializeObject<List<SettingPhoto>>(settingPhotoJSON);
+                    foreach (var settingPhoto in settingPhotos)
                     {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "HeaderAndInvoice",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Footer",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Available",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Patient",
-                        Photo = null
-                    },
-                    new SettingPhoto
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "AdminAndDoctor",
-                        Photo = null
-                    },
-                };
+                        settingPhoto.Status = true;
+                        settingPhoto.AddedBy = "System";
+                        settingPhoto.ModifiedBy = "System";
+                        settingPhoto.AddedDate = DateTime.Now;
+                        settingPhoto.ModifiedDate = DateTime.Now;
 
-                foreach (var settingPhoto in settingPhotos)
-                {
-                    await context.SettingPhotos.AddRangeAsync(settingPhoto);
-                    await context.SaveChangesAsync();
-                }
-            }
+                        settingPhoto.SettingId = 1;
+                        settingPhoto.Photo = null;
 
-            if (!context.SocialMedias.Any())
-            {
-                var socialMedias = new List<SocialMedia>
-                {
-                    new SocialMedia
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Facebook",
-                        Icon = "facebook-f",
-                        Link = "https://www.facebook.com/"
-                    },
-                    new SocialMedia
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Twitter",
-                        Icon = "twitter",
-                        Link = "https://www.twitter.com/"
-                    },
-                    new SocialMedia
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Linkedin",
-                        Icon = "linkedin-in",
-                        Link = "https://www.linkedin.com/"
-                    },
-                    new SocialMedia
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Instagram",
-                        Icon = "instagram",
-                        Link = "https://www.instagram.com/"
-                    },
-                    new SocialMedia
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        SettingId = 1,
-                        Name = "Dribbble",
-                        Icon = "dribbble",
-                        Link = "https://www.dribbble.com/"
+                        await context.SettingPhotos.AddRangeAsync(settingPhoto);
+                        await context.SaveChangesAsync();
                     }
-                };
+                }
 
-                foreach (var socialMedia in socialMedias)
+                if (!context.SocialMedias.Any())
                 {
-                    await context.SocialMedias.AddRangeAsync(socialMedia);
-                    await context.SaveChangesAsync();
+                    var socialMediaJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/SocialMedia.json");
+                    var socialMedias = JsonConvert.DeserializeObject<List<SocialMedia>>(socialMediaJSON);
+                    foreach (var socialMedia in socialMedias)
+                    {
+                        socialMedia.Status = true;
+                        socialMedia.AddedBy = "System";
+                        socialMedia.ModifiedBy = "System";
+                        socialMedia.AddedDate = DateTime.Now;
+                        socialMedia.ModifiedDate = DateTime.Now;
+
+                        socialMedia.SettingId = 1;
+
+                        await context.SocialMedias.AddRangeAsync(socialMedia);
+                        await context.SaveChangesAsync();
+                    }
                 }
             }
 
@@ -2318,7 +409,6 @@ namespace Data.Data_Seed
                         "vel sollicitudin orci tincidunt ac.</strong></p>"
                     }
                 };
-
                 foreach (var privacy in privacies)
                 {
                     await context.Privacies.AddRangeAsync(privacy);
@@ -2328,72 +418,18 @@ namespace Data.Data_Seed
 
             if (!context.Features.Any())
             {
-                var features = new List<Feature>
-                {
-                    new Feature
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        ClinicName = "Operation",
-                        Photo = null
-                    },
-                    new Feature
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        ClinicName = "Medical",
-                        Photo = null
-                    },
-                    new Feature
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        ClinicName = "Patient Ward",
-                        Photo = null
-                    },
-                    new Feature
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        ClinicName = "Test Room",
-                        Photo = null
-                    },
-                    new Feature
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        ClinicName = "ICU",
-                        Photo = null
-                    },
-                    new Feature
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        ClinicName = "Laboratory",
-                        Photo = null
-                    }
-                };
-
+                var featureJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Feature.json");
+                var features = JsonConvert.DeserializeObject<List<Feature>>(featureJSON);
                 foreach (var feature in features)
                 {
+                    feature.Status = true;
+                    feature.AddedBy = "System";
+                    feature.ModifiedBy = "System";
+                    feature.AddedDate = DateTime.Now;
+                    feature.ModifiedDate = DateTime.Now;
+
+                    feature.Photo = null;
+
                     await context.Features.AddRangeAsync(feature);
                     await context.SaveChangesAsync();
                 }
@@ -2401,62 +437,18 @@ namespace Data.Data_Seed
 
             if (!context.Specialities.Any())
             {
-                var specialities = new List<Speciality>
-                {
-                    new Speciality
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "Cardiologist",
-                        Photo = null
-                    },
-                    new Speciality
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "Dentist",
-                        Photo = null
-                    },
-                    new Speciality
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "Neurologist",
-                        Photo = null
-                    },
-                    new Speciality
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "Orthopedics",
-                        Photo = null
-                    },
-                    new Speciality
-                    {
-                        Status = true,
-                        AddedBy = "System",
-                        ModifiedBy = "System",
-                        AddedDate = DateTime.Now,
-                        ModifiedDate = DateTime.Now,
-                        Name = "Urologist",
-                        Photo = null
-                    }
-                };
-
+                var specialitieJSON = System.IO.File.ReadAllText("../Data/Data_Seed/Json_Seed/Speciality.json");
+                var specialities = JsonConvert.DeserializeObject<List<Speciality>>(specialitieJSON);
                 foreach (var speciality in specialities)
                 {
+                    speciality.Status = true;
+                    speciality.AddedBy = "System";
+                    speciality.ModifiedBy = "System";
+                    speciality.AddedDate = DateTime.Now;
+                    speciality.ModifiedDate = DateTime.Now;
+
+                    speciality.Photo = null;
+
                     await context.Specialities.AddRangeAsync(speciality);
                     await context.SaveChangesAsync();
                 }
@@ -2514,7 +506,6 @@ namespace Data.Data_Seed
                         "mollit anim id est laborum.</p>"
                     }
                 };
-
                 foreach (var term in terms)
                 {
                     await context.Terms.AddRangeAsync(term);

@@ -15,9 +15,9 @@
 </form>
 <div class="chat-users-list">
   <div class="chat-scroll">
-    <ng-container *ngIf="chats.length !== 0">
+    <ng-container *ngIf="chats.length > 0">
       <a (click)="show(chat.patient.id)" id="{{ chat.patient.id }}" *ngFor="let chat of chats"
-        [ngClass]="{ 'read-chat': chatMessage(chat)}" #media_chat href="javascript:void(0);" class="media read-chat">
+        [ngClass]="{ 'read-chat': chatMessage(chat)}" #media_chat href="javascript:void(0);" class="media">
         <div class="media-img-wrap">
           <div class="avatar avatar-online" [ngClass]="{
               'avatar-online': chat.patient.connectionId !== null,
@@ -29,10 +29,11 @@
         <div class="media-body">
           <div>
             <div class="user-name">{{ chat.patient.fullname }}</div>
-            <div class="user-last-chat">{{getLastText(chat).patientContent}}</div>
+            <!-- <div class="user-last-chat" *ngIf="chat.chatMessageDTOs.length > 0">
+              {{getLastText(chat).patientContent}}</div> -->
           </div>
           <div>
-            <div class="last-chat-time block">{{getLastText(chat).addedDate | timeago}}</div>
+            <!-- <div class="last-chat-time block" *ngIf="chat.chatMessageDTOs.length > 0 && getLastText(chat).addedDate">{{getLastText(chat).addedDate | timeago}}</div> -->
           </div>
         </div>
       </a>

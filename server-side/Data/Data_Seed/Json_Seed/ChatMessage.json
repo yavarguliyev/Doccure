@@ -1,0 +1,12 @@
+[
+  {
+    "ChatId": 1,
+    "DoctorContent": "I'm just looking around. Are you there? That time!",
+    "PatientContent": null
+  },
+  {
+    "ChatId": 1,
+    "DoctorContent": null,
+    "PatientContent": "Hello. What can I do for you?"
+  }
+]

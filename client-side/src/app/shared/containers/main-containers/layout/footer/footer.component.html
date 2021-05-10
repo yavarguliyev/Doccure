@@ -29,7 +29,7 @@
 
         <div class="col-lg-3 col-md-6">
           <!-- Footer Widget -->
-          <div class="footer-widget footer-menu">
+          <div class="footer-widget footer-menu"  *ngIf="user!==undefined && user.role==='Patient'">
             <h2 class="footer-title">For Patients</h2>
             <ul>
               <li><a [routerLink]="['/main/search-doctors']">Search for Doctors</a></li>
@@ -44,7 +44,7 @@
 
         <div class="col-lg-3 col-md-6">
           <!-- Footer Widget -->
-          <div class="footer-widget footer-menu">
+          <div class="footer-widget footer-menu" *ngIf="user!==undefined && user.role==='Doctor'">
             <h2 class="footer-title">For Doctors</h2>
             <ul>
               <li>
