@@ -4,11 +4,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class AuthComponent implements OnInit {
-
-  constructor() { }
+  private component: Component;
+  constructor() {}
 
   ngOnInit(): void {
     this.parentElementChilds();

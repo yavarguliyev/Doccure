@@ -41,16 +41,13 @@ export class ChatService {
       this.messageThreadSource.next(message);
     });
 
-    this.hubConnection.on('NewMessage', (message) => {
+    this.hubConnection.on('NewMessage', (message: Chat) => {
       this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
-        const chat: Chat = messages.find(x => x.id === message.id);
+        const index = messages.findIndex(x => x.id === message.id);
         message.chatMessageDTOs.map(x => {
-          if (x.chatId === chat.id) {
-            chat.chatMessageDTOs.push(x);
-          }
+          messages[index].chatMessageDTOs.push(x);
         });
-        messages.splice(messages.indexOf(message.id));
-        messages.push(chat);
+
         this.messageThreadSource.next(messages);
       });
     });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from './shared/models/user';
 import { AuthService } from './shared/services/auth.service';
 import { ChatService } from './shared/services/chat.service';
+import { AuthComponent } from './views/auth/auth.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,6 @@ export class AppComponent implements OnInit {
   title = 'Doccure';
 
   constructor(private auth: AuthService, private chatService: ChatService) {}
-
   ngOnInit(): void {
     this.setCurrentUser();
   }

@@ -30,14 +30,14 @@ export class ChatLefSideBarComponent implements OnInit {
     return chatMessage;
   }
 
-  public getLastText(chat: Chat): ChatMessage {
+  public getLastText(chat: Chat): ChatMessage | any {
     const sender = chat.chatMessageDTOs[chat.chatMessageDTOs.length - 1];
     const message = sender.patientContent
       ? sender
       : chat.chatMessageDTOs.find(
           (x) => x.chatId === chat.id && x.patientContent !== null
         );
-    return message;
+    return (message && message.patientContent && message.addedDate) ? message : 'not exist';
   }
 
   public show(id: number) {
