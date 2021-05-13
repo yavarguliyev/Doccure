@@ -734,6 +734,18 @@ namespace Data.Data_Seed
                             Title = "Simple steps to visit your doctor today",
                             Slug = "simple-steps-to-visit-your-doctor-today",
                             DoctorId = 8
+                        },
+                        new Blog
+                        {
+                            Title = "5 Great reasons to use an Online Doctor",
+                            Slug = "5-great-reasons-to-use-an-online-doctor",
+                            DoctorId = 9
+                        },
+                        new Blog
+                        {
+                            Title = "Online Doctoral Programs",
+                            Slug = "online-doctoral-programs",
+                            DoctorId = 10
                         }
                     };
                     foreach (var blog in blogs)

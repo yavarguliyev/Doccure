@@ -23,7 +23,7 @@ import { TimeSlotFormInputComponent } from '../time-slot-form-input/time-slot-fo
   templateUrl: './time-slot.component.html',
 })
 export class TimeSlotComponent implements OnInit {
-  @ViewChild('row_count') row!: ElementRef;
+  @ViewChild('row_count') row: ElementRef;
 
   public fg: FormGroup = new FormGroup({});
 

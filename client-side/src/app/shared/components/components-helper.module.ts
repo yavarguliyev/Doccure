@@ -41,6 +41,7 @@ import {
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 import { ChatLefSideBarComponent } from './chat-lef-side-bar/chat-lef-side-bar.component';
 import { TimeagoModule } from 'ngx-timeago';
+import { ReviewFormComponent } from './review-form/review-form.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { TimeagoModule } from 'ngx-timeago';
     TimeSlotFormInputComponent,
     ChatMessageComponent,
     ChatLefSideBarComponent,
+    ReviewFormComponent
   ],
   imports: [
     CommonModule,
@@ -127,7 +129,8 @@ import { TimeagoModule } from 'ngx-timeago';
     AuthAuthComponent,
     TimeSlotFormInputComponent,
     ChatMessageComponent,
-    ChatLefSideBarComponent
+    ChatLefSideBarComponent,
+    ReviewFormComponent
   ],
 })
 export class ComponentsHelperModule {}

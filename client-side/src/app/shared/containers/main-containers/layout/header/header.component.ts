@@ -19,10 +19,10 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 })
 export class HeaderComponent implements OnInit {
   public show = false;
-  public user!: User;
-  @Input() header!: MainPageSettings;
-  public headerPhoto!: PagesPhotos;
-  @ViewChildren('navItem') navItems!: QueryList<ElementRef>;
+  public user: User;
+  @Input() header: MainPageSettings;
+  public headerPhoto: PagesPhotos;
+  @ViewChildren('navItem') navItems: QueryList<ElementRef>;
 
   constructor(
     private api: AuthService,
