@@ -1,4 +1,4 @@
-<form *ngIf="openForm" (ngSubmit)="submit($event)">
+<form (ngSubmit)="submit($event)">
   <ng-container *ngIf="isDoctorProfile">
     <div class="form-group">
       <label>Review</label>
@@ -32,9 +32,11 @@
   </ng-container>
   <div class="form-group">
     <label>Your review</label>
-    <textarea id="review_desc" maxlength="100" class="form-control"></textarea>
+    <textarea (keyup)="onKeyUp($event)" id="review_desc" maxlength="100" class="form-control"></textarea>
 
-    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">100</span> characters
+    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span
+          id="chars">{{textLength}}</span>
+        characters
         remaining</small></div>
   </div>
   <ng-container *ngIf="isDoctorProfile">

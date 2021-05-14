@@ -20,7 +20,7 @@ export class TimeSlotFormInputComponent implements OnInit {
 
   @Input() row!: ElementRef;
   @Input() main = false;
-  @Input() fg!: FormGroup;
+  @Input() fg: FormGroup;
 
   @Input() starts!: FormArray;
   @Input() ends!: FormArray;

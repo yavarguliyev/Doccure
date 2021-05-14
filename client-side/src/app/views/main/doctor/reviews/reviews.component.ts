@@ -17,7 +17,6 @@ import { ReviewFormComponent } from 'src/app/shared/components/review-form/revie
 })
 export class ReviewsComponent implements OnInit {
   @ViewChildren('choosenForm') chooseForms: QueryList<ElementRef>;
-  private openForm = false;
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
@@ -31,8 +30,6 @@ export class ReviewsComponent implements OnInit {
       .resolveComponentFactory(ReviewFormComponent)
       .create(this.injector);
 
-    this.openForm = true;
-    componentRef.instance.openForm = this.openForm;
     componentRef.instance.submit = this.submit;
     this.appRef.attachView(componentRef.hostView);
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
@@ -52,7 +49,8 @@ export class ReviewsComponent implements OnInit {
     event.preventDefault();
 
     const target = event.target as HTMLElement;
-    target.parentElement.parentElement.firstElementChild.classList.remove('d-none');
-    this.openForm = false;
+    const parent = target.parentElement.parentElement.firstElementChild;
+    parent.classList.remove('d-none');
+    parent.parentElement.removeChild(parent.parentElement.lastElementChild);
   }
 }

@@ -72,13 +72,7 @@ export class TimeSlotComponent implements OnInit {
   }
 
   public submitAddOrEdit() {
-    // this.fg.value.starts = [];
-    // this.fg.value.ends = [];
-
-    // this.fg.value.starts.push(this.starts.value);
-    // this.fg.value.ends.push(this.ends.value);
-
-    console.log(this.fg.value);
+    console.log(this.starts.value);
   }
 
   public close() {
