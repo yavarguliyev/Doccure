@@ -99,6 +99,7 @@ namespace Data.Data_Seed
                     await context.Doctors.AddRangeAsync(doctor);
                     await context.SaveChangesAsync();
                 }
+                #endregion
 
                 #region doctor social urls
                 if (!context.DoctorSocialMediaUrlLinks.Any())
@@ -165,7 +166,6 @@ namespace Data.Data_Seed
                     }
                 }
                 #endregion
-                #endregion
             }
 
             if (!context.BloodGroups.Any())
@@ -209,6 +209,7 @@ namespace Data.Data_Seed
                     await context.BloodGroups.AddRangeAsync(bloodGroup);
                     await context.SaveChangesAsync();
                 }
+                #endregion
 
                 #region patients
                 if (!context.Patients.Any())
@@ -276,7 +277,6 @@ namespace Data.Data_Seed
                         await context.SaveChangesAsync();
                     }
                 }
-                #endregion
                 #endregion
             }
 
@@ -587,6 +587,7 @@ namespace Data.Data_Seed
                     await context.Users.AddRangeAsync(user);
                     await context.SaveChangesAsync();
                 }
+                #endregion
 
                 #region chat
                 if (!context.Chats.Any())
@@ -679,6 +680,80 @@ namespace Data.Data_Seed
                         }
                     }
                     #endregion
+                }
+                #endregion
+
+                #region review
+                if (!context.Reviews.Any())
+                {
+                    var reviews = new List<Review>
+                    {
+                        new Review
+                        {
+                            RateStar = "fa-star filled,fa-star filled,fa-star filled,fa-star filled,fa-star",
+                            IsReply = true,
+                            PatientId = 13
+                        },
+                        new Review
+                        {
+                            RateStar = "fa-star filled,fa-star filled,fa-star filled,fa-star,fa-star",
+                            IsReply = false,
+                            PatientId = 14
+                        },
+                    };
+                    foreach (var review in reviews)
+                    {
+                        review.Status = true;
+                        review.AddedBy = "System";
+                        review.ModifiedBy = "System";
+                        review.AddedDate = DateTime.Now;
+                        review.ModifiedDate = DateTime.Now;
+
+                        review.DoctorId = 3;
+                        review.Text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do " +
+                                      "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
+                                      "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
+                                      "tempus";
+                        review.RateNumber = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(review.RateStar.Length * review.RateStar.Split(",").Count()) / 10));
+                        review.IsRecommended = false;
+
+                        await context.Reviews.AddRangeAsync(review);
+                        await context.SaveChangesAsync();
+                    }
+
+                    if (!context.ReviewReplies.Any())
+                    {
+                        var reviewReplies = new List<ReviewReply>
+                        {
+                            new ReviewReply
+                            {
+                                DoctorId = 3,
+                                PatientId = null
+                            },
+                            new ReviewReply
+                            {
+                                DoctorId = null,
+                                PatientId = 13
+                            }
+                        };
+                        foreach (var reviewReply in reviewReplies)
+                        {
+                            reviewReply.ReviewId = 1;
+                            reviewReply.Status = true;
+                            reviewReply.AddedBy = "System";
+                            reviewReply.ModifiedBy = "System";
+                            reviewReply.AddedDate = DateTime.Now;
+                            reviewReply.ModifiedDate = DateTime.Now;
+
+                            reviewReply.Text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do " +
+                                               "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
+                                               "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
+                                               "tempus";
+
+                            await context.ReviewReplies.AddRangeAsync(reviewReply);
+                            await context.SaveChangesAsync();
+                        }
+                    }
                 }
                 #endregion
 
@@ -808,7 +883,6 @@ namespace Data.Data_Seed
                     #endregion
                 }
                 #endregion
-                #endregion
             }
 
             #region settings
@@ -909,7 +983,7 @@ namespace Data.Data_Seed
 
                 if (!context.SocialMedias.Any())
                 {
-                    var socialMedias = new List<SocialMedia> 
+                    var socialMedias = new List<SocialMedia>
                     {
                         new SocialMedia
                         {

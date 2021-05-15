@@ -17,6 +17,8 @@ namespace Data
         private DoctorRepository _doctorRepository;
         private PatientRepository _patientRepository;
         private UserRepository _userRepository;
+        private ReviewRepository _reviewRepository;
+        private ReviewReplyRepository _reviewReplyRepository;
 
         private IBlogRespository _blogRespository;
         private IDoctorSocialMediaUrlLinkRepository _doctorSocialMediaUrlLinkRepository;
@@ -42,6 +44,8 @@ namespace Data
         public IDoctorRepository Doctor => _doctorRepository ??= new DoctorRepository(_context);
         public IPatientRepository Patient => _patientRepository ??= new PatientRepository(_context);
         public IUserRepository User => _userRepository ??= new UserRepository(_context);
+        public IReviewRepository Review => _reviewRepository ??= new ReviewRepository(_context);
+        public IReviewReplyRepository ReviewReply => _reviewReplyRepository ??= new ReviewReplyRepository(_context);
 
         public IBlogRespository Blog => _blogRespository ??= new BlogRepository(_context);
         public IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl => _doctorSocialMediaUrlLinkRepository ??= new DoctorSocialMediaUrlLinkRepository(_context);

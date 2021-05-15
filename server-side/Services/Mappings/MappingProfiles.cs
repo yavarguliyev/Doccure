@@ -26,6 +26,10 @@ namespace Services.Mappings
                 .ForMember(x => x.ChatMessageDTOs, opt => opt.MapFrom(src => src.ChatMessages));
             CreateMap<ChatMessage, ChatMessageDTO>();
 
+            CreateMap<Review, ReviewDTO>()
+                .ForMember(x => x.ReviewReplyDTOs, opt => opt.MapFrom(src => src.ReviewReplies));
+            CreateMap<ReviewReply, ReviewReplyDTO>();
+
             CreateMap<Blog, BlogDTO>()
                 .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "blog-01_vffzcg.jpg"))
                 .ForMember(x => x.Doctor, opt => opt.MapFrom(src => src.Doctor.Users.FirstOrDefault(x => x.DoctorId == src.DoctorId)));

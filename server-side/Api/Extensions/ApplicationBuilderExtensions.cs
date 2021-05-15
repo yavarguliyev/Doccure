@@ -58,6 +58,7 @@ namespace Api.Extensions
       {
         endpoints.MapControllers();
         endpoints.MapHub<ChatHub>("hubs/chat");
+        endpoints.MapHub<ReviewHub>("hubs/review");
         endpoints.MapFallbackToController("index", "fallback");
       });
 

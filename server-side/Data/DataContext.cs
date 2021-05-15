@@ -22,6 +22,8 @@ namespace Data
             builder.ApplyConfiguration(new DoctorConfiguration());
             builder.ApplyConfiguration(new PatientConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new ReviewConfiguration());
+            builder.ApplyConfiguration(new ReviewReplyConfiguration());
 
             builder.ApplyConfiguration(new BlogConfiguration());
             builder.ApplyConfiguration(new DoctorSocialMediaUrlLinkConfiguration());
@@ -44,6 +46,8 @@ namespace Data
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<ReviewReply> ReviewReplies { get; set; }
 
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<DoctorSocialMediaUrlLink> DoctorSocialMediaUrlLinks { get; set; }

@@ -17,6 +17,7 @@ import { PatientProfileComponent } from './patient-profile/patient-profile.compo
 import { DoctorBlogComponent } from './doctor-blog/doctor-blog.component';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ComponentsHelperModule,
     FormsModule,
     ReactiveFormsModule,
+    TimeagoModule.forRoot(),
   ],
 })
 export class DoctorModule {}

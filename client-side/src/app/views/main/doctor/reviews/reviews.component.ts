@@ -9,7 +9,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ReviewFormComponent } from 'src/app/shared/components/review-form/review-form.component';
+import { Review } from 'src/app/shared/models/review';
+import { User } from 'src/app/shared/models/user';
+import { ReviewService } from 'src/app/shared/services/review.service';
 
 @Component({
   selector: 'app-reviews',
@@ -17,13 +21,41 @@ import { ReviewFormComponent } from 'src/app/shared/components/review-form/revie
 })
 export class ReviewsComponent implements OnInit {
   @ViewChildren('choosenForm') chooseForms: QueryList<ElementRef>;
+  public user: User;
+  public loading = false;
+  public reviews: Review[] = [];
+  public reviewThread$: Observable<Review[]>;
+
   constructor(
+    private reviewService: ReviewService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
     private appRef: ApplicationRef
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('token'));
+    this.loadHubConnection();
+    this.loadReviews();
+  }
+
+  private loadHubConnection() {
+    if (this.user !== null) {
+      this.loading = true;
+      this.reviewService.createHubConnection(this.user);
+    }
+  }
+
+  private loadReviews() {
+    if (this.user !== null) {
+      this.reviewService
+        .getReviews(this.user.id)
+        .subscribe((response: Review[]) => {
+          this.reviews = response;
+          this.reviewThread$ = this.reviewService.reviewThread$;
+        });
+    }
+  }
 
   public addReplyText(id: number) {
     const componentRef = this.componentFactoryResolver

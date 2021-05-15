@@ -649,6 +649,109 @@ namespace Data.Migrations
                     b.ToTable("Privacies");
                 });
 
+            modelBuilder.Entity("Core.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+
+                    b.Property<string>("AddedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsRecommended")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsReply")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RateNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("RateStar")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("Core.Models.ReviewReply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+
+                    b.Property<string>("AddedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int?>("PatientId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewReplies");
+                });
+
             modelBuilder.Entity("Core.Models.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -1191,6 +1294,48 @@ namespace Data.Migrations
                     b.Navigation("BloodGroup");
                 });
 
+            modelBuilder.Entity("Core.Models.Review", b =>
+                {
+                    b.HasOne("Core.Models.User", "Doctor")
+                        .WithMany("ReviewsDoctors")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.User", "Patient")
+                        .WithMany("ReviewsPatients")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Core.Models.ReviewReply", b =>
+                {
+                    b.HasOne("Core.Models.User", "Doctor")
+                        .WithMany("ReviewRepliesDoctor")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("Core.Models.User", "Patient")
+                        .WithMany("ReviewRepliesPatient")
+                        .HasForeignKey("PatientId");
+
+                    b.HasOne("Core.Models.Review", "Review")
+                        .WithMany("ReviewReplies")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("Review");
+                });
+
             modelBuilder.Entity("Core.Models.Service", b =>
                 {
                     b.HasOne("Core.Models.Doctor", "Doctor")
@@ -1301,6 +1446,11 @@ namespace Data.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("Core.Models.Review", b =>
+                {
+                    b.Navigation("ReviewReplies");
+                });
+
             modelBuilder.Entity("Core.Models.Setting", b =>
                 {
                     b.Navigation("SettingPhotos");
@@ -1315,6 +1465,14 @@ namespace Data.Migrations
                     b.Navigation("Doctors");
 
                     b.Navigation("Patients");
+
+                    b.Navigation("ReviewRepliesDoctor");
+
+                    b.Navigation("ReviewRepliesPatient");
+
+                    b.Navigation("ReviewsDoctors");
+
+                    b.Navigation("ReviewsPatients");
                 });
 #pragma warning restore 612, 618
         }

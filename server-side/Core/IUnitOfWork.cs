@@ -13,6 +13,8 @@ namespace Core
         IDoctorRepository Doctor { get; }
         IPatientRepository Patient { get; }
         IUserRepository User { get; }
+        IReviewRepository Review { get; }
+        IReviewReplyRepository ReviewReply { get; }
 
         IBlogRespository Blog { get; }
         IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }

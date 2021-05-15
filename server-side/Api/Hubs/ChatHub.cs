@@ -30,10 +30,9 @@ namespace Api.Hubs
             if (user != null)
             {
                 await _userService.ConnectionIdAsync(user.Id, connectionId);
+                var chat = await _chatService.GetAsync(user.Id);
+                await Clients.Caller.SendAsync("ReceiveMessageThread", chat);
             }
-
-            var chat = await _chatService.GetAsync(user.Id);
-            await Clients.Caller.SendAsync("ReceiveMessageThread", chat);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)

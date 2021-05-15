@@ -570,6 +570,42 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    RateStar = table.Column<string>(type: "text", nullable: true),
+                    RateNumber = table.Column<int>(type: "integer", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: true),
+                    IsRecommended = table.Column<bool>(type: "boolean", nullable: false),
+                    IsReply = table.Column<bool>(type: "boolean", nullable: false),
+                    DoctorId = table.Column<int>(type: "integer", nullable: false),
+                    PatientId = table.Column<int>(type: "integer", nullable: false),
+                    AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ChatMessages",
                 columns: table => new
                 {
@@ -620,6 +656,45 @@ namespace Data.Migrations
                         principalTable: "Comments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReviewReplies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    Text = table.Column<string>(type: "text", nullable: true),
+                    PatientId = table.Column<int>(type: "integer", nullable: true),
+                    DoctorId = table.Column<int>(type: "integer", nullable: true),
+                    ReviewId = table.Column<int>(type: "integer", nullable: false),
+                    AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewReplies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReviewReplies_Reviews_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Reviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReviewReplies_Users_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReviewReplies_Users_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -681,6 +756,31 @@ namespace Data.Migrations
                 name: "IX_Patients_BloodGroupId",
                 table: "Patients",
                 column: "BloodGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewReplies_DoctorId",
+                table: "ReviewReplies",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewReplies_PatientId",
+                table: "ReviewReplies",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReviewReplies_ReviewId",
+                table: "ReviewReplies",
+                column: "ReviewId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_DoctorId",
+                table: "Reviews",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_PatientId",
+                table: "Reviews",
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Service_DoctorId",
@@ -745,6 +845,9 @@ namespace Data.Migrations
                 name: "Privacies");
 
             migrationBuilder.DropTable(
+                name: "ReviewReplies");
+
+            migrationBuilder.DropTable(
                 name: "Service");
 
             migrationBuilder.DropTable(
@@ -767,6 +870,9 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "Settings");
