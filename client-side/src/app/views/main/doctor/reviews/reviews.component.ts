@@ -7,11 +7,13 @@ import {
   Injector,
   OnInit,
   QueryList,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ReviewFormComponent } from 'src/app/shared/components/review-form/review-form.component';
-import { Review } from 'src/app/shared/models/review';
+import { Review, ReviewReplyFormValues } from 'src/app/shared/models/review';
 import { User } from 'src/app/shared/models/user';
 import { ReviewService } from 'src/app/shared/services/review.service';
 
@@ -20,10 +22,11 @@ import { ReviewService } from 'src/app/shared/services/review.service';
   templateUrl: './reviews.component.html',
 })
 export class ReviewsComponent implements OnInit {
+  @ViewChild('reviewForm') reviewForm: NgForm;
   @ViewChildren('choosenForm') chooseForms: QueryList<ElementRef>;
   public user: User;
+  public textContent: string;
   public loading = false;
-  public reviews: Review[] = [];
   public reviewThread$: Observable<Review[]>;
 
   constructor(
@@ -36,7 +39,7 @@ export class ReviewsComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('token'));
     this.loadHubConnection();
-    this.loadReviews();
+    this.reviewThread$ = this.reviewService.reviewThread$;
   }
 
   private loadHubConnection() {
@@ -46,29 +49,23 @@ export class ReviewsComponent implements OnInit {
     }
   }
 
-  private loadReviews() {
-    if (this.user !== null) {
-      this.reviewService
-        .getReviews(this.user.id)
-        .subscribe((response: Review[]) => {
-          this.reviews = response;
-          this.reviewThread$ = this.reviewService.reviewThread$;
-        });
-    }
-  }
-
   public addReplyText(id: number) {
     const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(ReviewFormComponent)
       .create(this.injector);
 
     componentRef.instance.submit = this.submit;
+    componentRef.instance.id = id;
+    componentRef.instance.textContent = this.textContent;
+    componentRef.instance.loading = this.loading;
+    componentRef.instance.reviewForm = this.reviewForm;
+
     this.appRef.attachView(componentRef.hostView);
     const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
 
     const element: ElementRef[] = this.chooseForms.toArray();
-    element.forEach(x => {
+    element.forEach((x) => {
       const elementId: number = parseInt(x.nativeElement.getAttribute('id'));
       if (elementId === id && x.nativeElement.lastElementChild !== domElem) {
         x.nativeElement.appendChild(domElem);
@@ -77,12 +74,33 @@ export class ReviewsComponent implements OnInit {
     });
   }
 
-  public submit(event: Event) {
+  public submit(event: Event, reviewId: number) {
     event.preventDefault();
 
     const target = event.target as HTMLElement;
     const parent = target.parentElement.parentElement.firstElementChild;
-    parent.classList.remove('d-none');
-    parent.parentElement.removeChild(parent.parentElement.lastElementChild);
+
+    this.loading = true;
+    const currentUser: User = JSON.parse(localStorage.getItem('token'));
+    if (currentUser && currentUser.role === 'Doctor') {
+      const reply: ReviewReplyFormValues = new ReviewReplyFormValues(
+        this.textContent,
+        reviewId,
+        currentUser.id,
+        null
+      );
+
+      this.reviewService
+        .sendReviewReply(reply)
+        .then(() => this.reviewForm.reset())
+        .finally(() => {
+          this.loading = false;
+
+          parent.classList.remove('d-none');
+          parent.parentElement.removeChild(
+            parent.parentElement.lastElementChild
+          );
+        });
+    }
   }
 }

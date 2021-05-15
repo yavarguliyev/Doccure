@@ -1,6 +1,10 @@
-﻿using Core.Services.Data;
+﻿using Core.DTOs.Main;
+using Core.Enum;
+using Core.Models;
+using Core.Services.Data;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Hubs
@@ -33,13 +37,54 @@ namespace Api.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
+            await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task SendReview(CreateReviewDTO model)
+        {
+            var review = new Review
+            {
+                Text = model.Text,
+                RateStar = model.RateStar,
+                DoctorId = model.DoctorId,
+                PatientId = model.PatientId
+            };
+
+            var newReview = await _reviewService.CreateAsync(review);
+            await Clients.Caller.SendAsync("NewReview", newReview);
+        }
+
+        public async Task SendReviewReply(CreateReviewReplyDTO model)
+        {
             var token = Context.GetHttpContext().Request.Query["token"].ToString();
             var user = await _userService.GetAsync(token);
-            if (user != null)
+            var review = new ReviewDTO();
+            if (user.Role == UserRole.Doctor)
             {
+                var id = user.DoctorId ?? default(int);
+                review = await _reviewService.GetAsync(model.ReviewId, id);
+            }
+            else if (user.Role == UserRole.Patient)
+            {
+                var id = user.PatientId ?? default(int);
+                review = await _reviewService.GetAsync(model.ReviewId, id);
             }
 
-            await base.OnDisconnectedAsync(exception);
+            if (review.ReviewReplyDTOs.Count() == 0)
+            {
+                review.IsReply = true;
+            }
+
+            var reply = new ReviewReply
+            {
+                ReviewId = review.Id,
+                PatientId = model.PatientId,
+                DoctorId = model.DoctorId,
+                Text = model.Text
+            };
+
+            var newReply = await _reviewReplyService.CreateAsync(reply);
+            await Clients.Caller.SendAsync("NewReviewReply", newReply);
         }
     }
 }

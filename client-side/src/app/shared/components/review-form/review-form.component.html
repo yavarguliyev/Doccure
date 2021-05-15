@@ -1,4 +1,4 @@
-<form (ngSubmit)="submit($event)">
+<form #reviewForm="ngForm" (ngSubmit)="submit($event, id)" autocomplete="off">
   <ng-container *ngIf="isDoctorProfile">
     <div class="form-group">
       <label>Review</label>
@@ -32,10 +32,10 @@
   </ng-container>
   <div class="form-group">
     <label>Your review</label>
-    <textarea (keyup)="onKeyUp($event)" id="review_desc" maxlength="100" class="form-control"></textarea>
+    <textarea (keyup)="onKeyUp($event)" [(ngModel)]="textContent" name="textContent" maxlength="100"
+      class="form-control" required></textarea>
 
-    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span
-          id="chars">{{textLength}}</span>
+    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span id="chars">{{textLength}}</span>
         characters
         remaining</small></div>
   </div>
@@ -51,6 +51,7 @@
     </div>
   </ng-container>
   <div class="submit-section">
-    <button type="submit" class="btn btn-primary submit-btn">Add Review</button>
+    <button type="submit" [disabled]="!reviewForm.valid" class="btn btn-primary submit-btn">Add
+      Review</button>
   </div>
 </form>

@@ -32,8 +32,8 @@
                   <p class="comment-content">
                     {{review.text}}
                   </p>
-                  <div #choosenForm id="1" class="comment-reply">
-                    <a (click)="addReplyText(1)" class="comment-btn" href="javascript:void(0);">
+                  <div #choosenForm id={{review.id}} class="comment-reply">
+                    <a (click)="addReplyText(review.id)" class="comment-btn" href="javascript:void(0);">
                       <i class="fas fa-reply"></i> Reply
                     </a>
                     <p class="recommend-btn" *ngIf="!review.isRecommended">
@@ -64,7 +64,7 @@
                         <span class="comment-date">Reviewed {{reply.addedDate | timeago}}</span>
                       </div>
                       <p class="comment-content">
-                       {{reply.text}}
+                        {{reply.text}}
                       </p>
                     </div>
                   </div>
