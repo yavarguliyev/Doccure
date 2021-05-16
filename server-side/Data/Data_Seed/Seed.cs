@@ -315,7 +315,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Ruby Perrin",
                         Slug = "ruby-perrin",
-                        Email = "perrin.ruby@test.com",
+                        Email = "perrin.ruby@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -326,7 +326,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Darren Elder",
                         Slug = "darren-elder",
-                        Email = "elder.darren@test.com",
+                        Email = "elder.darren@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -337,7 +337,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Deborah Angel",
                         Slug = "deborah-angel",
-                        Email = "angel.deborah@test.com",
+                        Email = "angel.deborah@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -348,7 +348,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Sofia Brient",
                         Slug = "sofia-brient",
-                        Email = "brient.sofia@test.com",
+                        Email = "brient.sofia@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -359,7 +359,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Marvin Campbell",
                         Slug = "marvin-campbell",
-                        Email = "campbell.marvin@test.com",
+                        Email = "campbell.marvin@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -370,7 +370,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Katherina Berthold",
                         Slug = "katherina-berthold",
-                        Email = "berthold.katherina@test.com",
+                        Email = "berthold.katherina@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -381,7 +381,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Linda Tobin",
                         Slug = "linda-tobin",
-                        Email = "tobin.linda@test.com",
+                        Email = "tobin.linda@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -392,7 +392,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Paul Richard",
                         Slug = "richard-paul",
-                        Email = "paul.richard@test.com",
+                        Email = "paul.richard@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -403,7 +403,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "John Gibbs",
                         Slug = "john-gibbs",
-                        Email = "gibbs.john@test.com",
+                        Email = "gibbs.john@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -414,7 +414,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Olga Barlow",
                         Slug = "olga-barlow",
-                        Email = "barlow.olga@test.com",
+                        Email = "barlow.olga@doccure.com",
                         Role = UserRole.Doctor,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -428,7 +428,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Richard Wilson",
                         Slug = "richard-wilson",
-                        Email = "wilson.richard@test.com",
+                        Email = "wilson.richard@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -439,7 +439,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Charlene Reed",
                         Slug = "charlene-reed",
-                        Email = "reed.charlene@test.com",
+                        Email = "reed.charlene@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -450,7 +450,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Travis Trimble",
                         Slug = "travis-trimble",
-                        Email = "trimble.travis@test.com",
+                        Email = "trimble.travis@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -461,7 +461,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Carl Kelly",
                         Slug = "carl-kelly",
-                        Email = "kelly.carl@test.com",
+                        Email = "kelly.carl@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -472,7 +472,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Michelle Fairfax",
                         Slug = "michelle-fairfax",
-                        Email = "fairfax.michelle@test.com",
+                        Email = "fairfax.michelle@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -483,7 +483,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Gina Moore",
                         Slug = "gina-moore",
-                        Email = "moore.gina@test.com",
+                        Email = "moore.gina@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -494,7 +494,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Elsie Gilley",
                         Slug = "elsie-gilley",
-                        Email = "gilley.elsie@test.com",
+                        Email = "gilley.elsie@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -505,7 +505,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Joan Gardner",
                         Slug = "joan-gardner",
-                        Email = "gardner.joan@test.com",
+                        Email = "gardner.joan@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Female,
                         AdminId = null,
@@ -516,7 +516,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Daniel Griffing",
                         Slug = "daniel-griffing",
-                        Email = "griffing.daniel@test.com",
+                        Email = "griffing.daniel@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -527,7 +527,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Walter Roberson",
                         Slug = "walter-roberson",
-                        Email = "roberson.walter@test.com",
+                        Email = "roberson.walter@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -538,7 +538,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Robert Rhodes",
                         Slug = "robert-rhodes",
-                        Email = "rhodes.robert@test.com",
+                        Email = "rhodes.robert@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -549,7 +549,7 @@ namespace Data.Data_Seed
                     {
                         Fullname = "Harry Williams",
                         Slug = "harry-williams",
-                        Email = "williams.harry@test.com",
+                        Email = "williams.harry@doccure.com",
                         Role = UserRole.Patient,
                         Gender = Gender.Male,
                         AdminId = null,
@@ -692,13 +692,15 @@ namespace Data.Data_Seed
                         {
                             RateStar = "fa-star filled,fa-star filled,fa-star filled,fa-star filled,fa-star",
                             IsReply = true,
-                            PatientId = 13
+                            PatientId = 13,
+                            Recommendation = DoctorRecommendation.Yes
                         },
                         new Review
                         {
                             RateStar = "fa-star filled,fa-star filled,fa-star filled,fa-star,fa-star",
                             IsReply = false,
-                            PatientId = 14
+                            PatientId = 14,
+                            Recommendation = DoctorRecommendation.Select
                         },
                     };
                     foreach (var review in reviews)
@@ -715,7 +717,6 @@ namespace Data.Data_Seed
                                       "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
                                       "tempus";
                         review.RateNumber = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(review.RateStar.Length * review.RateStar.Split(",").Count()) / 10));
-                        review.IsRecommended = false;
 
                         await context.Reviews.AddRangeAsync(review);
                         await context.SaveChangesAsync();

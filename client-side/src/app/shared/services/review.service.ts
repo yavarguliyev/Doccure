@@ -3,6 +3,7 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { DoctorRecommendation } from '../enums/doctorRecommendation';
 import {
   Review,
   ReviewReply,
@@ -37,8 +38,8 @@ export class ReviewService {
       .catch((error) => console.log(error))
       .finally(() => this.spinnerService.idle());
 
-    this.hubConnection.on('ReceiveReviewThread', (message) => {
-      this.reviewThreadSource.next(message);
+    this.hubConnection.on('ReceiveReviewThread', (reviews) => {
+      this.reviewThreadSource.next(reviews);
     });
 
     this.hubConnection.on('NewReview', (review: Review) => {
@@ -49,10 +50,25 @@ export class ReviewService {
 
     this.hubConnection.on('NewReviewReply', (reviewReply: ReviewReply) => {
       this.reviewThread$.pipe(take(1)).subscribe((reviews: Review[]) => {
-        console.log(reviews);
         reviews
           .filter((x) => x.id === reviewReply.reviewId)
-          .map((r) => r.reviewReplyDTOs.push(reviewReply));
+          .map((r) => {
+            if (reviewReply) {
+              r.isReply = true;
+              r.reviewReplyDTOs.unshift(reviewReply);
+            }
+          });
+        this.reviewThreadSource.next(reviews);
+      });
+    });
+
+    this.hubConnection.on('NewReccomendation', (response: any) => {
+      this.reviewThread$.pipe(take(1)).subscribe((reviews: Review[]) => {
+        reviews.map(x => {
+          if (x.id === response.id && x.doctorId === response.userId) {
+            x.recommendation = response.recommendation;
+          }
+        });
         this.reviewThreadSource.next(reviews);
       });
     });
@@ -68,6 +84,12 @@ export class ReviewService {
   async sendReview(review: ReviewFormValues) {
     return this.hubConnection
       .invoke('SendReview', review)
+      .catch((error) => console.log(error));
+  }
+
+  async sendReccomendation(id: number, userId: number, recommendation: DoctorRecommendation) {
+    return this.hubConnection
+      .invoke('SendReccomendation', id, userId, recommendation)
       .catch((error) => console.log(error));
   }
 

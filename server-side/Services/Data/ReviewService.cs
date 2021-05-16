@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core;
 using Core.DTOs.Main;
+using Core.Enum;
 using Core.Models;
 using Core.Services.Data;
 using System;
@@ -38,8 +39,8 @@ namespace Services.Data
             newReview.ModifiedDate = DateTime.Now;
             newReview.AddedBy = "System";
             newReview.ModifiedBy = "System";
-            newReview.IsRecommended = false;
             newReview.IsReply = false;
+            newReview.Recommendation = DoctorRecommendation.Select;
 
             newReview.PatientId = newReview.PatientId;
             newReview.DoctorId = newReview.DoctorId;
@@ -50,7 +51,24 @@ namespace Services.Data
             await _unitOfWork.Review.AddAsync(newReview);
             var success = await _unitOfWork.CommitAsync() > 0;
             if(success) return _mapper.Map<ReviewDTO>(newReview);
+
             throw new Exception("Problem saving changes");
+        }
+
+        public async Task UpdateAsync(int id, int userId)
+        {
+            var review = await _unitOfWork.Review.Get(id, userId);
+            review.IsReply = true;
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task UpdateAsync(int id, int userId, DoctorRecommendation recommendation)
+        {
+            var review = await _unitOfWork.Review.Get(id, userId);
+            review.Recommendation = recommendation;
+
+            await _unitOfWork.CommitAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Core.Enum;
+using System.Collections.Generic;
 
 namespace Core.Models
 {
@@ -7,8 +8,8 @@ namespace Core.Models
         public string RateStar { get; set; }
         public int RateNumber { get; set; }
         public string Text { get; set; }
-        public bool IsRecommended { get; set; }
         public bool IsReply { get; set; }
+        public DoctorRecommendation Recommendation { get; set; }
 
         public int DoctorId { get; set; }
         public int PatientId { get; set; }

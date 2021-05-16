@@ -1,3 +1,4 @@
+import { DoctorRecommendation } from '../enums/doctorRecommendation';
 import { User } from './user';
 
 export interface Review {
@@ -5,12 +6,12 @@ export interface Review {
   text: string;
   rateStar: string;
   rateNumber: number;
-  isRecommended: boolean;
   isReply: boolean;
   addedDate: Date;
   doctorId: number;
   patient: User;
   reviewReplyDTOs: ReviewReply[];
+  recommendation: DoctorRecommendation;
 }
 
 export class ReviewFormValues {

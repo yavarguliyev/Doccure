@@ -21,10 +21,11 @@ namespace Data.Repositories
 
             var reviews = await context.Reviews
                                        .Where(x => x.Status && x.DoctorId == id)
+                                       .OrderByDescending(x => x.AddedDate)
                                        .Include(x => x.Patient)
-                                       .Include(x => x.ReviewReplies)
+                                       .Include(x => x.ReviewReplies.OrderByDescending(x => x.AddedDate))
                                        .ThenInclude(x => x.Patient)
-                                       .Include(x => x.ReviewReplies)
+                                       .Include(x => x.ReviewReplies.OrderByDescending(x => x.AddedDate))
                                        .ThenInclude(x => x.Doctor)
                                        .ToListAsync();
 
@@ -39,6 +40,7 @@ namespace Data.Repositories
 
             var review = await context.Reviews
                                     .Where(x => x.Status && (x.DoctorId == userId || x.PatientId == userId))
+                                    .Include(x => x.ReviewReplies)
                                     .FirstOrDefaultAsync(x => x.Id == id);
 
             if (review == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Review not found" });

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210515083439_Initial")]
+    [Migration("20210516084228_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -668,9 +668,6 @@ namespace Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("IsRecommended")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("IsReply")
                         .HasColumnType("boolean");
 
@@ -689,6 +686,9 @@ namespace Data.Migrations
 
                     b.Property<string>("RateStar")
                         .HasColumnType("text");
+
+                    b.Property<int>("Recommendation")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")

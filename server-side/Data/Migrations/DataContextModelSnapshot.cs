@@ -666,9 +666,6 @@ namespace Data.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("IsRecommended")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("IsReply")
                         .HasColumnType("boolean");
 
@@ -687,6 +684,9 @@ namespace Data.Migrations
 
                     b.Property<string>("RateStar")
                         .HasColumnType("text");
+
+                    b.Property<int>("Recommendation")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")

@@ -13,7 +13,8 @@ import {
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ReviewFormComponent } from 'src/app/shared/components/review-form/review-form.component';
-import { Review, ReviewReplyFormValues } from 'src/app/shared/models/review';
+import { DoctorRecommendation } from 'src/app/shared/enums/doctorRecommendation';
+import { Review } from 'src/app/shared/models/review';
 import { User } from 'src/app/shared/models/user';
 import { ReviewService } from 'src/app/shared/services/review.service';
 
@@ -28,6 +29,7 @@ export class ReviewsComponent implements OnInit {
   public textContent: string;
   public loading = false;
   public reviewThread$: Observable<Review[]>;
+  public recommendation: DoctorRecommendation;
 
   constructor(
     private reviewService: ReviewService,
@@ -54,7 +56,6 @@ export class ReviewsComponent implements OnInit {
       .resolveComponentFactory(ReviewFormComponent)
       .create(this.injector);
 
-    componentRef.instance.submit = this.submit;
     componentRef.instance.id = id;
     componentRef.instance.textContent = this.textContent;
     componentRef.instance.loading = this.loading;
@@ -74,33 +75,7 @@ export class ReviewsComponent implements OnInit {
     });
   }
 
-  public submit(event: Event, reviewId: number) {
-    event.preventDefault();
-
-    const target = event.target as HTMLElement;
-    const parent = target.parentElement.parentElement.firstElementChild;
-
-    this.loading = true;
-    const currentUser: User = JSON.parse(localStorage.getItem('token'));
-    if (currentUser && currentUser.role === 'Doctor') {
-      const reply: ReviewReplyFormValues = new ReviewReplyFormValues(
-        this.textContent,
-        reviewId,
-        currentUser.id,
-        null
-      );
-
-      this.reviewService
-        .sendReviewReply(reply)
-        .then(() => this.reviewForm.reset())
-        .finally(() => {
-          this.loading = false;
-
-          parent.classList.remove('d-none');
-          parent.parentElement.removeChild(
-            parent.parentElement.lastElementChild
-          );
-        });
-    }
+  public sendRecommendation(id: number, userId: number, recommendation: DoctorRecommendation) {
+    this.reviewService.sendReccomendation(id, userId, recommendation);
   }
 }

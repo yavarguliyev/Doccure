@@ -54,37 +54,35 @@ namespace Api.Hubs
             await Clients.Caller.SendAsync("NewReview", newReview);
         }
 
+        public async Task SendReccomendation(int id, int userId, DoctorRecommendation recommendation)
+        {
+            await _reviewService.UpdateAsync(id, userId, recommendation);
+            await Clients.Caller.SendAsync("NewReccomendation", new { id, userId, recommendation});
+        }
+
         public async Task SendReviewReply(CreateReviewReplyDTO model)
         {
             var token = Context.GetHttpContext().Request.Query["token"].ToString();
             var user = await _userService.GetAsync(token);
-            var review = new ReviewDTO();
-            if (user.Role == UserRole.Doctor)
+            if (user != null)
             {
-                var id = user.DoctorId ?? default(int);
-                review = await _reviewService.GetAsync(model.ReviewId, id);
-            }
-            else if (user.Role == UserRole.Patient)
-            {
-                var id = user.PatientId ?? default(int);
-                review = await _reviewService.GetAsync(model.ReviewId, id);
-            }
+                var review = await _reviewService.GetAsync(model.ReviewId, user.Id);
+                if (review.ReviewReplyDTOs.Count() == 0)
+                {
+                    await _reviewService.UpdateAsync(review.Id, review.DoctorId);
+                }
 
-            if (review.ReviewReplyDTOs.Count() == 0)
-            {
-                review.IsReply = true;
+                var reply = new ReviewReply
+                {
+                    ReviewId = review.Id,
+                    PatientId = model.PatientId,
+                    DoctorId = model.DoctorId,
+                    Text = model.Text
+                };
+
+                var newReply = await _reviewReplyService.CreateAsync(reply);
+                await Clients.Caller.SendAsync("NewReviewReply", newReply);
             }
-
-            var reply = new ReviewReply
-            {
-                ReviewId = review.Id,
-                PatientId = model.PatientId,
-                DoctorId = model.DoctorId,
-                Text = model.Text
-            };
-
-            var newReply = await _reviewReplyService.CreateAsync(reply);
-            await Clients.Caller.SendAsync("NewReviewReply", newReply);
         }
     }
 }
