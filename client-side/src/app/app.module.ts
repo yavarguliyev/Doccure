@@ -41,7 +41,7 @@ import { TimeagoModule } from 'ngx-timeago';
     MatInputModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

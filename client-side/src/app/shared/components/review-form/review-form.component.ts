@@ -11,9 +11,9 @@ import { ReviewService } from '../../services/review.service';
 export class ReviewFormComponent implements OnInit {
   @ViewChild('reviewForm') reviewForm: NgForm;
   @Input() isDoctorProfile = false;
-  public id = 0;
+  @Input() id = 0;
   public textLength = 100;
-  public textContent: string;
+  @Input() textContent: string;
   public loading = false;
 
   constructor(private reviewService: ReviewService) {}

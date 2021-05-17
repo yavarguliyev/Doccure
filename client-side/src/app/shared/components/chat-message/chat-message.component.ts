@@ -1,5 +1,5 @@
 import { Chat } from 'src/app/shared/models/chat';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatMessage, ChatMessageFormValues } from '../../models/chat';
 import { User } from '../../models/user';
@@ -10,6 +10,7 @@ import { ChatService } from '../../services/chat.service';
   templateUrl: './chat-message.component.html',
 })
 export class ChatMessageComponent implements OnInit {
+  @ViewChild('chat_list') chat_list: ElementRef;
   @ViewChild('messageForm') messageForm: NgForm;
   public messageContent: string;
   public loading = false;
@@ -23,7 +24,16 @@ export class ChatMessageComponent implements OnInit {
 
   constructor(private chatService: ChatService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
+
+  public scrollDown(): ElementRef {
+    this.chat_list.nativeElement.lastElementChild.scrollIntoView({
+      behavior: 'smooth',
+      block: 'end',
+      inline: 'nearest',
+    });
+    return this.chat_list;
+  }
 
   public sendMessage() {
     this.loading = true;

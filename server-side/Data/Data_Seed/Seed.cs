@@ -639,29 +639,43 @@ namespace Data.Data_Seed
                         {
                             new ChatMessage
                             {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 1,
                                 DoctorContent = "I'm just looking around. Are you there? That time!",
                                 PatientContent = null,
-                                Photo = null,
-                                IsSeen = true
                             },
                             new ChatMessage
                             {
-                                Status = true,
-                                AddedBy = "System",
-                                ModifiedBy = "System",
-                                AddedDate = DateTime.Now,
-                                ModifiedDate = DateTime.Now,
-                                ChatId = 1,
                                 DoctorContent = null,
                                 PatientContent = "Hello. What can I do for you?",
-                                Photo = null,
-                                IsSeen = true
+                            },
+                            new ChatMessage
+                            {
+                                DoctorContent = "I did not ask you to do something",
+                                PatientContent = null,
+                            },
+                            new ChatMessage
+                            {
+                                DoctorContent = null,
+                                PatientContent = "Then, what do you exactly want?",
+                            },
+                            new ChatMessage
+                            {
+                                DoctorContent = "I am asking you, are you there?",
+                                PatientContent = null,
+                            },
+                            new ChatMessage
+                            {
+                                DoctorContent = null,
+                                PatientContent = "Why do you ask?",
+                            },
+                            new ChatMessage
+                            {
+                                DoctorContent = "Come on man, answer me",
+                                PatientContent = null,
+                            },
+                            new ChatMessage
+                            {
+                                DoctorContent = null,
+                                PatientContent = "Why?",
                             }
                         };
                         foreach (var chatMessage in chatMessages)
@@ -674,6 +688,7 @@ namespace Data.Data_Seed
 
                             chatMessage.Photo = null;
                             chatMessage.IsSeen = true;
+                            chatMessage.ChatId = 1;
 
                             await context.ChatMessages.AddRangeAsync(chatMessage);
                             await context.SaveChangesAsync();
@@ -875,10 +890,32 @@ namespace Data.Data_Seed
                     if (!context.Comments.Any())
                     {
                         var commens = new List<Comment>();
+                        foreach (var comment in commens)
+                        {
+                            comment.Status = true;
+                            comment.AddedBy = "System";
+                            comment.ModifiedBy = "System";
+                            comment.AddedDate = DateTime.Now;
+                            comment.ModifiedDate = DateTime.Now;
+
+                            //await context.Comments.AddRangeAsync(comment);
+                            //await context.SaveChangesAsync();
+                        }
 
                         if (!context.CommentReplies.Any())
                         {
                             var commenReply = new List<CommentReply>();
+                            foreach (var commentReply in commenReply)
+                            {
+                                commentReply.Status = true;
+                                commentReply.AddedBy = "System";
+                                commentReply.ModifiedBy = "System";
+                                commentReply.AddedDate = DateTime.Now;
+                                commentReply.ModifiedDate = DateTime.Now;
+
+                                //await context.CommentReplies.AddRangeAsync(commentReply);
+                                //await context.SaveChangesAsync();
+                            }
                         }
                     }
                     #endregion

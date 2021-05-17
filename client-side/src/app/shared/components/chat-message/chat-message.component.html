@@ -24,7 +24,7 @@
   </div>
   <div class="chat-body">
     <div class="chat-scroll">
-      <ul class="list-unstyled">
+      <ul app_element_loader [show]="show" (ngInit)="scrollDown()" #chat_list class="list-unstyled">
         <li class="chat-date">Today</li>
         <ng-container *ngIf="role === 3"></ng-container>
         <ng-container *ngIf="role === 4">
