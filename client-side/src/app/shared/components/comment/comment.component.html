@@ -1,0 +1,71 @@
+<div class="card blog-comments clearfix">
+  <div class="card-header">
+    <h4 class="card-title" *ngIf="(commentThread$ | async).length === 0">Comment (0)</h4>
+    <h4 class="card-title"
+      *ngIf="(commentThread$ | async) && (commentThread$ | async).length > 0 && (commentThread$ | async).length === 1">
+      Comment ({{(commentThread$ | async).length}})</h4>
+    <h4 class="card-title"
+      *ngIf="(commentThread$ | async) && (commentThread$ | async).length > 0 && (commentThread$ | async).length > 1">
+      Comments ({{(commentThread$ | async).length}})</h4>
+  </div>
+  <div class="card-body pb-0">
+    <ul class="comments-list">
+      <li *ngFor="let comment of (commentThread$ | async)">
+        <div class="comment">
+          <div class="comment-author">
+            <img class="avatar" alt={{comment.userDTO.fullname}} src={{comment.userDTO.photo}}>
+          </div>
+          <div #choosenForm id={{comment.id}} class="comment-block">
+            <span class="comment-by">
+              <span class="blog-author-name">{{comment.userDTO.fullname}}</span>
+            </span>
+            <p>{{comment.text}}</p>
+            <p class="blog-date">{{comment.addedDate | timeago}}</p>
+            <a *ngIf="user && user.role === 'Patient'" (click)="addReplyText(comment.id)" class="comment-btn"
+              href="javascript:void(0)">
+              <i class="fas fa-reply"></i> Reply
+            </a>
+          </div>
+        </div>
+        <ul class="comments-list reply" *ngIf="comment.isReply">
+          <li *ngFor="let reply of comment.commentReplyDTOs">
+            <div class="comment">
+              <div class="comment-author">
+                <img class="avatar" alt={{reply.userDTO.fullname}} src={{reply.userDTO.photo}}>
+              </div>
+              <div class="comment-block">
+                <span class="comment-by">
+                  <span class="blog-author-name">{{reply.userDTO.fullname}}</span>
+                </span>
+                <p>{{reply.text}}</p>
+                <p class="blog-date">{{reply.addedDate | timeago}}</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div *ngIf="user && user.role === 'Patient'" class="card new-comment clearfix">
+  <div class="card-header">
+    <h4 class="card-title">Leave Comment</h4>
+  </div>
+  <div class="card-body">
+    <form #commentForm="ngForm" (ngSubmit)="submit()" autocomplete="off">
+      <div class="form-group">
+        <label>Comments</label>
+        <textarea (keyup)="onKeyUp($event)" [(ngModel)]="textContent" name="textContent" maxlength="100"
+          class="form-control" required></textarea>
+
+        <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span
+              id="chars">{{textLength}}</span>
+            characters
+            remaining</small></div>
+      </div>
+      <div class="submit-section">
+        <button [disabled]="!commentForm.valid" class="btn btn-primary submit-btn" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

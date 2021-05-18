@@ -5,7 +5,7 @@ import { User } from '../../models/user';
 import { ReviewService } from '../../services/review.service';
 
 @Component({
-  selector: 'app-lib-review-form',
+  selector: 'app-review-form',
   templateUrl: './review-form.component.html',
 })
 export class ReviewFormComponent implements OnInit {

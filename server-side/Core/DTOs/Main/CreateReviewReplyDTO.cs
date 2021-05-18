@@ -10,9 +10,9 @@ namespace Core.DTOs.Main
         public int ReviewId { get; set; }
     }
 
-    public class ReviewReplyModifyValidator : AbstractValidator<CreateReviewReplyDTO>
+    public class ReviewReplyCreateValidator : AbstractValidator<CreateReviewReplyDTO>
     {
-        public ReviewReplyModifyValidator()
+        public ReviewReplyCreateValidator()
         {
         }
     }

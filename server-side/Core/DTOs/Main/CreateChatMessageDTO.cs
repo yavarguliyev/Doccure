@@ -12,9 +12,9 @@ namespace Core.DTOs.Main
         public int UserId { get; set; }
     }
 
-    public class ChatMessageModifyValidator : AbstractValidator<CreateChatMessageDTO>
+    public class ChatMessageCreateValidator : AbstractValidator<CreateChatMessageDTO>
     {
-        public ChatMessageModifyValidator()
+        public ChatMessageCreateValidator()
         {
         }
     }

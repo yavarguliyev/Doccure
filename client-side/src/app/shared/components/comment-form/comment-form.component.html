@@ -1,0 +1,15 @@
+<form #replyForm="ngForm" (ngSubmit)="submit($event, slug)" autocomplete="off">
+  <div class="form-group">
+    <label>Comments</label>
+    <textarea (keyup)="onKeyUp($event)" [(ngModel)]="textContent" name="textContent" maxlength="100"
+      class="form-control" required></textarea>
+
+    <div class="d-flex justify-content-between mt-3"><small class="text-muted"><span
+          id="chars">{{textLength}}</span>
+        characters
+        remaining</small></div>
+  </div>
+  <div class="submit-section">
+    <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+  </div>
+</form>

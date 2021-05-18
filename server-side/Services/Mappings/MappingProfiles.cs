@@ -30,6 +30,12 @@ namespace Services.Mappings
                 .ForMember(x => x.ReviewReplyDTOs, opt => opt.MapFrom(src => src.ReviewReplies));
             CreateMap<ReviewReply, ReviewReplyDTO>();
 
+            CreateMap<Comment, CommentDTO>()
+                .ForMember(x => x.UserDTO, opt => opt.MapFrom(src => src.User))
+                .ForMember(x => x.CommentReplyDTOs, opt => opt.MapFrom(src => src.CommentReplies));
+            CreateMap<CommentReply, CommentReplyDTO>()
+                .ForMember(x => x.UserDTO, opt => opt.MapFrom(src => src.User));
+
             CreateMap<Blog, BlogDTO>()
                 .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "blog-01_vffzcg.jpg"))
                 .ForMember(x => x.Doctor, opt => opt.MapFrom(src => src.Doctor.Users.FirstOrDefault(x => x.DoctorId == src.DoctorId)));

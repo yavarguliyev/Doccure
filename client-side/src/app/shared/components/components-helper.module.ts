@@ -43,6 +43,8 @@ import { ChatLefSideBarComponent } from './chat-lef-side-bar/chat-lef-side-bar.c
 import { TimeagoModule } from 'ngx-timeago';
 import { ReviewFormComponent } from './review-form/review-form.component';
 import { Element_Loader_Directive } from '../directives/element_loader.directive';
+import { CommentComponent } from './comment/comment.component';
+import { CommentFormComponent } from './comment-form/comment-form.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { Element_Loader_Directive } from '../directives/element_loader.directive
     ChatMessageComponent,
     ChatLefSideBarComponent,
     ReviewFormComponent,
-    Element_Loader_Directive
+    Element_Loader_Directive,
+    CommentComponent,
+    CommentFormComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +136,9 @@ import { Element_Loader_Directive } from '../directives/element_loader.directive
     TimeSlotFormInputComponent,
     ChatMessageComponent,
     ChatLefSideBarComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    CommentComponent,
+    CommentFormComponent
   ],
 })
 export class ComponentsHelperModule {}

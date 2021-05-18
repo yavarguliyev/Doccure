@@ -16,8 +16,8 @@ namespace Api.Hubs
         private readonly IReviewReplyService _reviewReplyService;
 
         public ReviewHub(IUserService userService,
-                       IReviewService reviewService,
-                       IReviewReplyService reviewReplyService)
+                         IReviewService reviewService,
+                         IReviewReplyService reviewReplyService)
         {
             _userService = userService;
             _reviewService = reviewService;
@@ -30,8 +30,8 @@ namespace Api.Hubs
             var user = await _userService.GetAsync(token);
             if (user != null)
             {
-                var reviewDTOs = await _reviewService.GetAsync(user.Id);
-                await Clients.Caller.SendAsync("ReceiveReviewThread", reviewDTOs);
+                var review = await _reviewService.GetAsync(user.Id);
+                await Clients.Caller.SendAsync("ReceiveReviewThread", review);
             }
         }
 

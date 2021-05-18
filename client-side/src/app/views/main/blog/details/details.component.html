@@ -2,7 +2,6 @@
 <!-- Page Content -->
 <div class="content">
   <div class="container">
-
     <div *ngIf="blogs.length !== 0" class="row">
       <div *ngIf="blog" class="col-lg-8 col-md-12">
         <div class="blog-view">
@@ -21,181 +20,63 @@
                     </div>
                   </li>
                   <li><i class="far fa-calendar"></i>4 Dec 2019</li>
-                  <li><i class="far fa-comments"></i>12 Comments</li>
+                  <li *ngIf="(commentThread$ | async).length === 0"><i class="far fa-comments"></i>0 Comment</li>
+                  <li
+                    *ngIf="(commentThread$ | async) && (commentThread$ | async).length > 0 && (commentThread$ | async).length === 1">
+                    <i class="far fa-comments"></i>1 Comment</li>
+                  <li *ngIf="(commentThread$ | async) && (commentThread$ | async).length > 1"><i
+                      class="far fa-comments"></i>({{(commentThread$ | async).length}}) Comments</li>
                   <li><i class="fa fa-tags"></i>Health Tips</li>
                 </ul>
               </div>
             </div>
             <div class="blog-content" [innerHTML]="blog.description"></div>
 
-          <div class="card blog-share clearfix">
-            <div class="card-header">
-              <h4 class="card-title">Share the post</h4>
+            <div class="card blog-share clearfix">
+              <div class="card-header">
+                <h4 class="card-title">Share the post</h4>
+              </div>
+              <div class="card-body">
+                <ul class="social-share">
+                  <li><a href="#" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                  <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                  <li><a href="#" title="Google Plus"><i class="fab fa-google-plus"></i></a></li>
+                  <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                </ul>
+              </div>
             </div>
-            <div class="card-body">
-              <ul class="social-share">
-                <li><a href="#" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-                <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                <li><a href="#" title="Google Plus"><i class="fab fa-google-plus"></i></a></li>
-                <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="card author-widget clearfix">
-            <div class="card-header">
-              <h4 class="card-title">About Author</h4>
-            </div>
-            <div class="card-body">
-              <div class="about-author">
-                <div class="about-author-img">
-                  <div class="author-img-wrap">
-                    <a [routerLink]="['/main/patient/doctor-profile', blog.doctor?.slug]"><img class="img-fluid rounded-circle" alt={{blog.doctor?.fullname}}
-                        src={{blog.doctor?.photo}}></a>
+            <div class="card author-widget clearfix">
+              <div class="card-header">
+                <h4 class="card-title">About Author</h4>
+              </div>
+              <div class="card-body">
+                <div class="about-author">
+                  <div class="about-author-img">
+                    <div class="author-img-wrap">
+                      <a [routerLink]="['/main/patient/doctor-profile', blog.doctor?.slug]"><img
+                          class="img-fluid rounded-circle" alt={{blog.doctor?.fullname}} src={{blog.doctor?.photo}}></a>
+                    </div>
                   </div>
-                </div>
-                <div class="author-details">
-                  <a [routerLink]="['/']" class="blog-author-name">Dr. {{blog.doctor?.fullname}}</a>
-                  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                  <div class="author-details">
+                    <a [routerLink]="['/']" class="blog-author-name">Dr. {{blog.doctor?.fullname}}</a>
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
+            <app-comment [slug]="slug" [user]="user" [loading]="loading" [commentThread$]="commentThread$">
+            </app-comment>
           </div>
-          <div class="card blog-comments clearfix">
-            <div class="card-header">
-              <h4 class="card-title">Comments (12)</h4>
-            </div>
-            <div class="card-body pb-0">
-              <ul class="comments-list">
-                <li>
-                  <div class="comment">
-                    <div class="comment-author">
-                      <img class="avatar" alt="" src="assets/img/patients/patient4.jpg">
-                    </div>
-                    <div class="comment-block">
-                      <span class="comment-by">
-                        <span class="blog-author-name">Michelle Fairfax</span>
-                      </span>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                        pellentesque urna varius vitae, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit.</p>
-                      <p class="blog-date">Dec 6, 2017</p>
-                      <a class="comment-btn" href="#">
-                        <i class="fas fa-reply"></i> Reply
-                      </a>
-                    </div>
-                  </div>
-                  <ul class="comments-list reply">
-                    <li>
-                      <div class="comment">
-                        <div class="comment-author">
-                          <img class="avatar" alt="" src="assets/img/patients/patient5.jpg">
-                        </div>
-                        <div class="comment-block">
-                          <span class="comment-by">
-                            <span class="blog-author-name">Gina Moore</span>
-                          </span>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                            pellentesque urna varius vitae, gravida pellentesque urna varius vitae.</p>
-                          <p class="blog-date">Dec 6, 2017</p>
-                          <a class="comment-btn" href="#">
-                            <i class="fas fa-reply"></i> Reply
-                          </a>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="comment">
-                        <div class="comment-author">
-                          <img class="avatar" alt="" src="assets/img/patients/patient3.jpg">
-                        </div>
-                        <div class="comment-block">
-                          <span class="comment-by">
-                            <span class="blog-author-name">Carl Kelly</span>
-                          </span>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                            pellentesque urna varius vitae, gravida pellentesque urna varius vitae.</p>
-                          <p class="blog-date">December 7, 2017</p>
-                          <a class="comment-btn" href="#">
-                            <i class="fas fa-reply"></i> Reply
-                          </a>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <div class="comment">
-                    <div class="comment-author">
-                      <img class="avatar" alt="" src="assets/img/patients/patient6.jpg">
-                    </div>
-                    <div class="comment-block">
-                      <span class="comment-by">
-                        <span class="blog-author-name">Elsie Gilley</span>
-                      </span>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      <p class="blog-date">December 11, 2017</p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="comment">
-                    <div class="comment-author">
-                      <img class="avatar" alt="" src="assets/img/patients/patient7.jpg">
-                    </div>
-                    <div class="comment-block">
-                      <span class="comment-by">
-                        <span class="blog-author-name">Joan Gardner</span>
-                      </span>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                      <p class="blog-date">December 13, 2017</p>
-                      <a class="comment-btn" href="#">
-                        <i class="fas fa-reply"></i> Reply
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card new-comment clearfix">
-            <div class="card-header">
-              <h4 class="card-title">Leave Comment</h4>
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <label>Name <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>Your Email Address <span class="text-danger">*</span></label>
-                  <input type="email" class="form-control">
-                </div>
-                <div class="form-group">
-                  <label>Comments</label>
-                  <textarea rows="4" class="form-control"></textarea>
-                </div>
-                <div class="submit-section">
-                  <button class="btn btn-primary submit-btn" type="submit">Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-
         </div>
       </div>
-
+      <!-- Blog Sidebar -->
+      <div *ngIf="blogs.length !== 0" class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
+        <app-blog-sidebar [blogs]="blogs"></app-blog-sidebar>
+      </div>
+      <!-- /Blog Sidebar -->
     </div>
-
-    <!-- Blog Sidebar -->
-    <div *ngIf="blogs.length !== 0" class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar">
-      <app-blog-sidebar [blogs]="blogs"></app-blog-sidebar>
-    </div>
-    <!-- /Blog Sidebar -->
   </div>
-
-</div>
-<!-- /Page Content -->
+  <!-- /Page Content -->

@@ -42,6 +42,7 @@ namespace Core.Models
         public ICollection<Chat> Doctors { get; set; }
         public ICollection<Chat> Patients { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentReply> CommentReplies { get; set; }
         public ICollection<Review> ReviewsDoctors { get; set; }
         public ICollection<Review> ReviewsPatients { get; set; }
         public ICollection<ReviewReply> ReviewRepliesDoctor { get; set; }

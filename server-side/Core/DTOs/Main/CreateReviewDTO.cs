@@ -10,9 +10,9 @@ namespace Core.DTOs.Main
         public int PatientId { get; set; }
     }
 
-    public class ReviewModifyValidator : AbstractValidator<CreateReviewDTO>
+    public class ReviewCreateValidator : AbstractValidator<CreateReviewDTO>
     {
-        public ReviewModifyValidator()
+        public ReviewCreateValidator()
         {
         }
     }

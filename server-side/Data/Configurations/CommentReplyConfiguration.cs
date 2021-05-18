@@ -47,6 +47,11 @@ namespace Data.Configurations
                .HasForeignKey(x => x.CommentId);
 
             builder
+               .HasOne(x => x.User)
+               .WithMany(x => x.CommentReplies)
+               .HasForeignKey(x => x.UserId);
+
+            builder
                .ToTable("CommentReplies");
         }
     }

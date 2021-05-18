@@ -12,6 +12,7 @@ namespace Data.Data_Seed
     {
         public static async Task SeedData(DataContext context)
         {
+            #region main tables
             if (!context.Admins.Any())
             {
                 var admins = new List<Admin>
@@ -889,8 +890,46 @@ namespace Data.Data_Seed
                     #region comments
                     if (!context.Comments.Any())
                     {
-                        var commens = new List<Comment>();
-                        foreach (var comment in commens)
+                        var comments = new List<Comment>
+                        {
+                            new Comment
+                            {
+                                UserId = 13,
+                                BlogId = 1,
+                                IsReply = true
+                            },
+                            new Comment
+                            {
+                                UserId = 14,
+                                BlogId = 1,
+                                IsReply = false
+                            },
+                            new Comment
+                            {
+                                UserId = 15,
+                                BlogId = 1,
+                                IsReply = false
+                            },
+                            new Comment
+                            {
+                                UserId = 16,
+                                BlogId = 2,
+                                IsReply = true
+                            },
+                            new Comment
+                            {
+                                UserId = 17,
+                                BlogId = 2,
+                                IsReply = false
+                            },
+                            new Comment
+                            {
+                                UserId = 18,
+                                BlogId = 2,
+                                IsReply = false
+                            },
+                        };
+                        foreach (var comment in comments)
                         {
                             comment.Status = true;
                             comment.AddedBy = "System";
@@ -898,13 +937,27 @@ namespace Data.Data_Seed
                             comment.AddedDate = DateTime.Now;
                             comment.ModifiedDate = DateTime.Now;
 
-                            //await context.Comments.AddRangeAsync(comment);
-                            //await context.SaveChangesAsync();
+                            comment.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+
+                            await context.Comments.AddRangeAsync(comment);
+                            await context.SaveChangesAsync();
                         }
 
                         if (!context.CommentReplies.Any())
                         {
-                            var commenReply = new List<CommentReply>();
+                            var commenReply = new List<CommentReply>
+                            {
+                                new CommentReply
+                                {
+                                    CommentId = 1,
+                                    UserId = 15
+                                },
+                                new CommentReply
+                                {
+                                    CommentId = 4,
+                                    UserId = 17
+                                }
+                            };
                             foreach (var commentReply in commenReply)
                             {
                                 commentReply.Status = true;
@@ -913,8 +966,10 @@ namespace Data.Data_Seed
                                 commentReply.AddedDate = DateTime.Now;
                                 commentReply.ModifiedDate = DateTime.Now;
 
-                                //await context.CommentReplies.AddRangeAsync(commentReply);
-                                //await context.SaveChangesAsync();
+                                commentReply.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+
+                                await context.CommentReplies.AddRangeAsync(commentReply);
+                                await context.SaveChangesAsync();
                             }
                         }
                     }
@@ -922,6 +977,7 @@ namespace Data.Data_Seed
                 }
                 #endregion
             }
+            #endregion
 
             #region settings
             if (!context.Settings.Any())
