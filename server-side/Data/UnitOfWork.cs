@@ -20,6 +20,9 @@ namespace Data
         private ReviewRepository _reviewRepository;
         private ReviewReplyRepository _reviewReplyRepository;
 
+        private GroupRepository _groupRepository;
+        private ConnectionRepository _connectionRepository;
+
         private IBlogRespository _blogRespository;
         private IDoctorSocialMediaUrlLinkRepository _doctorSocialMediaUrlLinkRepository;
 
@@ -46,6 +49,9 @@ namespace Data
         public IUserRepository User => _userRepository ??= new UserRepository(_context);
         public IReviewRepository Review => _reviewRepository ??= new ReviewRepository(_context);
         public IReviewReplyRepository ReviewReply => _reviewReplyRepository ??= new ReviewReplyRepository(_context);
+
+        public IGroupRepository Group =>_groupRepository ??= new GroupRepository(_context);
+        public IConnectionRepository Connection => _connectionRepository ??= new ConnectionRepository(_context);
 
         public IBlogRespository Blog => _blogRespository ??= new BlogRepository(_context);
         public IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl => _doctorSocialMediaUrlLinkRepository ??= new DoctorSocialMediaUrlLinkRepository(_context);

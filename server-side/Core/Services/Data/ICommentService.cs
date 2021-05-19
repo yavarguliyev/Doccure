@@ -8,7 +8,8 @@ namespace Core.Services.Data
     public interface ICommentService
     {
         Task<IEnumerable<CommentDTO>> GetAsync(string slug);
-        Task<CommentDTO> GetAsync(int id, string slug, int userId);
+        Task<CommentDTO> GetAsync(int id, string slug);
         Task<CommentDTO> CreateAsync(Comment newComment);
+        Task UpdateAsync(int id, string slug);
     }
 }

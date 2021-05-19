@@ -4,7 +4,7 @@ namespace Core.DTOs.Main
 {
     public class CreateCommentDTO
     {
-        public int UserId { get; set; }
+        public string Email { get; set; }
         public string Slug { get; set; }
         public string Text { get; set; }
     }

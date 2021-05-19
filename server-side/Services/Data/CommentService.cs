@@ -25,9 +25,9 @@ namespace Services.Data
             return _mapper.Map<IEnumerable<CommentDTO>>(await _unitOfWork.Comment.Get(slug));
         }
 
-        public async Task<CommentDTO> GetAsync(int id, string slug, int userId)
+        public async Task<CommentDTO> GetAsync(int id, string slug)
         {
-            return _mapper.Map<CommentDTO>(await _unitOfWork.Comment.Get(id, slug, userId));
+            return _mapper.Map<CommentDTO>(await _unitOfWork.Comment.Get(id, slug));
         }
 
         public async Task<CommentDTO> CreateAsync(Comment newComment)
@@ -48,6 +48,14 @@ namespace Services.Data
             if (success) return _mapper.Map<CommentDTO>(newComment);
 
             throw new Exception("Problem saving changes");
+        }
+
+        public async Task UpdateAsync(int id, string slug)
+        {
+            var comment = await _unitOfWork.Comment.Get(id, slug);
+            comment.IsReply = true;
+
+            await _unitOfWork.CommitAsync();
         }
     }
 }

@@ -29,12 +29,12 @@ export class DetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiResponse();
-    this.loadHubConnection();
     const user: User = JSON.parse(localStorage.getItem('token'));
     if (user) {
       this.user = user;
     }
+    this.apiResponse();
+    this.loadHubConnection();
     this.commentThread$ = this.commentService.commentThread$;
   }
 

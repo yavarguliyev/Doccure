@@ -78,10 +78,19 @@ export class CommentComponent implements OnInit {
   }
 
   public submit() {
+    if (!this.emailContent) {
+      if (this.user) {
+        this.emailContent = this.user.email;
+        return;
+      } else {
+        this.toastrService.info('Email must not be empty', 'Info');
+      }
+    }
+
     const comment: CommentFormValues = new CommentFormValues(
       this.textContent,
       this.slug,
-      this.user.id
+      this.emailContent
     );
 
     this.commentService

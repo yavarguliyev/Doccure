@@ -82,6 +82,18 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Group",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Group", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Privacies",
                 columns: table => new
                 {
@@ -391,6 +403,24 @@ namespace Data.Migrations
                         principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Connection",
+                columns: table => new
+                {
+                    ConnectionId = table.Column<string>(type: "text", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Connection", x => x.ConnectionId);
+                    table.ForeignKey(
+                        name: "FK_Connection_Group_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Group",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -750,6 +780,11 @@ namespace Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Connection_GroupId",
+                table: "Connection",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DoctorSocialMediaUrlLinks_DoctorId",
                 table: "DoctorSocialMediaUrlLinks",
                 column: "DoctorId");
@@ -842,6 +877,9 @@ namespace Data.Migrations
                 name: "CommentReplies");
 
             migrationBuilder.DropTable(
+                name: "Connection");
+
+            migrationBuilder.DropTable(
                 name: "DoctorSocialMediaUrlLinks");
 
             migrationBuilder.DropTable(
@@ -882,6 +920,9 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Group");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

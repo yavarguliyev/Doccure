@@ -13,12 +13,12 @@ export interface Comment {
 export class CommentFormValues {
   text: string;
   slug: string;
-  userId: number;
+  email: string;
 
-  constructor(text: string, slug: string, userId: number) {
+  constructor(text: string, slug: string, email: string) {
     this.text = text;
     this.slug = slug;
-    this.userId = userId;
+    this.email = email;
   }
 }
 
@@ -27,4 +27,18 @@ export interface CommentReply {
   commentId: number;
   addedDate: Date;
   userDTO: User;
+}
+
+export class CommentReplyFormValues {
+  text: string;
+  slug: string;
+  email: string;
+  commentId: number;
+
+  constructor(text: string, slug: string, email: string, commentId: number) {
+    this.text = text;
+    this.slug = slug;
+    this.email = email;
+    this.commentId = commentId;
+  }
 }

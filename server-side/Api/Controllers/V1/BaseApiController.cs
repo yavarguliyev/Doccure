@@ -12,16 +12,13 @@ namespace Api.Controllers.v1
     public class BaseApiController : ControllerBase 
     {
         private IMapper _mapper;
-
         private IAuth _auth;
 
         private IUserService _userService;
         private IChatService _chatService;
-        private IReviewService _reviewService;
-        private ICommentService _commentService;
-        private IDoctorSocialMediaUrlLinkService _urlLinkService;
 
         private IBlogService _blogService;
+        private IDoctorSocialMediaUrlLinkService _urlLinkService;
 
         private IFeatureService _featureService;
         private ISpecialityService _specialityService;
@@ -32,15 +29,12 @@ namespace Api.Controllers.v1
         private ITermService _termService;
 
         protected IMapper mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>();
-
         protected IAuth auth => _auth ??= HttpContext.RequestServices.GetService<IAuth>();
 
         protected IUserService userService => _userService ??= HttpContext.RequestServices.GetService<IUserService>();
         protected IChatService chatService => _chatService ??= HttpContext.RequestServices.GetService<IChatService>();
-        protected ICommentService commentService => _commentService ??= HttpContext.RequestServices.GetService<ICommentService>();
-        protected IReviewService reviewService => _reviewService ??= HttpContext.RequestServices.GetService<IReviewService>();
-        protected IDoctorSocialMediaUrlLinkService urlLinkService => _urlLinkService ??= HttpContext.RequestServices.GetService<IDoctorSocialMediaUrlLinkService>();
         
+        protected IDoctorSocialMediaUrlLinkService urlLinkService => _urlLinkService ??= HttpContext.RequestServices.GetService<IDoctorSocialMediaUrlLinkService>();
         protected IBlogService blogService => _blogService ??= HttpContext.RequestServices.GetService<IBlogService>();
         
         protected IFeatureService featureService => _featureService ??= HttpContext.RequestServices.GetService<IFeatureService>();

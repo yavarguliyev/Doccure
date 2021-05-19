@@ -4,6 +4,7 @@ using Core.Models;
 using Core.Services.Data;
 using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Hubs
@@ -31,6 +32,7 @@ namespace Api.Hubs
             var slug = Context.GetHttpContext().Request.Query["slug"].ToString();
             if (slug != null)
             {
+                await Groups.AddToGroupAsync(Context.ConnectionId, slug);
                 var comment = await _commentService.GetAsync(slug);
                 await Clients.Caller.SendAsync("ReceiveCommentThread", comment);
             }
@@ -43,11 +45,9 @@ namespace Api.Hubs
 
         public async Task SendComment(CreateCommentDTO model)
         {
-            var user = await _userService.GetAsync(model.UserId);
-            if(user != null && user.Role != UserRole.Patient)
-            {
+            var user = await _userService.GetByAsync(model.Email);
+            if(user.Role != UserRole.Patient)
                 throw new HubException("Only patients are able to comment on the blog.");
-            }
 
             var blog = await _blogService.GetAsync(model.Slug);
 
@@ -59,7 +59,30 @@ namespace Api.Hubs
             };
 
             var newComment = await _commentService.CreateAsync(comment);
-            await Clients.Caller.SendAsync("NewComment", newComment);
+            await Clients.Group(blog.Slug).SendAsync("NewComment", newComment);
+        }
+
+        public async Task SendCommentReply(CreateReplyCommentDTO model)
+        {
+            var user = await _userService.GetByAsync(model.Email);
+            if (user.Role != UserRole.Patient)
+                throw new HubException("Only patients are able to comment on the blog.");
+
+            var comment = await _commentService.GetAsync(model.CommentId, model.Slug);
+            var reply = new CommentReply
+            {
+                UserId = user.Id,
+                CommentId = comment.Id,
+                Text = model.Text
+            };
+
+            if (comment.CommentReplyDTOs.Count() == 0)
+            {
+                await _commentService.UpdateAsync(model.CommentId, model.Slug);
+            }
+
+            var newCommentReply = await _commentReplyService.CreateAsync(reply);
+            await Clients.Group(model.Slug.ToString()).SendAsync("NewCommentReply", newCommentReply);
         }
     }
 }

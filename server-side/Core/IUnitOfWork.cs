@@ -16,6 +16,9 @@ namespace Core
         IReviewRepository Review { get; }
         IReviewReplyRepository ReviewReply { get; }
 
+        IGroupRepository Group { get; }
+        IConnectionRepository Connection { get; }
+
         IBlogRespository Blog { get; }
         IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }
 
