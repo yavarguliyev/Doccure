@@ -1,7 +1,7 @@
 <!-- Chat Right -->
 <ng-container *ngIf="user && show">
   <div class="chat-header">
-    <a id="back_user_list" href="javascript:void(0)" class="back-user-list">
+    <a id="back_user_list" (click)="chatGoBack()" href="javascript:void(0)" class="back-user-list">
       <i class="material-icons">chevron_left</i>
     </a>
     <div class="media">

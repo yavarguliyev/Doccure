@@ -11,15 +11,20 @@ import { HomepageComponent } from './homepage/homepage.component';
 })
 export class MainComponent implements OnInit {
   public setting!: MainPageSettings;
+  public showFooter = true;
 
-  constructor(private settings: SettingsService) {}
+  constructor(private settingService: SettingsService) { }
 
   ngOnInit(): void {
+    this.hideFooter();
     this.apiResponse();
   }
 
+  private hideFooter() {
+  }
+
   private apiResponse() {
-    this.settings
+    this.settingService
       .getMainPageSettings()
       .forEach((response) => (this.setting = response));
   }

@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MainBreadcrumbComponent implements OnInit {
   @Input() title: string | undefined;
+  @Input() isSearch = false;
 
   constructor() { }
 

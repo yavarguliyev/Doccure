@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MainComponent } from './main.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { SearchDoctorsComponent } from './search-doctors/search-doctors.component';
 import { TermsConditiosComponent } from './terms-conditios/terms-conditios.component';
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./blog/blog.module').then((x) => x.BlogModule),
       },
+      { path: 'search-doctors', component: SearchDoctorsComponent },
       { path: 'term-condition', component: TermsConditiosComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
     ],

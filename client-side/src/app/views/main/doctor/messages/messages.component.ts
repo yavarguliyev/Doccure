@@ -17,6 +17,7 @@ export class MessagesComponent implements OnInit {
   public showChatRight = false;
   public loading = false;
   public role = 0;
+  public chatwindow = false;
 
   constructor(private chatService: ChatService) {}
 
@@ -44,13 +45,20 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+  public closeChatWindow(event: boolean) {
+    this.chatwindow = event;
+  }
+
   public showChat(id: number) {
     this.chatService.messageThread$.subscribe((chat: Chat[]) => {
       this.currentChat = Object.values(chat).find((c) => c.patient.id === id);
     });
     this.user = this.currentChat.patient;
-    this.role = parseInt(this.user.role);
+    this.role = parseInt(this.user.role, 16);
     this.showChatRight = false;
+    window.innerWidth < 800
+      ? (this.chatwindow = true)
+      : (this.chatwindow = false);
     if (this.user !== null) {
       timer(100)
         .toPromise()

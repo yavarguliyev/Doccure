@@ -1,5 +1,5 @@
 import { Chat } from 'src/app/shared/models/chat';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatMessage, ChatMessageFormValues } from '../../models/chat';
 import { User } from '../../models/user';
@@ -10,8 +10,9 @@ import { ChatService } from '../../services/chat.service';
   templateUrl: './chat-message.component.html',
 })
 export class ChatMessageComponent implements OnInit {
-  @ViewChild('chat_list') chat_list: ElementRef;
+  @ViewChild('chat_list') chatlist: ElementRef;
   @ViewChild('messageForm') messageForm: NgForm;
+  @Output() submitChatWindow = new EventEmitter();
   public messageContent: string;
   public loading = false;
   @Input() show = false;
@@ -27,12 +28,16 @@ export class ChatMessageComponent implements OnInit {
   ngOnInit(): void {}
 
   public scrollDown(): ElementRef {
-    this.chat_list.nativeElement.lastElementChild.scrollIntoView({
+    this.chatlist.nativeElement.lastElementChild.scrollIntoView({
       behavior: 'smooth',
       block: 'end',
       inline: 'nearest',
     });
-    return this.chat_list;
+    return this.chatlist;
+  }
+
+  public chatGoBack() {
+    this.submitChatWindow.emit(false);
   }
 
   public sendMessage() {

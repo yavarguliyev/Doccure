@@ -25,6 +25,7 @@ export class FooterComponent implements OnInit {
   @ViewChild('footerDesc', { static: false })
   private footerDesc!: ElementRef;
   public footerPhoto!: PagesPhotos;
+  @Input() showFooter = true;
 
   constructor(
     private api: AuthService,

@@ -1,1 +1,8 @@
-<router-outlet *ngIf="patients.length !== 0" (activate)="onDashboardLoaded($event); onAppointmentLoaded($event); onMyPatientsLoaded($event)"></router-outlet>
+<router-outlet
+  *ngIf="patients.length !== 0"
+  (activate)="
+    onDashboardLoaded($event);
+    onAppointmentLoaded($event);
+    onMyPatientsLoaded($event)
+  "
+></router-outlet>

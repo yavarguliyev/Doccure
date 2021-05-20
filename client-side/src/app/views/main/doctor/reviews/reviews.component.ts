@@ -67,7 +67,7 @@ export class ReviewsComponent implements OnInit {
 
     const element: ElementRef[] = this.chooseForms.toArray();
     element.forEach((x) => {
-      const elementId: number = parseInt(x.nativeElement.getAttribute('id'));
+      const elementId: number = parseInt(x.nativeElement.getAttribute('id'), 16);
       if (elementId === id && x.nativeElement.lastElementChild !== domElem) {
         x.nativeElement.appendChild(domElem);
         x.nativeElement.querySelector('.comment-btn').classList.add('d-none');
