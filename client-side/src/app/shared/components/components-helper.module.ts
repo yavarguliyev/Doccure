@@ -45,6 +45,7 @@ import { ReviewFormComponent } from './review-form/review-form.component';
 import { Element_Loader_Directive } from '../directives/element_loader.directive';
 import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
+import { PatientDashboardComponent } from './patient-dashboard/patient-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
     ReviewFormComponent,
     Element_Loader_Directive,
     CommentComponent,
-    CommentFormComponent
+    CommentFormComponent,
+    PatientDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -138,7 +140,8 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
     ChatLefSideBarComponent,
     ReviewFormComponent,
     CommentComponent,
-    CommentFormComponent
+    CommentFormComponent,
+    PatientDashboardComponent
   ],
 })
 export class ComponentsHelperModule {}

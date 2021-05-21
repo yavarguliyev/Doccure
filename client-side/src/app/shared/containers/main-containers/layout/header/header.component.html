@@ -27,7 +27,7 @@
         <li [routerLinkActive]="['active']">
           <a [routerLink]="['/main/homepage']">Home</a>
         </li>
-        <li [routerLinkActive]="['active']" class="has-submenu">
+        <li [routerLinkActive]="['active']" class="has-submenu" [ngClass]="{'d-none': user && user.role==='Patient'}">
           <a (click)="openNav($event)" href="#">Doctors <i class="fas fa-chevron-down"></i></a>
           <ul #navItem class="submenu" *ngIf="!user">
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/dashboard']">Doctor Dashboard</a></li>
@@ -46,29 +46,18 @@
             <li [routerLinkActive]="['active']"><a [routerLink]="['/main/doctor/doctor-blog']">Blog</a></li>
           </ul>
         </li>
-        <li class="has-submenu" [routerLinkActive]="['active']" class="has-submenu">
+        <li [routerLinkActive]="['active']" class="has-submenu" [ngClass]="{'d-none': user && user.role==='Doctor'}">
           <a (click)="openNav($event)" href="#">Patients <i class="fas fa-chevron-down"></i></a>
           <ul #navItem class="submenu" *ngIf="!user">
-            <li><a [routerLink]="['/main/patient']">Patient Dashboard</a></li>
+            <li><a [routerLink]="['/main/patient/dashboard']">Dashboard</a></li>
           </ul>
           <ul #navItem class="submenu" *ngIf="user">
-            <li class="has-submenu">
-              <a href="#">Doctors</a>
-              <ul class="submenu">
-                <li><a [routerLink]="['/main/patient']">Map Grid</a></li>
-                <li><a [routerLink]="['/main/patient']">Map List</a></li>
-              </ul>
-            </li>
-            <li><a [routerLink]="['/main/patient']">Search Doctor</a></li>
-            <li><a [routerLink]="['/main/patient']">Doctor Profile</a></li>
-            <li><a [routerLink]="['/main/patient']">Booking</a></li>
-            <li><a [routerLink]="['/main/patient']">Checkout</a></li>
-            <li><a [routerLink]="['/main/patient']">Booking Success</a></li>
-            <li><a [routerLink]="['/main/patient']">Patient Dashboard</a></li>
-            <li><a [routerLink]="['/main/patient']">Favourites</a></li>
-            <li><a [routerLink]="['/main/patient']">Chat</a></li>
-            <li><a [routerLink]="['/main/patient']">Profile Settings</a></li>
-            <li><a [routerLink]="['/main/patient']">Change Password</a></li>
+            <li><a [routerLink]="['/main/patient/dashboard']">Dashboard</a></li>
+            <li><a [routerLink]="['/main/patient/messages']">Chat</a></li>
+            <li><a [routerLink]="['/main/patient/profile-settings']">Profile Settings</a></li>
+            <li><a [routerLink]="['/main/patient/change-password']">Change Password</a></li>
+            <li><a [routerLink]="['/main/patient/favourite-doctors']">Favourite-Doctors</a></li>
+            <li><a [routerLink]="['/main/patient/doctors-location']">Doctors-Location</a></li>
           </ul>
         </li>
         <li [routerLinkActive]="['active']" class="has-submenu">
@@ -95,11 +84,9 @@
           <p class="contact-info-header"> {{header.contactNumber}}</p>
         </div>
       </li>
-
       <li class="nav-item" *ngIf="user===undefined">
         <a class="nav-link header-login" [routerLink]="['/auth/login']">Login / Signup </a>
       </li>
-
       <!-- User Menu -->
       <li #loggedInUserParent class="nav-item dropdown has-arrow logged-item" [ngClass]="show ? 'show': ''"
         *ngIf="user!==undefined">
@@ -120,8 +107,10 @@
               <p class="text-muted mb-0">{{user.role}}</p>
             </div>
           </div>
-          <a class="dropdown-item" [routerLink]="['/main/doctor/dashboard']">Dashboard</a>
-          <a class="dropdown-item" [routerLink]="['/main/doctor/profile-settings']">Profile Settings</a>
+          <a *ngIf="user && user.role==='Doctor'" class="dropdown-item" [routerLink]="['/main/doctor/dashboard']">Dashboard</a>
+          <a *ngIf="user && user.role==='Patient'" class="dropdown-item" [routerLink]="['/main/patient/dashboard']">Dashboard</a>
+          <a *ngIf="user && user.role==='Doctor'"  class="dropdown-item" [routerLink]="['/main/doctor/profile-settings']">Profile Settings</a>
+          <a *ngIf="user && user.role==='Patient'"  class="dropdown-item" [routerLink]="['/main/patient/profile-settings']">Profile Settings</a>
           <a href="javascript:void(0);" class="dropdown-item" (click)="logout()">Logout</a>
         </div>
       </li>

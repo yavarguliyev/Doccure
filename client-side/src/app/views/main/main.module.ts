@@ -9,9 +9,10 @@ import { TermsConditiosComponent } from './terms-conditios/terms-conditios.compo
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { LayoutMainModule } from 'src/app/shared/containers/main-containers/layout/layoutmain.module';
 import { SearchDoctorsComponent } from './search-doctors/search-doctors.component';
+import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 
 @NgModule({
-  declarations: [MainComponent, HomepageComponent, TermsConditiosComponent, PrivacyPolicyComponent, SearchDoctorsComponent],
+  declarations: [MainComponent, HomepageComponent, TermsConditiosComponent, PrivacyPolicyComponent, SearchDoctorsComponent, DoctorProfileComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
