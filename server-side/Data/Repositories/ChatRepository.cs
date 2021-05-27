@@ -38,6 +38,8 @@ namespace Data.Repositories
 
             var chat = await context.Chats
                                     .Where(x => x.Status && (x.DoctorId == userId || x.PatientId == userId))
+                                    .Include(x => x.Doctor)
+                                    .Include(x => x.Patient)
                                     .FirstOrDefaultAsync(x => x.Id == id);
 
             if (chat == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Chat not found" });

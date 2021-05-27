@@ -9,6 +9,10 @@ namespace Data.Configurations
         public void Configure(EntityTypeBuilder<Group> builder)
         {
             builder
+               .Property(x => x.Name)
+               .HasMaxLength(100);
+
+            builder
                .HasMany(x => x.Connections)
                .WithOne()
                .OnDelete(DeleteBehavior.Cascade);

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210519130026_Initial")]
+    [Migration("20210527133735_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -578,26 +578,28 @@ namespace Data.Migrations
                     b.Property<string>("ConnectionId")
                         .HasColumnType("text");
 
-                    b.Property<int?>("GroupId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("ConnectionId");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("GroupName");
 
-                    b.ToTable("Connection");
+                    b.ToTable("Connections");
                 });
 
             modelBuilder.Entity("Core.Models.Hubs.Group", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Name");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("Core.Models.Patient", b =>
@@ -1331,7 +1333,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Core.Models.Hubs.Group", null)
                         .WithMany("Connections")
-                        .HasForeignKey("GroupId")
+                        .HasForeignKey("GroupName")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

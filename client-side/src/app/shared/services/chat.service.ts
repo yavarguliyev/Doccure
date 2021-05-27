@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Chat, ChatMessageFormValues } from '../models/chat';
+import { Group } from '../models/group';
 import { User } from '../models/user';
 import { SpinnerService } from './spinner.service';
 
@@ -37,19 +38,24 @@ export class ChatService {
       .catch((error) => console.log(error))
       .finally(() => this.spinnerService.idle());
 
-    this.hubConnection.on('ReceiveMessageThread', (message) => {
-      this.messageThreadSource.next(message);
+    this.hubConnection.on('ReceiveMessageThread', (messages) => {
+      this.messageThreadSource.next(messages);
     });
 
     this.hubConnection.on('NewMessage', (message: Chat) => {
       this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
-        const index = messages.findIndex(x => x.id === message.id);
-        message.chatMessageDTOs.map(x => {
-          messages[index].chatMessageDTOs.push(x);
-        });
+        // const index = messages.findIndex(x => x.id === message.id);
+        // message.chatMessageDTOs.map(x => {
+        //   messages[index].chatMessageDTOs.push(x);
+        // });
 
+        console.log(message);
         this.messageThreadSource.next(messages);
       });
+    });
+
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
+      console.log(group);
     });
   }
 

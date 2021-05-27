@@ -1,9 +1,9 @@
 export interface Group {
-  slug: string;
-  connections: Connection[]
+  name: string;
+  connections: Connection[];
 }
 
 interface Connection {
   connectionId: string;
-  slug: string;
+  email: string;
 }

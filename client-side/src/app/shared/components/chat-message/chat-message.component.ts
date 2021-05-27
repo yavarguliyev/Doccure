@@ -21,7 +21,6 @@ export class ChatMessageComponent implements OnInit {
   public messages: ChatMessage[] = [];
 
   @Input() chat: Chat;
-  @Input() role = 0;
 
   constructor(private chatService: ChatService) {}
 

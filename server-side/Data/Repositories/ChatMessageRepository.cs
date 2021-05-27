@@ -20,5 +20,13 @@ namespace Data.Repositories
                                 .OrderBy(x => x.AddedDate)
                                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<ChatMessage>> Get(int id)
+        {
+            return await context.ChatMessages
+                                .Where(x => x.Status && x.ChatId == id)
+                                .OrderBy(x => x.AddedDate)
+                                .ToListAsync();
+        }
     }
 }

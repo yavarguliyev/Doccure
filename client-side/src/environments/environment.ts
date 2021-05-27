@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://localhost:5001/api/v1',
-  hubUrl: 'https://localhost:5001/hubs/'
+  api: 'https://localhost:44315/api/v1',
+  hubUrl: 'https://localhost:44315/hubs/',
 };
 
 /*

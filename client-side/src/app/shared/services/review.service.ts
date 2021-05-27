@@ -12,6 +12,7 @@ import {
 } from '../models/review';
 import { User } from '../models/user';
 import { SpinnerService } from './spinner.service';
+import { ToastrService } from './toastr.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,10 @@ export class ReviewService {
   private reviewThreadSource = new BehaviorSubject<Review[]>([]);
   public reviewThread$ = this.reviewThreadSource.asObservable();
 
-  constructor(private spinnerService: SpinnerService) {}
+  constructor(
+    private spinnerService: SpinnerService,
+    private toastrService: ToastrService
+  ) {}
 
   public createHubConnection(user: User) {
     this.spinnerService.busy();
@@ -35,7 +39,7 @@ export class ReviewService {
 
     this.hubConnection
       .start()
-      .catch((error) => console.log(error))
+      .catch((error) => this.toastrService.info(error, 'Info'))
       .finally(() => this.spinnerService.idle());
 
     this.hubConnection.on('ReceiveReviewThread', (reviews) => {
@@ -64,7 +68,7 @@ export class ReviewService {
 
     this.hubConnection.on('NewReccomendation', (response: any) => {
       this.reviewThread$.pipe(take(1)).subscribe((reviews: Review[]) => {
-        reviews.map(x => {
+        reviews.map((x) => {
           if (x.id === response.id && x.doctorId === response.userId) {
             x.recommendation = response.recommendation;
           }
@@ -84,18 +88,22 @@ export class ReviewService {
   async sendReview(review: ReviewFormValues) {
     return this.hubConnection
       .invoke('SendReview', review)
-      .catch((error) => console.log(error));
+      .catch((error) => this.toastrService.info(error, 'Info'));
   }
 
-  async sendReccomendation(id: number, userId: number, recommendation: DoctorRecommendation) {
+  async sendReccomendation(
+    id: number,
+    userId: number,
+    recommendation: DoctorRecommendation
+  ) {
     return this.hubConnection
       .invoke('SendReccomendation', id, userId, recommendation)
-      .catch((error) => console.log(error));
+      .catch((error) => this.toastrService.info(error, 'Info'));
   }
 
   async sendReviewReply(reviewReply: ReviewReplyFormValues) {
     return this.hubConnection
       .invoke('SendReviewReply', reviewReply)
-      .catch((error) => console.log(error));
+      .catch((error) => this.toastrService.info(error, 'Info'));
   }
 }

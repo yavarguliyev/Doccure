@@ -26,8 +26,49 @@
     <div class="chat-scroll">
       <ul app_element_loader [show]="show" (ngInit)="scrollDown()" #chat_list class="list-unstyled">
         <li class="chat-date">Today</li>
-        <ng-container *ngIf="role === 3"></ng-container>
-        <ng-container *ngIf="role === 4">
+        <ng-container *ngIf="user.role === 'Doctor'">
+          <li class="media" *ngFor="let message of chat.chatMessageDTOs"
+            [ngClass]="{'sent': message.patientContent, 'received': message.doctorContent}">
+            <div class="avatar" *ngIf="message.patientContent">
+              <img src={{chat.doctor.photo}} alt={{chat.doctor.fullname}} class="avatar-img rounded-circle">
+            </div>
+            <div class="media-body">
+              <div class="msg-box">
+                <div>
+                  <p>{{message.patientContent ? message.patientContent : message.doctorContent}}</p>
+                  <ul class="chat-msg-info">
+                    <li>
+                      <div class="chat-time">
+                        <span>{{message.addedDate | timeago}}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="msg-box" *ngIf="message.photo">
+                <div>
+                  <div class="chat-msg-attachments">
+                    <div class="chat-attachment">
+                      <img src="assets/img/img-02.jpg" alt="Attachment">
+                      <div class="chat-attach-caption">placeholder.jpg</div>
+                      <a href="#" class="chat-attach-download">
+                        <i class="fas fa-download"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <ul class="chat-msg-info">
+                    <li>
+                      <div class="chat-time">
+                        <span>{{message.addedDate | timeago}}</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="user.role === 'Patient'">
           <li class="media" *ngFor="let message of chat.chatMessageDTOs"
             [ngClass]="{'sent': message.doctorContent, 'received': message.patientContent}">
             <div class="avatar" *ngIf="message.patientContent">

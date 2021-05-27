@@ -150,7 +150,10 @@ namespace Api.Extensions
             services.AddTransient<ITermService, TermService>();
 
             // signalR
-            services.AddSignalR();
+            services.AddSignalR().AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             // file upload
             services.AddSingleton<IFileManager, FileManager>();

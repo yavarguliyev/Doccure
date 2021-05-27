@@ -25,6 +25,11 @@ namespace Services.Data
             return _mapper.Map<IEnumerable<ChatMessageDTO>>(await _unitOfWork.ChatMessage.Get());
         }
 
+        public async Task<IEnumerable<ChatMessageDTO>> GetAsync(int id)
+        {
+            return _mapper.Map<IEnumerable<ChatMessageDTO>>(await _unitOfWork.ChatMessage.Get(id));
+        }
+
         public async Task CreateAsync(ChatMessage newChatMessage)
         {
             newChatMessage.Status = true;

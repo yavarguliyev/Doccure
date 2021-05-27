@@ -63,7 +63,7 @@ export class CommentFormComponent implements OnInit {
 
   public onKeyUp(event: any): void {
     const maxLength = 100;
-    const length = parseInt(event.target.value.length);
+    const length = parseInt(event.target.value.length, 16);
     if (this.textLength <= 100) {
       this.textLength = maxLength - length;
     }

@@ -3,8 +3,14 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Comment, CommentFormValues, CommentReply, CommentReplyFormValues } from '../models/comment';
+import {
+  Comment,
+  CommentFormValues,
+  CommentReply,
+  CommentReplyFormValues,
+} from '../models/comment';
 import { SpinnerService } from './spinner.service';
+import { ToastrService } from './toastr.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +21,10 @@ export class CommentService {
   private commentThreadSource = new BehaviorSubject<Comment[]>([]);
   public commentThread$ = this.commentThreadSource.asObservable();
 
-  constructor(private spinnerService: SpinnerService) {}
+  constructor(
+    private spinnerService: SpinnerService,
+    private toastrService: ToastrService
+  ) {}
 
   public createHubConnection(slug: string) {
     this.spinnerService.busy();
@@ -26,7 +35,7 @@ export class CommentService {
 
     this.hubConnection
       .start()
-      .catch((error) => console.log(error))
+      .catch((error) => this.toastrService.info(error, 'Info'))
       .finally(() => this.spinnerService.idle());
 
     this.hubConnection.on('ReceiveCommentThread', (comments: Comment[]) => {
@@ -42,12 +51,14 @@ export class CommentService {
 
     this.hubConnection.on('NewCommentReply', (commentReply: CommentReply) => {
       this.commentThread$.pipe(take(1)).subscribe((comments: Comment[]) => {
-        comments.filter(x => x.id === commentReply.commentId).map(x => {
-          if (commentReply) {
-            x.isReply = true;
-            x.commentReplyDTOs.unshift(commentReply)
-          }
-        });
+        comments
+          .filter((x) => x.id === commentReply.commentId)
+          .map((x) => {
+            if (commentReply) {
+              x.isReply = true;
+              x.commentReplyDTOs.unshift(commentReply);
+            }
+          });
         this.commentThreadSource.next(comments);
       });
     });
@@ -63,12 +74,12 @@ export class CommentService {
   async sendComment(comment: CommentFormValues) {
     return this.hubConnection
       .invoke('SendComment', comment)
-      .catch((error) => console.log(error));
+      .catch((error) => this.toastrService.info(error, 'Info'));
   }
 
   async sendCommentReply(reply: CommentReplyFormValues) {
     return this.hubConnection
       .invoke('SendCommentReply', reply)
-      .catch((error) => console.log(error));
+      .catch((error) => this.toastrService.info(error, 'Info'));
   }
 }

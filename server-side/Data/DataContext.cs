@@ -26,7 +26,7 @@ namespace Data
             builder.ApplyConfiguration(new ReviewConfiguration());
             builder.ApplyConfiguration(new ReviewReplyConfiguration());
 
-            //builder.ApplyConfiguration(new GroupConfiguration());
+            builder.ApplyConfiguration(new GroupConfiguration());
 
             builder.ApplyConfiguration(new BlogConfiguration());
             builder.ApplyConfiguration(new DoctorSocialMediaUrlLinkConfiguration());
@@ -52,8 +52,8 @@ namespace Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewReply> ReviewReplies { get; set; }
 
-        //public DbSet<Group> Groups { get; set; }
-        //public DbSet<Connection> Connections { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Connection> Connections { get; set; }
 
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<DoctorSocialMediaUrlLink> DoctorSocialMediaUrlLinks { get; set; }

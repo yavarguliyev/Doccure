@@ -15,7 +15,7 @@
 </form>
 <div class="chat-users-list">
   <div class="chat-scroll">
-    <ng-container *ngIf="chats.length > 0">
+    <ng-container *ngIf="chats.length > 0 && currentUser.role === 'Doctor'">
       <a (click)="show(chat.patient.id)" id="{{ chat.patient.id }}" *ngFor="let chat of chats"
         [ngClass]="{ 'read-chat': chatMessage(chat)}" #media_chat href="javascript:void(0);" class="media">
         <div class="media-img-wrap">
@@ -29,13 +29,38 @@
         <div class="media-body">
           <div>
             <div class="user-name">{{ chat.patient.fullname }}</div>
-            <ng-container *ngIf="chat.chatMessageDTOs.length > 0 && getLastText(chat).patientContent">
-              <div class="user-last-chat">{{getLastText(chat).patientContent}}</div>
+            <ng-container *ngIf="chat.chatMessageDTOs.length > 0 && patientText(chat).patientContent">
+              <div class="user-last-chat">{{patientText(chat).patientContent}}</div>
             </ng-container>
           </div>
           <div>
-            <div class="last-chat-time block" *ngIf="chat.chatMessageDTOs.length > 0 && getLastText(chat).addedDate">
-              {{getLastText(chat).addedDate | timeago}}</div>
+            <div class="last-chat-time block" *ngIf="chat.chatMessageDTOs.length > 0 && patientText(chat).addedDate">
+              {{patientText(chat).addedDate | timeago}}</div>
+          </div>
+        </div>
+      </a>
+    </ng-container>
+    <ng-container *ngIf="chats.length > 0 && currentUser.role === 'Patient'">
+      <a (click)="show(chat.doctor.id)" id="{{ chat.doctor.id }}" *ngFor="let chat of chats"
+        [ngClass]="{ 'read-chat': chatMessage(chat)}" #media_chat href="javascript:void(0);" class="media">
+        <div class="media-img-wrap">
+          <div class="avatar avatar-online" [ngClass]="{
+              'avatar-online': chat.doctor.connectionId !== null,
+              'avatar-offline': chat.doctor.connectionId === null
+            }">
+            <img src="{{ chat.doctor.photo }}" alt="{{ chat.doctor.fullname }}" class="avatar-img rounded-circle" />
+          </div>
+        </div>
+        <div class="media-body">
+          <div>
+            <div class="user-name">{{ chat.doctor.fullname }}</div>
+            <ng-container *ngIf="chat.chatMessageDTOs.length > 0 && doctorText(chat).doctorContent">
+              <div class="user-last-chat">{{doctorText(chat).doctorContent}}</div>
+            </ng-container>
+          </div>
+          <div>
+            <div class="last-chat-time block" *ngIf="chat.chatMessageDTOs.length > 0 && doctorText(chat).addedDate">
+              {{doctorText(chat).addedDate | timeago}}</div>
           </div>
         </div>
       </a>
