@@ -22,24 +22,72 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthDoctorGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'appointments', component: AppointmentsComponent },
-      { path: 'my-patients', component: MyPatientsComponent },
-      { path: 'patient-profile/:slug', component: PatientProfileComponent },
-      { path: 'schedule-timings', component: ScheduleTimingsComponent },
-      { path: 'invoices', component: InvoicesComponent },
-      { path: 'reviews', component: ReviewsComponent },
-      { path: 'message', component: MessagesComponent },
-      { path: 'profile-settings', component: ProfileSettingsComponent },
-      { path: 'social-media', component: SocialMediaComponent },
-      { path: 'change-password', component: ChangePasswordComponent },
-      { path: 'doctor-blog', component: DoctorBlogComponent },
-    ]
-  }
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { title: 'Doccure | Doctor | Dashboard' },
+      },
+      {
+        path: 'appointments',
+        component: AppointmentsComponent,
+        data: { title: 'Doccure | Doctor | Appointments' },
+      },
+      {
+        path: 'my-patients',
+        component: MyPatientsComponent,
+        data: { title: 'Doccure | Doctor | My-Patients' },
+      },
+      {
+        path: 'patient-profile/:slug',
+        component: PatientProfileComponent,
+        data: { title: 'Doccure | Doctor | Patient-Profile' },
+      },
+      {
+        path: 'schedule-timings',
+        component: ScheduleTimingsComponent,
+        data: { title: 'Doccure | Doctor | Schedule-Timings' },
+      },
+      {
+        path: 'invoices',
+        component: InvoicesComponent,
+        data: { title: 'Doccure | Doctor | Invoices' },
+      },
+      {
+        path: 'reviews',
+        component: ReviewsComponent,
+        data: { title: 'Doccure | Doctor | Reviews' },
+      },
+      {
+        path: 'message',
+        component: MessagesComponent,
+        data: { title: 'Doccure | Doctor | Message' },
+      },
+      {
+        path: 'profile-settings',
+        component: ProfileSettingsComponent,
+        data: { title: 'Doccure | Doctor | Profile-Settings' },
+      },
+      {
+        path: 'social-media',
+        component: SocialMediaComponent,
+        data: { title: 'Doccure | Doctor | Social-Media' },
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        data: { title: 'Doccure | Doctor | Change-Password' },
+      },
+      {
+        path: 'doctor-blog',
+        component: DoctorBlogComponent,
+        data: { title: 'Doccure | Doctor | Doctor-Blog' },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DoctorRoutingModule { }
+export class DoctorRoutingModule {}

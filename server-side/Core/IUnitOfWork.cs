@@ -1,4 +1,5 @@
-﻿using Core.Repositories;
+﻿using Core.Hubs.Repositories;
+using Core.Repositories;
 using System.Threading.Tasks;
 
 namespace Core

@@ -9,14 +9,22 @@ const routes: Routes = [
     path: '',
     component: BlogComponent,
     children: [
-      { path: 'list', component: ListComponent },
-      { path: 'details/:slug', component: DetailsComponent },
-    ]
-  }
+      {
+        path: 'list',
+        component: ListComponent,
+        data: { title: 'Blog | List' },
+      },
+      {
+        path: 'details/:slug',
+        component: DetailsComponent,
+        data: { title: 'Blog | Details' },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BlogRoutingModule { }
+export class BlogRoutingModule {}

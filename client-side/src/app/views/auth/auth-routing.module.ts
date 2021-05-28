@@ -11,16 +11,32 @@ const routes: Routes = [
     path: '',
     component: AuthComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'doctor-register/:token', component: AuthDoctorComponent },
-      { path: 'forget-password', component: ForgetPasswordComponent },
-      { path: 'reset-password/:token', component: ResetPasswordComponent },
-    ]
-  }
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: { title: 'Auth | Login' },
+      },
+      {
+        path: 'doctor-register/:token',
+        component: AuthDoctorComponent,
+        data: { title: 'Auth | Doctor Register' },
+      },
+      {
+        path: 'forget-password',
+        component: ForgetPasswordComponent,
+        data: { title: 'Auth | Forget Password' },
+      },
+      {
+        path: 'reset-password/:token',
+        component: ResetPasswordComponent,
+        data: { title: 'Auth | Reset Password' },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

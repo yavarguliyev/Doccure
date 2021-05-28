@@ -13,7 +13,11 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       { path: '', redirectTo: 'homepage' },
-      { path: 'homepage', component: HomepageComponent },
+      {
+        path: 'homepage',
+        component: HomepageComponent,
+        data: { title: 'Homepage' },
+      },
       {
         path: 'doctor',
         loadChildren: () =>
@@ -29,10 +33,26 @@ const routes: Routes = [
         loadChildren: () =>
           import('./blog/blog.module').then((x) => x.BlogModule),
       },
-      { path: 'doctor-profile/:slug', component: DoctorProfileComponent },
-      { path: 'search-doctors', component: SearchDoctorsComponent },
-      { path: 'term-condition', component: TermsConditiosComponent },
-      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      {
+        path: 'doctor-profile/:slug',
+        component: DoctorProfileComponent,
+        data: { title: 'Doccure | Doctor-Profile' },
+      },
+      {
+        path: 'search-doctors',
+        component: SearchDoctorsComponent,
+        data: { title: 'Doccure | Search-Doctors' },
+      },
+      {
+        path: 'term-condition',
+        component: TermsConditiosComponent,
+        data: { title: 'Doccure | Term-Condition' },
+      },
+      {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent,
+        data: { title: 'Doccure | Privacy-Policy' },
+      },
     ],
   },
 ];

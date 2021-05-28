@@ -15,21 +15,57 @@ const routes: Routes = [
     path: '',
     component: PatientComponent,
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'booking/:slug', component: BookingComponent },
-      { path: 'checkout/:token', component: BookingSuccessComponent },
-      { path: 'booking-success/:number', component: BookingSuccessComponent },
-      { path: 'messages', component: MessagesComponent },
-      { path: 'profile-settings', component: ProfileSettingsComponent },
-      { path: 'change-password', component: ChangePasswordComponent },
-      { path: 'doctors-location', component: DoctorsLocationComponent },
-      { path: 'favourite-doctors', component: FavouriteDoctorsComponent },
-    ]
-  }
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: { title: 'Doccure | Patient | Dashboard' },
+      },
+      {
+        path: 'booking/:slug',
+        component: BookingComponent,
+        data: { title: 'Doccure | Patient | Booking' },
+      },
+      {
+        path: 'checkout/:token',
+        component: BookingSuccessComponent,
+        data: { title: 'Patient | Doctor | Checkout' },
+      },
+      {
+        path: 'booking-success/:number',
+        component: BookingSuccessComponent,
+        data: { title: 'Doccure | Patient | Booking-Success' },
+      },
+      {
+        path: 'messages',
+        component: MessagesComponent,
+        data: { title: 'Doccure | Patient | Messages' },
+      },
+      {
+        path: 'profile-settings',
+        component: ProfileSettingsComponent,
+        data: { title: 'Doccure | Patient | Profile-settings' },
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        data: { title: 'Doccure | Patient | Change-Password' },
+      },
+      {
+        path: 'doctors-location',
+        component: DoctorsLocationComponent,
+        data: { title: 'Doccure | Patient | Doctors-Location' },
+      },
+      {
+        path: 'favourite-doctors',
+        component: FavouriteDoctorsComponent,
+        data: { title: 'Doccure | Patient | Favourite-Doctors' },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PatientRoutingModule { }
+export class PatientRoutingModule {}

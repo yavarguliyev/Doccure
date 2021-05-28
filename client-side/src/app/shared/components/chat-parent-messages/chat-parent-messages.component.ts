@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { Chat } from '../../models/chat';
 import { User } from '../../models/user';
@@ -8,7 +14,7 @@ import { ChatService } from '../../services/chat.service';
   selector: 'app-chat-parent-messages',
   templateUrl: './chat-parent-messages.component.html',
 })
-export class ChatParentMessagesComponent implements OnInit {
+export class ChatParentMessagesComponent implements OnInit, OnDestroy {
   @ViewChild('chat_list') chatlist: ElementRef;
   public user: User;
   public chats: Chat[] = [];
@@ -43,13 +49,14 @@ export class ChatParentMessagesComponent implements OnInit {
       const doctor = Object.values(chat).find((c) => c.doctor.id === id);
       const patient = Object.values(chat).find((c) => c.patient.id === id);
       this.currentChat = doctor ? doctor : patient;
-      this.user = doctor ? doctor.doctor : patient.patient;
+      if (doctor && doctor.doctor !== undefined) {
+        this.user = doctor.doctor;
+      } else if (patient && patient.patient !== undefined) {
+        this.user = patient.patient;
+      }
     });
 
-    this.showChatRight = false;
-    window.innerWidth < 800
-      ? (this.chatwindow = true)
-      : (this.chatwindow = false);
+    this.scrollChatMessages();
 
     if (this.user !== null) {
       timer(100)
@@ -58,5 +65,16 @@ export class ChatParentMessagesComponent implements OnInit {
           this.showChatRight = true;
         });
     }
+  }
+
+  private scrollChatMessages() {
+    this.showChatRight = false;
+    window.innerWidth < 800
+      ? (this.chatwindow = true)
+      : (this.chatwindow = false);
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.stopHubConnection();
   }
 }

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from './toastr.service';
+import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,12 @@ export class AuthService {
   private currentUserSource = new ReplaySubject<User>(1);
   public currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router, private toastrService: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastrService: ToastrService,
+    private presenceService: PresenceService
+  ) {
     this.currentUser$.pipe(map((user) => console.log(user)));
   }
 
@@ -30,6 +36,7 @@ export class AuthService {
           const user = response;
           if (user) {
             this.setCurrentUser(user);
+            this.presenceService.createHubConnection(user);
           }
         })
       )
@@ -42,6 +49,7 @@ export class AuthService {
   }
 
   public logout() {
+    // this.presenceService.stopHubConnection();
     localStorage.removeItem('token');
     this.currentUserSource.next(undefined);
     this.router.navigate(['/auth/login']);
@@ -63,7 +71,6 @@ export class AuthService {
   }
 
   public forgetPassword(email: string) {
-    console.log(email)
     return this.http
       .put(`${this.baseUrl}/auth/forget-password`, email)
       .subscribe((response: any) => {
@@ -72,11 +79,15 @@ export class AuthService {
       });
   }
 
-  public resetPassword(password: string, confirmPassword: string, token: string) {
+  public resetPassword(
+    password: string,
+    confirmPassword: string,
+    token: string
+  ) {
     return this.http
       .put(`${this.baseUrl}/auth/reset-password?token=${token}`, {
         password,
-        confirmPassword
+        confirmPassword,
       })
       .pipe(
         map((response: any) => {

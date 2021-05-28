@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { User } from './shared/models/user';
 import { AuthService } from './shared/services/auth.service';
-import { ChatService } from './shared/services/chat.service';
-import { AuthComponent } from './views/auth/auth.component';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,36 @@ import { AuthComponent } from './views/auth/auth.component';
 })
 export class AppComponent implements OnInit {
   private user!: User;
-  title = 'Doccure';
+  private title = 'Doccure';
 
-  constructor(private auth: AuthService, private chatService: ChatService) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private titleService: Title
+  ) {}
+
   ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.titleService.setTitle(this.getNestedRouteTitles().join(' | '));
+      });
     this.setCurrentUser();
+  }
+
+  private getNestedRouteTitles(): string[] {
+    let currentRoute = this.router.routerState.root.firstChild;
+    const titles: string[] = [];
+
+    while (currentRoute) {
+      if (currentRoute.snapshot.routeConfig.data?.title) {
+        titles.push(currentRoute.snapshot.routeConfig.data.title);
+      }
+
+      currentRoute = currentRoute.firstChild;
+    }
+
+    return titles;
   }
 
   private setCurrentUser() {
@@ -22,7 +48,6 @@ export class AppComponent implements OnInit {
 
     if (this.user) {
       this.auth.setCurrentUser(this.user);
-      this.chatService.createHubConnection(this.user);
     }
   }
 }

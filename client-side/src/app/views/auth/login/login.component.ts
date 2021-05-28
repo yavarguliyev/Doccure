@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -18,7 +17,6 @@ export class LoginComponent implements OnInit {
   public returnUrl!: string;
 
   constructor(
-    private title: Title,
     private api: AuthService,
     private fb: FormBuilder,
     private route: ActivatedRoute
@@ -26,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.isExist();
-    this.title.setTitle('Doccure | Login');
     this.intitializeForm();
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';

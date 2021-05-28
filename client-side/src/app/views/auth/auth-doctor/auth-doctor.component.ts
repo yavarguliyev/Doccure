@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { AuthDoctorService } from 'src/app/shared/services/auth-doctor.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -19,7 +18,6 @@ export class AuthDoctorComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
 
   constructor(
-    private title: Title,
     private authDoctorService: AuthDoctorService,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -27,7 +25,6 @@ export class AuthDoctorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Doccure | Doctor Register');
     this.checkRouter();
     this.intitializeForm();
   }
