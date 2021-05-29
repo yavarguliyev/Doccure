@@ -1,5 +1,4 @@
-﻿using Api.Hubs.ChatUsers;
-using Api.Libs;
+﻿using Api.Libs;
 using Core;
 using Core.DTOs.Admin.Admin_Doctor;
 using Core.DTOs.Auth;
@@ -148,7 +147,6 @@ namespace Api.Extensions
             services.AddTransient<ITermService, TermService>();
 
             // signalR
-            services.AddSingleton<PresenceTracker>();
             services.AddSignalR().AddJsonProtocol(options =>
             {
                 options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());

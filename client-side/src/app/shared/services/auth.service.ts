@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from './toastr.service';
-import { PresenceService } from './presence.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +18,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toastrService: ToastrService,
-    private presenceService: PresenceService
+    private toastrService: ToastrService
   ) {
     this.currentUser$.pipe(map((user) => console.log(user)));
   }
@@ -36,7 +34,6 @@ export class AuthService {
           const user = response;
           if (user) {
             this.setCurrentUser(user);
-            this.presenceService.createHubConnection(user);
           }
         })
       )
@@ -49,7 +46,6 @@ export class AuthService {
   }
 
   public logout() {
-    // this.presenceService.stopHubConnection();
     localStorage.removeItem('token');
     this.currentUserSource.next(undefined);
     this.router.navigate(['/auth/login']);

@@ -18,6 +18,7 @@ namespace Data.Repositories
         public async Task<PagedList<Blog>> Get(BlogParams blogParams)
         {
             var blogs = context.Blogs.OrderByDescending(x => x.AddedDate)
+                                     .Include(x => x.Comments)
                                      .Include(x => x.Doctor)
                                      .ThenInclude(x => x.Users)
                                      .Where(x => x.Status)

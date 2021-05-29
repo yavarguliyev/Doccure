@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Gender } from '../../enums/gender.enum';
+import { PagesPhotos } from '../../models/pages-images';
 
 @Component({
   selector: 'app-auth-auth',
@@ -16,11 +17,12 @@ export class AuthAuthComponent implements OnInit {
   @Input() isForget = false;
   @Input() isReset = false;
   @Output() submitForm = new EventEmitter();
+  @Input() loginPhoto: PagesPhotos;
 
   public maxDate!: Date;
   public gender = Gender;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.maxDate = new Date();

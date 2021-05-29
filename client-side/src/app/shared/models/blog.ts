@@ -8,6 +8,8 @@ export interface Blog {
   photo: string;
   doctor?: Doctor;
   video?: any;
+  commentCount: number;
+  addedDate: Date;
 }
 
 export class BlogB implements Blog {
@@ -18,6 +20,8 @@ export class BlogB implements Blog {
   photo: string;
   doctor?: Doctor;
   video?: any;
+  commentCount: number;
+  addedDate: Date;
 
   constructor(
     id: number,
@@ -26,7 +30,7 @@ export class BlogB implements Blog {
     description: string,
     photo: string,
     doctor?: Doctor,
-    video?: any
+    video?: any,
   ) {
     this.id = id;
     this.title = title;

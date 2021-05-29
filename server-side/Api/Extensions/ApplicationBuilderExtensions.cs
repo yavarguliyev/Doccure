@@ -1,5 +1,4 @@
 ﻿using Api.Hubs;
-using Api.Hubs.ChatUsers;
 using Api.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,7 +57,6 @@ namespace Api.Extensions
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
-        endpoints.MapHub<PresenceHub>("hubs/presence");
         endpoints.MapHub<ChatHub>("hubs/chat");
         endpoints.MapHub<ReviewHub>("hubs/review");
         endpoints.MapHub<CommentHub>("hubs/comment");

@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { PagesPhotos } from 'src/app/shared/models/pages-images';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -14,7 +15,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
-  public returnUrl!: string;
+  public returnUrl: string;
+  public loginPhoto: PagesPhotos;
 
   constructor(
     private api: AuthService,

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Blog } from 'src/app/shared/models/blog';
@@ -11,7 +11,7 @@ import { MainService } from 'src/app/shared/services/main.service';
   selector: 'app-details',
   templateUrl: './details.component.html',
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   public blog!: Blog;
   public user: User;
   @Input() blogs: Blog[] = [];
@@ -48,5 +48,9 @@ export class DetailsComponent implements OnInit {
       this.loading = true;
       this.commentService.createHubConnection(this.slug);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.commentService.stopHubConnection();
   }
 }

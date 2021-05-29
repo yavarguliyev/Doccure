@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { Blog } from 'src/app/shared/models/blog';
 import { PaginatedResult, Pagination } from 'src/app/shared/models/pagination';
 import { MainService } from 'src/app/shared/services/main.service';
@@ -8,14 +17,18 @@ import { MainService } from 'src/app/shared/services/main.service';
   templateUrl: './list.component.html',
 })
 export class ListComponent implements OnInit {
-  @ViewChildren('blog_description') private blogDescription: QueryList<ElementRef>;
+  @ViewChildren('blog_description')
+  private blogDescription: QueryList<ElementRef>;
   @Input() blogs: Blog[] = [];
   @Input() pagination: Pagination;
 
-  constructor(private mainService: MainService, private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private mainService: MainService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.blogs.forEach(x => this.inserHTML(x));
+    this.blogs.forEach((x) => this.inserHTML(x));
   }
 
   public pageChanged(event: any) {
@@ -29,16 +42,16 @@ export class ListComponent implements OnInit {
       .subscribe((response: PaginatedResult<Blog[]>) => {
         this.pagination = response.pagination;
         this.blogs = response.result;
-        this.blogs.forEach(x => this.inserHTML(x));
+        this.blogs.forEach((x) => this.inserHTML(x));
       });
   }
 
   private inserHTML(blog: Blog) {
     this.changeDetectorRef.detectChanges();
     const blogDescription: ElementRef[] = this.blogDescription.toArray();
-    blogDescription.forEach(desc => {
+    blogDescription.forEach((desc) => {
       const element = desc.nativeElement as HTMLElement;
-      if(blog.slug === element.getAttribute('id')) {
+      if (blog.slug === element.getAttribute('id')) {
         desc.nativeElement.insertAdjacentHTML(
           'afterbegin',
           blog.description.substr(0, 450)

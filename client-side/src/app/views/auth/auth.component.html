@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<router-outlet
+  *ngIf="loginPhoto"
+  (activate)="
+    onLoginPageLoaded($event);
+    onAuthDoctorPageLoaded($event);
+    onForgetPasswordPageLoaded($event);
+    onResetPasswordPageLoaded($event)
+  "
+>
+</router-outlet>

@@ -571,35 +571,6 @@ namespace Data.Migrations
                     b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("Core.Models.Hubs.Connection", b =>
-                {
-                    b.Property<string>("ConnectionId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("GroupName")
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("ConnectionId");
-
-                    b.HasIndex("GroupName");
-
-                    b.ToTable("Connections");
-                });
-
-            modelBuilder.Entity("Core.Models.Hubs.Group", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Name");
-
-                    b.ToTable("Groups");
-                });
-
             modelBuilder.Entity("Core.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -1327,14 +1298,6 @@ namespace Data.Migrations
                     b.Navigation("Doctor");
                 });
 
-            modelBuilder.Entity("Core.Models.Hubs.Connection", b =>
-                {
-                    b.HasOne("Core.Models.Hubs.Group", null)
-                        .WithMany("Connections")
-                        .HasForeignKey("GroupName")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Core.Models.Patient", b =>
                 {
                     b.HasOne("Core.Models.BloodGroup", "BloodGroup")
@@ -1489,11 +1452,6 @@ namespace Data.Migrations
                     b.Navigation("Specializations");
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Core.Models.Hubs.Group", b =>
-                {
-                    b.Navigation("Connections");
                 });
 
             modelBuilder.Entity("Core.Models.Patient", b =>

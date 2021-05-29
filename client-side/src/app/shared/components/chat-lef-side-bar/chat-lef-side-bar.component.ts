@@ -58,7 +58,7 @@ export class ChatLefSideBarComponent implements OnInit {
     const element: ElementRef[] = this.mediaChat.toArray();
     element.forEach((x) => x.nativeElement.classList.remove('active'));
     element.forEach((x) => {
-      const elementId = parseInt(x.nativeElement.getAttribute('id'));
+      const elementId = parseInt(x.nativeElement.getAttribute('id'), 0);
       if (elementId === id) {
         this.showChatRight.emit(id);
         x.nativeElement.classList.add('active');

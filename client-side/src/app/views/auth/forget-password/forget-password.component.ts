@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PagesPhotos } from 'src/app/shared/models/pages-images';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class ForgetPasswordComponent implements OnInit {
   public fg: FormGroup = new FormGroup({});
+  public loginPhoto: PagesPhotos;
 
   constructor(private fb: FormBuilder, private authService: AuthService) { }
 

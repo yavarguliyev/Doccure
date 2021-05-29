@@ -8,49 +8,37 @@
         <div class="blog" *ngFor="let item of blogs">
           <div class="blog-image">
             <div class="video">
-              <iframe
-                [src]="item.video | urlSanitizer"
-                width="940"
+              <iframe [src]="item.video | urlSanitizer" width="940"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
+                allowfullscreen></iframe>
             </div>
           </div>
           <h3 class="blog-title">
             <a [routerLink]="['/main/blog/details', item.slug]">{{
               item.title
-            }}</a>
+              }}</a>
           </h3>
           <div class="blog-info clearfix">
             <div class="post-left">
               <ul>
                 <li>
                   <div class="post-author">
-                    <a
-                      [routerLink]="[
+                    <a [routerLink]="[
                         '/main/patient/doctor-profile',
                         item.doctor?.slug
-                      ]"
-                      ><img
-                        src="{{ item.doctor?.photo }}"
-                        alt="{{ item.doctor?.fullname }}"
-                      />
-                      <span>Dr. {{ item.doctor?.fullname }}</span></a
-                    >
+                      ]"><img src="{{ item.doctor?.photo }}" alt="{{ item.doctor?.fullname }}" />
+                      <span>Dr. {{ item.doctor?.fullname }}</span></a>
                   </div>
                 </li>
-                <li><i class="far fa-clock"></i>3 Dec 2019</li>
-                <li><i class="far fa-comments"></i>2 Comments</li>
+                <li><i class="far fa-clock"></i>{{item.addedDate | timeago}}</li>
+                <li><i class="far fa-comments"></i>{{item.commentCount}} {{item.commentCount <= 1 ? 'Comment'
+                    : 'Comments' }}</li>
                 <li><i class="fa fa-tags"></i>Health Care</li>
               </ul>
             </div>
           </div>
           <div #blog_description class="blog-content" id={{item.slug}}>
-            <a
-              [routerLink]="['/main/blog/details', item.slug]"
-              class="read-more"
-              >Read More</a
-            >
+            <a [routerLink]="['/main/blog/details', item.slug]" class="read-more">Read More</a>
           </div>
         </div>
         <!-- /Blog Post -->
@@ -60,16 +48,9 @@
           <div class="col-md-12">
             <div class="blog-pagination">
               <nav>
-                <pagination
-                  [boundaryLinks]="true"
-                  [totalItems]="pagination.totalItems"
-                  [itemsPerPage]="pagination.itemsPerPage"
-                  (pageChanged)="pageChanged($event)"
-                  previousText="&lsaquo;"
-                  nextText="&rsaquo;"
-                  firstText="&laquo;"
-                  lastText="&raquo;"
-                >
+                <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+                  [itemsPerPage]="pagination.itemsPerPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+                  nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
                 </pagination>
               </nav>
             </div>

@@ -1,5 +1,4 @@
-﻿using Core.Hubs.Repositories;
-using Core.Repositories;
+﻿using Core.Repositories;
 using System.Threading.Tasks;
 
 namespace Core
@@ -16,9 +15,6 @@ namespace Core
         IUserRepository User { get; }
         IReviewRepository Review { get; }
         IReviewReplyRepository ReviewReply { get; }
-
-        IGroupRepository Group { get; }
-        IConnectionRepository Connection { get; }
 
         IBlogRespository Blog { get; }
         IDoctorSocialMediaUrlLinkRepository DoctorSocialMediaUrl { get; }

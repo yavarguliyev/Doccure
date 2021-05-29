@@ -19,11 +19,12 @@
                         <span>Dr. {{blog.doctor?.fullname}}</span></a>
                     </div>
                   </li>
-                  <li><i class="far fa-calendar"></i>4 Dec 2019</li>
+                  <li><i class="far fa-calendar"></i>{{blog.addedDate | timeago}}</li>
                   <li *ngIf="(commentThread$ | async).length === 0"><i class="far fa-comments"></i>0 Comment</li>
                   <li
                     *ngIf="(commentThread$ | async) && (commentThread$ | async).length > 0 && (commentThread$ | async).length === 1">
-                    <i class="far fa-comments"></i>1 Comment</li>
+                    <i class="far fa-comments"></i>1 Comment
+                  </li>
                   <li *ngIf="(commentThread$ | async) && (commentThread$ | async).length > 1"><i
                       class="far fa-comments"></i>({{(commentThread$ | async).length}}) Comments</li>
                   <li><i class="fa fa-tags"></i>Health Tips</li>

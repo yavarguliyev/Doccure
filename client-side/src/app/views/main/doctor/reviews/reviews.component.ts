@@ -5,6 +5,7 @@ import {
   ElementRef,
   EmbeddedViewRef,
   Injector,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChild,
@@ -22,7 +23,7 @@ import { ReviewService } from 'src/app/shared/services/review.service';
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
 })
-export class ReviewsComponent implements OnInit {
+export class ReviewsComponent implements OnInit, OnDestroy {
   @ViewChild('reviewForm') reviewForm: NgForm;
   @ViewChildren('choosenForm') chooseForms: QueryList<ElementRef>;
   public user: User;
@@ -67,7 +68,10 @@ export class ReviewsComponent implements OnInit {
 
     const element: ElementRef[] = this.chooseForms.toArray();
     element.forEach((x) => {
-      const elementId: number = parseInt(x.nativeElement.getAttribute('id'), 16);
+      const elementId: number = parseInt(
+        x.nativeElement.getAttribute('id'),
+        16
+      );
       if (elementId === id && x.nativeElement.lastElementChild !== domElem) {
         x.nativeElement.appendChild(domElem);
         x.nativeElement.querySelector('.comment-btn').classList.add('d-none');
@@ -75,7 +79,15 @@ export class ReviewsComponent implements OnInit {
     });
   }
 
-  public sendRecommendation(id: number, userId: number, recommendation: DoctorRecommendation) {
+  public sendRecommendation(
+    id: number,
+    userId: number,
+    recommendation: DoctorRecommendation
+  ) {
     this.reviewService.sendReccomendation(id, userId, recommendation);
+  }
+
+  ngOnDestroy(): void {
+    this.reviewService.stopHubConnection();
   }
 }

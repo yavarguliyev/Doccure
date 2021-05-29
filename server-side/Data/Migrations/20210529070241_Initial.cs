@@ -82,17 +82,6 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Groups",
-                columns: table => new
-                {
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Groups", x => x.Name);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Privacies",
                 columns: table => new
                 {
@@ -402,25 +391,6 @@ namespace Data.Migrations
                         principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Connections",
-                columns: table => new
-                {
-                    ConnectionId = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    GroupName = table.Column<string>(type: "character varying(100)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Connections", x => x.ConnectionId);
-                    table.ForeignKey(
-                        name: "FK_Connections_Groups_GroupName",
-                        column: x => x.GroupName,
-                        principalTable: "Groups",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -780,11 +750,6 @@ namespace Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Connections_GroupName",
-                table: "Connections",
-                column: "GroupName");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DoctorSocialMediaUrlLinks_DoctorId",
                 table: "DoctorSocialMediaUrlLinks",
                 column: "DoctorId");
@@ -877,9 +842,6 @@ namespace Data.Migrations
                 name: "CommentReplies");
 
             migrationBuilder.DropTable(
-                name: "Connections");
-
-            migrationBuilder.DropTable(
                 name: "DoctorSocialMediaUrlLinks");
 
             migrationBuilder.DropTable(
@@ -920,9 +882,6 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
-
-            migrationBuilder.DropTable(
-                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

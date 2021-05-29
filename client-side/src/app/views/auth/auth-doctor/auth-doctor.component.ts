@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { PagesPhotos } from 'src/app/shared/models/pages-images';
 import { AuthDoctorService } from 'src/app/shared/services/auth-doctor.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -16,6 +17,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 export class AuthDoctorComponent implements OnInit {
   private token!: string;
   public fg: FormGroup = new FormGroup({});
+  public loginPhoto: PagesPhotos;
 
   constructor(
     private authDoctorService: AuthDoctorService,

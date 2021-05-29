@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { ComponentsHelperModule } from 'src/app/shared/components/components-helper.module';
 import { UrlSanitizerPipe } from 'src/app/shared/pipes/url-sanitizer.pipe';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [BlogComponent, ListComponent, DetailsComponent, UrlSanitizerPipe],
@@ -18,6 +19,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     RouterModule,
     ComponentsHelperModule,
     PaginationModule.forRoot(),
+    TimeagoModule.forRoot(),
   ],
   exports: [
     PaginationModule,

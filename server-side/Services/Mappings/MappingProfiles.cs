@@ -38,7 +38,8 @@ namespace Services.Mappings
 
             CreateMap<Blog, BlogDTO>()
                 .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "blog-01_vffzcg.jpg"))
-                .ForMember(x => x.Doctor, opt => opt.MapFrom(src => src.Doctor.Users.FirstOrDefault(x => x.DoctorId == src.DoctorId)));
+                .ForMember(x => x.Doctor, opt => opt.MapFrom(src => src.Doctor.Users.FirstOrDefault(x => x.DoctorId == src.DoctorId)))
+                .ForMember(x => x.CommentCount, opt => opt.MapFrom(src => src.Comments.Where(c => c.BlogId == src.Id).Count()));
 
             CreateMap<Setting, SettingDTO>()
                 .ForMember(x => x.SocialMediaDTOs, opt => opt.MapFrom(src => src.SocialMedias));

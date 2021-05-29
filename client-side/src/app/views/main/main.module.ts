@@ -12,7 +12,14 @@ import { SearchDoctorsComponent } from './search-doctors/search-doctors.componen
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 
 @NgModule({
-  declarations: [MainComponent, HomepageComponent, TermsConditiosComponent, PrivacyPolicyComponent, SearchDoctorsComponent, DoctorProfileComponent],
+  declarations: [
+    MainComponent,
+    HomepageComponent,
+    TermsConditiosComponent,
+    PrivacyPolicyComponent,
+    SearchDoctorsComponent,
+    DoctorProfileComponent,
+  ],
   imports: [
     CommonModule,
     MainRoutingModule,
@@ -20,4 +27,4 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
     ComponentsHelperModule,
   ],
 })
-export class MainModule { }
+export class MainModule {}

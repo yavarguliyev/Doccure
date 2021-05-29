@@ -10,7 +10,7 @@ import { HomepageComponent } from './homepage/homepage.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class MainComponent implements OnInit {
-  public setting!: MainPageSettings;
+  public setting: MainPageSettings;
   public showFooter = true;
 
   constructor(private settingService: SettingsService) { }

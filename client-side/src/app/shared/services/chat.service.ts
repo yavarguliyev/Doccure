@@ -5,8 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Chat, ChatMessageFormValues } from '../models/chat';
-import { Group } from '../models/group';
 import { User } from '../models/user';
+import { AuthService } from './auth.service';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
@@ -21,8 +21,9 @@ export class ChatService {
 
   constructor(
     private http: HttpClient,
-    private spinnerService: SpinnerService
-  ) { }
+    private spinnerService: SpinnerService,
+    private userService: AuthService
+  ) {}
 
   public createHubConnection(user: User) {
     this.spinnerService.busy();
@@ -38,24 +39,29 @@ export class ChatService {
       .catch((error) => console.log(error))
       .finally(() => this.spinnerService.idle());
 
-    this.hubConnection.on('ReceiveMessageThread', (messages) => {
+    this.hubConnection.on('ReceiveMessageThread', (messages: Chat[]) => {
       this.messageThreadSource.next(messages);
     });
 
     this.hubConnection.on('NewMessage', (message: Chat) => {
       this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
-        // const index = messages.findIndex(x => x.id === message.id);
-        // message.chatMessageDTOs.map(x => {
-        //   messages[index].chatMessageDTOs.push(x);
-        // });
-
-        console.log(message);
+        const index = messages.findIndex((x) => x.id === message.id);
+        message.chatMessageDTOs.map((x) => {
+          messages[index].chatMessageDTOs.push(x);
+        });
         this.messageThreadSource.next(messages);
       });
     });
 
-    this.hubConnection.on('UpdatedGroup', (group: Group) => {
-      console.log(group);
+    this.hubConnection.on('UpdatedGroup', (groupName) =>
+      console.log(`Group ${groupName} updated`)
+    );
+    this.hubConnection.on('OnlineUsers', (connectionId) => {
+      console.log(connectionId);
+    });
+
+    this.hubConnection.on('OfflineUsers', (connectionId) => {
+      console.log(connectionId);
     });
   }
 

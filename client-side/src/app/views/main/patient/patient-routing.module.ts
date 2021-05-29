@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthPatientGuard } from 'src/app/shared/guards/auth-patient.guard';
 import { BookingSuccessComponent } from './booking-success/booking-success.component';
 import { BookingComponent } from './booking/booking.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -14,6 +15,8 @@ const routes: Routes = [
   {
     path: '',
     component: PatientComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthPatientGuard],
     children: [
       {
         path: 'dashboard',
