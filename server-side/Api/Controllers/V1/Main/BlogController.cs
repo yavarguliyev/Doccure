@@ -21,9 +21,6 @@ namespace Api.Controllers.v1.Main
         }
 
         [HttpGet("{slug}")]
-        public async Task<IActionResult> Details(string slug)
-        {
-            return Ok(await blogService.GetAsync(slug));
-        }
+        public async Task<IActionResult> Details(string slug) => Ok(await blogService.GetAsync(slug));
     }
 }

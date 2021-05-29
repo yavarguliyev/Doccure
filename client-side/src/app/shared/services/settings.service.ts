@@ -9,6 +9,7 @@ import { MainPageSettings } from '../models/main-page-settings';
 import { Speciality } from '../models/speciality';
 import { Feature } from '../models/feature';
 import { PagesPhotos } from '../models/pages-images';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,10 @@ export class SettingsService {
   public getSpeciality(): Observable<Speciality[]> {
     const url = `${this.baseUrl}/admin_settings/specialities`;
     return this.http.get<Speciality[]>(url);
+  }
+
+  public getDoctors(): Observable<User[]> {
+    const url = `${this.baseUrl}/home`;
+    return this.http.get<User[]>(url);
   }
 }

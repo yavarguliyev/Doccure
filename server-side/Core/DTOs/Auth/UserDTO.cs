@@ -31,5 +31,11 @@ namespace Core.DTOs.Auth
         public int? AdminId { get; set; }
         public int? DoctorId { get; set; }
         public int? PatientId { get; set; }
+
+        public string RateStar { get; set; }
+        public int RateNumber { get; set; }
+
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }

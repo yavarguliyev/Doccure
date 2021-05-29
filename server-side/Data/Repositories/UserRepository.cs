@@ -21,6 +21,8 @@ namespace Data.Repositories
       var user = await context.Users
                               .FirstOrDefaultAsync(x => x.Id == (id ?? default(int)));
       var users = context.Users.OrderByDescending(x => x.Id)
+                         .Include(x => x.ReviewsDoctors)
+                         .Include(x => x.ReviewsPatients)
                          .Include(x => x.Admin)
                          .Include(x => x.Doctor)
                          .Include(x => x.Patient).ThenInclude(x => x.BloodGroup);

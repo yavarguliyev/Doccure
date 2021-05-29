@@ -7,53 +7,28 @@ namespace Api.Controllers.v1.Admin
     {
         #region admin_settings read
         [HttpGet("settings")]
-        public async Task<IActionResult> Setting()
-        {
-            return Ok(await settingService.GetAsync());
-        }
+        public async Task<IActionResult> Setting() => Ok(await settingService.GetAsync());
 
         [HttpGet("setting-photo")]
-        public async Task<IActionResult> SettingPhoto(string name)
-        {
-            return Ok(await settingPhotoService.GetAsync(name));
-        }
+        public async Task<IActionResult> SettingPhoto(string name) => Ok(await settingPhotoService.GetAsync(name));
 
         [HttpGet("social-media")]
-        public async Task<IActionResult> SocialMedia()
-        {
-            return Ok(await socialMediaService.GetAsync());
-        }
+        public async Task<IActionResult> SocialMedia() => Ok(await socialMediaService.GetAsync());
 
         [HttpGet("privacies")]
-        public async Task<IActionResult> Privacies()
-        {
-            return Ok(await privacyService.GetAsync());
-        }
+        public async Task<IActionResult> Privacies() => Ok(await privacyService.GetAsync());
 
         [HttpGet("terms")]
-        public async Task<IActionResult> Terms()
-        {
-            return Ok(await termService.GetAsync());
-        }
-
-        [HttpGet("setting-photos")]
-        public async Task<IActionResult> SettingPhotos()
-        {
-            if (auth.Admin == null) return Unauthorized();
-            return Ok(await settingPhotoService.GetAsync());
-        }
+        public async Task<IActionResult> Terms() => Ok(await termService.GetAsync());
 
         [HttpGet("features")]
-        public async Task<IActionResult> Features()
-        {
-            return Ok(await featureService.GetAsync());
-        }
+        public async Task<IActionResult> Features() => Ok(await featureService.GetAsync());
 
         [HttpGet("specialities")]
-        public async Task<IActionResult> Specialities()
-        {
-            return Ok(await specialityService.GetAsync());
-        }
+        public async Task<IActionResult> Specialities() => Ok(await specialityService.GetAsync());
+
+        [HttpGet("setting-photos")]
+        public async Task<IActionResult> SettingPhotos() => Ok(await settingPhotoService.GetAsync());
         #endregion
 
         #region admin_settings edit
@@ -61,7 +36,6 @@ namespace Api.Controllers.v1.Admin
         public IActionResult EditSettings()
         {
             if (auth.Admin == null) return Unauthorized();
-
             return Ok();
         }
 
@@ -69,7 +43,6 @@ namespace Api.Controllers.v1.Admin
         public IActionResult UploadSettingPhoto()
         {
             if (auth.Admin == null) return Unauthorized();
-
             return Ok();
         }
 
@@ -77,7 +50,6 @@ namespace Api.Controllers.v1.Admin
         public IActionResult EditSocialMedia()
         {
             if (auth.Admin == null) return Unauthorized();
-
             return Ok();
         }
 
@@ -85,7 +57,6 @@ namespace Api.Controllers.v1.Admin
         public IActionResult EditPrivacies()
         {
             if (auth.Admin == null) return Unauthorized();
-
             return Ok();
         }
         
@@ -93,7 +64,6 @@ namespace Api.Controllers.v1.Admin
         public IActionResult EditTerms()
         {
             if (auth.Admin == null) return Unauthorized();
-
             return Ok();
         }
         #endregion

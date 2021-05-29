@@ -22,6 +22,10 @@ export interface User {
   adminId?: number;
   doctorId?: number;
   patientId?: number;
+  rateStar: string;
+  rateNumber: number;
+  city: string;
+  country: string;
 }
 
 export interface UserFormValues {

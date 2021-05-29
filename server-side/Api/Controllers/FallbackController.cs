@@ -3,11 +3,8 @@ using System.IO;
 
 namespace Api.Controllers
 {
-  public class FallbackController : Controller
-  {
-    public ActionResult Index()
+    public class FallbackController : Controller
     {
-      return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"), "text/HTML");
+        public ActionResult Index() => PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html"), "text/HTML");
     }
-  }
 }
