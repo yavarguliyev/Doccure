@@ -10,7 +10,7 @@ namespace Api.Hubs
 {
     public class ChatHub : Hub
     {
-        #region
+        #region chat
         private readonly IUserService _userService;
         private readonly IChatService _chatService;
         private readonly IChatMessageService _chatMessageService;

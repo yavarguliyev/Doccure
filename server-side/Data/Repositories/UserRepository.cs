@@ -22,7 +22,6 @@ namespace Data.Repositories
                               .FirstOrDefaultAsync(x => x.Id == (id ?? default(int)));
       var users = context.Users.OrderByDescending(x => x.Id)
                          .Include(x => x.ReviewsDoctors)
-                         .Include(x => x.ReviewsPatients)
                          .Include(x => x.Admin)
                          .Include(x => x.Doctor)
                          .Include(x => x.Patient).ThenInclude(x => x.BloodGroup);
@@ -74,6 +73,7 @@ namespace Data.Repositories
       if (string.IsNullOrEmpty(queryValue)) throw new RestException(HttpStatusCode.BadRequest, new { user = "User value cannot be null" });
 
       var query = context.Users.Where(x => x.Status)
+                              .Include(x => x.ReviewsDoctors)
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor)
                               .Include(x => x.Patient).ThenInclude(x => x.BloodGroup);

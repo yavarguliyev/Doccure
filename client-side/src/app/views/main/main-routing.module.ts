@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthDoctorGuard } from 'src/app/shared/guards/auth-doctor.guard';
+import { AuthPatientGuard } from 'src/app/shared/guards/auth-patient.guard';
+import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MainComponent } from './main.component';
@@ -37,6 +40,8 @@ const routes: Routes = [
         path: 'doctor-profile/:slug',
         component: DoctorProfileComponent,
         data: { title: 'Doccure | Doctor-Profile' },
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard]
       },
       {
         path: 'search-doctors',

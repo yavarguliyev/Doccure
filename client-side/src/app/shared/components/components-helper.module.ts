@@ -47,6 +47,7 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { PatientDashboardComponent } from './patient-dashboard/patient-dashboard.component';
 import { ChatParentMessagesComponent } from './chat-parent-messages/chat-parent-messages.component';
+import { ReviewMainListComponent } from './review-main-list/review-main-list.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ChatParentMessagesComponent } from './chat-parent-messages/chat-parent-
     CommentComponent,
     CommentFormComponent,
     PatientDashboardComponent,
-    ChatParentMessagesComponent
+    ChatParentMessagesComponent,
+    ReviewMainListComponent
   ],
   imports: [
     CommonModule,
@@ -144,7 +146,8 @@ import { ChatParentMessagesComponent } from './chat-parent-messages/chat-parent-
     CommentComponent,
     CommentFormComponent,
     PatientDashboardComponent,
-    ChatParentMessagesComponent
+    ChatParentMessagesComponent,
+    ReviewMainListComponent
   ],
 })
 export class ComponentsHelperModule {}

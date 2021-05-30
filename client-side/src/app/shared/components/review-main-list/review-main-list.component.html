@@ -1,0 +1,56 @@
+<div *ngIf="review" class="comment">
+  <img class="avatar rounded-circle" alt="User Image" src={{review.patient.photo}}>
+  <div class="comment-body">
+    <div class="meta-data">
+      <span class="comment-author">{{review.patient.fullname}}</span>
+      <span class="comment-date">Reviewed {{review.addedDate | timeago}}</span>
+      <div class="review-count rating">
+        <i class="fas {{star}}" *ngFor="let star of review.rateStar.split(',')"></i>
+      </div>
+    </div>
+    <p class="recommended" *ngIf="review.recommendation === 'Yes'"><i class="far fa-thumbs-up"></i> I
+      recommend the
+      doctor</p>
+    <p class="recommended text-danger" *ngIf="review.recommendation === 'No'"><i class="far fa-thumbs-down"></i> I
+      do not recommend the
+      doctor</p>
+    <p class="comment-content">
+      {{review.text}}
+    </p>
+    <div #choosenForm id={{review.id}} class="comment-reply">
+      <a (click)="addReplyText(review.id)" class="comment-btn" href="javascript:void(0);">
+        <i class="fas fa-reply"></i> Reply
+      </a>
+      <p class="recommend-btn" *ngIf="user && user.role === 'Patient' && review.recommendation === 'Select'">
+        <span>Recommend?</span>
+        <a (click)="sendRecommendation(review.id, review.doctorId, 'Yes')" href="javascript:void(0);" class="like-btn">
+          <i class="far fa-thumbs-up"></i> Yes
+        </a>
+        <a (click)="sendRecommendation(review.id, review.doctorId, 'No')" href="javascript:void(0);" class="dislike-btn">
+          <i class="far fa-thumbs-down"></i> No
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+<!-- Comment Reply -->
+<ul class="comments-reply" *ngIf="review.isReply">
+  <li *ngFor="let reply of review.reviewReplyDTOs">
+    <div class="comment">
+      <img *ngIf="reply.doctor" class="avatar rounded-circle" alt="{{reply.doctor.fullname}}" src="{{reply.doctor.photo}}">
+      <img *ngIf="reply.patient" class="avatar rounded-circle" alt="{{reply.patient.fullname}}"
+        src="{{reply.patient.photo}}">
+      <div class="comment-body">
+        <div class="meta-data">
+          <span *ngIf="reply.doctor" class="comment-author">Dr. {{reply.doctor.fullname}}</span>
+          <span *ngIf="reply.patient" class="comment-author">{{reply.patient.fullname}}</span>
+          <span class="comment-date">Reviewed {{reply.addedDate | timeago}}</span>
+        </div>
+        <p class="comment-content">
+          {{reply.text}}
+        </p>
+      </div>
+    </div>
+  </li>
+</ul>
+<!-- /Comment Reply -->

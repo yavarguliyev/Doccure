@@ -16,11 +16,11 @@ import { SettingsService } from '../../services/settings.service';
   templateUrl: './popular-selection.component.html',
 })
 export class PopularSelectionComponent implements OnInit {
-  @Input() setting!: MainPageSettings;
+  @Input() setting: MainPageSettings;
   @ViewChild('popularTitle', { static: false })
-  private popularTitle!: ElementRef;
+  private popularTitle: ElementRef;
   @ViewChild('popularText', { static: false })
-  private popularText!: ElementRef;
+  private popularText: ElementRef;
 
   public slideConfig = { slidesToShow: 3, slidesToScroll: 3 };
 

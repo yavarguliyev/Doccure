@@ -3,7 +3,6 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DoctorRecommendation } from '../enums/doctorRecommendation';
 import {
   Review,
   ReviewReply,
@@ -28,10 +27,10 @@ export class ReviewService {
     private toastrService: ToastrService
   ) {}
 
-  public createHubConnection(user: User) {
+  public createHubConnection(user: User, slug: string) {
     this.spinnerService.busy();
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.hubUrl + `review?token=${user.token}`, {
+      .withUrl(this.hubUrl + `review?token=${user.token}&slug=${slug}`, {
         accessTokenFactory: () => user.token,
       })
       .withAutomaticReconnect()
@@ -76,6 +75,10 @@ export class ReviewService {
         this.reviewThreadSource.next(reviews);
       });
     });
+
+    this.hubConnection.on('UpdatedGroup', (groupName) =>
+      console.log(`Group ${groupName} updated`)
+    );
   }
 
   public stopHubConnection() {
@@ -91,11 +94,7 @@ export class ReviewService {
       .catch((error) => this.toastrService.info(error, 'Info'));
   }
 
-  async sendReccomendation(
-    id: number,
-    userId: number,
-    recommendation: DoctorRecommendation
-  ) {
+  async sendReccomendation(id: number, userId: number, recommendation: string) {
     return this.hubConnection
       .invoke('SendReccomendation', id, userId, recommendation)
       .catch((error) => this.toastrService.info(error, 'Info'));

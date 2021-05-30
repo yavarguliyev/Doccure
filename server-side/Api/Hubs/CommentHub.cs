@@ -11,6 +11,7 @@ namespace Api.Hubs
 {
     public class CommentHub : Hub
     {
+        #region comment
         private readonly IUserService _userService;
         private readonly IBlogService _blogService;
         private readonly ICommentService _commentService;
@@ -84,5 +85,6 @@ namespace Api.Hubs
             var newCommentReply = await _commentReplyService.CreateAsync(reply);
             await Clients.Group(model.Slug.ToString()).SendAsync("NewCommentReply", newCommentReply);
         }
+        #endregion
     }
 }

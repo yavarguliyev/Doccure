@@ -26,6 +26,7 @@ export interface User {
   rateNumber: number;
   city: string;
   country: string;
+  biography: string;
 }
 
 export interface UserFormValues {

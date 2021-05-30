@@ -11,12 +11,12 @@ import { PaginatedResult } from '../models/pagination';
 })
 export class MainService {
   private baseUrl = environment.api;
-  private memberCache = new Map();
+  private blogCache = new Map();
 
   constructor(private http: HttpClient) {}
 
   public getBlog(slug: any): Observable<Blog> {
-    const blog = [...this.memberCache.values()]
+    const blog = [...this.blogCache.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
       .find((x: Blog) => x.slug === slug);
 

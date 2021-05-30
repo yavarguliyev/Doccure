@@ -21,15 +21,15 @@ namespace Services.Mappings
                 .ForMember(x => x.FullAddress, opt => opt.MapFrom(src => src.City + ", " + src.Country))
                 .ForMember(x => x.BloodGroup, opt => opt.MapFrom(src => src.Patient.BloodGroup.Name))
                 .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "avatar_vpbhfa.png"))
-                .ForMember(x => x.RateStar, opt => opt.MapFrom(src => src.ReviewsDoctors.Count() != 0 ? src.ReviewsDoctors.FirstOrDefault(r => r.DoctorId == src.Id).RateStar : src.ReviewsDoctors.FirstOrDefault(r => r.PatientId == src.Id).RateStar))
-                .ForMember(x => x.RateNumber, opt => opt.MapFrom(src => src.ReviewsDoctors.Count() != 0 ? src.ReviewsDoctors.FirstOrDefault(r => r.DoctorId == src.Id).RateNumber : src.ReviewsDoctors.FirstOrDefault(r => r.PatientId == src.Id).RateNumber));
+                .ForMember(x => x.RateStar, opt => opt.MapFrom(src => src.ReviewsDoctors.Count() != 0 ? src.ReviewsDoctors.FirstOrDefault(r => r.DoctorId == src.Id).RateStar : null))
+                .ForMember(x => x.RateNumber, opt => opt.MapFrom(src => src.ReviewsDoctors.Count() != 0 ? src.ReviewsDoctors.FirstOrDefault(r => r.DoctorId == src.Id).RateNumber : 0));
 
             CreateMap<Chat, ChatDTO>()
                 .ForMember(x => x.ChatMessageDTOs, opt => opt.MapFrom(src => src.ChatMessages));
             CreateMap<ChatMessage, ChatMessageDTO>();
 
             CreateMap<Review, ReviewDTO>()
-                .ForMember(x => x.ReviewReplyDTOs, opt => opt.MapFrom(src => src.ReviewReplies));
+                .ForMember(x => x.ReviewReplyDTOs, opt => opt.MapFrom(src => src.ReviewReplies.Where(review => review.ReviewId == src.Id)));
             CreateMap<ReviewReply, ReviewReplyDTO>();
 
             CreateMap<Comment, CommentDTO>()

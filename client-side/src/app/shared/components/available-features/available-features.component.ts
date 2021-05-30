@@ -19,8 +19,8 @@ import { SettingsService } from '../../services/settings.service';
 export class AvailableFeaturesComponent implements OnInit {
   @Input() setting!: MainPageSettings;
   @ViewChild('available', { static: false })
-  private availableSettings!: ElementRef;
-  public availablePhoto!: PagesPhotos;
+  private availableSettings: ElementRef;
+  public availablePhoto: PagesPhotos;
 
   public options: OwlOptions = {
     loop: true,

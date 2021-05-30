@@ -37,5 +37,7 @@ namespace Core.DTOs.Auth
 
         public string City { get; set; }
         public string Country { get; set; }
+
+        public string Biography { get; set; }
     }
 }

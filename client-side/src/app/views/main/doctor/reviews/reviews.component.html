@@ -1,81 +1,18 @@
 <app-main-breadcrumb [title]='"Reviews"'></app-main-breadcrumb>
-
 <!-- Page Content -->
 <div class="content">
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
         <app-doctor-sidebar></app-doctor-sidebar>
       </div>
-
       <div class="col-md-7 col-lg-8 col-xl-9">
         <div class="doc-review review-listing">
-
           <!-- Review Listing -->
           <ul class="comments-list">
-
             <!-- Comment List -->
             <li *ngFor="let review of (reviewThread$ | async)">
-              <div class="comment">
-                <img class="avatar rounded-circle" alt="User Image" src={{review.patient.photo}}>
-                <div class="comment-body">
-                  <div class="meta-data">
-                    <span class="comment-author">{{review.patient.fullname}}</span>
-                    <span class="comment-date">Reviewed {{review.addedDate | timeago}}</span>
-                    <div class="review-count rating">
-                      <i class="fas {{star}}" *ngFor="let star of review.rateStar.split(',')"></i>
-                    </div>
-                  </div>
-                  <p class="recommended" *ngIf="review.recommendation === 1"><i class="far fa-thumbs-up"></i> I
-                    recommend the
-                    doctor</p>
-                  <p class="recommended text-danger" *ngIf="review.recommendation === 2"><i class="far fa-thumbs-down"></i> I
-                     do not recommend the
-                    doctor</p>
-                  <p class="comment-content">
-                    {{review.text}}
-                  </p>
-                  <div #choosenForm id={{review.id}} class="comment-reply">
-                    <a (click)="addReplyText(review.id)" class="comment-btn" href="javascript:void(0);">
-                      <i class="fas fa-reply"></i> Reply
-                    </a>
-                    <p class="recommend-btn" *ngIf="review.recommendation === 0">
-                      <span>Recommend?</span>
-                      <a (click)="sendRecommendation(review.id, review.doctorId, 1)" href="javascript:void(0);" class="like-btn">
-                        <i class="far fa-thumbs-up"></i> Yes
-                      </a>
-                      <a (click)="sendRecommendation(review.id, review.doctorId, 2)" href="javascript:void(0);" class="dislike-btn">
-                        <i class="far fa-thumbs-down"></i> No
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <!-- Comment Reply -->
-              <ul class="comments-reply" *ngIf="review.isReply">
-                <!-- Comment Reply List -->
-                <li *ngFor="let reply of review.reviewReplyDTOs">
-                  <div class="comment">
-                    <img *ngIf="reply.doctor" class="avatar rounded-circle" alt={{reply.doctor.fullname}}
-                      src={{reply.doctor.photo}}>
-                    <img *ngIf="reply.patient" class="avatar rounded-circle" alt={{reply.patient.fullname}}
-                      src={{reply.patient.photo}}>
-                    <div class="comment-body">
-                      <div class="meta-data">
-                        <span *ngIf="reply.doctor" class="comment-author">Dr. {{reply.doctor.fullname}}</span>
-                        <span *ngIf="reply.patient" class="comment-author">{{reply.patient.fullname}}</span>
-                        <span class="comment-date">Reviewed {{reply.addedDate | timeago}}</span>
-                      </div>
-                      <p class="comment-content">
-                        {{reply.text}}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <!-- /Comment Reply List -->
-              </ul>
-              <!-- /Comment Reply -->
+              <app-review-main-list [review]="review"></app-review-main-list>
             </li>
             <!-- /Comment List -->
           </ul>

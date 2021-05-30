@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Term } from '../models/term';
 import { Privacy } from '../models/privacy';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { SocialMedia } from '../models/social-media-settings';
 import { MainPageSettings } from '../models/main-page-settings';
 import { Speciality } from '../models/speciality';
@@ -16,6 +16,7 @@ import { User } from '../models/user';
 })
 export class SettingsService {
   private baseUrl = environment.api;
+  private doctorache = new Map();
 
   constructor(private http: HttpClient) {}
 
@@ -56,5 +57,18 @@ export class SettingsService {
   public getDoctors(): Observable<User[]> {
     const url = `${this.baseUrl}/home`;
     return this.http.get<User[]>(url);
+  }
+
+  public getDoctor(slug: string): Observable<User> {
+    const user = [...this.doctorache.values()]
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((x: User) => x.slug === slug);
+
+    if (user) {
+      return of(user);
+    }
+
+    const url = `${this.baseUrl}/home/${slug}`;
+    return this.http.get<User>(url);
   }
 }

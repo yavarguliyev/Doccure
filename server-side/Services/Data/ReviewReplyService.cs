@@ -4,6 +4,7 @@ using Core.DTOs.Main;
 using Core.Models;
 using Core.Services.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Services.Data
@@ -17,6 +18,16 @@ namespace Services.Data
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<ReviewReplyDTO>> GetAsync()
+        {
+            return _mapper.Map<IEnumerable<ReviewReplyDTO>>(await _unitOfWork.ReviewReply.Get());
+        }
+
+        public async Task<ReviewReplyDTO> GetAsync(int id)
+        {
+            return _mapper.Map<ReviewReplyDTO>(await _unitOfWork.ReviewReply.Get(id));
         }
 
         public async Task<ReviewReplyDTO> CreateAsync(ReviewReply newReviewReply)
@@ -34,7 +45,7 @@ namespace Services.Data
 
             await _unitOfWork.ReviewReply.AddAsync(newReviewReply);
             var success = await _unitOfWork.CommitAsync() > 0;
-            if (success) return _mapper.Map<ReviewReplyDTO>(newReviewReply);
+            if (success) return await this.GetAsync(newReviewReply.Id);
             throw new Exception("Problem saving changes");
         }
     }
