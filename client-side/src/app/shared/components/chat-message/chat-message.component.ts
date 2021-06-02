@@ -13,6 +13,7 @@ export class ChatMessageComponent implements OnInit {
   @ViewChild('chat_list') chatlist: ElementRef;
   @ViewChild('messageForm') messageForm: NgForm;
   @Output() submitChatWindow = new EventEmitter();
+  @Output() closeChatWindow = new EventEmitter();
   public messageContent: string;
   public loading = false;
   @Input() show = false;
@@ -62,5 +63,14 @@ export class ChatMessageComponent implements OnInit {
         .then(() => this.messageForm.reset())
         .finally(() => (this.loading = false));
     }
+  }
+
+  public removeMessage(id: number) {
+    this.chatService.removeMessage(this.chat.id, id);
+  }
+
+  public removeChat(id: number) {
+    this.closeChatWindow.emit(false);
+    this.chatService.removeGroup(id);
   }
 }

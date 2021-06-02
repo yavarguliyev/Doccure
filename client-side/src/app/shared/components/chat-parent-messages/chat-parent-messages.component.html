@@ -10,7 +10,8 @@
           </div>
           <div #chat_list class="chat-cont-right" [ngClass]="{'current' : showChatRight}">
             <app-chat-message *ngIf="user && currentChat" [show]="showChatRight" [chatId]="currentChat.id"
-              [chat]="currentChat" [user]="user" (submitChatWindow)="closeChatWindow($event)"></app-chat-message>
+              [chat]="currentChat" [user]="user" (submitChatWindow)="closeChatWindow($event)"
+              (closeChatWindow)="closeWindow($event)"></app-chat-message>
           </div>
         </div>
       </div>

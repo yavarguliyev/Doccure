@@ -25,6 +25,11 @@ namespace Services.Data
             return _mapper.Map<IEnumerable<ChatMessageDTO>>(await _unitOfWork.ChatMessage.Get());
         }
 
+        public async Task<ChatMessage> GetByAsync(int id)
+        {
+            return await _unitOfWork.ChatMessage.GetBy(id);
+        }
+
         public async Task<IEnumerable<ChatMessageDTO>> GetAsync(int id)
         {
             return _mapper.Map<IEnumerable<ChatMessageDTO>>(await _unitOfWork.ChatMessage.Get(id));
@@ -45,6 +50,12 @@ namespace Services.Data
             newChatMessage.IsSeen = newChatMessage.IsSeen;
 
             await _unitOfWork.ChatMessage.AddAsync(newChatMessage);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task DeleteAsync(ChatMessage chatMessage)
+        {
+            _unitOfWork.ChatMessage.Remove(chatMessage);
             await _unitOfWork.CommitAsync();
         }
     }

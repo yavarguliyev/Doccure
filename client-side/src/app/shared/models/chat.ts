@@ -8,6 +8,7 @@ export interface Chat {
 }
 
 export interface ChatMessage {
+  id: number;
   chatId: number;
   photo: string;
   isSeen: boolean;

@@ -27,5 +27,11 @@ namespace Services.Data
         {
             return _mapper.Map<ChatDTO>(await _unitOfWork.Chat.Get(id, userId));
         }
+
+        public async Task DeleteAsync(int chatId, int userId)
+        {
+            _unitOfWork.Chat.Remove(await _unitOfWork.Chat.Get(chatId, userId));
+            await _unitOfWork.CommitAsync();
+        }
     }
 }

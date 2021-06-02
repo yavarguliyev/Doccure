@@ -153,6 +153,7 @@ namespace Api.Extensions
             });
 
             // file upload
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddSingleton<IFileManager, FileManager>();
 
             // activity services

@@ -28,6 +28,7 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
   constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
+    document.querySelector('app-footer').classList.add('d-none');
     this.user = JSON.parse(localStorage.getItem('token'));
     this.loadHubConnection();
     this.chatMessage$ = this.chatService.messageThread$;
@@ -42,6 +43,11 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
 
   public closeChatWindow(event: boolean) {
     this.chatwindow = event;
+  }
+
+  public closeWindow(event: boolean) {
+    this.chatwindow = event;
+    this.showChatRight = event;
   }
 
   public showChat(id: number) {
@@ -75,6 +81,7 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    document.querySelector('app-footer').classList.remove('d-none');
     this.chatService.stopHubConnection();
   }
 }

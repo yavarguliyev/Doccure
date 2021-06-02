@@ -8,5 +8,6 @@ namespace Core.Services.Data
     {
         Task<IEnumerable<ChatDTO>> GetAsync(int id);
         Task<ChatDTO> GetAsync(int id, int userId);
+        Task DeleteAsync(int chatId, int userId);
     }
 }

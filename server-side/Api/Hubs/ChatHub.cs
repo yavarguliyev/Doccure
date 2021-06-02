@@ -93,6 +93,36 @@ namespace Api.Hubs
             }
         }
 
+        public async Task RemoveMessage(int chatId, int messageId)
+        {
+            var token = Context.GetHttpContext().Request.Query["token"].ToString();
+            var user = await _userService.GetAsync(token);
+            if (user != null)
+            {
+                await _chatMessageService.DeleteAsync(await _chatMessageService.GetByAsync(messageId));
+
+                var chat = await _chatService.GetAsync(chatId, user.Id);
+                var groupName = GetGroupName(chat.Doctor.Email, chat.Patient.Email);
+
+                await Clients.Group(groupName).SendAsync("RemoveMessage", chatId, messageId);
+            }
+        }
+
+        public async Task RemoveGroup(int chatId)
+        {
+            var token = Context.GetHttpContext().Request.Query["token"].ToString();
+            var user = await _userService.GetAsync(token);
+            if (user != null)
+            {
+                var chat = await _chatService.GetAsync(chatId, user.Id);
+                var groupName = GetGroupName(chat.Doctor.Email, chat.Patient.Email);
+
+                await _chatService.DeleteAsync(chatId, user.Id);
+
+                await Clients.Group(groupName).SendAsync("RemoveGroup", chatId);
+            }
+        }
+
         private string GetGroupName(string caller, string other)
         {
             var stringCompare = string.CompareOrdinal(caller, other) < 0;

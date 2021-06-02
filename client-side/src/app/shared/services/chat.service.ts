@@ -53,9 +53,38 @@ export class ChatService {
       });
     });
 
+    this.hubConnection.on(
+      'RemoveMessage',
+      (chatId: number, messageId: number) => {
+        this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
+          messages
+            .filter((x) => x.id === chatId)
+            .map((x) =>
+              x.chatMessageDTOs.forEach((c, i) => {
+                if (c.id === messageId) {
+                  x.chatMessageDTOs.splice(i, 1);
+                }
+              })
+            );
+          this.messageThreadSource.next(messages);
+        });
+      }
+    );
+
+    this.hubConnection.on(
+      'RemoveGroup',
+      (chatId: number) => {
+        this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
+          messages = messages.filter(x => x.id !== chatId);
+          this.messageThreadSource.next(messages);
+        });
+      }
+    );
+
     this.hubConnection.on('UpdatedGroup', (groupName) =>
       console.log(`Group ${groupName} updated`)
     );
+
     this.hubConnection.on('OnlineUsers', (connectionId) => {
       console.log(connectionId);
     });
@@ -76,9 +105,21 @@ export class ChatService {
     return this.http.get<Chat[]>(this.baseUrl + `/chat?id=${id}`);
   }
 
-  async sendMessage(message: ChatMessageFormValues) {
+  public async sendMessage(message: ChatMessageFormValues) {
     return this.hubConnection
       .invoke('SendMessage', message)
+      .catch((error) => console.log(error));
+  }
+
+  public async removeGroup(chatid: number) {
+    return this.hubConnection
+      .invoke('RemoveGroup', chatid)
+      .catch((error) => console.log(error));
+  }
+
+  public async removeMessage(chatid: number, messageId: number) {
+    return this.hubConnection
+      .invoke('RemoveMessage', chatid, messageId)
       .catch((error) => console.log(error));
   }
 }

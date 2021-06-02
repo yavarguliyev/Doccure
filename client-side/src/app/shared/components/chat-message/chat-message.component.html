@@ -16,10 +16,8 @@
         <div class="user-status">{{user.connectionId ? 'online' : 'offline'}}</div>
       </div>
     </div>
-    <div class="chat-options">
-      <a href="javascript:void(0)">
-        <i class="material-icons">more_vert</i>
-      </a>
+    <div class="chat-options mr-3">
+      <a (click)="removeChat(chat.id)" href="javascript:void(0)">Group<i class="fas fa-trash text-danger ml-2"></i></a>
     </div>
   </div>
   <div class="chat-body">
@@ -37,6 +35,7 @@
                 <div>
                   <p>{{message.patientContent ? message.patientContent : message.doctorContent}}</p>
                   <ul class="chat-msg-info">
+                    <li *ngIf="message.patientContent"><a (click)="removeMessage(message.id)" href="javascript:void(0)" class="remove-message"><i class="fas fa-trash"></i></a></li>
                     <li>
                       <div class="chat-time">
                         <span>{{message.addedDate | timeago}}</span>
@@ -79,6 +78,7 @@
                 <div>
                   <p>{{message.doctorContent ? message.doctorContent : message.patientContent}}</p>
                   <ul class="chat-msg-info">
+                    <li *ngIf="message.doctorContent"><a (click)="removeMessage(message.id)" href="javascript:void(0)" class="remove-message"><i class="fas fa-trash"></i></a></li>
                     <li>
                       <div class="chat-time">
                         <span>{{message.addedDate | timeago}}</span>
