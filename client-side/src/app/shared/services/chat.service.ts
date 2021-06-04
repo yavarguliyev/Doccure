@@ -84,12 +84,10 @@ export class ChatService {
 
     this.hubConnection.on('OnlineUsers', (email, connectionId) => {
       console.log(email);
-      console.log(connectionId);
     });
 
     this.hubConnection.on('OfflineUsers', (email, connectionId) => {
       console.log(email);
-      console.log(connectionId);
     });
   }
 
