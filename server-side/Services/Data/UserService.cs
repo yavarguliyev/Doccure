@@ -23,6 +23,7 @@ namespace Services.Data
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
         private readonly IActivityService _activityService;
+        private readonly IDoctorSocialMediaUrlLinkService _urlLink;
         private readonly ICloudinaryService _cloudinaryService;
 
         public UserService(IMapper mapper,
@@ -30,6 +31,7 @@ namespace Services.Data
                            IDoctorService doctorService,
                            IPatientService patientService,
                            IActivityService activityService,
+                           IDoctorSocialMediaUrlLinkService urlLink,
                            ICloudinaryService cloudinaryService)
         {
             _mapper = mapper;
@@ -37,6 +39,7 @@ namespace Services.Data
             _doctorService = doctorService;
             _patientService = patientService;
             _activityService = activityService;
+            _urlLink = urlLink;
             _cloudinaryService = cloudinaryService;
         }
 
@@ -283,22 +286,21 @@ namespace Services.Data
 
         public async Task DeleteAsync(User user)
         {
+            if (user.Role == UserRole.Admin || user.Role == UserRole.Admin_Pharmcy) throw new RestException(HttpStatusCode.BadRequest, "The selector user is not able to be deleted.");
+
             if (user.Photo != null) await _cloudinaryService.DeleteAsync(user.Photo);
 
             switch (user.Role)
             {
                 case UserRole.Doctor:
-                    var docotId = user.DoctorId ?? default(int);
-                    _unitOfWork.User.Remove(user);
-                    await _doctorService.DeleteAsync(await _doctorService.GetAsync(docotId));
-                    break;
-                case UserRole.Patient:
-                    var patientId = user.PatientId ?? default(int);
-                    _unitOfWork.User.Remove(user);
-                    await _patientService.DeleteAsync(await _patientService.GetAsync(patientId));
+                    foreach (var url in user.Doctor.DoctorSocialMediaUrlLinks)
+                    {
+                        await _urlLink.DeleteAsync(url);
+                    }
                     break;
             }
 
+            _unitOfWork.User.Remove(user);
             await _unitOfWork.CommitAsync();
         }
         #endregion

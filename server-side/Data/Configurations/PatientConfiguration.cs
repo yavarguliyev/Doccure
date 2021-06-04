@@ -40,7 +40,8 @@ namespace Data.Configurations
             builder
                .HasOne(x => x.BloodGroup)
                .WithMany(x => x.Patients)
-               .HasForeignKey(x => x.BloodGroupId);
+               .HasForeignKey(x => x.BloodGroupId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .ToTable("Patients");

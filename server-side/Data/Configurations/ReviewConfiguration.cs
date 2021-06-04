@@ -40,12 +40,14 @@ namespace Data.Configurations
             builder
                .HasOne(x => x.Doctor)
                .WithMany(x => x.ReviewsDoctors)
-               .HasForeignKey(x => x.DoctorId);
+               .HasForeignKey(x => x.DoctorId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .HasOne(x => x.Patient)
                .WithMany(x => x.ReviewsPatients)
-               .HasForeignKey(x => x.PatientId);
+               .HasForeignKey(x => x.PatientId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .ToTable("Reviews");

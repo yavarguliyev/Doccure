@@ -14,7 +14,9 @@ namespace Data.Repositories
 
         public async Task<Doctor> Get(int id)
         {
-            return await context.Doctors.Where(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Doctors
+                                .Where(x => x.Status)
+                                .FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

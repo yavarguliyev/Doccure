@@ -71,8 +71,6 @@ namespace Services.Data
 
         public async Task DeleteAsync(Doctor doctor)
         {
-            await _urlLink.DeleteAsync(await _urlLink.GetAsync(doctor.Id));
-
             _unitOfWork.Doctor.Remove(doctor);
             await _unitOfWork.CommitAsync();
         }

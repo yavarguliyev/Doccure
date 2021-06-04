@@ -44,12 +44,14 @@ namespace Data.Configurations
             builder
                .HasOne(x => x.Comment)
                .WithMany(x => x.CommentReplies)
-               .HasForeignKey(x => x.CommentId);
+               .HasForeignKey(x => x.CommentId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .HasOne(x => x.User)
                .WithMany(x => x.CommentReplies)
-               .HasForeignKey(x => x.UserId);
+               .HasForeignKey(x => x.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .ToTable("CommentReplies");

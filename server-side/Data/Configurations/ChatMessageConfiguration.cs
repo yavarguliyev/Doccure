@@ -57,7 +57,8 @@ namespace Data.Configurations
             builder
                .HasOne(x => x.Chat)
                .WithMany(x => x.ChatMessages)
-               .HasForeignKey(x => x.ChatId);
+               .HasForeignKey(x => x.ChatId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .ToTable("ChatMessages");

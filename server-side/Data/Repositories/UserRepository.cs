@@ -43,8 +43,14 @@ namespace Data.Repositories
     {
       var user = await context.Users
                               .Include(x => x.Admin)
-                              .Include(x => x.Doctor)
+                              .Include(x => x.Doctor).ThenInclude(x => x.DoctorSocialMediaUrlLinks)
                               .Include(x => x.Patient).ThenInclude(x => x.BloodGroup)
+                              .Include(x => x.ReviewRepliesPatient)
+                              .Include(x => x.ReviewRepliesDoctor)
+                              .Include(x => x.ReviewsDoctors)
+                              .Include(x => x.ReviewsPatients)
+                              .Include(x => x.Comments)
+                              .Include(x => x.CommentReplies)
                               .FirstOrDefaultAsync(x => x.Id == id);
       if (user != null) return user;
 

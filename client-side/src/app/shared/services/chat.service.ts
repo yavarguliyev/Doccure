@@ -71,25 +71,24 @@ export class ChatService {
       }
     );
 
-    this.hubConnection.on(
-      'RemoveGroup',
-      (chatId: number) => {
-        this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
-          messages = messages.filter(x => x.id !== chatId);
-          this.messageThreadSource.next(messages);
-        });
-      }
-    );
+    this.hubConnection.on('RemoveGroup', (chatId: number) => {
+      this.messageThread$.pipe(take(1)).subscribe((messages: Chat[]) => {
+        messages = messages.filter((x) => x.id !== chatId);
+        this.messageThreadSource.next(messages);
+      });
+    });
 
     this.hubConnection.on('UpdatedGroup', (groupName) =>
       console.log(`Group ${groupName} updated`)
     );
 
-    this.hubConnection.on('OnlineUsers', (connectionId) => {
+    this.hubConnection.on('OnlineUsers', (email, connectionId) => {
+      console.log(email);
       console.log(connectionId);
     });
 
-    this.hubConnection.on('OfflineUsers', (connectionId) => {
+    this.hubConnection.on('OfflineUsers', (email, connectionId) => {
+      console.log(email);
       console.log(connectionId);
     });
   }

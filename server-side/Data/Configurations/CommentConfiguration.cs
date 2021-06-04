@@ -44,12 +44,14 @@ namespace Data.Configurations
             builder
                .HasOne(x => x.User)
                .WithMany(x => x.Comments)
-               .HasForeignKey(x => x.UserId);
+               .HasForeignKey(x => x.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .HasOne(x => x.Blog)
                .WithMany(x => x.Comments)
-               .HasForeignKey(x => x.BlogId);
+               .HasForeignKey(x => x.BlogId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder
                .Property(x => x.IsReply)

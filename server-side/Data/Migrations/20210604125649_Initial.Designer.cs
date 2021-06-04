@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210529070241_Initial")]
+    [Migration("20210604125649_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Core.Models.Admin", b =>
@@ -1304,7 +1304,8 @@ namespace Data.Migrations
                 {
                     b.HasOne("Core.Models.BloodGroup", "BloodGroup")
                         .WithMany("Patients")
-                        .HasForeignKey("BloodGroupId");
+                        .HasForeignKey("BloodGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("BloodGroup");
                 });
@@ -1332,11 +1333,13 @@ namespace Data.Migrations
                 {
                     b.HasOne("Core.Models.User", "Doctor")
                         .WithMany("ReviewRepliesDoctor")
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Core.Models.User", "Patient")
                         .WithMany("ReviewRepliesPatient")
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Core.Models.Review", "Review")
                         .WithMany("ReviewReplies")
@@ -1399,11 +1402,13 @@ namespace Data.Migrations
 
                     b.HasOne("Core.Models.Doctor", "Doctor")
                         .WithMany("Users")
-                        .HasForeignKey("DoctorId");
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Core.Models.Patient", "Patient")
                         .WithMany("Users")
-                        .HasForeignKey("PatientId");
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Admin");
 
