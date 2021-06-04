@@ -99,6 +99,8 @@ Apache-2.0
 ng-circle-progress
 MIT
 
+ng2-file-upload
+
 ngx-bootstrap
 MIT
 The MIT License (MIT)

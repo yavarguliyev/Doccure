@@ -23,21 +23,21 @@ namespace Services.Data
         private readonly IDoctorService _doctorService;
         private readonly IPatientService _patientService;
         private readonly IActivityService _activityService;
-        private readonly IFileManager _fileManager;
+        private readonly ICloudinaryService _cloudinaryService;
 
         public UserService(IMapper mapper,
                            IUnitOfWork unitOfWork,
                            IDoctorService doctorService,
                            IPatientService patientService,
                            IActivityService activityService,
-                           IFileManager fileManager)
+                           ICloudinaryService cloudinaryService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _doctorService = doctorService;
             _patientService = patientService;
             _activityService = activityService;
-            _fileManager = fileManager;
+            _cloudinaryService = cloudinaryService;
         }
 
         #region get user
@@ -283,21 +283,19 @@ namespace Services.Data
 
         public async Task DeleteAsync(User user)
         {
-            if (user.Photo != null) _fileManager.DeletePhoto(user.Photo);
+            if (user.Photo != null) await _cloudinaryService.DeleteAsync(user.Photo);
 
             switch (user.Role)
             {
                 case UserRole.Doctor:
                     var docotId = user.DoctorId ?? default(int);
-                    var doctor = await _doctorService.GetAsync(docotId);
                     _unitOfWork.User.Remove(user);
-                    await _doctorService.DeleteAsync(doctor);
+                    await _doctorService.DeleteAsync(await _doctorService.GetAsync(docotId));
                     break;
                 case UserRole.Patient:
                     var patientId = user.PatientId ?? default(int);
-                    var patient = await _patientService.GetAsync(patientId);
                     _unitOfWork.User.Remove(user);
-                    await _patientService.DeleteAsync(patient);
+                    await _patientService.DeleteAsync(await _patientService.GetAsync(patientId));
                     break;
             }
 
@@ -383,12 +381,12 @@ namespace Services.Data
 
             if (user.Photo == null && file != null)
             {
-                user.Photo = _fileManager.UploadPhoto(file);
+                user.Photo = await _cloudinaryService.Store(file);
             }
             else if (user.Photo != null && file != null)
             {
-                _fileManager.DeletePhoto(user.Photo);
-                user.Photo = _fileManager.UploadPhoto(file);
+                await _cloudinaryService.DeleteAsync(user.Photo);
+                user.Photo = await _cloudinaryService.Store(file);    
             }
 
             var success = await _unitOfWork.CommitAsync() > 0;

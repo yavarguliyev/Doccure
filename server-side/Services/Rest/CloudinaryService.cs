@@ -1,8 +1,10 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Core.Services.Rest;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using System.IO;
+using System;
+using System.Threading.Tasks;
 
 namespace Services.Rest
 {
@@ -23,66 +25,37 @@ namespace Services.Rest
             _cloudinary = new Cloudinary(account);
         }
 
-        public string Store(string file)
+        public async Task<string> Store(IFormFile file)
         {
-            string sourcePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", file);
-            var uploadParams = new ImageUploadParams()
+            if (file.Length > 0)
             {
-                File = new FileDescription(sourcePath),
-                UniqueFilename = true,
-                Folder = "doccure/uploads/",
-            };
+                await using var stream = file.OpenReadStream();
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(file.FileName, stream),
+                    UniqueFilename = true,
+                    Folder = "doccure/uploads/",
+                    Transformation = new Transformation().Height(500).Width(500).Crop("fill")
+                };
 
-            var uploadResult = _cloudinary.Upload(uploadParams);
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
 
-            return uploadResult.PublicId;
+                if (uploadResult.Error != null)
+                {
+                    throw new Exception(uploadResult.Error.Message);
+                }
+
+                return uploadResult.PublicId;
+            }
+
+            return null;
         }
 
-        public string StoreResized(string file, int width, int height, string crop)
+        public async Task<string> DeleteAsync(string publicId)
         {
-            string sourcePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "temp", file);
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(sourcePath),
-                UniqueFilename = true,
-                Folder = "doccure/uploads/",
-                Transformation = new Transformation().Width(width).Height(height).Crop(crop)
-            };
-
-            var uploadResult = _cloudinary.Upload(uploadParams);
-
-            return uploadResult.PublicId;
-        }
-
-        public string BuildUrl(string publicId, string crop = "fill", int width = 150, int height = 150)
-        {
-            return _cloudinary.Api.Url.Secure(true)
-                .Transform(new Transformation().Width(width).Height(height).Crop(crop))
-                .BuildUrl(publicId);
-        }
-
-        public void Delete(string publicId)
-        {
-            _cloudinary.DeleteResources(publicId);
-        }
-
-        public string StoreFromUrl(string url)
-        {
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(url),
-                UniqueFilename = true,
-                Folder = "doccure/uploads/"
-            };
-
-            var uploadResult = _cloudinary.Upload(uploadParams);
-
-            return uploadResult.PublicId;
-        }
-
-        public string BuildUrl(string publicId)
-        {
-            return _cloudinary.Api.Url.Secure(true).BuildUrl(publicId);
+            var deleteParams = new DeletionParams(publicId);
+            var result = await _cloudinary.DestroyAsync(deleteParams);
+            return result.Result == "ok" ? result.Result : null;
         }
     }
 }

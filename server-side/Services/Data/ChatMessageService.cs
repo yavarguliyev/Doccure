@@ -3,6 +3,8 @@ using Core;
 using Core.DTOs.Main;
 using Core.Models;
 using Core.Services.Data;
+using Core.Services.Rest;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,11 +15,15 @@ namespace Services.Data
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ICloudinaryService _cloudinaryService;
 
-        public ChatMessageService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ChatMessageService(IUnitOfWork unitOfWork,
+                                  IMapper mapper,
+                                  ICloudinaryService cloudinaryService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<IEnumerable<ChatMessageDTO>> GetAsync()
@@ -53,8 +59,17 @@ namespace Services.Data
             await _unitOfWork.CommitAsync();
         }
 
+        public async Task<object> Upload(IFormFile file)
+        {
+            var attachment = await _cloudinaryService.Store(file);
+            return attachment;
+        }
+
         public async Task DeleteAsync(ChatMessage chatMessage)
         {
+            if (chatMessage.Photo != null)
+                await _cloudinaryService.DeleteAsync(chatMessage.Photo);
+
             _unitOfWork.ChatMessage.Remove(chatMessage);
             await _unitOfWork.CommitAsync();
         }

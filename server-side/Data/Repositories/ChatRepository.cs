@@ -46,5 +46,23 @@ namespace Data.Repositories
 
             return chat;
         }
+
+        public async Task<Chat> GetBy(int id, int userId)
+        {
+            if (id == 0) throw new RestException(HttpStatusCode.BadRequest, new { user = "Id cannot be null" });
+
+            if (userId == 0) throw new RestException(HttpStatusCode.BadRequest, new { user = "User id cannot be null" });
+
+            var chat = await context.Chats
+                                    .Where(x => x.Status && (x.DoctorId == userId || x.PatientId == userId))
+                                    .Include(x => x.Doctor)
+                                    .Include(x => x.Patient)
+                                    .Include(x => x.ChatMessages)
+                                    .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (chat == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Chat not found" });
+
+            return chat;
+        }
     }
 }

@@ -14,15 +14,15 @@ namespace Services.Data
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IFileManager _fileManager;
+        private readonly ICloudinaryService _cloudinaryService;
 
         public SettingPhotoService(IMapper mapper,
-                                   IUnitOfWork unitOfWork, 
-                                   IFileManager fileManager)
+                                   IUnitOfWork unitOfWork,
+                                   ICloudinaryService cloudinaryService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-            _fileManager = fileManager;
+            _cloudinaryService = cloudinaryService;
         }
 
         public async Task<SettingPhotoDTO> GetAsync(string name)
@@ -38,14 +38,14 @@ namespace Services.Data
         public async Task<string> PhotoUploadAsync(string name, IFormFile file)
         {
             var settingPhoto = await this.GetAsync(name);
-            if(settingPhoto.Photo == null)
+            if (settingPhoto.Photo == null)
             {
-                settingPhoto.Photo = _fileManager.UploadPhoto(file);
+                settingPhoto.Photo = await _cloudinaryService.Store(file);
             }
             else
             {
-                _fileManager.DeletePhoto(settingPhoto.Photo);
-                settingPhoto.Photo = _fileManager.UploadPhoto(file);
+                await _cloudinaryService.DeleteAsync(settingPhoto.Photo);
+                settingPhoto.Photo = await _cloudinaryService.Store(file);
             }
 
             var success = await _unitOfWork.CommitAsync() > 0;

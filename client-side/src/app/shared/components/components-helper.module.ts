@@ -48,6 +48,8 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { PatientDashboardComponent } from './patient-dashboard/patient-dashboard.component';
 import { ChatParentMessagesComponent } from './chat-parent-messages/chat-parent-messages.component';
 import { ReviewMainListComponent } from './review-main-list/review-main-list.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -113,7 +115,9 @@ import { ReviewMainListComponent } from './review-main-list/review-main-list.com
     MatInputModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+    BsDropdownModule.forRoot(),
+    FileUploadModule
   ],
   exports: [
     SpecialitiesComponent,
@@ -147,7 +151,8 @@ import { ReviewMainListComponent } from './review-main-list/review-main-list.com
     CommentFormComponent,
     PatientDashboardComponent,
     ChatParentMessagesComponent,
-    ReviewMainListComponent
+    ReviewMainListComponent,
+    FileUploadModule
   ],
 })
 export class ComponentsHelperModule {}

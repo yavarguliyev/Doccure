@@ -1,15 +1,27 @@
 import { Chat } from 'src/app/shared/models/chat';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatMessage, ChatMessageFormValues } from '../../models/chat';
 import { User } from '../../models/user';
 import { ChatService } from '../../services/chat.service';
+import { ConfirmService } from '../../services/confirm.service';
+import { FileUploader } from 'ng2-file-upload';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat-message',
   templateUrl: './chat-message.component.html',
 })
 export class ChatMessageComponent implements OnInit {
+  private baseUrl = environment.api;
   @ViewChild('chat_list') chatlist: ElementRef;
   @ViewChild('messageForm') messageForm: NgForm;
   @Output() submitChatWindow = new EventEmitter();
@@ -23,9 +35,16 @@ export class ChatMessageComponent implements OnInit {
 
   @Input() chat: Chat;
 
-  constructor(private chatService: ChatService) {}
+  public uploader: FileUploader;
 
-  ngOnInit(): void {}
+  constructor(
+    private chatService: ChatService,
+    private confirmService: ConfirmService
+  ) {}
+
+  ngOnInit(): void {
+    this.initializeUploader();
+  }
 
   public scrollDown(): ElementRef {
     this.chatlist.nativeElement.lastElementChild.scrollIntoView({
@@ -58,19 +77,63 @@ export class ChatMessageComponent implements OnInit {
         message.patientContent = this.messageContent;
       }
 
-      this.chatService
-        .sendMessage(message)
-        .then(() => this.messageForm.reset())
-        .finally(() => (this.loading = false));
+      if (this.uploader.queue.length > 0) {
+        this.uploader.uploadAll();
+        this.uploader.onSuccessItem = (response: any, status) => {
+          if (response && response._xhr.response) {
+            message.photo = response._xhr.response;
+            this.messageSent(message);
+          }
+        };
+      } else {
+        this.messageSent(message);
+      }
     }
   }
 
   public removeMessage(id: number) {
-    this.chatService.removeMessage(this.chat.id, id);
+    this.confirmService
+      .confirm(
+        'Confirm removing the message',
+        'Do you want to remove the message?'
+      )
+      .subscribe((result) => {
+        if (result) {
+          this.chatService.removeMessage(this.chat.id, id);
+        }
+      });
   }
 
   public removeChat(id: number) {
-    this.closeChatWindow.emit(false);
-    this.chatService.removeGroup(id);
+    this.confirmService
+      .confirm('Confirm removing the group', 'Do you want to remove the group?')
+      .subscribe((result) => {
+        if (result) {
+          this.closeChatWindow.emit(false);
+          this.chatService.removeGroup(id);
+        }
+      });
+  }
+
+  private initializeUploader() {
+    this.uploader = new FileUploader({
+      url: this.baseUrl + '/chat',
+      isHTML5: true,
+      allowedFileType: ['image'],
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024,
+    });
+
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
+  }
+
+  private messageSent(message: ChatMessageFormValues) {
+    this.chatService
+      .sendMessage(message)
+      .then(() => this.messageForm.reset())
+      .finally(() => (this.loading = false));
   }
 }

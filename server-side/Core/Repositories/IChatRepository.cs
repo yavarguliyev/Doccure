@@ -8,5 +8,6 @@ namespace Core.Repositories
     {
         Task<IEnumerable<Chat>> Get(int id);
         Task<Chat> Get(int id, int userId);
+        Task<Chat> GetBy(int id, int userId);
     }
 }

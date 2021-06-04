@@ -17,7 +17,19 @@
       </div>
     </div>
     <div class="chat-options mr-3">
-      <a (click)="removeChat(chat.id)" href="javascript:void(0)">Group<i class="fas fa-trash text-danger ml-2"></i></a>
+      <div class="btn-group" dropdown>
+        <button id="button-disabled-menu" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-disabled-menu">
+          Select Options <span class="caret"></span>
+        </button>
+        <ul id="dropdown-disabled-menu" *dropdownMenu class="dropdown-menu" role="menu"
+          aria-labelledby="button-disabled-menu">
+          <li role="menuitem">
+            <a (click)="removeChat(chat.id)" href="javascript:void(0)" class="dropdown-item">Remove Group<i
+                class="fas fa-trash text-danger ml-2"></i></a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="chat-body">
@@ -35,7 +47,8 @@
                 <div>
                   <p>{{message.patientContent ? message.patientContent : message.doctorContent}}</p>
                   <ul class="chat-msg-info">
-                    <li *ngIf="message.patientContent"><a (click)="removeMessage(message.id)" href="javascript:void(0)" class="remove-message"><i class="fas fa-trash"></i></a></li>
+                    <li *ngIf="message.patientContent"><a (click)="removeMessage(message.id)" href="javascript:void(0)"
+                        class="remove-message"><i class="fas fa-trash"></i></a></li>
                     <li>
                       <div class="chat-time">
                         <span>{{message.addedDate | timeago}}</span>
@@ -48,8 +61,8 @@
                 <div>
                   <div class="chat-msg-attachments">
                     <div class="chat-attachment">
-                      <img src="assets/img/img-02.jpg" alt="Attachment">
-                      <div class="chat-attach-caption">placeholder.jpg</div>
+                      <img src="{{message.photo}}" alt="Attachment">
+                      <div class="chat-attach-caption">Attachment</div>
                       <a href="#" class="chat-attach-download">
                         <i class="fas fa-download"></i>
                       </a>
@@ -78,7 +91,8 @@
                 <div>
                   <p>{{message.doctorContent ? message.doctorContent : message.patientContent}}</p>
                   <ul class="chat-msg-info">
-                    <li *ngIf="message.doctorContent"><a (click)="removeMessage(message.id)" href="javascript:void(0)" class="remove-message"><i class="fas fa-trash"></i></a></li>
+                    <li *ngIf="message.doctorContent"><a (click)="removeMessage(message.id)" href="javascript:void(0)"
+                        class="remove-message"><i class="fas fa-trash"></i></a></li>
                     <li>
                       <div class="chat-time">
                         <span>{{message.addedDate | timeago}}</span>
@@ -91,8 +105,8 @@
                 <div>
                   <div class="chat-msg-attachments">
                     <div class="chat-attachment">
-                      <img src="assets/img/img-02.jpg" alt="Attachment">
-                      <div class="chat-attach-caption">placeholder.jpg</div>
+                      <img src="{{message.photo}}" alt="Attachment">
+                      <div class="chat-attach-caption">Attachment</div>
                       <a href="#" class="chat-attach-download">
                         <i class="fas fa-download"></i>
                       </a>
@@ -135,7 +149,7 @@
         <div class="input-group-prepend">
           <div class="btn-file btn">
             <i class="fa fa-paperclip"></i>
-            <!-- <input type="file"> -->
+            <input type="file" ng2FileDrop ng2FileSelect [uploader]="uploader" multiple />
           </div>
         </div>
         <input type="text" class="input-msg-send form-control" name="messageContent" required
