@@ -6,7 +6,6 @@ import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Chat, ChatMessageFormValues } from '../models/chat';
 import { User } from '../models/user';
-import { AuthService } from './auth.service';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
@@ -19,10 +18,14 @@ export class ChatService {
   private messageThreadSource = new BehaviorSubject<Chat[]>([]);
   public messageThread$ = this.messageThreadSource.asObservable();
 
+  private emailSource = new BehaviorSubject<string>(null);
+  private connectionIdSource = new BehaviorSubject<string>(null);
+  public emailSourceThread$ = this.emailSource.asObservable();
+  public connectionThread$ = this.connectionIdSource.asObservable();
+
   constructor(
     private http: HttpClient,
     private spinnerService: SpinnerService,
-    private userService: AuthService
   ) {}
 
   public createHubConnection(user: User) {
@@ -83,11 +86,27 @@ export class ChatService {
     );
 
     this.hubConnection.on('OnlineUsers', (email, connectionId) => {
-      console.log(email);
+      this.emailSourceThread$.pipe(take(1)).subscribe((e: string) => {
+        e = email;
+        this.emailSource.next(email);
+      });
+
+      this.connectionThread$.pipe(take(1)).subscribe((c: string) => {
+        c = connectionId;
+        this.connectionIdSource.next(connectionId);
+      });
     });
 
     this.hubConnection.on('OfflineUsers', (email, connectionId) => {
-      console.log(email);
+      this.emailSourceThread$.pipe(take(1)).subscribe((e: string) => {
+        e = email;
+        this.emailSource.next(email);
+      });
+
+      this.connectionThread$.pipe(take(1)).subscribe((c: string) => {
+        c = connectionId;
+        this.connectionIdSource.next(connectionId);
+      });
     });
   }
 

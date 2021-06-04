@@ -55,6 +55,23 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
       const doctor = Object.values(chat).find((c) => c.doctor.id === id);
       const patient = Object.values(chat).find((c) => c.patient.id === id);
       this.currentChat = doctor ? doctor : patient;
+      this.chatService.emailSourceThread$.subscribe((e) => {
+        this.chatService.connectionThread$.subscribe((c) => {
+          if (
+            this.currentChat &&
+            this.currentChat.patient &&
+            this.currentChat.patient.email === e
+          ) {
+            this.currentChat.patient.connectionId = c;
+          } else if (
+            this.currentChat &&
+            this.currentChat.doctor &&
+            this.currentChat.doctor.email === e
+          ) {
+            this.currentChat.doctor.connectionId = c;
+          }
+        });
+      });
       if (doctor && doctor.doctor !== undefined) {
         this.user = doctor.doctor;
       } else if (patient && patient.patient !== undefined) {
