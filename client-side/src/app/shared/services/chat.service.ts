@@ -20,8 +20,10 @@ export class ChatService {
 
   private emailSource = new BehaviorSubject<string>(null);
   private connectionIdSource = new BehaviorSubject<string>(null);
+  private fullnameSource = new BehaviorSubject<string>(null);
   public emailSourceThread$ = this.emailSource.asObservable();
   public connectionThread$ = this.connectionIdSource.asObservable();
+  public fullnameThread$ = this.fullnameSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -86,6 +88,7 @@ export class ChatService {
     );
 
     this.hubConnection.on('OnlineUsers', (email, connectionId) => {
+      console.log(email);
       this.emailSourceThread$.pipe(take(1)).subscribe((e: string) => {
         e = email;
         this.emailSource.next(email);
@@ -97,15 +100,19 @@ export class ChatService {
       });
     });
 
-    this.hubConnection.on('OfflineUsers', (email, connectionId) => {
+    this.hubConnection.on('OfflineUsers', (email, fullname) => {
       this.emailSourceThread$.pipe(take(1)).subscribe((e: string) => {
         e = email;
-        this.emailSource.next(email);
+        this.emailSource.next(null);
       });
 
-      this.connectionThread$.pipe(take(1)).subscribe((c: string) => {
-        c = connectionId;
-        this.connectionIdSource.next(connectionId);
+      this.connectionThread$.pipe(take(1)).subscribe(() => {
+        this.connectionIdSource.next(null);
+      });
+
+      this.fullnameThread$.pipe(take(1)).subscribe((f: string) => {
+        f = fullname;
+        this.fullnameSource.next(fullname);
       });
     });
   }

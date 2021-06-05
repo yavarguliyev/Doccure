@@ -32,6 +32,29 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('token'));
     this.loadHubConnection();
     this.chatMessage$ = this.chatService.messageThread$;
+    this.chatService.emailSourceThread$.subscribe((email) => {
+      this.chatService.connectionThread$.subscribe((connection) => {
+        this.chatService.fullnameThread$.subscribe((fullname) => {
+          this.chatMessage$.subscribe((chats) => {
+            chats.map((chat) => {
+              if (chat.doctor.fullname === fullname) {
+                chat.doctor.connectionId = null;
+              } else if (chat.patient.fullname === fullname) {
+                chat.patient.connectionId = null;
+              }
+              switch (email) {
+                case chat.doctor.email:
+                  chat.doctor.connectionId = connection;
+                  break;
+                case chat.patient.email:
+                  chat.patient.connectionId = connection;
+                  break;
+              }
+            });
+          });
+        });
+      });
+    });
   }
 
   private loadHubConnection() {
@@ -55,23 +78,6 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
       const doctor = Object.values(chat).find((c) => c.doctor.id === id);
       const patient = Object.values(chat).find((c) => c.patient.id === id);
       this.currentChat = doctor ? doctor : patient;
-      this.chatService.emailSourceThread$.subscribe((e) => {
-        this.chatService.connectionThread$.subscribe((c) => {
-          if (
-            this.currentChat &&
-            this.currentChat.patient &&
-            this.currentChat.patient.email === e
-          ) {
-            this.currentChat.patient.connectionId = c;
-          } else if (
-            this.currentChat &&
-            this.currentChat.doctor &&
-            this.currentChat.doctor.email === e
-          ) {
-            this.currentChat.doctor.connectionId = c;
-          }
-        });
-      });
       if (doctor && doctor.doctor !== undefined) {
         this.user = doctor.doctor;
       } else if (patient && patient.patient !== undefined) {

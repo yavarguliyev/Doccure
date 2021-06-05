@@ -46,8 +46,9 @@ namespace Api.Hubs
                         foreach (var item in groupNames)
                         {
                             await Clients.Group(groupName).SendAsync("UpdatedGroup", item);
-                            await Clients.Group(groupName).SendAsync("OnlineUsers", user.Email, user.ConnectionId);
                         }
+
+                        await Clients.Group(groupName).SendAsync("OnlineUsers", user.Email, user.ConnectionId);
                     }
                 }
 
@@ -62,6 +63,8 @@ namespace Api.Hubs
             var user = await _userService.GetAsync(token);
             if (user != null)
             {
+                await _userService.ConnectionIdAsync(user.Id, null);
+
                 var chats = await _chatService.GetAsync(user.Id);
                 foreach (var chat in chats)
                 {
@@ -69,12 +72,9 @@ namespace Api.Hubs
                     if (!string.IsNullOrEmpty(groupName))
                     {
                         await Clients.Group(groupName).SendAsync("UpdatedGroup", groupName);
-                        await Clients.Group(groupName).SendAsync("OnlineUsers", user.Email, null);
+                        await Clients.Group(groupName).SendAsync("OfflineUsers", user.Email, user.Fullname);
                     }
                 }
-
-                await _userService.ConnectionIdAsync(user.Id, null);
-                await Clients.Caller.SendAsync("OfflineUsers", user.Email);
             }
 
             await base.OnDisconnectedAsync(exception);
