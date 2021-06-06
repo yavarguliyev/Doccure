@@ -15,7 +15,6 @@ import { ChatService } from '../../services/chat.service';
 import { ConfirmService } from '../../services/confirm.service';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from 'src/environments/environment';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-chat-message',
@@ -81,11 +80,15 @@ export class ChatMessageComponent implements OnInit {
 
       if (this.uploader.queue.length > 0) {
         this.uploader.uploadAll();
-        this.uploader.onSuccessItem = (response: any, status) => {
+        this.uploader.onSuccessItem = (response: any) => {
           if (response && response._xhr.response) {
             const res = JSON.parse(response._xhr.response);
             message.photo = res.publicId;
-            message.photoURL = res.url;
+            if (res.url.includes('webp')) {
+              message.photoURL = res.url.replace('.webp', '');
+            } else {
+              message.photoURL = res.url;
+            }
             this.messageSent(message);
             return;
           }
@@ -123,7 +126,7 @@ export class ChatMessageComponent implements OnInit {
 
   private initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + '/chat',
+      url: this.baseUrl + `/chat`,
       isHTML5: true,
       allowedFileType: ['image'],
       removeAfterUpload: true,

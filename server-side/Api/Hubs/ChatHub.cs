@@ -1,4 +1,5 @@
-﻿using Core.DTOs.Main;
+﻿using Api.Libs;
+using Core.DTOs.Main;
 using Core.Models;
 using Core.Services.Data;
 using Microsoft.AspNetCore.SignalR;
@@ -50,7 +51,7 @@ namespace Api.Hubs
                         }
 
                         var connections = new List<ChatConnectionUsers>();
-                        var connection = new ChatConnectionUsers 
+                        var connection = new ChatConnectionUsers
                         {
                             Email = user.Email,
                             Fullname = null,
@@ -62,7 +63,7 @@ namespace Api.Hubs
                     }
                 }
 
-                
+
                 await Clients.Caller.SendAsync("ReceiveMessageThread", chats);
             }
         }
