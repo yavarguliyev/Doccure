@@ -111,6 +111,7 @@ namespace Services.Data
 
             newUser.Code = code;
             newUser.Photo = null;
+            newUser.PhotoURL = null;
             newUser.Fullname = newUser.Fullname != null ? newUser.Fullname : null;
             newUser.Slug = newUser.Fullname != null ? newUser.Fullname.Replace(" ", "-").ToLower() : null;
 
@@ -204,6 +205,7 @@ namespace Services.Data
 
             userToBeUpdated.Code = userToBeUpdated.Code;
             userToBeUpdated.Photo = userToBeUpdated.Photo;
+            userToBeUpdated.PhotoURL = userToBeUpdated.PhotoURL;
 
             userToBeUpdated.Fullname = user.Fullname != null ? user.Fullname : userToBeUpdated.Fullname;
             userToBeUpdated.Slug = user.Slug == null ? user.Fullname.Replace(" ", "-").ToLower() : userToBeUpdated.Slug;
@@ -383,12 +385,16 @@ namespace Services.Data
 
             if (user.Photo == null && file != null)
             {
-                user.Photo = await _cloudinaryService.Store(file);
+                var upload = await _cloudinaryService.Store(file);
+                user.Photo = upload.PublicId;
+                user.PhotoURL = upload.Url;
             }
             else if (user.Photo != null && file != null)
             {
                 await _cloudinaryService.DeleteAsync(user.Photo);
-                user.Photo = await _cloudinaryService.Store(file);    
+                var upload = await _cloudinaryService.Store(file);
+                user.Photo = upload.PublicId;
+                user.PhotoURL = upload.Url;
             }
 
             var success = await _unitOfWork.CommitAsync() > 0;

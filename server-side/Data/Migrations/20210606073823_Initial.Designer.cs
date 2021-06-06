@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210604125649_Initial")]
+    [Migration("20210606073823_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,6 +258,9 @@ namespace Data.Migrations
                     b.Property<string>("Photo")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<string>("PhotoURL")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")
@@ -902,6 +905,9 @@ namespace Data.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("text");
 
+                    b.Property<string>("PhotoURL")
+                        .HasColumnType("text");
+
                     b.Property<int>("SettingId")
                         .HasColumnType("integer");
 
@@ -1151,6 +1157,9 @@ namespace Data.Migrations
                     b.Property<string>("Photo")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<string>("PhotoURL")
+                        .HasColumnType("text");
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("text");

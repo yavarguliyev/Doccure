@@ -8,6 +8,7 @@ namespace Core.Models
     {
         public string Code { get; set; }
         public string Photo { get; set; }
+        public string PhotoURL { get; set; }
         public string Fullname { get; set; }
         public string Slug { get; set; }
         public string Email { get; set; }

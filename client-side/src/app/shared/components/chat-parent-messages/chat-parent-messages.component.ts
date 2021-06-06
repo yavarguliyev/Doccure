@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { Chat } from '../../models/chat';
+import { Connection } from '../../models/connection';
 import { User } from '../../models/user';
 import { ChatService } from '../../services/chat.service';
 
@@ -32,29 +33,33 @@ export class ChatParentMessagesComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('token'));
     this.loadHubConnection();
     this.chatMessage$ = this.chatService.messageThread$;
-    this.chatService.emailSourceThread$.subscribe((email) => {
-      this.chatService.connectionThread$.subscribe((connection) => {
-        this.chatService.fullnameThread$.subscribe((fullname) => {
-          this.chatMessage$.subscribe((chats) => {
-            chats.map((chat) => {
-              if (chat.doctor.fullname === fullname) {
-                chat.doctor.connectionId = null;
-              } else if (chat.patient.fullname === fullname) {
-                chat.patient.connectionId = null;
-              }
-              switch (email) {
-                case chat.doctor.email:
-                  chat.doctor.connectionId = connection;
-                  break;
-                case chat.patient.email:
-                  chat.patient.connectionId = connection;
-                  break;
-              }
+    this.chatService.connectionThread$.subscribe(
+      (connections: Connection[]) => {
+        if (connections && typeof connections.map === 'function') {
+          connections.map((connection) => {
+            this.chatMessage$.subscribe((chats) => {
+              chats.map((chat) => {
+                switch (connection.email) {
+                  case chat.doctor.email:
+                    chat.doctor.connectionId = connection.connectionId;
+                    break;
+                  case chat.patient.email:
+                      chat.patient.connectionId = connection.connectionId;
+                      break;
+                  default:
+                    if (chat.patient.fullname === connection.fullname) {
+                      chat.patient = null;
+                    } else if (chat.doctor.fullname === connection.fullname) {
+                      chat.doctor = null;
+                    }
+                    break;
+                }
+              });
             });
           });
-        });
-      });
-    });
+        }
+      }
+    );
   }
 
   private loadHubConnection() {

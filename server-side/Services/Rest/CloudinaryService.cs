@@ -1,5 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Core.DTOs.Main;
 using Core.Services.Rest;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,7 @@ namespace Services.Rest
             _cloudinary = new Cloudinary(account);
         }
 
-        public async Task<string> Store(IFormFile file)
+        public async Task<PhotoUploadResult> Store(IFormFile file)
         {
             if (file.Length > 0)
             {
@@ -45,7 +46,11 @@ namespace Services.Rest
                     throw new Exception(uploadResult.Error.Message);
                 }
 
-                return uploadResult.PublicId;
+                return new PhotoUploadResult
+                {
+                    PublicId = uploadResult.PublicId,
+                    Url = uploadResult.SecureUrl.ToString()
+                };
             }
 
             return null;

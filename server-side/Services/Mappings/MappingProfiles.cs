@@ -27,7 +27,8 @@ namespace Services.Mappings
             CreateMap<Chat, ChatDTO>()
                 .ForMember(x => x.ChatMessageDTOs, opt => opt.MapFrom(src => src.ChatMessages));
             CreateMap<ChatMessage, ChatMessageDTO>()
-                .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? $"https://res.cloudinary.com/dcqc5bx7c/image/upload/v1588180439/{src.Photo}" : null));
+                .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo))
+                .ForMember(x => x.PhotoURL, opt => opt.MapFrom(src => src.PhotoURL));
 
             CreateMap<Review, ReviewDTO>()
                 .ForMember(x => x.ReviewReplyDTOs, opt => opt.MapFrom(src => src.ReviewReplies.Where(review => review.ReviewId == src.Id)));

@@ -257,6 +257,9 @@ namespace Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<string>("PhotoURL")
+                        .HasColumnType("text");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
@@ -900,6 +903,9 @@ namespace Data.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("text");
 
+                    b.Property<string>("PhotoURL")
+                        .HasColumnType("text");
+
                     b.Property<int>("SettingId")
                         .HasColumnType("integer");
 
@@ -1149,6 +1155,9 @@ namespace Data.Migrations
                     b.Property<string>("Photo")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<string>("PhotoURL")
+                        .HasColumnType("text");
 
                     b.Property<string>("PostalCode")
                         .HasColumnType("text");

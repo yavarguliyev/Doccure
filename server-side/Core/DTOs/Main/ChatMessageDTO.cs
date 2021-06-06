@@ -9,6 +9,7 @@ namespace Core.DTOs.Main
         public string DoctorContent { get; set; }
         public string PatientContent { get; set; }
         public string Photo { get; set; }
+        public string PhotoURL { get; set; }
         public bool IsSeen { get; set; }
         public DateTime AddedDate { get; set; }
     }

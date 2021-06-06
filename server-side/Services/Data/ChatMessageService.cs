@@ -53,6 +53,7 @@ namespace Services.Data
             newChatMessage.DoctorContent = newChatMessage.DoctorContent;
             newChatMessage.PatientContent = newChatMessage.PatientContent;
             newChatMessage.Photo = newChatMessage.Photo;
+            newChatMessage.PhotoURL = newChatMessage.PhotoURL;
             newChatMessage.IsSeen = newChatMessage.IsSeen;
 
             await _unitOfWork.ChatMessage.AddAsync(newChatMessage);
@@ -61,8 +62,8 @@ namespace Services.Data
 
         public async Task<object> Upload(IFormFile file)
         {
-            var attachment = await _cloudinaryService.Store(file);
-            return attachment;
+            var upload = await _cloudinaryService.Store(file);
+            return upload;
         }
 
         public async Task DeleteAsync(ChatMessage chatMessage)

@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Chat, ChatMessageFormValues } from '../models/chat';
+import { Connection } from '../models/connection';
 import { User } from '../models/user';
 import { SpinnerService } from './spinner.service';
 
@@ -18,12 +19,8 @@ export class ChatService {
   private messageThreadSource = new BehaviorSubject<Chat[]>([]);
   public messageThread$ = this.messageThreadSource.asObservable();
 
-  private emailSource = new BehaviorSubject<string>(null);
-  private connectionIdSource = new BehaviorSubject<string>(null);
-  private fullnameSource = new BehaviorSubject<string>(null);
-  public emailSourceThread$ = this.emailSource.asObservable();
+  private connectionIdSource = new BehaviorSubject<Connection[]>([]);
   public connectionThread$ = this.connectionIdSource.asObservable();
-  public fullnameThread$ = this.fullnameSource.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -87,33 +84,12 @@ export class ChatService {
       console.log(`Group ${groupName} updated`)
     );
 
-    this.hubConnection.on('OnlineUsers', (email, connectionId) => {
-      console.log(email);
-      this.emailSourceThread$.pipe(take(1)).subscribe((e: string) => {
-        e = email;
-        this.emailSource.next(email);
-      });
-
-      this.connectionThread$.pipe(take(1)).subscribe((c: string) => {
-        c = connectionId;
-        this.connectionIdSource.next(connectionId);
-      });
+    this.hubConnection.on('OnlineUsers', (connections: Connection[]) => {
+      this.connectionIdSource.next(connections);
     });
 
-    this.hubConnection.on('OfflineUsers', (email, fullname) => {
-      this.emailSourceThread$.pipe(take(1)).subscribe((e: string) => {
-        e = email;
-        this.emailSource.next(null);
-      });
-
-      this.connectionThread$.pipe(take(1)).subscribe(() => {
-        this.connectionIdSource.next(null);
-      });
-
-      this.fullnameThread$.pipe(take(1)).subscribe((f: string) => {
-        f = fullname;
-        this.fullnameSource.next(fullname);
-      });
+    this.hubConnection.on('OfflineUsers', (connections: Connection[]) => {
+      this.connectionIdSource.next(connections);
     });
   }
 

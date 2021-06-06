@@ -37,15 +37,19 @@ namespace Services.Data
 
         public async Task<string> PhotoUploadAsync(string name, IFormFile file)
         {
-            var settingPhoto = await this.GetAsync(name);
+            var settingPhoto = await _unitOfWork.SettingPhoto.Get(name);
             if (settingPhoto.Photo == null)
             {
-                settingPhoto.Photo = await _cloudinaryService.Store(file);
+                var upload = await _cloudinaryService.Store(file);
+                settingPhoto.Photo = upload.PublicId;
+                settingPhoto.PhotoURL = upload.Url;
             }
             else
             {
                 await _cloudinaryService.DeleteAsync(settingPhoto.Photo);
-                settingPhoto.Photo = await _cloudinaryService.Store(file);
+                var upload = await _cloudinaryService.Store(file);
+                settingPhoto.Photo = upload.PublicId;
+                settingPhoto.PhotoURL = upload.Url;
             }
 
             var success = await _unitOfWork.CommitAsync() > 0;

@@ -40,7 +40,7 @@
           <li class="media" *ngFor="let message of chat.chatMessageDTOs"
             [ngClass]="{'sent': message.patientContent, 'received': message.doctorContent}">
             <div class="avatar" *ngIf="message.patientContent">
-              <img src={{chat.doctor.photo}} alt={{chat.doctor.fullname}} class="avatar-img rounded-circle">
+              <img src="{{chat.doctor.photo}}" alt={{chat.doctor.fullname}} class="avatar-img rounded-circle">
             </div>
             <div class="media-body">
               <div class="msg-box">
@@ -61,7 +61,7 @@
                 <div>
                   <div class="chat-msg-attachments">
                     <div class="chat-attachment">
-                      <img src="{{message.photo}}" alt="Attachment">
+                      <img src="{{message.photoURL}}" alt="Attachment">
                       <div class="chat-attach-caption">Attachment</div>
                       <a href="#" class="chat-attach-download">
                         <i class="fas fa-download"></i>
@@ -84,7 +84,7 @@
           <li class="media" *ngFor="let message of chat.chatMessageDTOs"
             [ngClass]="{'sent': message.doctorContent, 'received': message.patientContent}">
             <div class="avatar" *ngIf="message.patientContent">
-              <img src={{chat.patient.photo}} alt={{chat.patient.fullname}} class="avatar-img rounded-circle">
+              <img src="{{chat.patient.photo}}" alt={{chat.patient.fullname}} class="avatar-img rounded-circle">
             </div>
             <div class="media-body">
               <div class="msg-box">
@@ -105,7 +105,7 @@
                 <div>
                   <div class="chat-msg-attachments">
                     <div class="chat-attachment">
-                      <img src="{{message.photo}}" alt="Attachment">
+                      <img src="{{message.photoURL}}" alt="Attachment">
                       <div class="chat-attach-caption">Attachment</div>
                       <a href="#" class="chat-attach-download">
                         <i class="fas fa-download"></i>

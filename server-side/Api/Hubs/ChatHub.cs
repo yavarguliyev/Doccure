@@ -43,12 +43,22 @@ namespace Api.Hubs
                         var groupNames = new List<string>();
                         await Groups.AddToGroupAsync(connectionId, groupName);
                         groupNames.Add(groupName);
+
                         foreach (var item in groupNames)
                         {
                             await Clients.Group(groupName).SendAsync("UpdatedGroup", item);
                         }
 
-                        await Clients.Group(groupName).SendAsync("OnlineUsers", user.Email, user.ConnectionId);
+                        var connections = new List<ChatConnectionUsers>();
+                        var connection = new ChatConnectionUsers 
+                        {
+                            Email = user.Email,
+                            Fullname = null,
+                            ConnectionId = user.ConnectionId
+                        };
+                        connections.Add(connection);
+
+                        await Clients.Group(groupName).SendAsync("OnlineUsers", connections);
                     }
                 }
 
@@ -72,7 +82,17 @@ namespace Api.Hubs
                     if (!string.IsNullOrEmpty(groupName))
                     {
                         await Clients.Group(groupName).SendAsync("UpdatedGroup", groupName);
-                        await Clients.Group(groupName).SendAsync("OfflineUsers", user.Email, user.Fullname);
+
+                        var connections = new List<ChatConnectionUsers>();
+                        var connection = new ChatConnectionUsers
+                        {
+                            Email = user.Email,
+                            Fullname = user.Fullname,
+                            ConnectionId = user.ConnectionId
+                        };
+                        connections.Add(connection);
+
+                        await Clients.Group(groupName).SendAsync("OfflineUsers", connections);
                     }
                 }
             }
@@ -93,6 +113,7 @@ namespace Api.Hubs
                     DoctorContent = model.DoctorContent,
                     PatientContent = model.PatientContent,
                     Photo = model.Photo,
+                    PhotoURL = model.PhotoURL,
                     ChatId = chat.Id
                 };
 
