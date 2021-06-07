@@ -23,6 +23,7 @@ import { SettingsService } from 'src/app/shared/services/settings.service';
 export class DoctorProfileComponent implements OnInit, OnDestroy {
   private slug: string;
   public user: User;
+  public currentUser: User;
   public currentDate: Date = new Date();
   public loading = false;
   public reviewThread$: Observable<Review[]>;
@@ -41,6 +42,7 @@ export class DoctorProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.slug = this.route.snapshot.paramMap.get('slug');
+    this.currentUser = JSON.parse(localStorage.getItem('token'));
     this.settingService.getDoctor(this.slug).subscribe((response) => {
       this.user = response;
       this.inserHTML();
@@ -82,6 +84,27 @@ export class DoctorProfileComponent implements OnInit, OnDestroy {
     navLink.forEach((x) => (x.nativeElement.className = 'nav-link'));
 
     target.classList.add('active');
+  }
+
+  public checkDate(date: Date): boolean {
+    const dateTimeStringAM = '07:00:00 GMT+0400';
+    const dateTimeStringPM = '21:00:00 GMT+0400';
+
+    if (
+      date.getDay() !== 0 &&
+      date.toTimeString() >= dateTimeStringAM &&
+      date.toTimeString() < dateTimeStringPM
+    ) {
+      return true;
+    } else if (
+      date.getDay() === 0 &&
+      date.toTimeString() < dateTimeStringAM &&
+      date.toTimeString() >= dateTimeStringPM
+    ) {
+      return false;
+    }
+
+    return false;
   }
 
   ngOnDestroy(): void {

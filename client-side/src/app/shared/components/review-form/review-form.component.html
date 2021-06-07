@@ -1,3 +1,4 @@
+<!-- Write Review Form -->
 <form #reviewForm="ngForm" (ngSubmit)="submit($event, id)" autocomplete="off">
   <ng-container *ngIf="isDoctorProfile">
     <div class="form-group">
@@ -39,19 +40,9 @@
         characters
         remaining</small></div>
   </div>
-  <ng-container *ngIf="isDoctorProfile">
-    <hr>
-    <div class="form-group">
-      <div class="terms-accept">
-        <div class="custom-checkbox">
-          <input type="checkbox" id="terms_accept">
-          <label for="terms_accept">I have read and accept <a href="#">Terms &amp; Conditions</a></label>
-        </div>
-      </div>
-    </div>
-  </ng-container>
   <div class="submit-section">
     <button type="submit" [disabled]="!reviewForm.valid" class="btn btn-primary submit-btn">Add
       Review</button>
   </div>
 </form>
+<!-- /Write Review Form -->

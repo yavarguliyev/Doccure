@@ -13,7 +13,7 @@ export class ReviewFormComponent implements OnInit {
   @Input() isDoctorProfile = false;
   @Input() id = 0;
   public textLength = 100;
-  @Input() textContent: string;
+  public textContent: string;
   public loading = false;
 
   constructor(private reviewService: ReviewService) {}
@@ -24,7 +24,9 @@ export class ReviewFormComponent implements OnInit {
     event.preventDefault();
     const target = event.target as HTMLElement;
     const parent = target.parentElement.parentElement.firstElementChild;
+
     this.loading = true;
+    
     const currentUser: User = JSON.parse(localStorage.getItem('token'));
     const reply: ReviewReplyFormValues = new ReviewReplyFormValues(
       this.textContent,
