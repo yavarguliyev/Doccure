@@ -10,7 +10,7 @@ namespace Core.Services.Data
     {
         Task<IEnumerable<ReviewDTO>> GetAsync(int id);
         Task<ReviewDTO> GetAsync(int id, int userId);
-        Task<ReviewDTO> CreateAsync(Review newReview);
+        Task<ReviewDTO> CreateAsync(CreateReviewDTO model);
         Task UpdateAsync(int id, int userId);
         Task UpdateAsync(int id, int userId, DoctorRecommendation recommendation);
     }

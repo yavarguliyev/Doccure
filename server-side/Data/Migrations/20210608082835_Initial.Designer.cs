@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210606073823_Initial")]
+    [Migration("20210608082835_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -689,12 +689,6 @@ namespace Data.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("RateNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RateStar")
-                        .HasColumnType("text");
-
                     b.Property<int>("Recommendation")
                         .HasColumnType("integer");
 
@@ -760,6 +754,47 @@ namespace Data.Migrations
                     b.HasIndex("ReviewId");
 
                     b.ToTable("ReviewReplies");
+                });
+
+            modelBuilder.Entity("Core.Models.ReviewStar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+
+                    b.Property<string>("AddedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("timestamp");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Star")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewStars");
                 });
 
             modelBuilder.Entity("Core.Models.Service", b =>
@@ -1363,6 +1398,17 @@ namespace Data.Migrations
                     b.Navigation("Review");
                 });
 
+            modelBuilder.Entity("Core.Models.ReviewStar", b =>
+                {
+                    b.HasOne("Core.Models.Review", "Review")
+                        .WithMany("ReviewStars")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Review");
+                });
+
             modelBuilder.Entity("Core.Models.Service", b =>
                 {
                     b.HasOne("Core.Models.Doctor", "Doctor")
@@ -1478,6 +1524,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.Review", b =>
                 {
                     b.Navigation("ReviewReplies");
+
+                    b.Navigation("ReviewStars");
                 });
 
             modelBuilder.Entity("Core.Models.Setting", b =>

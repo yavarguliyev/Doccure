@@ -4,7 +4,7 @@
     <div class="meta-data">
       <span class="comment-author">{{review.patient.fullname}}</span>
       <span class="comment-date">Reviewed {{review.addedDate | timeago}}</span>
-      <div class="review-count rating">
+      <div *ngIf="review.rateStar !== null" class="review-count rating">
         <i class="fas {{star}}" *ngFor="let star of review.rateStar.split(',')"></i>
       </div>
     </div>

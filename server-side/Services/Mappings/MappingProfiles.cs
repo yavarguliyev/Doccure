@@ -20,9 +20,7 @@ namespace Services.Mappings
                 .ForMember(x => x.Age, opt => opt.MapFrom(src => src.Birth.CalculateAge()))
                 .ForMember(x => x.FullAddress, opt => opt.MapFrom(src => src.City + ", " + src.Country))
                 .ForMember(x => x.BloodGroup, opt => opt.MapFrom(src => src.Patient.BloodGroup.Name))
-                .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "avatar_vpbhfa.png"))
-                .ForMember(x => x.RateStar, opt => opt.MapFrom(src => src.ReviewsDoctors.Count() != 0 ? src.ReviewsDoctors.FirstOrDefault(r => r.DoctorId == src.Id).RateStar : null))
-                .ForMember(x => x.RateNumber, opt => opt.MapFrom(src => src.ReviewsDoctors.Count() != 0 ? src.ReviewsDoctors.FirstOrDefault(r => r.DoctorId == src.Id).RateNumber : 0));
+                .ForMember(x => x.Photo, opt => opt.MapFrom(src => src.Photo != null ? src.Photo : cloudinary + "avatar_vpbhfa.png"));
 
             CreateMap<Chat, ChatDTO>()
                 .ForMember(x => x.ChatMessageDTOs, opt => opt.MapFrom(src => src.ChatMessages));

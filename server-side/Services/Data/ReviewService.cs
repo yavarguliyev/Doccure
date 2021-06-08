@@ -15,11 +15,13 @@ namespace Services.Data
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IReviewStarService _reviewStarService;
 
-        public ReviewService(IMapper mapper, IUnitOfWork unitOfWork)
+        public ReviewService(IMapper mapper, IUnitOfWork unitOfWork, IReviewStarService reviewStarService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _reviewStarService = reviewStarService;
         }
 
         public async Task<IEnumerable<ReviewDTO>> GetAsync(int id)
@@ -32,8 +34,10 @@ namespace Services.Data
             return _mapper.Map<ReviewDTO>(await _unitOfWork.Review.Get(id, userId));
         }
 
-        public async Task<ReviewDTO> CreateAsync(Review newReview)
+        public async Task<ReviewDTO> CreateAsync(CreateReviewDTO model)
         {
+            var newReview = new Review();
+
             newReview.Status = true;
             newReview.AddedDate = DateTime.Now;
             newReview.ModifiedDate = DateTime.Now;
@@ -42,15 +46,23 @@ namespace Services.Data
             newReview.IsReply = false;
             newReview.Recommendation = DoctorRecommendation.Select;
 
-            newReview.PatientId = newReview.PatientId;
-            newReview.DoctorId = newReview.DoctorId;
-            newReview.Text = newReview.Text;
-            newReview.RateStar = newReview.RateStar;
-            newReview.RateNumber = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(newReview.RateStar.Length * newReview.RateStar.Split(",").Count()) / 10));
+            newReview.PatientId = model.PatientId;
+            newReview.DoctorId = model.DoctorId;
+            newReview.Text = model.Text;
 
             await _unitOfWork.Review.AddAsync(newReview);
             var success = await _unitOfWork.CommitAsync() > 0;
-            if(success) return _mapper.Map<ReviewDTO>(newReview);
+            if (success)
+            {
+                var newReviewStar = new ReviewStar
+                {
+                    ReviewId = newReview.Id,
+                    Star = model.RateStar
+                };
+
+                var reviewStar = await _reviewStarService.CreateAsync(newReviewStar);
+                if (reviewStar != null) return _mapper.Map<ReviewDTO>(newReview);
+            }
 
             throw new Exception("Problem saving changes");
         }

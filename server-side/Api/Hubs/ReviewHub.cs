@@ -58,18 +58,10 @@ namespace Api.Hubs
 
         public async Task SendReview(CreateReviewDTO model)
         {
-            var review = new Review
-            {
-                Text = model.Text,
-                RateStar = model.RateStar,
-                DoctorId = model.DoctorId,
-                PatientId = model.PatientId
-            };
-
             var slug = Context.GetHttpContext().Request.Query["slug"].ToString();
             if (!string.IsNullOrWhiteSpace(slug))
             {
-                var newReview = await _reviewService.CreateAsync(review);
+                var newReview = await _reviewService.CreateAsync(model);
                 await Clients.Group(slug).SendAsync("NewReview", newReview);
             }
         }

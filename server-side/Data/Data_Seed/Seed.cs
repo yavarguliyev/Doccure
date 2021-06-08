@@ -706,14 +706,12 @@ namespace Data.Data_Seed
                     {
                         new Review
                         {
-                            RateStar = "fa-star filled,fa-star filled,fa-star filled,fa-star filled,fa-star",
                             IsReply = true,
                             PatientId = 13,
                             Recommendation = DoctorRecommendation.Yes
                         },
                         new Review
                         {
-                            RateStar = "fa-star filled,fa-star filled,fa-star filled,fa-star,fa-star",
                             IsReply = false,
                             PatientId = 14,
                             Recommendation = DoctorRecommendation.Select
@@ -732,10 +730,38 @@ namespace Data.Data_Seed
                                       "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
                                       "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
                                       "tempus";
-                        review.RateNumber = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(review.RateStar.Length * review.RateStar.Split(",").Count()) / 10));
 
                         await context.Reviews.AddRangeAsync(review);
                         await context.SaveChangesAsync();
+                    }
+
+                    if (!context.ReviewStars.Any())
+                    {
+                        var reviewStars = new List<ReviewStar>
+                        {
+                            new ReviewStar
+                            {
+                                Star = "fa-star filled,fa-star filled,fa-star filled,fa-star filled,fa-star",
+                            },
+                            new ReviewStar
+                            {
+                                Star = "fa-star filled,fa-star filled,fa-star filled,fa-star filled,fa-star filled",
+                            },
+                        };
+                        foreach (var reviewStar in reviewStars)
+                        {
+                            reviewStar.Status = true;
+                            reviewStar.AddedBy = "System";
+                            reviewStar.ModifiedBy = "System";
+                            reviewStar.AddedDate = DateTime.Now;
+                            reviewStar.ModifiedDate = DateTime.Now;
+
+                            reviewStar.ReviewId = 1;
+                            reviewStar.Number = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(reviewStar.Star.Length * reviewStar.Star.Split(",").Count()) / 10));
+
+                            await context.ReviewStars.AddRangeAsync(reviewStar);
+                            await context.SaveChangesAsync();
+                        }
                     }
 
                     if (!context.ReviewReplies.Any())

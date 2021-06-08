@@ -577,8 +577,6 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    RateStar = table.Column<string>(type: "text", nullable: true),
-                    RateNumber = table.Column<int>(type: "integer", nullable: false),
                     Text = table.Column<string>(type: "text", nullable: true),
                     IsReply = table.Column<bool>(type: "boolean", nullable: false),
                     Recommendation = table.Column<int>(type: "integer", nullable: false),
@@ -707,6 +705,32 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ReviewStars",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    Star = table.Column<string>(type: "text", nullable: true),
+                    Number = table.Column<int>(type: "integer", nullable: false),
+                    ReviewId = table.Column<int>(type: "integer", nullable: false),
+                    AddedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    AddedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewStars", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReviewStars_Reviews_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Reviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Award_DoctorId",
                 table: "Award",
@@ -798,6 +822,11 @@ namespace Data.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReviewStars_ReviewId",
+                table: "ReviewStars",
+                column: "ReviewId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Service_DoctorId",
                 table: "Service",
                 column: "DoctorId");
@@ -861,6 +890,9 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ReviewReplies");
+
+            migrationBuilder.DropTable(
+                name: "ReviewStars");
 
             migrationBuilder.DropTable(
                 name: "Service");

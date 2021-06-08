@@ -133,6 +133,7 @@ namespace Api.Extensions
             services.AddTransient<IPatientService, PatientService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<IReviewStarService, ReviewStarService>();
             services.AddTransient<IReviewReplyService, ReviewReplyService>();
 
             services.AddTransient<IBlogService, BlogService>();

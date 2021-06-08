@@ -18,6 +18,7 @@ namespace Data
         private PatientRepository _patientRepository;
         private UserRepository _userRepository;
         private ReviewRepository _reviewRepository;
+        private ReviewStarRepository _reviewStarRepository;
         private ReviewReplyRepository _reviewReplyRepository;
 
         private IBlogRespository _blogRespository;
@@ -45,6 +46,7 @@ namespace Data
         public IPatientRepository Patient => _patientRepository ??= new PatientRepository(_context);
         public IUserRepository User => _userRepository ??= new UserRepository(_context);
         public IReviewRepository Review => _reviewRepository ??= new ReviewRepository(_context);
+        public IReviewStarRepository ReviewStar => _reviewStarRepository ??= new ReviewStarRepository(_context);
         public IReviewReplyRepository ReviewReply => _reviewReplyRepository ??= new ReviewReplyRepository(_context);
 
         public IBlogRespository Blog => _blogRespository ??= new BlogRepository(_context);

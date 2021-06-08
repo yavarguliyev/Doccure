@@ -14,6 +14,7 @@ namespace Core
         IPatientRepository Patient { get; }
         IUserRepository User { get; }
         IReviewRepository Review { get; }
+        IReviewStarRepository ReviewStar { get; }
         IReviewReplyRepository ReviewReply { get; }
 
         IBlogRespository Blog { get; }

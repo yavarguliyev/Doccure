@@ -24,6 +24,7 @@ namespace Data.Repositories
                                        .OrderByDescending(x => x.AddedDate)
                                        .Include(x => x.Patient)
                                        .Include(x => x.ReviewReplies.OrderByDescending(r => r.AddedDate))
+                                       .Include(x => x.ReviewStars)
                                        .ToListAsync();
 
             return reviews;
@@ -39,6 +40,7 @@ namespace Data.Repositories
                                     .Where(x => x.Status && (x.DoctorId == userId || x.PatientId == userId))
                                     .Include(x => x.ReviewReplies)
                                     .Include(x => x.Patient)
+                                    .Include(x => x.ReviewStars)
                                     .FirstOrDefaultAsync(x => x.Id == id);
 
             if (review == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Review not found" });
