@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210608082835_Initial")]
+    [Migration("20210608090159_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -770,6 +770,9 @@ namespace Data.Migrations
                     b.Property<DateTime>("AddedDate")
                         .HasColumnType("timestamp");
 
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
@@ -778,9 +781,6 @@ namespace Data.Migrations
                         .HasColumnType("timestamp");
 
                     b.Property<int>("Number")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ReviewId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Star")
@@ -792,7 +792,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReviewId");
+                    b.HasIndex("DoctorId");
 
                     b.ToTable("ReviewStars");
                 });
@@ -1400,13 +1400,13 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Models.ReviewStar", b =>
                 {
-                    b.HasOne("Core.Models.Review", "Review")
+                    b.HasOne("Core.Models.User", "Doctor")
                         .WithMany("ReviewStars")
-                        .HasForeignKey("ReviewId")
+                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Review");
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("Core.Models.Service", b =>
@@ -1524,8 +1524,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Core.Models.Review", b =>
                 {
                     b.Navigation("ReviewReplies");
-
-                    b.Navigation("ReviewStars");
                 });
 
             modelBuilder.Entity("Core.Models.Setting", b =>
@@ -1552,6 +1550,8 @@ namespace Data.Migrations
                     b.Navigation("ReviewsDoctors");
 
                     b.Navigation("ReviewsPatients");
+
+                    b.Navigation("ReviewStars");
                 });
 #pragma warning restore 612, 618
         }

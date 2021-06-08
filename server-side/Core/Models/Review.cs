@@ -15,7 +15,6 @@ namespace Core.Models
         public User Doctor { get; set; }
         public User Patient { get; set; }
 
-        public ICollection<ReviewStar> ReviewStars { get; set; }
         public ICollection<ReviewReply> ReviewReplies { get; set; }
     }
 }

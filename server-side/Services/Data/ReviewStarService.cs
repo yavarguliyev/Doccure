@@ -26,7 +26,7 @@ namespace Services.Data
 
             newReviewStar.Star = newReviewStar.Star;
             newReviewStar.Number = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(newReviewStar.Star.Length * newReviewStar.Star.Split(",").Count()) / 10));
-            newReviewStar.ReviewId = newReviewStar.ReviewId;
+            newReviewStar.DoctorId = newReviewStar.DoctorId;
 
             await _unitOfWork.ReviewStar.AddAsync(newReviewStar);
             var success = await _unitOfWork.CommitAsync() > 0;

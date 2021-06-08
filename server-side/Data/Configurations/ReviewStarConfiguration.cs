@@ -38,9 +38,9 @@ namespace Data.Configurations
               .HasColumnType("timestamp");
 
             builder
-               .HasOne(x => x.Review)
+               .HasOne(x => x.Doctor)
                .WithMany(x => x.ReviewStars)
-               .HasForeignKey(x => x.ReviewId)
+               .HasForeignKey(x => x.DoctorId)
                .OnDelete(DeleteBehavior.Cascade);
 
             builder

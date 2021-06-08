@@ -6,7 +6,6 @@ using Core.Models;
 using Core.Services.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services.Data
@@ -56,7 +55,7 @@ namespace Services.Data
             {
                 var newReviewStar = new ReviewStar
                 {
-                    ReviewId = newReview.Id,
+                    DoctorId = newReview.DoctorId,
                     Star = model.RateStar
                 };
 

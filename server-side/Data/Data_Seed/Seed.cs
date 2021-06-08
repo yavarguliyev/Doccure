@@ -756,7 +756,7 @@ namespace Data.Data_Seed
                             reviewStar.AddedDate = DateTime.Now;
                             reviewStar.ModifiedDate = DateTime.Now;
 
-                            reviewStar.ReviewId = 1;
+                            reviewStar.DoctorId = 3;
                             reviewStar.Number = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(reviewStar.Star.Length * reviewStar.Star.Split(",").Count()) / 10));
 
                             await context.ReviewStars.AddRangeAsync(reviewStar);

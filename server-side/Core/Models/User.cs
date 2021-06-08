@@ -46,6 +46,7 @@ namespace Core.Models
         public ICollection<CommentReply> CommentReplies { get; set; }
         public ICollection<Review> ReviewsDoctors { get; set; }
         public ICollection<Review> ReviewsPatients { get; set; }
+        public ICollection<ReviewStar> ReviewStars { get; set; }
         public ICollection<ReviewReply> ReviewRepliesDoctor { get; set; }
         public ICollection<ReviewReply> ReviewRepliesPatient { get; set; }
     }

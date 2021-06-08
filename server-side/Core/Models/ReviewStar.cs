@@ -4,8 +4,8 @@
     {
         public string Star { get; set; }
         public int Number { get; set; }
-        public int ReviewId { get; set; }
+        public int DoctorId { get; set; }
 
-        public Review Review { get; set; }
+        public User Doctor { get; set; }
     }
 }
