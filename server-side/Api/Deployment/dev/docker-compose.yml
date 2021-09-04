@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  # api:
+  #   image: api
+  #   build:
+  #     context: .
+  #     dockerfile: ../../Dockerfile
+
+  postgresql_database:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminadmin
+      - POSTGRES_DB=Doccure_DB
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - doccure
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '5050:80'
+    restart: unless-stopped
+    volumes:
+      - pgadmin:/root/.pgadmin
+    depends_on:
+      - postgresql_database
+    networks:
+      - doccure
+
+volumes:
+  database-data:
+  pgadmin:
+
+networks:
+  doccure:
+    driver: bridge

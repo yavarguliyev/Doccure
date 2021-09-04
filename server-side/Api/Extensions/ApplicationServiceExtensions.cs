@@ -1,4 +1,6 @@
-﻿using Api.Libs;
+﻿using System;
+using System.Text.Json.Serialization;
+using Api.Libs;
 using Core;
 using Core.DTOs.Admin.Admin_Doctor;
 using Core.DTOs.Auth;
@@ -18,37 +20,29 @@ using Services.Common;
 using Services.Data;
 using Services.Mappings;
 using Services.Rest;
-using System;
-using System.Text.Json.Serialization;
 
-namespace Api.Extensions
-{
-    public static class ApplicationServiceExtensions
-    {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
-        {
+namespace Api.Extensions {
+    public static class ApplicationServiceExtensions {
+        public static IServiceCollection AddApplicationServices (this IServiceCollection services, IConfiguration configuration) {
             // controllers without view
-            services.AddControllers()
-                    .AddFluentValidation(options =>
-                    {
-                        options.RegisterValidatorsFromAssemblyContaining<LoginDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<CreateChatMessageDTO>();
-                    })
-                    .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+            services.AddControllers ()
+                .AddFluentValidation (options => {
+                    options.RegisterValidatorsFromAssemblyContaining<LoginDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<RegisterDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO> ();
+                    options.RegisterValidatorsFromAssemblyContaining<CreateChatMessageDTO> ();
+                })
+                .AddJsonOptions (options => {
+                    options.JsonSerializerOptions.Converters.Add (new JsonStringEnumConverter ());
+                });
 
             // Api versioning
-            services.AddApiVersioning(v =>
-            {
+            services.AddApiVersioning (v => {
                 // shows that api accept any versions
                 v.ReportApiVersions = true;
 
@@ -56,116 +50,109 @@ namespace Api.Extensions
                 v.AssumeDefaultVersionWhenUnspecified = true;
 
                 // default version 1.0
-                v.DefaultApiVersion = new ApiVersion(1, 0);
+                v.DefaultApiVersion = new ApiVersion (1, 0);
             });
 
             // api cors for allowing methods that coming from different localhosts
-            services.AddCors(opt =>
-            {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
+            services.AddCors (opt => {
+                opt.AddPolicy ("CorsPolicy", policy => {
                     policy
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials()
-                        .WithOrigins("http://localhost:4200", "https://localhost:4200");
+                        .AllowAnyMethod ()
+                        .AllowAnyHeader ()
+                        .AllowCredentials ()
+                        .WithOrigins ("http://localhost:4200", "https://localhost:4200");
                 });
             });
 
             // routing to lowercase
-            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddRouting (options => options.LowercaseUrls = true);
 
             // swagger documentation for api
-            services.AddSwaggerDocumentation();
+            services.AddSwaggerDocumentation ();
 
             // database connection
 
-            services.AddDbContext<DataContext>(options =>
-            {
-                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            services.AddDbContext<DataContext> (options => {
+                var env = Environment.GetEnvironmentVariable ("ASPNETCORE_ENVIRONMENT");
 
                 string connStr;
 
                 // Depending on if in development or production, use either Heroku-provided
                 // connection string, or development connection string from env var.
-                if (env == "Development")
-                {
+                if (env == "Development") {
                     // Use connection string from file.
-                    connStr = configuration.GetConnectionString("DefaultConnection");
-                }
-                else
-                {
+                    connStr = configuration.GetConnectionString ("DefaultConnection");
+                } else {
                     // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    var connUrl = Environment.GetEnvironmentVariable ("DATABASE_URL");
 
                     // Parse connection URL to connection string for Npgsql
-                    connUrl = connUrl.Replace("postgres://", string.Empty);
-                    var pgUserPass = connUrl.Split("@")[0];
-                    var pgHostPortDb = connUrl.Split("@")[1];
-                    var pgHostPort = pgHostPortDb.Split("/")[0];
-                    var pgDb = pgHostPortDb.Split("/")[1];
-                    var pgUser = pgUserPass.Split(":")[0];
-                    var pgPass = pgUserPass.Split(":")[1];
-                    var pgHost = pgHostPort.Split(":")[0];
-                    var pgPort = pgHostPort.Split(":")[1];
+                    connUrl = connUrl.Replace ("postgres://", string.Empty);
+                    var pgUserPass = connUrl.Split ("@") [0];
+                    var pgHostPortDb = connUrl.Split ("@") [1];
+                    var pgHostPort = pgHostPortDb.Split ("/") [0];
+                    var pgDb = pgHostPortDb.Split ("/") [1];
+                    var pgUser = pgUserPass.Split (":") [0];
+                    var pgPass = pgUserPass.Split (":") [1];
+                    var pgHost = pgHostPort.Split (":") [0];
+                    var pgPort = pgHostPort.Split (":") [1];
 
                     connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}; SSL Mode=Require; Trust Server Certificate=true";
                 }
 
                 // Whether the connection string came from the local development configuration file
                 // or from the environment variable from Heroku, use it to set up your DbContext.
-                options.UseNpgsql(connStr);
+                options.UseNpgsql (connStr);
             });
 
             // auto mapper profiles
-            services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddAutoMapper (typeof (MappingProfiles).Assembly);
 
             // unit of Work
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork> ();
 
             // services
-            services.AddTransient<IAdminService, AdminService>();
-            services.AddTransient<IChatService, ChatService>();
-            services.AddTransient<IChatMessageService, ChatMessageService>();
-            services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<ICommentReplyService, CommentReplyService>();
-            services.AddTransient<IDoctorService, DoctorService>();
-            services.AddTransient<IPatientService, PatientService>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IReviewService, ReviewService>();
-            services.AddTransient<IReviewReplyService, ReviewReplyService>();
+            services.AddTransient<IAdminService, AdminService> ();
+            services.AddTransient<IChatService, ChatService> ();
+            services.AddTransient<IChatMessageService, ChatMessageService> ();
+            services.AddTransient<ICommentService, CommentService> ();
+            services.AddTransient<ICommentReplyService, CommentReplyService> ();
+            services.AddTransient<IDoctorService, DoctorService> ();
+            services.AddTransient<IPatientService, PatientService> ();
+            services.AddTransient<IUserService, UserService> ();
+            services.AddTransient<IReviewService, ReviewService> ();
+            services.AddTransient<IReviewReplyService, ReviewReplyService> ();
 
-            services.AddTransient<IBlogService, BlogService>();
-            services.AddTransient<IDoctorSocialMediaUrlLinkService, DoctorSocialMediaUrlLinkService>();
+            services.AddTransient<IBlogService, BlogService> ();
+            services.AddTransient<IDoctorSocialMediaUrlLinkService, DoctorSocialMediaUrlLinkService> ();
 
-            services.AddTransient<IFeatureService, FeatureService>();
-            services.AddTransient<ISpecialityService, SpecialityService>();
-            services.AddTransient<IPrivacyService, PrivacyService>();
-            services.AddTransient<ISettingPhotoService, SettingPhotoService>();
-            services.AddTransient<ISettingService, SettingService>();
-            services.AddTransient<ISocialMediaService, SocialMediaService>();
-            services.AddTransient<ITermService, TermService>();
+            services.AddTransient<IFeatureService, FeatureService> ();
+            services.AddTransient<ISpecialityService, SpecialityService> ();
+            services.AddTransient<IPrivacyService, PrivacyService> ();
+            services.AddTransient<ISettingPhotoService, SettingPhotoService> ();
+            services.AddTransient<ISettingService, SettingService> ();
+            services.AddTransient<ISocialMediaService, SocialMediaService> ();
+            services.AddTransient<ITermService, TermService> ();
 
             // signalR
-            services.AddSignalR().AddJsonProtocol(options =>
-            {
-                options.PayloadSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            services.AddSignalR ().AddJsonProtocol (options => {
+                options.PayloadSerializerOptions.Converters.Add (new JsonStringEnumConverter ());
             });
 
             // file upload
-            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService> ();
 
             // activity services
-            services.AddTransient<IActivityService, ActivityService>();
+            services.AddTransient<IActivityService, ActivityService> ();
 
             // send email
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IEmailService, EmailService> ();
 
             // http Accessor
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor> ();
 
             // api auth
-            services.AddTransient<IAuth, Auth>();
+            services.AddTransient<IAuth, Auth> ();
 
             return services;
         }
