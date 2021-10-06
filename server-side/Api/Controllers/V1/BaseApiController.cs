@@ -1,9 +1,7 @@
-﻿using Api.Hubs;
-using Api.Libs;
+﻿using Api.Libs;
 using AutoMapper;
 using Core.Services.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Controllers.v1
@@ -13,6 +11,7 @@ namespace Api.Controllers.v1
     [Route("api/v1/[controller]")]
     public class BaseApiController : ControllerBase 
     {
+        #region services
         private IMapper _mapper;
         private IAuth _auth;
 
@@ -31,11 +30,12 @@ namespace Api.Controllers.v1
         private IPrivacyService _privacyService;
         private ITermService _termService;
 
-        private IHubContext<ChatHub> _hubContext;
-
         protected IMapper mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>();
         protected IAuth auth => _auth ??= HttpContext.RequestServices.GetService<IAuth>();
 
+        #endregion
+
+        #region
         protected IUserService userService => _userService ??= HttpContext.RequestServices.GetService<IUserService>();
         protected IChatMessageService chatMessageService => _chatMessageService ??= HttpContext.RequestServices.GetService<IChatMessageService>();
         protected IChatService chatService => _chatService ??= HttpContext.RequestServices.GetService<IChatService>();
@@ -50,7 +50,6 @@ namespace Api.Controllers.v1
         protected ISocialMediaService socialMediaService => _socialMediaService ??= HttpContext.RequestServices.GetService<ISocialMediaService>();
         protected IPrivacyService privacyService => _privacyService ??= HttpContext.RequestServices.GetService<IPrivacyService>();
         protected ITermService termService => _termService ??= HttpContext.RequestServices.GetService<ITermService>();
-
-        protected IHubContext<ChatHub> hubContext => _hubContext ??= HttpContext.RequestServices.GetService<IHubContext<ChatHub>>();
+        #endregion
     }
 }
