@@ -18,7 +18,8 @@ services:
   api:
     image: ${DOCKER_REGISTRY-}api
     container_name: api
-    command: dotnet watch run
+    command: dotnet watch run --urls http://+:5000
+    # entrypoint: dotnet watch run --urls http://0.0.0.0:5000
     build:
       context: ../../../
       dockerfile: Api/Dockerfile

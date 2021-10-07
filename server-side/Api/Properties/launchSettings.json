@@ -32,7 +32,8 @@
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",
       "environmentVariables": {
-        "ASPNETCORE_URLS": "http://+:5000"
+        "ASPNETCORE_URLS": "http://+:5000",
+        "DOTNET_USE_POLLING_FILE_WATCHER": "true"
       },
       "applicationUrl": "http://+:5000",
       "httpPort": 5000,
