@@ -93,4 +93,12 @@ Doctors:
 
 [In case if you cannot ignore ".vs" here is the link to the documentation](https://stackoverflow.com/questions/47640088/visual-studio-ignore-vs)
 
+<<<<<<< HEAD
 [Postman documentation](https://documenter.getpostman.com/view/11043766/TzCV34Gs)
+=======
+[installation of the ssl](https://linuxtut.com/en/26cd7a5ef0b2fac53fce/)
+
+[installation of the ssl](https://developer.okta.com/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker)
+
+[installation of the ssl](https://codefresh.io/docker-tutorial/docker-images-net-core/)
+>>>>>>> dev

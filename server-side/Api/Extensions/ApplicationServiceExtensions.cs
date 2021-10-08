@@ -1,4 +1,6 @@
-﻿using Api.Libs;
+﻿using System;
+using System.Text.Json.Serialization;
+using Api.Libs;
 using Core;
 using Core.DTOs.Admin.Admin_Doctor;
 using Core.DTOs.Auth;
@@ -18,8 +20,6 @@ using Services.Common;
 using Services.Data;
 using Services.Mappings;
 using Services.Rest;
-using System;
-using System.Text.Json.Serialization;
 
 namespace Api.Extensions
 {
@@ -29,22 +29,22 @@ namespace Api.Extensions
         {
             // controllers without view
             services.AddControllers()
-                    .AddFluentValidation(options =>
-                    {
-                        options.RegisterValidatorsFromAssemblyContaining<LoginDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
-                        options.RegisterValidatorsFromAssemblyContaining<CreateChatMessageDTO>();
-                    })
-                    .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+                .AddFluentValidation(options =>
+                {
+                    options.RegisterValidatorsFromAssemblyContaining<LoginDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<RegisterDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<ForgetPasswordDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<ResetPasswordDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<AuthPasswordUpdateDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<AdminCreateDoctorDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<NewDoctorModifyDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<UserProfileUpdateDTO>();
+                    options.RegisterValidatorsFromAssemblyContaining<CreateChatMessageDTO>();
+                })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
 
             // Api versioning
             services.AddApiVersioning(v =>
@@ -92,6 +92,7 @@ namespace Api.Extensions
                 {
                     // Use connection string from file.
                     connStr = configuration.GetConnectionString("DefaultConnection");
+                    Console.WriteLine(connStr);
                 }
                 else
                 {

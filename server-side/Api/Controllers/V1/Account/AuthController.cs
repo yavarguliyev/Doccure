@@ -10,16 +10,10 @@ namespace Api.Controllers.v1.Account
     {
         #region auth functionalities
         [HttpGet("{token}")]
-        public async Task<IActionResult> GetByToken(string token)
-        {
-            return Ok(mapper.Map<UserDTO>(await userService.GetAsync(token)));
-        }
+        public async Task<IActionResult> GetByToken(string token) => Ok(mapper.Map<UserDTO>(await userService.GetAsync(token)));
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginDTO model)
-        {
-            return Ok(await userService.LoginAsync(model.Email, model.Password));
-        }
+        public async Task<IActionResult> Login(LoginDTO model) => Ok(await userService.LoginAsync(model.Email, model.Password));
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDTO model)

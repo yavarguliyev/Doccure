@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+  doccure_database:
+    image: postgres:latest
+    container_name: doccure_database
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=doccure
+    ports:
+      - '5432:5432'
+    restart: always
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - doccure
+
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    container_name: api
+    command: dotnet watch run --urls http://+:5000
+    build:
+      context: ../../../
+      dockerfile: Api/Dockerfile
+    environment:
+      - 'UseInMemoryDatabase=false'
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=doccure_database;Port=5432;Database=Doccure;User ID=admin;Password=doccure;SSL Mode=Disable;Trust Server Certificate=true;
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=yavar10guliyev
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    ports:
+      - '5000:5000'
+      - '5001:5001'
+    depends_on:
+      - doccure_database
+    restart: on-failure
+    networks:
+      - doccure
+
+volumes:
+  database-data:
+
+networks:
+  doccure:
+    driver: bridge
