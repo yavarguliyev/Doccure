@@ -92,3 +92,9 @@ Doctors:
 ![alt text](https://doccure-html.dreamguystech.com/template/assets/img/doctors/doctor-thumb-04.jpg 'Doctor photo')
 
 [In case if you cannot ignore ".vs" here is the link to the documentation](https://stackoverflow.com/questions/47640088/visual-studio-ignore-vs)
+
+[installation of the ssl](https://linuxtut.com/en/26cd7a5ef0b2fac53fce/)
+
+[installation of the ssl](https://developer.okta.com/blog/2019/09/18/build-a-simple-dotnet-core-app-in-docker)
+
+[installation of the ssl](https://codefresh.io/docker-tutorial/docker-images-net-core/)

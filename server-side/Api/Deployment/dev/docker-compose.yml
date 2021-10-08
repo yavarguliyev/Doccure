@@ -19,16 +19,21 @@ services:
     image: ${DOCKER_REGISTRY-}api
     container_name: api
     command: dotnet watch run --urls http://+:5000
-    # entrypoint: dotnet watch run --urls http://0.0.0.0:5000
     build:
       context: ../../../
       dockerfile: Api/Dockerfile
     environment:
-      - ASPNETCORE_URLS=http://+:5000
+      - 'UseInMemoryDatabase=false'
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
       - ASPNETCORE_ENVIRONMENT=Development
-      - 'ConnectionStrings__DefaultConnection=Server=doccure_database;Port=5432;Database=Doccure;User ID=admin;Password=doccure;SSL Mode=Disable;Trust Server Certificate=true;'
+      - ConnectionStrings__DefaultConnection=Server=doccure_database;Port=5432;Database=Doccure;User ID=admin;Password=doccure;SSL Mode=Disable;Trust Server Certificate=true;
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=yavar10guliyev
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
     ports:
       - '5000:5000'
+      - '5001:5001'
     depends_on:
       - doccure_database
     restart: on-failure
