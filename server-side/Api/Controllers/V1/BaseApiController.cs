@@ -3,6 +3,8 @@ using AutoMapper;
 using Core.Services.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Core.Helpers;
+using Api.Extensions;
 
 namespace Api.Controllers.v1
 {
@@ -51,5 +53,27 @@ namespace Api.Controllers.v1
         protected IPrivacyService privacyService => _privacyService ??= HttpContext.RequestServices.GetService<IPrivacyService>();
         protected ITermService termService => _termService ??= HttpContext.RequestServices.GetService<ITermService>();
         #endregion
+
+        protected ActionResult HandleResult<T>(Result<T> result)
+        {
+            if (result == null) return NotFound();
+            if (result.IsSuccess && result.Value != null) return Ok(result.Value);
+            if (result.IsSuccess && result.Value == null) return NotFound();
+            return BadRequest(result.Error);
+        }
+        
+        protected ActionResult HandlePagedResult<T>(Result<PagedList<T>> result)
+        {
+            if (result == null) return NotFound();
+            if (result.IsSuccess && result.Value != null)
+            {
+                Response.AddPagination(result.Value.CurrentPage, result.Value.PageSize,
+                    result.Value.TotalCount, result.Value.TotalPages);
+                return Ok(result.Value);
+            }
+            if (result.IsSuccess && result.Value == null)
+                return NotFound();
+            return BadRequest(result.Error);
+        }
     }
 }
