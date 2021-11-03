@@ -12,7 +12,7 @@ namespace Services.Mappings
 {
     public class MappingProfiles : Profile
     {
-        private static string cloudinary = "https://res.cloudinary.com/dcqc5bx7c/image/upload/v1588180439/doccure/system/";
+        private static readonly string cloudinary = "https://res.cloudinary.com/dcqc5bx7c/image/upload/v1588180439/doccure/system/";
 
         public MappingProfiles()
         {

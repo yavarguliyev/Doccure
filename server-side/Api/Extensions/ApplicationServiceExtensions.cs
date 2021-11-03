@@ -92,7 +92,7 @@ namespace Api.Extensions
                 {
                     // Use connection string from file.
                     connStr = configuration.GetConnectionString("DefaultConnection");
-                    Console.WriteLine(connStr);
+                    Console.WriteLine("connStr");
                 }
                 else
                 {
