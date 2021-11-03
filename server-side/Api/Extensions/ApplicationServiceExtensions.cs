@@ -59,7 +59,7 @@ namespace Api.Extensions
                 v.DefaultApiVersion = new ApiVersion(1, 0);
             });
 
-            // api cors for allowing methods that coming from different localhosts
+            // api cors for allowing methods that coming from different localhost
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>
@@ -92,7 +92,7 @@ namespace Api.Extensions
                 {
                     // Use connection string from file.
                     connStr = configuration.GetConnectionString("DefaultConnection");
-                    Console.WriteLine(connStr);
+                    Console.WriteLine("connStr");
                 }
                 else
                 {

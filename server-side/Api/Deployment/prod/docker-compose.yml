@@ -23,8 +23,8 @@ services:
       dockerfile: Api/Dockerfile
     environment:
       - 'UseInMemoryDatabase=false'
-      - ASPNETCORE_URLS=https://+:5001;http://+:5000
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001;
+      - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_HTTPS_PORT=5001
       - ConnectionStrings__DefaultConnection=Server=doccure_database;Port=5432;Database=Doccure;User ID=admin;Password=doccure;SSL Mode=Disable;Trust Server Certificate=true;
       - ASPNETCORE_Kestrel__Certificates__Default__Password=yavar10guliyev
@@ -32,11 +32,10 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
     ports:
-      - '5000:5000'
       - '5001:5001'
     depends_on:
       - doccure_database
-    command: dotnet watch run --urls=https://+:5001;http://+:5000
+    command: dotnet run --urls=https://+:5001
     restart: on-failure
     networks:
       - doccure
