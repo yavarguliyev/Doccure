@@ -39,17 +39,6 @@ namespace Api
         Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(webBuilder =>
         {
           webBuilder.UseStartup<Startup>();
-
-          string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-          if (env is "Production")
-          {
-                webBuilder.UseUrls("https://+:5001");
-          }
-          else
-          {
-            webBuilder.UseUrls("https://+:5001", "http://+:5000");
-          }
         });
   }
 }
