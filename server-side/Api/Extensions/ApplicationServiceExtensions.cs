@@ -93,6 +93,11 @@ namespace Api.Extensions
                     // Use connection string from file.
                     connStr = configuration.GetConnectionString("DefaultConnection");
                 }
+                else if (env == "Test_Production")
+                {
+                    // Use connection string from file.
+                    connStr = configuration.GetConnectionString("DefaultConnection");
+                }
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
