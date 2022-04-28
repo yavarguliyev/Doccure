@@ -1,0 +1,1513 @@
+{
+  "info": {
+    "_postman_id": "a213bc27-0491-449f-b9f6-6255269bda1f",
+    "name": "Doccure",
+    "description": "Docure is a hospital web application. These APIs are developed to use for the web and applications",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "GET /api/v1/auth/{token}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/auth/835906-5bd5-4025-8e26-3495c197fcdqwd",
+              "host": ["{{doccureURL}}"],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "835906-5bd5-4025-8e26-3495c197fcdqwd"
+              ]
+            },
+            "description": "Get user by token for user interface"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/v1/auth/login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "if(user.token != null) {\r",
+                  "    pm.environment.set('TOKEN', user.token)\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"yavar10Yr\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/auth/login",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "auth", "login"]
+            },
+            "description": "Login for multiple users that have specific roles."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/v1/auth/register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullname\": \"\",\r\n  \"email\": \"test.test@gmail.com\",\r\n  \"birth\": \"1990-06-29\",\r\n  \"phone\": \"+994 55 904-68-23\",\r\n  \"gender\": \"Male\",\r\n  \"password\": \"yavar10Yr\",\r\n  \"confirmPassword\": \"yavar10Yr\"\r\n}"
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/auth/register",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "auth", "register"]
+            },
+            "description": "Register for multiple users that have specific roles."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/v1/auth/forget-password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"gsa13491@cuoly.com\"\r\n}"
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/auth/forget-password",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "auth", "forget-password"]
+            },
+            "description": "Forget password functionality for sending email to be able to reset password"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/v1/auth/reset-password/{{token}}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"TOKEN\", pm.response.json().token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "description": "JSON Type",
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"password\": \"yavar10YR\",\r\n  \"confirmPassword\": \"yavar10YR\"\r\n}"
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/auth/reset-password?token=b37fa949-71db-43ee-b361-c6e465652d42",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "auth", "reset-password"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "b37fa949-71db-43ee-b361-c6e465652d42"
+                }
+              ]
+            },
+            "description": "Reset password functionality for resetting forgotten password"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/auth/confirm-email?token={{token}}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"TOKEN\", pm.response.json().token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/auth/confirm-email?token=568ed76e-d649-4527-acea-ab0401d0a2db",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "auth", "confirm-email"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "568ed76e-d649-4527-acea-ab0401d0a2db"
+                }
+              ]
+            },
+            "description": "Confirm request to confirm registered account"
+          },
+          "response": []
+        }
+      ],
+      "description": "Authentication functionalities of user"
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Admin_Dashboard",
+          "item": [
+            {
+              "name": "GET /api/v1/admin",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.environment.set(\"TOKEN\", pm.response.json().token);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin"]
+                },
+                "description": "Admin's dashboard info for logged in admin"
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/v1/admin/photo-upload",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [""],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": "/C:/Users/Yavar/Desktop/capture"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin/upload-photo",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin", "upload-photo"]
+                },
+                "description": "Upload photo for logged in patient"
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/v1/admin/update-password",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const user = pm.response.json();\r",
+                      "\r",
+                      "if(user.response != null) {\r",
+                      "    pm.environment.set('TOKEN', user.response.token);\r",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": "JSON Type",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"currentPassword\": \"yavar10Yr\",\r\n    \"newPassword\": \"yavar10YR\",\r\n    \"confirmPassword\": \"yavar10YR\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin/update-password",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin", "update-password"]
+                },
+                "description": "Update password for logged in admin-user"
+              },
+              "response": []
+            },
+            {
+              "name": "PUT /api/v1/admin",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const user = pm.response.json();\r",
+                      "\r",
+                      "if(user.response != null) {\r",
+                      "    pm.environment.set('TOKEN', user.response.token);\r",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "description": "JSON Type",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"fullname\": \"Admin Admin\",\r\n  \"birth\": \"1990-06-29\",\r\n  \"phone\": \"+994 55 904-68-23\",\r\n  \"biography\": \"<div class='about - text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>\",\r\n  \"postalCode\": \"22434\",\r\n  \"address\": \"<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>\",\r\n  \"city\": \"Miami\",\r\n  \"state\": \"Florida\",\r\n  \"country\": \"United States\",\r\n  \"gender\": \"male\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin"]
+                },
+                "description": "Update admin's info for logged in admin"
+              },
+              "response": []
+            }
+          ],
+          "description": "Admin profile's crud operation functionalities",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [""]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [""]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin_Doctors",
+          "item": [
+            {
+              "name": "GET /api/v1/admin_doctors",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_doctors",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_doctors"]
+                },
+                "description": "Get all doctors list"
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/v1/admin_doctors",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "JSON Type",
+                    "key": "Content-Type",
+                    "type": "text",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\":\"ziz66626@eoopy.com\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_doctors",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_doctors"]
+                },
+                "description": "Create new doctor"
+              },
+              "response": []
+            },
+            {
+              "name": "DELETE /api/v1/admin_doctors",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_doctors/3",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_doctors", "3"]
+                },
+                "description": "Delete existing doctor from database"
+              },
+              "response": []
+            },
+            {
+              "name": "POST /api/v1/admin_doctors/status?id={id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_doctors/status?id=5",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_doctors", "status"],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "5"
+                    }
+                  ]
+                },
+                "description": "Modify the status of doctor"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_doctors/{id}",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_doctors/2",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_doctors", "2"]
+                },
+                "description": "Get doctor by id"
+              },
+              "response": []
+            }
+          ],
+          "description": "Doctor crud functionalities",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [""]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [""]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin_Settings",
+          "item": [
+            {
+              "name": "GET /api/v1/admin_settings/settings",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/settings",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "settings"]
+                },
+                "description": "Pages information texts"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/setting-photo?name={{name}}",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/setting-photo?name=HeaderLogo",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "setting-photo"],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "HeaderLogo"
+                    }
+                  ]
+                },
+                "description": "Pages photo by name"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/social-media",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/social-media",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "social-media"]
+                },
+                "description": "Pages social-media icons and link"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/privacies",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/privacies",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "privacies"]
+                },
+                "description": "Privacies of the pages"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/terms",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/terms",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "terms"]
+                },
+                "description": "Terms of the pages"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/setting-photos",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{TOKEN}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/setting-photos",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "setting-photos"]
+                },
+                "description": "Pages photos"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/features",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/features",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "features"]
+                },
+                "description": "Get feature list"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/admin_settings/specialities",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/admin_settings/specialities",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "admin_settings", "specialities"]
+                },
+                "description": "Get specialities list"
+              },
+              "response": []
+            }
+          ],
+          "description": "Settings functionalities"
+        }
+      ],
+      "description": "Admin functionalities for controlling client and server side",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Doctor",
+      "item": [
+        {
+          "name": "GET /api/v1/doctor",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor"]
+            },
+            "description": "Doctor's info for logged in doctor"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/doctor/patient/{slug}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/patient/harry-williams",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "patient", "harry-williams"]
+            },
+            "description": "Patient's info for logged in doctor"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/doctor/patients/appointment Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/patients/appointment",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "patients", "appointment"]
+            },
+            "description": "Patients' list for logged in doctor"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/doctor/social-media-url",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/social-media-url",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "social-media-url"]
+            },
+            "description": "Patients' list for logged in doctor"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/v1/doctor/update-social-media-url",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"facebookURL\": \"https://www.facebook.com/\",\r\n    \"twitterURL\": \"https://www.twitter.com/\",\r\n    \"instagramURL\": \"https://www.instagram.com/\",\r\n    \"pinterestURL\": \"https://www.linkedin.com/\",\r\n    \"linkedinURL\": \"https://www.pinterest.com/\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/update-social-media-url",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "update-social-media-url"]
+            },
+            "description": "Patients' list for logged in doctor"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/v1/doctor?token={{token}}",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "if(user.response != null) {\r",
+                  "    pm.environment.set('TOKEN', user.response.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullname\": \"Yavar Guliyev\",\r\n  \"birth\": \"1990-06-29\",\r\n  \"gender\": \"Male\",\r\n  \"password\": \"yavar10Yr\",\r\n  \"confirmPassword\": \"yavar10Yr\"\r\n}"
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor?token=ad835906-5bd5-4025-8e26-3495c197fc31",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor"],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "ad835906-5bd5-4025-8e26-3495c197fc31"
+                }
+              ]
+            },
+            "description": "Update created new profile for the doctor"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/doctor/upload-photo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/C:/Users/Yavar/Desktop/view.png"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/upload-photo",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "upload-photo"]
+            },
+            "description": "Upload photo for logged in patient"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/doctor/update-password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "if(user.response != null) {\r",
+                  "    pm.environment.set('TOKEN', user.response.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currentPassword\": \"yavar10YR\",\r\n    \"newPassword\": \"yavar10Yr\",\r\n    \"confirmPassword\": \"yavar10Yr\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/update-password",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "update-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/doctor/update-profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "if(user.response != null) {\r",
+                  "    pm.environment.set('TOKEN', user.response.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullname\": \"Yavar Guliyev\",\r\n  \"birth\": \"1990-06-29\",\r\n  \"phone\": \"+994 55 904-68-23\",\r\n  \"biography\": \"<div class='about - text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>\",\r\n  \"postalCode\": \"22434\",\r\n  \"address\": \"<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>\",\r\n  \"city\": \"Miami\",\r\n  \"state\": \"Florida\",\r\n  \"country\": \"United States\",\r\n  \"gender\": \"male\"\r\n}"
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/doctor/update-profile",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "doctor", "update-profile"]
+            },
+            "description": "Update doctor's info for logged in doctor"
+          },
+          "response": []
+        }
+      ],
+      "description": "Doctor functionalities for controlling logged in doctor",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "item": [
+        {
+          "name": "GET /api/v1/patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"TOKEN\", pm.response.json().token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/patient",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "patient"]
+            },
+            "description": "Patient's dashboard info for logged in patient"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/patient/upload-photo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/C:/Users/Yavar/Desktop/download.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/patient/upload-photo",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "patient", "upload-photo"]
+            },
+            "description": "Upload photo for logged in patient"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/patient/update-password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "if(user.response != null) {\r",
+                  "    pm.environment.set('TOKEN', user.response.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currentPassword\": \"yavar10Yr\",\r\n    \"newPassword\": \"yavar10YR\",\r\n    \"confirmPassword\": \"yavar10YR\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/patient/update-password",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "patient", "update-password"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/v1/patient",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const user = pm.response.json();\r",
+                  "\r",
+                  "if(user.response != null) {\r",
+                  "    pm.environment.set('TOKEN', user.response.token);\r",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullname\": \"Huseyn Asadov\",\r\n  \"birth\": \"1990-06-29\",\r\n  \"phone\": \"+994 55 904-68-23\",\r\n  \"biography\": \"<div class='about - text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>\",\r\n  \"postalCode\": \"22434\",\r\n  \"address\": \"<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>\",\r\n  \"city\": \"Miami\",\r\n  \"state\": \"Florida\",\r\n  \"country\": \"United States\",\r\n  \"gender\": \"male\"\r\n}"
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/patient",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "patient"]
+            },
+            "description": "Update patient's info for logged in patient"
+          },
+          "response": []
+        }
+      ],
+      "description": "Patient functionalities for controlling logged in patient",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Main",
+      "item": [
+        {
+          "name": "Blog",
+          "item": [
+            {
+              "name": "GET /api/v1/blog",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/blog",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "blog"]
+                },
+                "description": "Get blog list"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/blog/{slug}",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/blog/doccure-–-making-your-clinic-painless-visit",
+                  "host": ["{{doccureURL}}"],
+                  "path": [
+                    "api",
+                    "v1",
+                    "blog",
+                    "doccure-–-making-your-clinic-painless-visit"
+                  ]
+                },
+                "description": "Get blog details"
+              },
+              "response": []
+            }
+          ],
+          "description": "Blog functionalities"
+        },
+        {
+          "name": "Home",
+          "item": [
+            {
+              "name": "GET /api/v1/home",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/home",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "home"]
+                },
+                "description": "Get blog list"
+              },
+              "response": []
+            },
+            {
+              "name": "GET /api/v1/home/{slug}",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{doccureURL}}/api/v1/home/ruby-perrin",
+                  "host": ["{{doccureURL}}"],
+                  "path": ["api", "v1", "home", "ruby-perrin"]
+                },
+                "description": "Get blog details"
+              },
+              "response": []
+            }
+          ],
+          "description": "Blog functionalities"
+        },
+        {
+          "name": "POST /api/v1/chat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "JSON Type",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{doccureURL}}/api/v1/chat",
+              "host": ["{{doccureURL}}"],
+              "path": ["api", "v1", "chat"]
+            },
+            "description": "Upload photo for logged in patient"
+          },
+          "response": []
+        }
+      ],
+      "description": "Request for the main pages"
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
+}
