@@ -2,8 +2,9 @@
 
 . ../common/bootstrap.sh
 
-docker-compose --project-name $PROJECT_NAME down
+docker network create common || true
 
-docker rmi $(docker images -q)
+docker-compose --project-name $PROJECT_NAME up -d
+
 docker volume prune -f
 docker system prune -f

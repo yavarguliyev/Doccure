@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class DoctorSocialMediaUrlLinkRepository : Repository<DoctorSocialMediaUrlLink>, IDoctorSocialMediaUrlLinkRepository
+  public class DoctorSocialMediaUrlLinkRepository : Repository<DoctorSocialMediaUrlLink>, IDoctorSocialMediaUrlLinkRepository
+  {
+    public DoctorSocialMediaUrlLinkRepository(DataContext context) : base(context) { }
+
+    private DataContext Getcontext() { return Context as DataContext; }
+
+    public async Task<DoctorSocialMediaUrlLink> Get(int id)
     {
-        public DoctorSocialMediaUrlLinkRepository(DataContext context) : base(context) { }
+      var doctor = await Getcontext().Doctors
+                                .Where(x => x.Status)
+                                .FirstOrDefaultAsync(x => x.Id == id);
 
-        private DataContext context { get { return Context as DataContext; } }
+      if (doctor == null) throw new RestException(HttpStatusCode.NotFound, "Not found!");
 
-        public async Task<DoctorSocialMediaUrlLink> Get(int id)
-        {
-            var doctor = await context.Doctors
-                                      .Where(x => x.Status)
-                                      .FirstOrDefaultAsync(x => x.Id == id);
-
-            if (doctor == null) throw new RestException(HttpStatusCode.NotFound, "Not found!");
-
-           return await context.DoctorSocialMediaUrlLinks
-                               .Where(x => x.Status)
-                               .FirstOrDefaultAsync(x => x.DoctorId == doctor.Id);
-        }
+      return await Getcontext().DoctorSocialMediaUrlLinks
+                          .Where(x => x.Status)
+                          .FirstOrDefaultAsync(x => x.DoctorId == doctor.Id);
     }
+  }
 }

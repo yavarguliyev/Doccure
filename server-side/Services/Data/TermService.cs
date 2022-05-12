@@ -8,37 +8,37 @@ using System.Threading.Tasks;
 
 namespace Services.Data
 {
-    public class TermService : ITermService
+  public class TermService : ITermService
+  {
+    private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public TermService(IMapper mapper, IUnitOfWork unitOfWork)
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-
-        public TermService(IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
-
-        public async Task<TermDTO> GetAsync()
-        {
-            return _mapper.Map<TermDTO>(await _unitOfWork.Term.Get());
-        }
-
-        public async Task UpdateAsync(Term termToBeUpdated, Term term)
-        {
-            termToBeUpdated.Id = termToBeUpdated.Id;
-            termToBeUpdated.Status = true;
-            termToBeUpdated.AddedDate = termToBeUpdated.AddedDate;
-            termToBeUpdated.ModifiedDate = DateTime.Now;
-            termToBeUpdated.AddedBy = termToBeUpdated.AddedBy;
-            termToBeUpdated.ModifiedBy = termToBeUpdated.ModifiedBy;
-
-            termToBeUpdated.TermHeading = term.TermHeading != null ? term.TermHeading : termToBeUpdated.TermHeading;
-            termToBeUpdated.TermSubheading = term.TermSubheading != null ? term.TermSubheading : termToBeUpdated.TermSubheading;
-            termToBeUpdated.TermBody = term.TermBody != null ? term.TermBody : termToBeUpdated.TermBody;
-            termToBeUpdated.TermFooter = term.TermFooter != null ? term.TermFooter : termToBeUpdated.TermFooter;
-
-            await _unitOfWork.CommitAsync();
-        }
+      _mapper = mapper;
+      _unitOfWork = unitOfWork;
     }
+
+    public async Task<TermDTO> GetAsync()
+    {
+      return _mapper.Map<TermDTO>(await _unitOfWork.Term.Get());
+    }
+
+    public async Task UpdateAsync(Term termToBeUpdated, Term term)
+    {
+      termToBeUpdated.Id = termToBeUpdated.Id;
+      termToBeUpdated.Status = true;
+      termToBeUpdated.AddedDate = termToBeUpdated.AddedDate;
+      termToBeUpdated.ModifiedDate = DateTime.Now;
+      termToBeUpdated.AddedBy = termToBeUpdated.AddedBy;
+      termToBeUpdated.ModifiedBy = termToBeUpdated.ModifiedBy;
+
+      termToBeUpdated.TermHeading = term.TermHeading ?? termToBeUpdated.TermHeading;
+      termToBeUpdated.TermSubheading = term.TermSubheading ?? termToBeUpdated.TermSubheading;
+      termToBeUpdated.TermBody = term.TermBody ?? termToBeUpdated.TermBody;
+      termToBeUpdated.TermFooter = term.TermFooter ?? termToBeUpdated.TermFooter;
+
+      await _unitOfWork.CommitAsync();
+    }
+  }
 }

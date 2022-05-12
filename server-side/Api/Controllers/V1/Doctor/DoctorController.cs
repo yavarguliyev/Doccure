@@ -15,15 +15,15 @@ namespace Api.Controllers.v1.Doctor
         [HttpGet("patients/appointment")]
         public async Task<IActionResult> GetPatientsAppointment()
         {
-            if (auth.Doctor == null) return Unauthorized();
-            return Ok(mapper.Map<IEnumerable<UserDTO>>(await userService.GetAsync(UserRole.Patient, null)));
+            if (Auth.Doctor == null) return Unauthorized();
+            return Ok(Mapper.Map<IEnumerable<UserDTO>>(await UserService.GetAsync(UserRole.Patient, null)));
         }
 
         [HttpGet("patient/{slug}")]
         public async Task<IActionResult> GetPatientBySlug(string slug)
         {
-            if (auth.Doctor == null) return Unauthorized();
-            return Ok(mapper.Map<UserDTO>(await userService.GetByAsync(slug)));
+            if (Auth.Doctor == null) return Unauthorized();
+            return Ok(Mapper.Map<UserDTO>(await UserService.GetByAsync(slug)));
         }
         #endregion
 
@@ -31,15 +31,15 @@ namespace Api.Controllers.v1.Doctor
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            if (auth.Doctor == null) return Unauthorized();
-            return Ok(mapper.Map<UserDTO>(await userService.GetAsync(auth.Doctor.Id)));
+            if (Auth.Doctor == null) return Unauthorized();
+            return Ok(Mapper.Map<UserDTO>(await UserService.GetAsync(Auth.Doctor.Id)));
         }
 
         [HttpGet("social-media-url")]
         public async Task<IActionResult> GetDoctorSocialMedialUrl()
         {
-            if (auth.Doctor == null) return Unauthorized();
-            return Ok(mapper.Map<DoctorSocialMediaUrlLinkDTO>(await urlLinkService.GetAsync(auth.Doctor.Id)));
+            if (Auth.Doctor == null) return Unauthorized();
+            return Ok(Mapper.Map<DoctorSocialMediaUrlLinkDTO>(await UrlLinkService.GetAsync(Auth.Doctor.Id)));
         }
         #endregion
 
@@ -47,17 +47,17 @@ namespace Api.Controllers.v1.Doctor
         [HttpPut]
         public async Task<IActionResult> Register(NewDoctorModifyDTO model, string token)
         {
-            var userToBeUpdated = await userService.GetAsync(token);
-            var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
+            var userToBeUpdated = await UserService.GetAsync(token);
+            var response = await UserService.UpdateAsync(userToBeUpdated, Mapper.Map<User>(model));
             return Ok(new { message = "Registration successfully completed!", response });
         }
 
         [HttpPut("update-profile")]
         public async Task<IActionResult> Update(UserProfileUpdateDTO model)
         {
-            if (auth.Doctor == null) return Unauthorized();
-            var userToBeUpdated = await userService.GetAsync(auth.Doctor.Id);
-            var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
+            if (Auth.Doctor == null) return Unauthorized();
+            var userToBeUpdated = await UserService.GetAsync(Auth.Doctor.Id);
+            var response = await UserService.UpdateAsync(userToBeUpdated, Mapper.Map<User>(model));
 
             return Ok(new { message = "Profile info successfully updated!", response });
         }
@@ -65,9 +65,9 @@ namespace Api.Controllers.v1.Doctor
         [HttpPut("update-social-media-url")]
         public async Task<IActionResult> UpdateSocialMediaUrl(DoctorSocialMediaUrlLinkDTO model)
         {
-            if (auth.Doctor == null) return Unauthorized();
-            var urlLinkToBeUpdated = await urlLinkService.GetAsync(auth.Doctor.Id);
-            await urlLinkService.UpdateAsync(urlLinkToBeUpdated, mapper.Map<DoctorSocialMediaUrlLink>(model));
+            if (Auth.Doctor == null) return Unauthorized();
+            var urlLinkToBeUpdated = await UrlLinkService.GetAsync(Auth.Doctor.Id);
+            await UrlLinkService.UpdateAsync(urlLinkToBeUpdated, Mapper.Map<DoctorSocialMediaUrlLink>(model));
 
             return Ok(new { message = "Social Media URLs successfully updated!" });
         }
@@ -75,8 +75,8 @@ namespace Api.Controllers.v1.Doctor
         [HttpPut("update-password")]
         public async Task<IActionResult> UpdatePassword(AuthPasswordUpdateDTO model)
         {
-            if (auth.Doctor == null) return Unauthorized();
-            var response = await userService.UpdateAsync(auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
+            if (Auth.Doctor == null) return Unauthorized();
+            var response = await UserService.UpdateAsync(Auth.Doctor.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
             return Ok(new { message = "Password successfully updated!", response });
         }
         #endregion
@@ -85,8 +85,8 @@ namespace Api.Controllers.v1.Doctor
         [HttpPut("upload-photo")]
         public async Task<IActionResult> UploadPhoto(IFormFile file)
         {
-            if (auth.Doctor == null) return Unauthorized();
-            var image = await userService.PhotoUploadAsync(auth.Doctor.Id, file);
+            if (Auth.Doctor == null) return Unauthorized();
+            var image = await UserService.PhotoUploadAsync(Auth.Doctor.Id, file);
             return Ok(new { message = "Photo uploaded!", image });
         }
         #endregion

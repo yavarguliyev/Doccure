@@ -7,6 +7,6 @@ namespace Api.Controllers.v1.Main
     public class ChatController : BaseApiController
     {
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file) => Ok(await chatMessageService.Upload(file));
+        public async Task<IActionResult> Upload(IFormFile file) => Ok(await ChatMessageService.Upload(file));
     }
 }

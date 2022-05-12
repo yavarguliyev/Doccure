@@ -8,35 +8,35 @@ using Core.Enum;
 
 namespace Data.Data_Seed
 {
-    public class Seed
+  public class Seed
+  {
+    public static async Task SeedData(DataContext context)
     {
-        public static async Task SeedData(DataContext context)
-        {
-            #region main tables
-            if (!context.Admins.Any())
-            {
-                var admins = new List<Admin>
+      #region main tables
+      if (!context.Admins.Any())
+      {
+        var admins = new List<Admin>
                 {
                     new Admin {},
                     new Admin {}
                 };
-                foreach (var admin in admins)
-                {
-                    admin.Status = true;
-                    admin.AddedBy = "System";
-                    admin.ModifiedBy = "System";
-                    admin.AddedDate = DateTime.Now;
-                    admin.ModifiedDate = DateTime.Now;
+        foreach (var admin in admins)
+        {
+          admin.Status = true;
+          admin.AddedBy = "System";
+          admin.ModifiedBy = "System";
+          admin.AddedDate = DateTime.Now;
+          admin.ModifiedDate = DateTime.Now;
 
-                    await context.Admins.AddRangeAsync(admin);
-                    await context.SaveChangesAsync();
-                }
-            }
+          await context.Admins.AddRangeAsync(admin);
+          await context.SaveChangesAsync();
+        }
+      }
 
-            if (!context.Doctors.Any())
-            {
-                #region doctor
-                var doctors = new List<Doctor>
+      if (!context.Doctors.Any())
+      {
+        #region doctor
+        var doctors = new List<Doctor>
                 {
                     new Doctor
                     {
@@ -89,23 +89,23 @@ namespace Data.Data_Seed
                         Type = WorkingType.Freelancer
                     }
                 };
-                foreach (var doctor in doctors)
-                {
-                    doctor.Status = true;
-                    doctor.AddedBy = "System";
-                    doctor.ModifiedBy = "System";
-                    doctor.AddedDate = DateTime.Now;
-                    doctor.ModifiedDate = DateTime.Now;
+        foreach (var doctor in doctors)
+        {
+          doctor.Status = true;
+          doctor.AddedBy = "System";
+          doctor.ModifiedBy = "System";
+          doctor.AddedDate = DateTime.Now;
+          doctor.ModifiedDate = DateTime.Now;
 
-                    await context.Doctors.AddRangeAsync(doctor);
-                    await context.SaveChangesAsync();
-                }
-                #endregion
+          await context.Doctors.AddRangeAsync(doctor);
+          await context.SaveChangesAsync();
+        }
+        #endregion
 
-                #region doctor social urls
-                if (!context.DoctorSocialMediaUrlLinks.Any())
-                {
-                    var url = new List<DoctorSocialMediaUrlLink>
+        #region doctor social urls
+        if (!context.DoctorSocialMediaUrlLinks.Any())
+        {
+          var url = new List<DoctorSocialMediaUrlLink>
                     {
                         new DoctorSocialMediaUrlLink
                         {
@@ -148,31 +148,31 @@ namespace Data.Data_Seed
                             DoctorId = 10
                         }
                     };
-                    foreach (var social in url)
-                    {
-                        social.Status = true;
-                        social.AddedBy = "System";
-                        social.ModifiedBy = "System";
-                        social.AddedDate = DateTime.Now;
-                        social.ModifiedDate = DateTime.Now;
+          foreach (var social in url)
+          {
+            social.Status = true;
+            social.AddedBy = "System";
+            social.ModifiedBy = "System";
+            social.AddedDate = DateTime.Now;
+            social.ModifiedDate = DateTime.Now;
 
-                        social.FacebookURL = "https://www.facebook.com/";
-                        social.TwitterURL = "https://www.twitter.com/";
-                        social.LinkedinURL = "https://www.linkedin.com/";
-                        social.InstagramURL = "https://www.instagram.com/";
-                        social.PinterestURL = "https://www.pinterest.com/";
+            social.FacebookURL = "https://www.facebook.com/";
+            social.TwitterURL = "https://www.twitter.com/";
+            social.LinkedinURL = "https://www.linkedin.com/";
+            social.InstagramURL = "https://www.instagram.com/";
+            social.PinterestURL = "https://www.pinterest.com/";
 
-                        await context.DoctorSocialMediaUrlLinks.AddRangeAsync(social);
-                        await context.SaveChangesAsync();
-                    }
-                }
-                #endregion
-            }
+            await context.DoctorSocialMediaUrlLinks.AddRangeAsync(social);
+            await context.SaveChangesAsync();
+          }
+        }
+        #endregion
+      }
 
-            if (!context.BloodGroups.Any())
-            {
-                #region blood groups
-                var bloodGroups = new List<BloodGroup>
+      if (!context.BloodGroups.Any())
+      {
+        #region blood groups
+        var bloodGroups = new List<BloodGroup>
                 {
                     new BloodGroup
                     {
@@ -199,23 +199,23 @@ namespace Data.Data_Seed
                         Name = "AB+"
                     }
                 };
-                foreach (var bloodGroup in bloodGroups)
-                {
-                    bloodGroup.Status = true;
-                    bloodGroup.AddedBy = "System";
-                    bloodGroup.ModifiedBy = "System";
-                    bloodGroup.AddedDate = DateTime.Now;
-                    bloodGroup.ModifiedDate = DateTime.Now;
+        foreach (var bloodGroup in bloodGroups)
+        {
+          bloodGroup.Status = true;
+          bloodGroup.AddedBy = "System";
+          bloodGroup.ModifiedBy = "System";
+          bloodGroup.AddedDate = DateTime.Now;
+          bloodGroup.ModifiedDate = DateTime.Now;
 
-                    await context.BloodGroups.AddRangeAsync(bloodGroup);
-                    await context.SaveChangesAsync();
-                }
-                #endregion
+          await context.BloodGroups.AddRangeAsync(bloodGroup);
+          await context.SaveChangesAsync();
+        }
+        #endregion
 
-                #region patients
-                if (!context.Patients.Any())
-                {
-                    var patients = new List<Patient>
+        #region patients
+        if (!context.Patients.Any())
+        {
+          var patients = new List<Patient>
                     {
                         new Patient
                         {
@@ -266,25 +266,25 @@ namespace Data.Data_Seed
                             BloodGroupId = 1
                         },
                     };
-                    foreach (var patient in patients)
-                    {
-                        patient.Status = true;
-                        patient.AddedBy = "System";
-                        patient.ModifiedBy = "System";
-                        patient.AddedDate = DateTime.Now;
-                        patient.ModifiedDate = DateTime.Now;
+          foreach (var patient in patients)
+          {
+            patient.Status = true;
+            patient.AddedBy = "System";
+            patient.ModifiedBy = "System";
+            patient.AddedDate = DateTime.Now;
+            patient.ModifiedDate = DateTime.Now;
 
-                        await context.Patients.AddRangeAsync(patient);
-                        await context.SaveChangesAsync();
-                    }
-                }
-                #endregion
-            }
+            await context.Patients.AddRangeAsync(patient);
+            await context.SaveChangesAsync();
+          }
+        }
+        #endregion
+      }
 
-            if (!context.Users.Any())
-            {
-                #region users
-                var users = new List<User>
+      if (!context.Users.Any())
+      {
+        #region users
+        var users = new List<User>
                 {
                     #region admins
                     new User
@@ -559,41 +559,41 @@ namespace Data.Data_Seed
                     },
                     #endregion
                 };
-                foreach (var user in users)
-                {
-                    user.Status = true;
-                    user.AddedBy = "System";
-                    user.ModifiedBy = "System";
-                    user.AddedDate = DateTime.Now;
-                    user.ModifiedDate = DateTime.Now;
+        foreach (var user in users)
+        {
+          user.Status = true;
+          user.AddedBy = "System";
+          user.ModifiedBy = "System";
+          user.AddedDate = DateTime.Now;
+          user.ModifiedDate = DateTime.Now;
 
-                    user.Code = new Random().Next(100000, 999999).ToString();
-                    user.Token = Guid.NewGuid().ToString();
-                    user.Password = Crypto.HashPassword("yavar10Yr");
-                    user.Photo = null;
-                    user.InviteToken = null;
-                    user.ConfirmToken = null;
-                    user.ConnectionId = null;
-                    user.Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
-                                     "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                                     "labore et dolore magna aliqua.</div>";
-                    user.PostalCode = "22434";
-                    user.Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>";
-                    user.City = "Miami";
-                    user.State = "Florida";
-                    user.Country = "United States";
-                    user.Phone = "+994 55 904-68-23";
-                    user.Birth = new DateTime(1990, 06, 29);
+          user.Code = new Random().Next(100000, 999999).ToString();
+          user.Token = Guid.NewGuid().ToString();
+          user.Password = Crypto.HashPassword("yavar10Yr");
+          user.Photo = null;
+          user.InviteToken = null;
+          user.ConfirmToken = null;
+          user.ConnectionId = null;
+          user.Biography = "<div class='about - text'>Lorem ipsum dolor sit amet, " +
+                           "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                           "labore et dolore magna aliqua.</div>";
+          user.PostalCode = "22434";
+          user.Address = "<p class='col-sm-10 mb-0'>4663 Agriculture Lane,<br>Miami,<br>Florida-33165,<br>United States.</p>";
+          user.City = "Miami";
+          user.State = "Florida";
+          user.Country = "United States";
+          user.Phone = "+994 55 904-68-23";
+          user.Birth = new DateTime(1990, 06, 29);
 
-                    await context.Users.AddRangeAsync(user);
-                    await context.SaveChangesAsync();
-                }
-                #endregion
+          await context.Users.AddRangeAsync(user);
+          await context.SaveChangesAsync();
+        }
+        #endregion
 
-                #region chat
-                if (!context.Chats.Any())
-                {
-                    var chats = new List<Chat>
+        #region chat
+        if (!context.Chats.Any())
+        {
+          var chats = new List<Chat>
                     {
                         new Chat
                         {
@@ -621,22 +621,22 @@ namespace Data.Data_Seed
                             PatientId = 14,
                         },
                     };
-                    foreach (var chat in chats)
-                    {
-                        chat.Status = true;
-                        chat.AddedBy = "System";
-                        chat.ModifiedBy = "System";
-                        chat.AddedDate = DateTime.Now;
-                        chat.ModifiedDate = DateTime.Now;
+          foreach (var chat in chats)
+          {
+            chat.Status = true;
+            chat.AddedBy = "System";
+            chat.ModifiedBy = "System";
+            chat.AddedDate = DateTime.Now;
+            chat.ModifiedDate = DateTime.Now;
 
-                        await context.Chats.AddRangeAsync(chat);
-                        await context.SaveChangesAsync();
-                    }
+            await context.Chats.AddRangeAsync(chat);
+            await context.SaveChangesAsync();
+          }
 
-                    #region chat messages
-                    if (!context.ChatMessages.Any())
-                    {
-                        var chatMessages = new List<ChatMessage>
+          #region chat messages
+          if (!context.ChatMessages.Any())
+          {
+            var chatMessages = new List<ChatMessage>
                         {
                             new ChatMessage
                             {
@@ -679,30 +679,30 @@ namespace Data.Data_Seed
                                 PatientContent = "Why?",
                             }
                         };
-                        foreach (var chatMessage in chatMessages)
-                        {
-                            chatMessage.Status = true;
-                            chatMessage.AddedBy = "System";
-                            chatMessage.ModifiedBy = "System";
-                            chatMessage.AddedDate = DateTime.Now;
-                            chatMessage.ModifiedDate = DateTime.Now;
+            foreach (var chatMessage in chatMessages)
+            {
+              chatMessage.Status = true;
+              chatMessage.AddedBy = "System";
+              chatMessage.ModifiedBy = "System";
+              chatMessage.AddedDate = DateTime.Now;
+              chatMessage.ModifiedDate = DateTime.Now;
 
-                            chatMessage.Photo = null;
-                            chatMessage.IsSeen = true;
-                            chatMessage.ChatId = 1;
+              chatMessage.Photo = null;
+              chatMessage.IsSeen = true;
+              chatMessage.ChatId = 1;
 
-                            await context.ChatMessages.AddRangeAsync(chatMessage);
-                            await context.SaveChangesAsync();
-                        }
-                    }
-                    #endregion
-                }
-                #endregion
+              await context.ChatMessages.AddRangeAsync(chatMessage);
+              await context.SaveChangesAsync();
+            }
+          }
+          #endregion
+        }
+        #endregion
 
-                #region review
-                if (!context.Reviews.Any())
-                {
-                    var reviews = new List<Review>
+        #region review
+        if (!context.Reviews.Any())
+        {
+          var reviews = new List<Review>
                     {
                         new Review
                         {
@@ -719,28 +719,28 @@ namespace Data.Data_Seed
                             Recommendation = DoctorRecommendation.Select
                         },
                     };
-                    foreach (var review in reviews)
-                    {
-                        review.Status = true;
-                        review.AddedBy = "System";
-                        review.ModifiedBy = "System";
-                        review.AddedDate = DateTime.Now;
-                        review.ModifiedDate = DateTime.Now;
+          foreach (var review in reviews)
+          {
+            review.Status = true;
+            review.AddedBy = "System";
+            review.ModifiedBy = "System";
+            review.AddedDate = DateTime.Now;
+            review.ModifiedDate = DateTime.Now;
 
-                        review.DoctorId = 3;
-                        review.Text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do " +
-                                      "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
-                                      "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
-                                      "tempus";
-                        review.RateNumber = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(review.RateStar.Length * review.RateStar.Split(",").Count()) / 10));
+            review.DoctorId = 3;
+            review.Text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do " +
+                          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
+                          "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
+                          "tempus";
+            review.RateNumber = Convert.ToInt32(Math.Ceiling(Convert.ToDecimal(review.RateStar.Length * review.RateStar.Split(",").Length) / 10));
 
-                        await context.Reviews.AddRangeAsync(review);
-                        await context.SaveChangesAsync();
-                    }
+            await context.Reviews.AddRangeAsync(review);
+            await context.SaveChangesAsync();
+          }
 
-                    if (!context.ReviewReplies.Any())
-                    {
-                        var reviewReplies = new List<ReviewReply>
+          if (!context.ReviewReplies.Any())
+          {
+            var reviewReplies = new List<ReviewReply>
                         {
                             new ReviewReply
                             {
@@ -753,31 +753,31 @@ namespace Data.Data_Seed
                                 PatientId = 13
                             }
                         };
-                        foreach (var reviewReply in reviewReplies)
-                        {
-                            reviewReply.ReviewId = 1;
-                            reviewReply.Status = true;
-                            reviewReply.AddedBy = "System";
-                            reviewReply.ModifiedBy = "System";
-                            reviewReply.AddedDate = DateTime.Now;
-                            reviewReply.ModifiedDate = DateTime.Now;
+            foreach (var reviewReply in reviewReplies)
+            {
+              reviewReply.ReviewId = 1;
+              reviewReply.Status = true;
+              reviewReply.AddedBy = "System";
+              reviewReply.ModifiedBy = "System";
+              reviewReply.AddedDate = DateTime.Now;
+              reviewReply.ModifiedDate = DateTime.Now;
 
-                            reviewReply.Text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do " +
-                                               "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
-                                               "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
-                                               "tempus";
+              reviewReply.Text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do " +
+                                 "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad " +
+                                 "minim veniam, quis nostrud exercitation. Curabitur non nulla sit amet nisl " +
+                                 "tempus";
 
-                            await context.ReviewReplies.AddRangeAsync(reviewReply);
-                            await context.SaveChangesAsync();
-                        }
-                    }
-                }
-                #endregion
+              await context.ReviewReplies.AddRangeAsync(reviewReply);
+              await context.SaveChangesAsync();
+            }
+          }
+        }
+        #endregion
 
-                #region blogs
-                if (!context.Blogs.Any())
-                {
-                    var blogs = new List<Blog>
+        #region blogs
+        if (!context.Blogs.Any())
+        {
+          var blogs = new List<Blog>
                     {
                         new Blog
                         {
@@ -840,57 +840,57 @@ namespace Data.Data_Seed
                             DoctorId = 10
                         }
                     };
-                    foreach (var blog in blogs)
-                    {
-                        blog.Status = true;
-                        blog.AddedBy = "System";
-                        blog.ModifiedBy = "System";
-                        blog.AddedDate = DateTime.Now;
-                        blog.ModifiedDate = DateTime.Now;
+          foreach (var blog in blogs)
+          {
+            blog.Status = true;
+            blog.AddedBy = "System";
+            blog.ModifiedBy = "System";
+            blog.AddedDate = DateTime.Now;
+            blog.ModifiedDate = DateTime.Now;
 
-                        blog.Photo = null;
-                        blog.Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0";
-                        blog.Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                                          "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                                          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
-                                          "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
-                                          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                                          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                                          "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
-                                          "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
-                                          "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
-                                          "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
-                                          "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
-                                          "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
-                                          "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
-                                          "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
-                                          "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
-                                          "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
-                                          "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
-                                          "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
-                                          "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
-                                          "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
-                                          "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
-                                          "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
-                                          "occaecati cupiditate non provident, similique sunt in culpa qui " +
-                                          "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
-                                          "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
-                                          "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
-                                          "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
-                                          "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
-                                          "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
-                                          "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
-                                          "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
-                                          "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>";
+            blog.Photo = null;
+            blog.Video = "https://www.youtube.com/embed/nuVqJ_OriR8?rel=0&amp;controls=0&amp;showinfo=0";
+            blog.Description = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                              "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                              "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                              "nisi ut aliqui ex ea commodo consequat. Duis aute irure dolor in " +
+                              "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+                              "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+                              "culpa qui officia deserunt mollit anim id est laborum.</p><p>Sed ut " +
+                              "perspiciatis unde omnis iste natus error sit voluptatem accusantium " +
+                              "doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo " +
+                              "inventore veritatis et quasi architecto beatae vitae dicta sunt " +
+                              "explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut " +
+                              "odit aut fugit, sed quia consequuntur magni dolores eos qui ratione " +
+                              "voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum " +
+                              "quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam " +
+                              "eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat " +
+                              "voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem " +
+                              "ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi " +
+                              "consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate " +
+                              "velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum " +
+                              "fugiat quo voluptas nulla pariatur?</p><p>At vero eos et accusamus et " +
+                              "iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum " +
+                              "deleniti atque corrupti quos dolores et quas molestias excepturi sint " +
+                              "occaecati cupiditate non provident, similique sunt in culpa qui " +
+                              "officia deserunt mollitia animi, id est laborum et dolorum fuga. " +
+                              "Et harum quidem rerum facilis est et expedita distinctio. Nam libero " +
+                              "tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo " +
+                              "minus id quod maxime placeat facere possimus, omnis voluptas assumenda " +
+                              "est, omnis dolor repellendus. Temporibus autem quibusdam et aut " +
+                              "officiis debitis aut rerum necessitatibus saepe eveniet ut et " +
+                              "voluptates repudiandae sint et molestiae non recusandae. Itaque earum " +
+                              "rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus " +
+                              "maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>";
 
-                        await context.Blogs.AddRangeAsync(blog);
-                        await context.SaveChangesAsync();
-                    }
+            await context.Blogs.AddRangeAsync(blog);
+            await context.SaveChangesAsync();
+          }
 
-                    #region comments
-                    if (!context.Comments.Any())
-                    {
-                        var comments = new List<Comment>
+          #region comments
+          if (!context.Comments.Any())
+          {
+            var comments = new List<Comment>
                         {
                             new Comment
                             {
@@ -929,23 +929,23 @@ namespace Data.Data_Seed
                                 IsReply = false
                             },
                         };
-                        foreach (var comment in comments)
-                        {
-                            comment.Status = true;
-                            comment.AddedBy = "System";
-                            comment.ModifiedBy = "System";
-                            comment.AddedDate = DateTime.Now;
-                            comment.ModifiedDate = DateTime.Now;
+            foreach (var comment in comments)
+            {
+              comment.Status = true;
+              comment.AddedBy = "System";
+              comment.ModifiedBy = "System";
+              comment.AddedDate = DateTime.Now;
+              comment.ModifiedDate = DateTime.Now;
 
-                            comment.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+              comment.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
-                            await context.Comments.AddRangeAsync(comment);
-                            await context.SaveChangesAsync();
-                        }
+              await context.Comments.AddRangeAsync(comment);
+              await context.SaveChangesAsync();
+            }
 
-                        if (!context.CommentReplies.Any())
-                        {
-                            var commenReply = new List<CommentReply>
+            if (!context.CommentReplies.Any())
+            {
+              var commenReply = new List<CommentReply>
                             {
                                 new CommentReply
                                 {
@@ -958,31 +958,31 @@ namespace Data.Data_Seed
                                     UserId = 17
                                 }
                             };
-                            foreach (var commentReply in commenReply)
-                            {
-                                commentReply.Status = true;
-                                commentReply.AddedBy = "System";
-                                commentReply.ModifiedBy = "System";
-                                commentReply.AddedDate = DateTime.Now;
-                                commentReply.ModifiedDate = DateTime.Now;
+              foreach (var commentReply in commenReply)
+              {
+                commentReply.Status = true;
+                commentReply.AddedBy = "System";
+                commentReply.ModifiedBy = "System";
+                commentReply.AddedDate = DateTime.Now;
+                commentReply.ModifiedDate = DateTime.Now;
 
-                                commentReply.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+                commentReply.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
-                                await context.CommentReplies.AddRangeAsync(commentReply);
-                                await context.SaveChangesAsync();
-                            }
-                        }
-                    }
-                    #endregion
-                }
-                #endregion
+                await context.CommentReplies.AddRangeAsync(commentReply);
+                await context.SaveChangesAsync();
+              }
             }
-            #endregion
+          }
+          #endregion
+        }
+        #endregion
+      }
+      #endregion
 
-            #region settings
-            if (!context.Settings.Any())
-            {
-                var settings = new List<Setting>
+      #region settings
+      if (!context.Settings.Any())
+      {
+        var settings = new List<Setting>
                 {
                     new Setting
                     {
@@ -1028,15 +1028,15 @@ namespace Data.Data_Seed
                         "fermentum. Curabitur sit amet lacinia lorem. Nullam finibus pellentesque libero.</p>",
                     }
                 };
-                foreach (var setting in settings)
-                {
-                    await context.Settings.AddRangeAsync(setting);
-                    await context.SaveChangesAsync();
-                }
+        foreach (var setting in settings)
+        {
+          await context.Settings.AddRangeAsync(setting);
+          await context.SaveChangesAsync();
+        }
 
-                if (!context.SettingPhotos.Any())
-                {
-                    var settingPhotos = new List<SettingPhoto>
+        if (!context.SettingPhotos.Any())
+        {
+          var settingPhotos = new List<SettingPhoto>
                     {
                         new SettingPhoto
                         {
@@ -1059,25 +1059,25 @@ namespace Data.Data_Seed
                             Name = "AdminAndDoctor",
                         }
                     };
-                    foreach (var settingPhoto in settingPhotos)
-                    {
-                        settingPhoto.Status = true;
-                        settingPhoto.AddedBy = "System";
-                        settingPhoto.ModifiedBy = "System";
-                        settingPhoto.AddedDate = DateTime.Now;
-                        settingPhoto.ModifiedDate = DateTime.Now;
+          foreach (var settingPhoto in settingPhotos)
+          {
+            settingPhoto.Status = true;
+            settingPhoto.AddedBy = "System";
+            settingPhoto.ModifiedBy = "System";
+            settingPhoto.AddedDate = DateTime.Now;
+            settingPhoto.ModifiedDate = DateTime.Now;
 
-                        settingPhoto.SettingId = 1;
-                        settingPhoto.Photo = null;
+            settingPhoto.SettingId = 1;
+            settingPhoto.Photo = null;
 
-                        await context.SettingPhotos.AddRangeAsync(settingPhoto);
-                        await context.SaveChangesAsync();
-                    }
-                }
+            await context.SettingPhotos.AddRangeAsync(settingPhoto);
+            await context.SaveChangesAsync();
+          }
+        }
 
-                if (!context.SocialMedias.Any())
-                {
-                    var socialMedias = new List<SocialMedia>
+        if (!context.SocialMedias.Any())
+        {
+          var socialMedias = new List<SocialMedia>
                     {
                         new SocialMedia
                         {
@@ -1110,25 +1110,25 @@ namespace Data.Data_Seed
                             Link = "https://www.dribbble.com/"
                         }
                     };
-                    foreach (var socialMedia in socialMedias)
-                    {
-                        socialMedia.Status = true;
-                        socialMedia.AddedBy = "System";
-                        socialMedia.ModifiedBy = "System";
-                        socialMedia.AddedDate = DateTime.Now;
-                        socialMedia.ModifiedDate = DateTime.Now;
+          foreach (var socialMedia in socialMedias)
+          {
+            socialMedia.Status = true;
+            socialMedia.AddedBy = "System";
+            socialMedia.ModifiedBy = "System";
+            socialMedia.AddedDate = DateTime.Now;
+            socialMedia.ModifiedDate = DateTime.Now;
 
-                        socialMedia.SettingId = 1;
+            socialMedia.SettingId = 1;
 
-                        await context.SocialMedias.AddRangeAsync(socialMedia);
-                        await context.SaveChangesAsync();
-                    }
-                }
-            }
+            await context.SocialMedias.AddRangeAsync(socialMedia);
+            await context.SaveChangesAsync();
+          }
+        }
+      }
 
-            if (!context.Privacies.Any())
-            {
-                var privacies = new List<Privacy>
+      if (!context.Privacies.Any())
+      {
+        var privacies = new List<Privacy>
                 {
                     new Privacy
                     {
@@ -1182,16 +1182,16 @@ namespace Data.Data_Seed
                         "vel sollicitudin orci tincidunt ac.</strong></p>"
                     }
                 };
-                foreach (var privacy in privacies)
-                {
-                    await context.Privacies.AddRangeAsync(privacy);
-                    await context.SaveChangesAsync();
-                }
-            }
+        foreach (var privacy in privacies)
+        {
+          await context.Privacies.AddRangeAsync(privacy);
+          await context.SaveChangesAsync();
+        }
+      }
 
-            if (!context.Features.Any())
-            {
-                var features = new List<Feature>
+      if (!context.Features.Any())
+      {
+        var features = new List<Feature>
                 {
                     new Feature
                     {
@@ -1218,24 +1218,24 @@ namespace Data.Data_Seed
                         ClinicName = "Laboratory"
                     }
                 };
-                foreach (var feature in features)
-                {
-                    feature.Status = true;
-                    feature.AddedBy = "System";
-                    feature.ModifiedBy = "System";
-                    feature.AddedDate = DateTime.Now;
-                    feature.ModifiedDate = DateTime.Now;
+        foreach (var feature in features)
+        {
+          feature.Status = true;
+          feature.AddedBy = "System";
+          feature.ModifiedBy = "System";
+          feature.AddedDate = DateTime.Now;
+          feature.ModifiedDate = DateTime.Now;
 
-                    feature.Photo = null;
+          feature.Photo = null;
 
-                    await context.Features.AddRangeAsync(feature);
-                    await context.SaveChangesAsync();
-                }
-            }
+          await context.Features.AddRangeAsync(feature);
+          await context.SaveChangesAsync();
+        }
+      }
 
-            if (!context.Specialities.Any())
-            {
-                var specialities = new List<Speciality>
+      if (!context.Specialities.Any())
+      {
+        var specialities = new List<Speciality>
                 {
                     new Speciality
                     {
@@ -1258,24 +1258,24 @@ namespace Data.Data_Seed
                         Name = "Urologist"
                     }
                 };
-                foreach (var speciality in specialities)
-                {
-                    speciality.Status = true;
-                    speciality.AddedBy = "System";
-                    speciality.ModifiedBy = "System";
-                    speciality.AddedDate = DateTime.Now;
-                    speciality.ModifiedDate = DateTime.Now;
+        foreach (var speciality in specialities)
+        {
+          speciality.Status = true;
+          speciality.AddedBy = "System";
+          speciality.ModifiedBy = "System";
+          speciality.AddedDate = DateTime.Now;
+          speciality.ModifiedDate = DateTime.Now;
 
-                    speciality.Photo = null;
+          speciality.Photo = null;
 
-                    await context.Specialities.AddRangeAsync(speciality);
-                    await context.SaveChangesAsync();
-                }
-            }
+          await context.Specialities.AddRangeAsync(speciality);
+          await context.SaveChangesAsync();
+        }
+      }
 
-            if (!context.Terms.Any())
-            {
-                var terms = new List<Term>
+      if (!context.Terms.Any())
+      {
+        var terms = new List<Term>
                 {
                     new Term
                     {
@@ -1325,13 +1325,13 @@ namespace Data.Data_Seed
                         "mollit anim id est laborum.</p>"
                     }
                 };
-                foreach (var term in terms)
-                {
-                    await context.Terms.AddRangeAsync(term);
-                    await context.SaveChangesAsync();
-                }
-            }
-            #endregion
+        foreach (var term in terms)
+        {
+          await context.Terms.AddRangeAsync(term);
+          await context.SaveChangesAsync();
         }
+      }
+      #endregion
     }
+  }
 }

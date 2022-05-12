@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-docker kill $(docker ps -q)
-docker rm -f $(docker ps -a -q)
+. ../common/bootstrap.sh
+
+docker-compose --project-name $PROJECT_NAME down
+
 docker rmi $(docker images -q)
-docker volume rm $(docker volume ls -q)
+docker volume prune -f
 docker system prune -f

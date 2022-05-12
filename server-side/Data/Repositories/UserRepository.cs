@@ -14,13 +14,13 @@ namespace Data.Repositories
   {
     public UserRepository(DataContext context) : base(context) { }
 
-    private DataContext context { get { return Context as DataContext; } }
+    private DataContext Getcontext() { return Context as DataContext; }
 
     public async Task<IEnumerable<User>> Get(UserRole role, int? id)
     {
-      var user = await context.Users
-                              .FirstOrDefaultAsync(x => x.Id == (id ?? default(int)));
-      var users = context.Users.OrderByDescending(x => x.Id)
+      var user = await Getcontext().Users
+                              .FirstOrDefaultAsync(x => x.Id == (id ?? default));
+      var users = Getcontext().Users.OrderByDescending(x => x.Id)
                          .Include(x => x.ReviewsDoctors)
                          .Include(x => x.Admin)
                          .Include(x => x.Doctor)
@@ -41,7 +41,7 @@ namespace Data.Repositories
 
     public async Task<User> Get(int id)
     {
-      var user = await context.Users
+      var user = await Getcontext().Users
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor).ThenInclude(x => x.DoctorSocialMediaUrlLinks)
                               .Include(x => x.Patient).ThenInclude(x => x.BloodGroup)
@@ -61,7 +61,7 @@ namespace Data.Repositories
     {
       if (string.IsNullOrEmpty(token)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Token cannot be null" });
 
-      var query = context.Users.Where(x => x.Status)
+      var query = Getcontext().Users.Where(x => x.Status)
                                .Include(x => x.Admin)
                                .Include(x => x.Doctor)
                                .Include(x => x.Patient).ThenInclude(x => x.BloodGroup);
@@ -78,7 +78,7 @@ namespace Data.Repositories
     {
       if (string.IsNullOrEmpty(queryValue)) throw new RestException(HttpStatusCode.BadRequest, new { user = "User value cannot be null" });
 
-      var query = context.Users.Where(x => x.Status)
+      var query = Getcontext().Users.Where(x => x.Status)
                               .Include(x => x.ReviewsDoctors)
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor)
@@ -94,12 +94,12 @@ namespace Data.Repositories
     {
       if (string.IsNullOrEmpty(queryValue)) throw new RestException(HttpStatusCode.BadRequest, new { user = "Email cannot be null" });
 
-      bool check = await context.Users
+      bool check = await Getcontext().Users
                               .Where(x => x.Status)
                               .Include(x => x.Admin)
                               .Include(x => x.Doctor)
                               .Include(x => x.Patient).ThenInclude(x => x.BloodGroup)
-                              .FirstOrDefaultAsync(x => x.Email == queryValue || x.Slug == queryValue) != null ? true : false;
+                              .FirstOrDefaultAsync(x => x.Email == queryValue || x.Slug == queryValue) != null;
 
       if (check) throw new RestException(HttpStatusCode.BadRequest, new { user = "This user is already exist" });
 

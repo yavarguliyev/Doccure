@@ -12,8 +12,8 @@ namespace Api.Controllers.v1.Main
         [HttpGet]
         public async Task<IActionResult> List([FromQuery] BlogParams blogParams)
         {
-            var blogs = await blogService.GetAsync(blogParams);
-            var blogsDto = mapper.Map<IEnumerable<BlogDTO>>(blogs);
+            var blogs = await BlogService.GetAsync(blogParams);
+            var blogsDto = Mapper.Map<IEnumerable<BlogDTO>>(blogs);
 
             Response.AddPagination(blogs.CurrentPage, blogs.PageSize, blogs.TotalCount, blogs.TotalPages);
 
@@ -21,6 +21,6 @@ namespace Api.Controllers.v1.Main
         }
 
         [HttpGet("{slug}")]
-        public async Task<IActionResult> Details(string slug) => Ok(await blogService.GetAsync(slug));
+        public async Task<IActionResult> Details(string slug) => Ok(await BlogService.GetAsync(slug));
     }
 }

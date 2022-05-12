@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class SettingRepository : Repository<Setting>, ISettingRepository
+  public class SettingRepository : Repository<Setting>, ISettingRepository
+  {
+    public SettingRepository(DataContext context) : base(context) { }
+
+    private DataContext Getcontext() { return Context as DataContext; }
+
+    public async Task<Setting> Get()
     {
-        public SettingRepository(DataContext context) : base(context) { }
-
-        private DataContext context { get { return Context as DataContext; } }
-
-        public async Task<Setting> Get()
-        {
-            return await context.Settings
-                                .Where(x => x.Status)
-                                .Include(x => x.SocialMedias)
-                                .FirstOrDefaultAsync();
-        }
+      return await Getcontext().Settings
+                          .Where(x => x.Status)
+                          .Include(x => x.SocialMedias)
+                          .FirstOrDefaultAsync();
     }
+  }
 }

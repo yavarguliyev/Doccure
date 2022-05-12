@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class AdminRepository : Repository<Admin>, IAdminRepository
+  public class AdminRepository : Repository<Admin>, IAdminRepository
+  {
+    public AdminRepository(DataContext context) : base(context) { }
+
+    private DataContext GetContext() { return base.Context as DataContext; }
+
+    public async Task<Admin> Get(int id)
     {
-        public AdminRepository(DataContext context) : base(context) { }
-
-        private DataContext context { get { return Context as DataContext; } }
-
-        public async Task<Admin> Get(int id)
-        {
-            return await context.Admins.Where(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
-        }
+      return await GetContext().Admins.Where(x => x.Status).FirstOrDefaultAsync(x => x.Id == id);
     }
+  }
 }

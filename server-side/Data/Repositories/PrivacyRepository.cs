@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
-    public class PrivacyRepository : Repository<Privacy>, IPrivacyRepository
+  public class PrivacyRepository : Repository<Privacy>, IPrivacyRepository
+  {
+    public PrivacyRepository(DataContext context) : base(context) { }
+
+    private DataContext Getcontext() { return Context as DataContext; }
+
+    public async Task<Privacy> Get()
     {
-        public PrivacyRepository(DataContext context) : base(context) { }
-
-        private DataContext context { get { return Context as DataContext; } }
-
-        public async Task<Privacy> Get()
-        {
-            return await context.Privacies.Where(x => x.Status).FirstOrDefaultAsync();
-        }
+      return await Getcontext().Privacies.Where(x => x.Status).FirstOrDefaultAsync();
     }
+  }
 }

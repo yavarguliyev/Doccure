@@ -12,32 +12,32 @@ namespace Api.Controllers.v1.Patient
         [HttpGet]
         public IActionResult Get()
         {
-            if (auth.Patient == null) return Unauthorized();
-            return Ok(mapper.Map<UserDTO>(auth.Patient));
+            if (Auth.Patient == null) return Unauthorized();
+            return Ok(Mapper.Map<UserDTO>(Auth.Patient));
         }
 
         [HttpPut]
         public async Task<IActionResult> Update(UserProfileUpdateDTO model)
         {
-            if (auth.Patient == null) return Unauthorized();
-            var userToBeUpdated = await userService.GetAsync(auth.Patient.Id);
-            var response = await userService.UpdateAsync(userToBeUpdated, mapper.Map<User>(model));
+            if (Auth.Patient == null) return Unauthorized();
+            var userToBeUpdated = await UserService.GetAsync(Auth.Patient.Id);
+            var response = await UserService.UpdateAsync(userToBeUpdated, Mapper.Map<User>(model));
             return Ok(new { message = "Profile successfully updated!", response });
         }
 
         [HttpPut("update-password")]
         public async Task<IActionResult> UpdatePassword(AuthPasswordUpdateDTO model)
         {
-            if (auth.Patient == null) return Unauthorized();
-            var response = await userService.UpdateAsync(auth.Patient.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
+            if (Auth.Patient == null) return Unauthorized();
+            var response = await UserService.UpdateAsync(Auth.Patient.Id, model.NewPassword, model.ConfirmPassword, model.CurrentPassword);
             return Ok(new { message = "Password successfully updated!", response });
         }
 
         [HttpPut("upload-photo")]
         public async Task<IActionResult> UploadPhoto(IFormFile file)
         {
-            if (auth.Patient == null) return Unauthorized();
-            var image = await userService.PhotoUploadAsync(auth.Patient.Id, file);
+            if (Auth.Patient == null) return Unauthorized();
+            var image = await UserService.PhotoUploadAsync(Auth.Patient.Id, file);
             return Ok(new { message = "Photo uploaded!", image });
         }
         #endregion
