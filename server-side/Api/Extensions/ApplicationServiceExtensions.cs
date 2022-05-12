@@ -49,13 +49,13 @@ namespace Api.Extensions
       // Api versioning
       services.AddApiVersioning(v =>
       {
-              // shows that api accept any versions
+        // shows that api accept any versions
         v.ReportApiVersions = true;
 
-              // if there is available version show the default version
+        // if there is available version show the default version
         v.AssumeDefaultVersionWhenUnspecified = true;
 
-              // default version 1.0
+        // default version 1.0
         v.DefaultApiVersion = new ApiVersion(1, 0);
       });
 
@@ -64,12 +64,12 @@ namespace Api.Extensions
       {
         opt.AddPolicy("CorsPolicy", policy =>
               {
-            policy
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials()
-                      .WithOrigins("http://localhost:4200", "https://localhost:4200");
-          });
+                policy
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials()
+                          .WithOrigins("http://localhost:4200", "https://localhost:4200");
+              });
       });
 
       // routing to lowercase
@@ -86,24 +86,24 @@ namespace Api.Extensions
 
         string connStr;
 
-              // Depending on if in development or production, use either Heroku-provided
-              // connection string, or development connection string from env var.
+        // Depending on if in development or production, use either Heroku-provided
+        // connection string, or development connection string from env var.
         if (env == "Development")
         {
-                // Use connection string from file.
+          // Use connection string from file.
           connStr = configuration.GetConnectionString("DefaultConnection");
         }
         else if (env == "Test_Production")
         {
-                // Use connection string from file.
+          // Use connection string from file.
           connStr = configuration.GetConnectionString("DefaultConnection");
         }
         else
         {
-                // Use connection string provided at runtime by Heroku.
+          // Use connection string provided at runtime by Heroku.
           var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-                // Parse connection URL to connection string for Npgsql
+          // Parse connection URL to connection string for Npgsql
           connUrl = connUrl.Replace("postgres://", string.Empty);
           var pgUserPass = connUrl.Split("@")[0];
           var pgHostPortDb = connUrl.Split("@")[1];
@@ -117,8 +117,8 @@ namespace Api.Extensions
           connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}; SSL Mode=Require; Trust Server Certificate=true";
         }
 
-              // Whether the connection string came from the local development configuration file
-              // or from the environment variable from Heroku, use it to set up your DbContext.
+        // Whether the connection string came from the local development configuration file
+        // or from the environment variable from Heroku, use it to set up your DbContext.
         options.UseNpgsql(connStr);
       });
 

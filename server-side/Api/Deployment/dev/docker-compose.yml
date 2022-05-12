@@ -26,12 +26,12 @@ services:
       - ~/.aspnet/https:/https:ro
       - ../../../:/app
     ports:
-      - '${ASPNETCORE_HTTP_PORT}:${ASPNETCORE_HTTP_PORT}'
-      - '${ASPNETCORE_HTTPS_PORT}:${ASPNETCORE_HTTPS_PORT}'
+      - '5000:5000'
+      - '5001:5001'
     depends_on:
       - doccure_database
     working_dir: /app/Api
-    command: dotnet watch run --urls=https://+:${ASPNETCORE_HTTPS_PORT};http://+:${ASPNETCORE_HTTP_PORT}
+    command: dotnet watch run --urls=https://+:5001;http://+:5000
     restart: on-failure
     networks:
       - ${CONTAINER_NAME_PREFIX}
