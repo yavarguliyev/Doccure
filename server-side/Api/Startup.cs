@@ -1,3 +1,4 @@
+using System;
 using Api.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ namespace Api
 
     public Startup(IConfiguration configuration)
     {
+      Console.WriteLine("Text Here");
       _configuration = configuration;
     }
 
