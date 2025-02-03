@@ -1,78 +1,141 @@
-# Doccure
+# Doccure - Doctor Appointment Booking System
 
-### Doccure - Doctor Appointment Booking System
+## 📖 Table of Contents
 
-#
+1. Introduction
+2. Features
+3. Patient Booking
+4. Patient Dashboard
+5. Doctor's Dashboard
+6. Admin Dashboard
+7. Top Notch Features
+8. Getting Started
+9. Technologies Used
+10. Contributing
+11. License
 
-### Doccure
+---
 
-```javascript
-We provide a simple and easy booking online software system. So, the user could
-view all those services provided by the clinic, select the specialist,
-availability of doctors, and appointment date. The time and date will be chosen
-after confirming the doctor’s availability. Our main aim is to provide simple
-and effective online services for doctor appointments.
-```
+## 📌 Introduction
 
-## Benefits of this web or application.
+Doccure is an intuitive and efficient doctor appointment booking system. It allows users to view services provided by clinics, select specialists, check doctor availability, and book appointments seamlessly. Our main goal is to simplify and enhance the online doctor appointment experience.
 
-- To end with a long wait for the meeting with the doctor
-- Faster checkup and meet up with the doctor
-- Big advantages to save your time
-- Online reports can be written by doctors
-- Online reports can be taken by downloading a report file
+---
 
-# Patient Booking
+## ✨ Features
 
-- Patients can view the doctor details like Doctor Specialization, Reviews, Location, Fees, Business Hours, etc…
-- Also patients can book an appointment based on the doctor’s availability time.
-- After making the payment patient can get a confirmation & invoice Report.
+- Easy and quick appointment scheduling
+- View doctor specializations, reviews, locations, and fees
+- Online payments with instant invoice generation
+- Patient and doctor chat system
+- Responsive and user-friendly UI
+- Voice and video consulting options
+- Secure patient and doctor profile management
 
-# Patient Dashboard
+---
 
-- Patient can view the booking details with the Doctor’s name, Appointment details, Fees,
-- Appointment Status (If the doctor accepts or cancels your booking).
-- Favorites: Patient can choose their favorite doctor.
-- Chat System: Patients can communicate directly with the doctors
-- Profile setting: Patient can update the Name, Blood Group, Email, Mobile number with more features
+## 📅 Patient Booking
 
-# Doctor’s Dashboard
+- View doctor details such as specialization, reviews, location, fees, and business hours.
+- Book an appointment based on doctor availability.
+- Secure online payment processing with confirmation and invoice reports.
 
-- Doctors can view the patient's details (Patient’s Name, Appointment date, Fees)
-- Doctors can accept or cancel the appointment once the patient has booked.
-- Fully Responsive Layout
-- Invoice: Doctors can get the patient’s Invoice details
-- Schedule Timing: The doctor can set the schedule timings like 15 Minutes, 30 Minutes, 45 Minutes, and 1 hour.
-- Reviews: Doctors can read patient reviews, also they can access the patients.
-- Chat: Doctors and patients can communicate through the chat system
-- Profile: Doctors can update/Edit the profile setting
+---
 
-# Admin Dashboard
+## 🏥 Patient Dashboard
 
-- Admin can access all the details of Doctors & Patients
-- Admin can view the Appointment details, Transaction, Invoice and Reviews
-- Specialties: If the admin wants to add new specialties, he/she can add in the admin panel.
-- Chat System: Patients can communicate directly with the doctors
-- The admin can view all the patient’s details (i.e., patient name, age, address, phone number, last visit, and fee amount).
+- View booking details, including doctor name, appointment status, and fees.
+- Appointment status tracking (Accepted, Pending, or Canceled by the doctor).
+- Favorites: Mark favorite doctors for quick access.
+- Chat System: Direct communication with doctors.
+- Profile Settings: Update name, blood group, email, and mobile number.
 
-# Top Notch Features:
+---
 
-- Voice call consulting
-- Video call consulting
-- Patient dashboard
-- Chat System
-- Doctor Map Listing
-- Doctor Map Grid
-- Admin Dashboard
+## 🩺 Doctor’s Dashboard
 
-# Doccure Features:
+- View patient details (Name, Appointment Date, Fees).
+- Accept or cancel patient bookings.
+- Fully responsive layout.
+- Generate and view invoices.
+- Set appointment durations (15, 30, 45, or 60 minutes).
+- Manage patient reviews and feedback.
+- Chat with patients for better communication.
+- Update and edit profile settings.
 
-- New patients can easily register
-- Simple Login and Register
-- Select the clinic services based on the categories
-- Select the city through a keyword to view the nearest clinic
-- View all the nearest clinics
-- View the detailed information about the clinic, doctor, and images
-- Check the availability and cost
-- Provide ratings and comments
-- Make the simple appointment process
+---
+
+## 🛠 Admin Dashboard
+
+- Access all doctor and patient details.
+- View appointment details, transactions, invoices, and reviews.
+- Manage specialties by adding or modifying them.
+- Monitor patient details, including name, age, address, phone number, last visit, and fees.
+- Enable a chat system for seamless doctor-patient communication.
+
+---
+
+## 🔥 Top Notch Features
+
+- Voice Call Consulting
+- Video Call Consulting
+- Interactive Patient Dashboard
+- Secure Chat System
+- Doctor Map Listing & Grid View
+- Advanced Admin Dashboard
+
+---
+
+## 🚀 Getting Started
+
+To run the project locally:
+
+1. Clone the repository:  
+   ```bash
+   git clone git@github.com:yavarguliyev/Doccure.git
+   ```
+2. Navigate to the backend folder:  
+   ```bash
+   cd servers-side
+   ```
+3. Restore dependencies:  
+   ```bash
+   dotnet restore
+   ```
+4. Set up environment variables in appsettings.json or use a .env file.  
+   ```bash
+   dotnet restore
+   ```
+5. Navigate to the backend folder:  
+   ```bash
+   cd api/deployment/dev
+   ```
+6. Run the docker-compose.yml:  
+   ```bash
+   bash deploy.sh
+   ```
+
+---
+
+## ⚙️ Technologies Used
+
+- **Frontend:** Angular
+- **Backend:** C#, .NET Core
+- **Database:** PostgreSQL
+- **Authentication:** JWT
+- **Caching:** Redis
+- **Real-time Communication:** WebSockets
+- **Payment Integration:** Stripe / PayPal
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Feel free to fork the repository, create a new branch, and submit a pull request.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
+
